@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PlayActivity">
+
+    <ScrollView
+        android:id="@+id/main_view"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFE4C4"
+        android:gravity="center_horizontal"
+        android:tileMode="repeat"
+        android:scrollbars="none"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingBottom="16dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/upper_bar"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@android:color/transparent">
+
+                <RelativeLayout
+                    android:id="@+id/opponent_rack"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@android:color/transparent"
+                    android:baselineAligned="false"
+                    android:layout_marginTop="4dp">
+
+                    <HorizontalScrollView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:id="@+id/opponent_captives_cage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+                        </LinearLayout>
+
+                    </HorizontalScrollView>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/t_turn_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginLeft="48dp"
+                    android:layout_marginRight="48dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="#000000" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:orientation="vertical">
+
+                <android.support.v4.widget.NestedScrollView
+                    android:id="@+id/settings_frame"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:paddingBottom="8dp"
+                    android:layout_centerHorizontal="true">
+
+                    <include layout="@layout/settings_board" />
+
+                </android.support.v4.widget.NestedScrollView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/game_board_frame"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="4dp"
+                    card_view:cardBackgroundColor="@color/mainAppBackground"
+                    card_view:cardCornerRadius="2dp"
+                    card_view:cardElevation="4dp"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:id="@+id/game_board"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/transparent"
+                        android:orientation="vertical">
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/lower_bar"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/m_turn_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginLeft="48dp"
+                    android:layout_marginRight="48dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#FFFFFF" />
+
+                <RelativeLayout
+                    android:id="@+id/my_rack"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@android:color/transparent"
+                    android:baselineAligned="false"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:animateLayoutChanges="true">
+
+                    <HorizontalScrollView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end"
+                        android:layout_centerHorizontal="true"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:id="@+id/my_captives_cage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+                        </LinearLayout>
+
+                    </HorizontalScrollView>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginRight="32dp"
+                    android:padding="4dp"
+                    android:background="@color/mainAppOverlay">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_margin="2dp"
+                        card_view:cardBackgroundColor="@color/mainAppBackground"
+                        card_view:cardCornerRadius="4dp"
+                        card_view:cardElevation="2dp">
+
+                        <ImageButton
+                            android:contentDescription="@string/image_button_content_desc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            android:src="@drawable/info"
+                            android:adjustViewBounds="true"
+                            android:scaleType="centerCrop"
+                            android:onClick="viewGamePGN" />
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:layout_margin="2dp"
+                        card_view:cardBackgroundColor="@color/mainAppBackground"
+                        card_view:cardCornerRadius="4dp"
+                        card_view:cardElevation="2dp">
+
+                        <TextView
+                            android:text="@string/stats"
+                            android:textStyle="bold"
+                            android:textColor="@color/mainAppOverlay"
+                            android:typeface="serif"
+                            android:textSize="25sp"
+                            android:padding="4dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            android:onClick="switchGameSettingsBoards" />
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_margin="2dp"
+                        card_view:cardBackgroundColor="@color/mainAppBackground"
+                        card_view:cardCornerRadius="4dp"
+                        card_view:cardElevation="2dp">
+
+                        <ImageButton
+                            android:contentDescription="@string/image_button_content_desc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            android:src="@drawable/undo"
+                            android:padding="4dp"
+                            android:adjustViewBounds="true"
+                            android:scaleType="centerCrop"
+                            android:onClick="undoLastMove" />
+
+                    </android.support.v7.widget.CardView>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+    <!-- This below layout is the top bar -->
+    <RelativeLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/main_view"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textColor="@color/mainAppOverlay"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:typeface="serif"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- Then another view to contain ad (banner ads) -->
+
+    </RelativeLayout>
+
+</RelativeLayout>

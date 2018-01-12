@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFE4C4"
+    android:gravity="center_horizontal"
+    android:padding="8dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/promo_message"
+        android:textSize="20sp"
+        android:textColor="@color/mainAppOverlay"
+        android:gravity="center"/>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFE4C4"
+        android:gravity="center_horizontal"
+        android:padding="8dp">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            card_view:contentPadding="4dp"
+            card_view:cardBackgroundColor="@color/mainAppOverlay"
+            card_view:cardCornerRadius="4dp"
+            card_view:cardElevation="2dp">
+
+            <ImageButton
+                android:id="@+id/queen_choice"
+                android:tag="14"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/blackqueen"
+                android:background="@android:color/transparent"
+                android:adjustViewBounds="true"/>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            card_view:contentPadding="4dp"
+            card_view:cardBackgroundColor="@color/mainAppOverlay"
+            card_view:cardCornerRadius="4dp"
+            card_view:cardElevation="2dp">
+
+            <ImageButton
+                android:id="@+id/knight_choice"
+                android:tag="12"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/blackknight"
+                android:background="@android:color/transparent"
+                android:adjustViewBounds="true"/>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            card_view:contentPadding="4dp"
+            card_view:cardBackgroundColor="@color/mainAppOverlay"
+            card_view:cardCornerRadius="4dp"
+            card_view:cardElevation="2dp">
+
+            <ImageButton
+                android:id="@+id/rook_choice"
+                android:tag="11"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/blackrook"
+                android:background="@android:color/transparent"
+                android:adjustViewBounds="true"/>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            card_view:contentPadding="4dp"
+            card_view:cardBackgroundColor="@color/mainAppOverlay"
+            card_view:cardCornerRadius="4dp"
+            card_view:cardElevation="2dp">
+
+            <ImageButton
+                android:id="@+id/bishop_choice"
+                android:tag="13"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/blackbishop"
+                android:background="@android:color/transparent"
+                android:adjustViewBounds="true"/>
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+</LinearLayout>

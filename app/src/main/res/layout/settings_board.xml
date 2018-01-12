@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/settings_board"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#44FFFFFF"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="16dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:orientation="vertical"
+    android:animateLayoutChanges="true">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_current_game"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/fifteenSP"
+        android:textStyle="bold"
+        android:typeface="monospace"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="24dp">
+
+        <TextView
+            android:id="@+id/game_status_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/default_game_status"
+            android:textSize="@dimen/fifteenSP"
+            android:typeface="monospace"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"/>
+
+        <!-- Add save PGN button here -->
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_game_controls"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/fifteenSP"
+        android:textStyle="bold"
+        android:typeface="monospace"
+        android:layout_marginBottom="8dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:layout_marginBottom="8dp"
+        android:animateLayoutChanges="true">
+
+            <ImageButton
+                android:contentDescription="@string/image_button_content_desc"
+                android:id="@+id/sound_control"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/vol_on"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:padding="4dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@android:color/transparent"
+                android:onClick="setSoundPref"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_game_modes"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/fifteenSP"
+        android:textStyle="bold"
+        android:typeface="monospace" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_modes_note"
+        android:textSize="@dimen/twelveSP"
+        android:textStyle="italic"
+        android:typeface="normal"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"/>
+
+    <LinearLayout
+        android:id="@+id/game_modes_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="8dp">
+
+        <LinearLayout
+            android:id="@+id/mode_1"
+            android:tag="1"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            android:background="@drawable/layout_selector"
+            android:onClick="modeSelection">
+
+            <ImageButton
+                android:contentDescription="@string/image_button_content_desc"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:src="@drawable/bluetooth"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                android:padding="0dp"
+                android:background="@android:color/transparent"/>
+
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/mode_description_bluetooth"
+                android:textSize="@dimen/twentySP"
+                android:textStyle="bold"
+                android:textColor="@android:color/holo_blue_dark"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="16dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/mode_2"
+            android:tag="2"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            android:background="@drawable/layout_selector"
+            android:onClick="modeSelection">
+
+            <ImageButton
+                android:contentDescription="@string/image_button_content_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ai"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                android:padding="0dp"
+                android:background="@android:color/transparent"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/mode_description_ai"
+                android:textSize="@dimen/twentySP"
+                android:textStyle="bold"
+                android:textColor="@color/mainAppOverlay"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="16dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/mode_3"
+            android:tag="3"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            android:background="@drawable/layout_selector"
+            android:onClick="modeSelection">
+
+            <ImageButton
+                android:contentDescription="@string/image_button_content_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ai"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                android:padding="0dp"
+                android:background="@android:color/transparent"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/mode_description_ai2"
+                android:textSize="@dimen/twentySP"
+                android:textStyle="bold"
+                android:textColor="@android:color/background_dark"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="16dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/mode_4"
+            android:tag="4"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            android:background="@drawable/layout_selector"
+            android:onClick="modeSelection">
+
+            <ImageButton
+                android:contentDescription="@string/image_button_content_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/twoplayer"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                android:padding="0dp"
+                android:background="@android:color/transparent" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/mode_description_multiplayer"
+                android:textSize="@dimen/twentySP"
+                android:textStyle="bold"
+                android:textColor="@android:color/holo_red_light"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="16dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/mode_5"
+            android:tag="5"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            android:background="@drawable/layout_selector"
+            android:onClick="modeSelection">
+
+            <ImageButton
+                android:contentDescription="@string/image_button_content_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/ak"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                android:padding="0dp"
+                android:background="@android:color/transparent"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/mode_description_practice"
+                android:textSize="@dimen/twentySP"
+                android:textStyle="bold"
+                android:textColor="@android:color/holo_green_dark"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="16dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_future_modes"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/fifteenSP"
+        android:textStyle="bold"
+        android:typeface="monospace" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="32dp"
+        android:layout_marginTop="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            android:background="@drawable/layout_selector"
+            android:alpha="0.5">
+
+            <ImageButton
+                android:contentDescription="@string/image_button_content_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/al"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                android:padding="0dp"
+                android:background="@android:color/transparent"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/mode_description_fischer"
+                android:textSize="@dimen/twentySP"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="16dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            android:background="@drawable/layout_selector"
+            android:alpha="0.5">
+
+            <ImageButton
+                android:contentDescription="@string/image_button_content_desc"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:src="@drawable/aj"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"
+                android:padding="0dp"
+                android:background="@android:color/transparent"/>
+
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/mode_description_online"
+                android:textSize="@dimen/twentySP"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="16dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_foot_note"
+        android:textSize="@dimen/tenSP"
+        android:typeface="monospace"
+        android:gravity="end"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"/>
+
+</LinearLayout>

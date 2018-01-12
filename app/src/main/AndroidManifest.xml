@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.nwagu.android.chessboy">
+	
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.BLUETOOTH"/>
+	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <supports-screens
+        android:largeScreens="false"
+        android:normalScreens="true"
+        android:smallScreens="false"
+        android:anyDensity="true" />
+
+    <application
+        android:name=".MyApplication"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+
+        <activity
+            android:name=".PlayActivity"
+            android:launchMode="singleTask"
+            android:configChanges="orientation"
+            android:screenOrientation="sensorPortrait"
+            android:theme="@style/SplashScreenTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" />
+                <data android:scheme="ftp" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".DeviceListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="Select Device"
+            android:screenOrientation="sensorPortrait"
+            android:theme="@android:style/Theme.Holo.Dialog"/>
+
+        <activity
+            android:name=".PGNViewActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="sensorPortrait"
+            android:theme="@android:style/Theme.Holo.Light.Panel"
+            android:windowSoftInputMode="stateHidden"/>
+    </application>
+
+</manifest>

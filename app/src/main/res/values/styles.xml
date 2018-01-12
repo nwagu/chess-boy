@@ -1,0 +1,13 @@
+<resources>
+    <style name="MyTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+    </style>
+
+    <style name="SplashScreenTheme" parent="@android:style/Theme.NoTitleBar.Fullscreen">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">@color/mainAppBackground</item>
+    </style>
+</resources>

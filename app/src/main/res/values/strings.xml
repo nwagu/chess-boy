@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="app_name">Chess Boy</string>
+
+    <string name="scanning">Scanning devices</string>
+    <string name="select_device">Select device</string>
+    <string name="none_found">No devices found</string>
+
+    <string name="settings_foot_note">Chess Boy, Inc.</string>
+    <string name="settings_current_game">Current game:</string>
+    <string name="default_game_status"> </string>
+    <string name="settings_game_controls">Game controls:</string>
+    <string name="settings_game_modes">Game modes:</string>
+    <string name="settings_modes_note">(Tap on a mode to play)</string>
+    <string name="settings_future_modes">Upcoming modes:</string>
+    <string name="mode_description_bluetooth">Bluetooth</string>
+    <string name="mode_description_multiplayer">MultiPlayer</string>
+    <string name="mode_description_practice">Practice</string>
+    <string name="mode_description_ai">Play AI as white</string>
+    <string name="mode_description_ai2">Play AI as black</string>
+    <string name="mode_description_fischer">Chess960</string>
+    <string name="mode_description_online">Chess Online</string>
+
+    <string name="stats">menu</string>
+    <string name="promo_message">Pawn promotion</string>
+    <string name="close_pgn">Close</string>
+    <string name="share_pgn">Share</string>
+    <string name="pgn_placeholder">No PGN to show</string>
+
+    <string name="be_white">Send (W)</string>
+    <string name="be_black">Receive (W)</string>
+
+    <string name="image_button_content_desc">image</string>
+
+</resources>

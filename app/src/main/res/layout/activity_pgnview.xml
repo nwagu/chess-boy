@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="40dp"
+    android:layout_marginBottom="40dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    card_view:cardBackgroundColor="@color/mainAppBackground"
+    card_view:cardElevation="4dp"
+    card_view:cardCornerRadius="8dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp">
+
+
+            <EditText
+                android:inputType="text"
+                android:id="@+id/pgn_view"
+                android:text="@string/pgn_placeholder"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/fifteenSP"
+                android:typeface="monospace"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:layout_alignParentTop="true"/>
+
+            <LinearLayout
+                android:id="@+id/herst"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@id/pgn_view">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    card_view:contentPadding="4dp"
+                    card_view:cardBackgroundColor="@color/mainAppOverlay"
+                    card_view:cardCornerRadius="2dp"
+                    card_view:cardElevation="0dp">
+
+                    <Button
+                        android:id="@+id/button_close_pgn"
+                        android:text="@string/close_pgn"
+                        android:textSize="20sp"
+                        android:textColor="@android:color/holo_blue_dark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"/>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    card_view:contentPadding="4dp"
+                    card_view:cardBackgroundColor="@color/mainAppOverlay"
+                    card_view:cardCornerRadius="2dp"
+                    card_view:cardElevation="0dp">
+
+                    <Button
+                        android:id="@+id/button_share_pgn"
+                        android:text="@string/share_pgn"
+                        android:textSize="20sp"
+                        android:textColor="@android:color/holo_blue_dark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"/>
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</android.support.v7.widget.CardView>
