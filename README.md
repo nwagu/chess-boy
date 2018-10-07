@@ -2,7 +2,7 @@
 Chess app for Android
 Found on Google Play Store at: https://play.google.com/store/apps/details?id=com.nwagu.android.chessboy
 
-"Chess Boy incorporates all the following popular game modes of classic chess on a simple, friendly UI: 
+Chess Boy incorporates all the following popular game modes of classic chess on a simple, friendly UI: 
 + Games with AI
 + Multiplayer games
 + Practice games
