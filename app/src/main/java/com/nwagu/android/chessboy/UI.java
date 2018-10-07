@@ -1,5 +1,6 @@
 package com.nwagu.android.chessboy;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,6 +27,7 @@ class UI extends GameControl {
 	private static final int MSG_UCI_MOVE = 2;
 	private static final int MSG_PLAY = 3;
 	private static final int MSG_TEXT = 5;
+	@SuppressLint("HandlerLeak")
 	private Handler m_searchThreadUpdateHandler = new Handler(){
         /** Gets called on every message that is received */
         // @Override

@@ -1,5 +1,6 @@
 package com.nwagu.android.chessboy;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -523,6 +524,7 @@ public class PlayActivity extends AppCompatActivity {
     /**
      * The Handler that gets information back from the BluetoothChatService
      */
+    @SuppressLint("HandlerLeak")
     private final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -622,7 +624,6 @@ public class PlayActivity extends AppCompatActivity {
 
                         }
                     }
-
 
                     break;
                 case Constants.MESSAGE_DEVICE_NAME:
