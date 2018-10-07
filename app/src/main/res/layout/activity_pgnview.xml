@@ -31,6 +31,7 @@
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/fifteenSP"
                 android:typeface="monospace"
+                android:hint="@string/pgn_of_game"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"

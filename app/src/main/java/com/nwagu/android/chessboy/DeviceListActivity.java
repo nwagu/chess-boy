@@ -66,7 +66,7 @@ public class DeviceListActivity extends Activity {
 
         // Initialize array adapter for newly discovered devices
 
-        mNewDevicesArrayAdapter = new ArrayAdapter<String>(this, R.layout.device_name);
+        mNewDevicesArrayAdapter = new ArrayAdapter<>(this, R.layout.device_name);
 
         // Find and set up the ListView for newly discovered devices
         ListView newDevicesListView = (ListView) findViewById(R.id.view_devices);

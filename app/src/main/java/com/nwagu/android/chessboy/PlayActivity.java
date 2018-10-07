@@ -118,26 +118,26 @@ public class PlayActivity extends AppCompatActivity {
         settings = getSharedPreferences("mSoundPrefs", MODE_PRIVATE);
 
         //--------Layouts and views------
-        topBar = (LinearLayout) this.findViewById(R.id.upper_bar);
-        boardLayout = (LinearLayout) this.findViewById(R.id.game_board);
-        settingsPanel = (NestedScrollView) this.findViewById(R.id.settings_frame);
-        bottomBar = (LinearLayout) this.findViewById(R.id.lower_bar);
-        mRack = (RelativeLayout) this.findViewById(R.id.my_rack);
-        tRack = (RelativeLayout) this.findViewById(R.id.opponent_rack);
-        boardLayoutFrame = (CardView) this.findViewById(R.id.game_board_frame);
+        topBar = this.findViewById(R.id.upper_bar);
+        boardLayout = this.findViewById(R.id.game_board);
+        settingsPanel = this.findViewById(R.id.settings_frame);
+        bottomBar = this.findViewById(R.id.lower_bar);
+        mRack = this.findViewById(R.id.my_rack);
+        tRack = this.findViewById(R.id.opponent_rack);
+        boardLayoutFrame = this.findViewById(R.id.game_board_frame);
         prevView = new ImageButton(this);
         prevView = null;
-        modeOne = (LinearLayout) findViewById(R.id.mode_1);
-        modeTwo = (LinearLayout) findViewById(R.id.mode_2);
-        modeThree = (LinearLayout) findViewById(R.id.mode_3);
-        modeFour = (LinearLayout) findViewById(R.id.mode_4);
-        modeFive = (LinearLayout) findViewById(R.id.mode_5);
-        soundControl = (ImageButton) findViewById(R.id.sound_control);
-        judeCaptivesCage = (LinearLayout) this.findViewById(R.id.opponent_captives_cage);
-        myCaptivesCage = (LinearLayout) this.findViewById(R.id.my_captives_cage);
-        mTurnLine = (TextView) this.findViewById(R.id.m_turn_line);
-        tTurnLine = (TextView) this.findViewById(R.id.t_turn_line);
-        gameStateView = (TextView) findViewById(R.id.game_status_view);
+        modeOne = findViewById(R.id.mode_1);
+        modeTwo = findViewById(R.id.mode_2);
+        modeThree = findViewById(R.id.mode_3);
+        modeFour = findViewById(R.id.mode_4);
+        modeFive = findViewById(R.id.mode_5);
+        soundControl = findViewById(R.id.sound_control);
+        judeCaptivesCage = this.findViewById(R.id.opponent_captives_cage);
+        myCaptivesCage = this.findViewById(R.id.my_captives_cage);
+        mTurnLine = this.findViewById(R.id.m_turn_line);
+        tTurnLine = this.findViewById(R.id.t_turn_line);
+        gameStateView = findViewById(R.id.game_status_view);
 
         //------Sounds and music--------
         onCheckSound = MediaPlayer.create(getApplicationContext(), R.raw.u_ar_on_check);
@@ -212,18 +212,18 @@ public class PlayActivity extends AppCompatActivity {
                         int tag = ((Integer.parseInt(allMoves.substring((i + 2), (i + 3))) - 1) * 8) + (Integer.parseInt(allMoves.substring((i + 3), (i + 4))) - 1);
                         ImageButton pathPlace;
                         try {
-                            pathPlace = (ImageButton) boardLayout.findViewWithTag(tag);
+                            pathPlace = boardLayout.findViewWithTag(tag);
                             pathPlace.setBackgroundResource(R.drawable.path_place_background);
                             pathViews.add(pathPlace);
                         } catch (NullPointerException e) { //due to castling
                             if (Integer.parseInt(allMoves.substring((i + 3), (i + 4))) == 0) {
                                 if (game.localWhite)
-                                    pathPlace = (ImageButton) boardLayout.findViewWithTag(62);
-                                else pathPlace = (ImageButton) boardLayout.findViewWithTag(57);
+                                    pathPlace = boardLayout.findViewWithTag(62);
+                                else pathPlace = boardLayout.findViewWithTag(57);
                             } else { //if queen-side castling
                                 if (game.localWhite)
-                                    pathPlace = (ImageButton) boardLayout.findViewWithTag(58);
-                                else pathPlace = (ImageButton) boardLayout.findViewWithTag(61);
+                                    pathPlace = boardLayout.findViewWithTag(58);
+                                else pathPlace = boardLayout.findViewWithTag(61);
                             }
                             pathPlace.setBackgroundResource(R.drawable.path_place_background);
                             pathViews.add(pathPlace);
@@ -277,7 +277,7 @@ public class PlayActivity extends AppCompatActivity {
                             }
 
                             final ImageButton finalView = (ImageButton) view;
-                            final ImageButton finalPrevView = (ImageButton) prevView;
+                            final ImageButton finalPrevView = prevView;
 
                             View.OnClickListener terro = new View.OnClickListener() {
                                 @Override
