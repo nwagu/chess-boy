@@ -45,10 +45,10 @@ public class DeviceListActivity extends Activity {
         // Set result CANCELED in case the user backs out
         setResult(Activity.RESULT_CANCELED);
 
-        sendReceive = (LinearLayout) findViewById(R.id.send_receive);
+        sendReceive = findViewById(R.id.send_receive);
 
         // Initialize the button to perform device discovery
-        Button sendButton = (Button) findViewById(R.id.button_send);
+        Button sendButton = findViewById(R.id.button_send);
         sendButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 doDiscovery();
@@ -56,7 +56,7 @@ public class DeviceListActivity extends Activity {
             }
         });
         // Initialize the button to ensure device discovery
-        Button receiveButton = (Button) findViewById(R.id.button_receive);
+        Button receiveButton = findViewById(R.id.button_receive);
         receiveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ensureDiscoverable();
@@ -69,7 +69,7 @@ public class DeviceListActivity extends Activity {
         mNewDevicesArrayAdapter = new ArrayAdapter<>(this, R.layout.device_name);
 
         // Find and set up the ListView for newly discovered devices
-        ListView newDevicesListView = (ListView) findViewById(R.id.view_devices);
+        ListView newDevicesListView = findViewById(R.id.view_devices);
         newDevicesListView.setAdapter(mNewDevicesArrayAdapter);
         newDevicesListView.setOnItemClickListener(mDeviceClickListener);
 
