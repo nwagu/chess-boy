@@ -111,19 +111,19 @@ class Game implements Serializable, Parcelable {
         StringBuffer path = new StringBuffer();
         switch(w){
             case 0: //King
-                for(int f = 0; f < boardArray.length; f++) {
-                    if((Math.abs(boardArray[f][0] - boardArray[v][0]) <= 1) && (Math.abs(boardArray[f][1] - boardArray[v][1]) <= 1))
-                        if(!((boardArray[f][0] == boardArray[v][0]) && (boardArray[f][1] == boardArray[v][1]))) //excludes self as path
-                            addToPath(path, boardArray[f][0], boardArray[f][1]);
+                for (int[] aBoardArray : boardArray) {
+                    if ((Math.abs(aBoardArray[0] - boardArray[v][0]) <= 1) && (Math.abs(aBoardArray[1] - boardArray[v][1]) <= 1))
+                        if (!((aBoardArray[0] == boardArray[v][0]) && (aBoardArray[1] == boardArray[v][1]))) //excludes self as path
+                            addToPath(path, aBoardArray[0], aBoardArray[1]);
                     //for the kings' castling move
-                    if((v == 3 || v == 4 || v == 60 || v == 59) && (boardArray[v][4] == 15 || boardArray[v][4] == 85)&& (boardArray[f][0] == boardArray[v][0]) && (Math.abs(boardArray[f][1] - boardArray[v][1]) == 2)) { //it is necessary to check if it is a king sitting there
-                        if(localWhite) {
-                            if (boardArray[f][1] > 5)
+                    if ((v == 3 || v == 4 || v == 60 || v == 59) && (boardArray[v][4] == 15 || boardArray[v][4] == 85) && (aBoardArray[0] == boardArray[v][0]) && (Math.abs(aBoardArray[1] - boardArray[v][1]) == 2)) { //it is necessary to check if it is a king sitting there
+                        if (localWhite) {
+                            if (aBoardArray[1] > 5)
                                 addToPath(path, 0, 0); //if castling with king's rook, destination 00
                             else
                                 addToPath(path, 0, 1); //else if castling with queen's rook, destination 01
                         } else {
-                            if (boardArray[f][1] > 5)
+                            if (aBoardArray[1] > 5)
                                 addToPath(path, 0, 1); //if castling with queen's rook, destination 01
                             else
                                 addToPath(path, 0, 0); //else if castling with king's rook, destination 00
@@ -132,44 +132,44 @@ class Game implements Serializable, Parcelable {
                 }
                 break;
             case 1: //Queen
-                for(int f = 0; f < boardArray.length; f++) {
-                    if((boardArray[f][0] == boardArray[v][0]) || (boardArray[f][1] == boardArray[v][1]) || (boardArray[f][2] == boardArray[v][2]) || (boardArray[f][3] == boardArray[v][3]))
-                        if(!((boardArray[f][0] == boardArray[v][0]) && (boardArray[f][1] == boardArray[v][1]))) //excludes self as path
-                            addToPath(path, boardArray[f][0], boardArray[f][1]);
+                for (int[] aBoardArray1 : boardArray) {
+                    if ((aBoardArray1[0] == boardArray[v][0]) || (aBoardArray1[1] == boardArray[v][1]) || (aBoardArray1[2] == boardArray[v][2]) || (aBoardArray1[3] == boardArray[v][3]))
+                        if (!((aBoardArray1[0] == boardArray[v][0]) && (aBoardArray1[1] == boardArray[v][1]))) //excludes self as path
+                            addToPath(path, aBoardArray1[0], aBoardArray1[1]);
                 }
                 break;
             case 2: //Bishop
-                for(int f = 0; f < boardArray.length; f++) {
-                    if((boardArray[f][2] == boardArray[v][2]) || (boardArray[f][3] == boardArray[v][3]))
-                        if(!((boardArray[f][0] == boardArray[v][0]) && (boardArray[f][1] == boardArray[v][1]))) //excludes self as path
-                            addToPath(path, boardArray[f][0], boardArray[f][1]);
+                for (int[] aBoardArray : boardArray) {
+                    if ((aBoardArray[2] == boardArray[v][2]) || (aBoardArray[3] == boardArray[v][3]))
+                        if (!((aBoardArray[0] == boardArray[v][0]) && (aBoardArray[1] == boardArray[v][1]))) //excludes self as path
+                            addToPath(path, aBoardArray[0], aBoardArray[1]);
                 }
                 break;
             case 3: //Knight
-                for(int f = 0; f < boardArray.length; f++) {
-                    if((Math.abs(boardArray[f][0] - boardArray[v][0]) == 2) && (Math.abs(boardArray[f][1] - boardArray[v][1]) == 1) || (Math.abs(boardArray[f][0] - boardArray[v][0]) == 1) && (Math.abs(boardArray[f][1] - boardArray[v][1]) == 2))
-                        addToPath(path, boardArray[f][0], boardArray[f][1]);
+                for (int[] aBoardArray : boardArray) {
+                    if ((Math.abs(aBoardArray[0] - boardArray[v][0]) == 2) && (Math.abs(aBoardArray[1] - boardArray[v][1]) == 1) || (Math.abs(aBoardArray[0] - boardArray[v][0]) == 1) && (Math.abs(aBoardArray[1] - boardArray[v][1]) == 2))
+                        addToPath(path, aBoardArray[0], aBoardArray[1]);
                 }
                 break;
             case 4: //Rook
-                for(int f = 0; f < boardArray.length; f++) {
-                    if((boardArray[f][0] == boardArray[v][0]) || (boardArray[f][1] == boardArray[v][1]))
-                        if(!((boardArray[f][0] == boardArray[v][0]) && (boardArray[f][1] == boardArray[v][1]))) //excludes self as path
-                            addToPath(path, boardArray[f][0], boardArray[f][1]);
+                for (int[] aBoardArray : boardArray) {
+                    if ((aBoardArray[0] == boardArray[v][0]) || (aBoardArray[1] == boardArray[v][1]))
+                        if (!((aBoardArray[0] == boardArray[v][0]) && (aBoardArray[1] == boardArray[v][1]))) //excludes self as path
+                            addToPath(path, aBoardArray[0], aBoardArray[1]);
                 }
                 break;
             case 5: //Own Pawn
-                for(int f = 0; f < boardArray.length; f++) {
-                    if(((boardArray[v][0] == 7) && (boardArray[f][0] == (boardArray[v][0] - 2)) && (boardArray[f][1] == (boardArray[v][1])))
-                            || ((boardArray[f][0] == (boardArray[v][0] - 1)) && (Math.abs(boardArray[f][1] - (boardArray[v][1])) <= 1)))
-                        addToPath(path, boardArray[f][0], boardArray[f][1]);
+                for (int[] aBoardArray : boardArray) {
+                    if (((boardArray[v][0] == 7) && (aBoardArray[0] == (boardArray[v][0] - 2)) && (aBoardArray[1] == (boardArray[v][1])))
+                            || ((aBoardArray[0] == (boardArray[v][0] - 1)) && (Math.abs(aBoardArray[1] - (boardArray[v][1])) <= 1)))
+                        addToPath(path, aBoardArray[0], aBoardArray[1]);
                 }
                 break;
             case 6: //Jude's Pawn
-                for(int f = 0; f < boardArray.length; f++) {
-                    if(((boardArray[v][0] == 2) && (boardArray[f][0] == (boardArray[v][0] + 2)) && (boardArray[f][1] == (boardArray[v][1])))
-                            || ((boardArray[f][0] == (boardArray[v][0] + 1)) && (Math.abs(boardArray[f][1] - (boardArray[v][1])) <= 1)))
-                        addToPath(path, boardArray[f][0], boardArray[f][1]);
+                for (int[] aBoardArray : boardArray) {
+                    if (((boardArray[v][0] == 2) && (aBoardArray[0] == (boardArray[v][0] + 2)) && (aBoardArray[1] == (boardArray[v][1])))
+                            || ((aBoardArray[0] == (boardArray[v][0] + 1)) && (Math.abs(aBoardArray[1] - (boardArray[v][1])) <= 1)))
+                        addToPath(path, aBoardArray[0], aBoardArray[1]);
                 }
                 break;
         }

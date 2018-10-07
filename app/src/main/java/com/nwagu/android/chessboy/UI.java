@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 import android.widget.Toast;
 
 import jwtc.chess.*;
@@ -218,7 +217,7 @@ class UI extends GameControl {
 	public boolean handleClick(int index)
 	{
 		//m_textStatus.setText("");
-		if(false == m_bActive)
+		if(!m_bActive)
 		{
 			//setMessage(R.string.msg_wait);
 			return false;
@@ -239,7 +238,7 @@ class UI extends GameControl {
 			// test and make move if valid move
 			boolean bValid = requestMove(m_iFrom, index);
 			m_iFrom = -1;
-			if(false == bValid){
+			if(!bValid){
 				paintBoard();
 				return false;
 			}
