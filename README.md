@@ -2,7 +2,7 @@
 Chess app for Android
 Found on Google Play Store at: https://play.google.com/store/apps/details?id=com.nwagu.android.chessboy
 
-![screenshot_20170916-204528](https://user-images.githubusercontent.com/29481787/47620125-f1458b00-dae6-11e8-8f23-9aa0a5da5725.png)
+![screenshot_20170916-204528](https://user-images.githubusercontent.com/29481787/47620190-9496a000-dae7-11e8-8381-477f862ee630.png)
 
 From store listing:
 
