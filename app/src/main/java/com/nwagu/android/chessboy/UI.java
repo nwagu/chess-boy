@@ -125,7 +125,7 @@ class UI extends GameControl {
             //companion to enableControl();
         }
 
-        //undo twice,.. thats how for chess engine
+        //undo twice,.. that's how for chess engine
 		if (m_bActive) {
 			undo();
 		} else {
@@ -311,8 +311,6 @@ class UI extends GameControl {
     }
 
 
-
-
     @Override
 	public void play() {
 		if(game.movesHistory.size() > 3)
@@ -320,8 +318,6 @@ class UI extends GameControl {
 		else
 			new RandomMoveGenerator().execute();
 	}
-
-
 
 
 

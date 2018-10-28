@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#FFE4C4</color>
+    <color name="colorPrimaryDark">#F4A460</color>
     <color name="colorAccent">#FF4081</color>
 
     <color name="blackBackground">#CD853F</color>
     <color name="whiteBackground">#FFFADC</color>
     <color name="pathBackground">#BBBBBB</color>
 
-    <color name="mainAppBackground">#FFE4C4</color>
-    <color name="mainAppOverlay">#F4A460</color>
 </resources>

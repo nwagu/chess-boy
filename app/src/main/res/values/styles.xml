@@ -1,6 +1,9 @@
 <resources>
     <style name="MyTheme" parent="Theme.AppCompat.Light.NoActionBar">
-
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:windowActionBarOverlay">true</item>
     </style>
 
     <style name="SplashScreenTheme" parent="@android:style/Theme.NoTitleBar.Fullscreen">
@@ -8,6 +11,6 @@
     </style>
 
     <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:background">@color/mainAppBackground</item>
+        <item name="android:background">@color/colorPrimary</item>
     </style>
 </resources>

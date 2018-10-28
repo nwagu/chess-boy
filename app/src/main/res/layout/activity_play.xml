@@ -99,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_margin="4dp"
-                    card_view:cardBackgroundColor="@color/mainAppBackground"
+                    card_view:cardBackgroundColor="@color/colorPrimary"
                     card_view:cardCornerRadius="2dp"
                     card_view:cardElevation="4dp"
                     android:visibility="visible">
@@ -169,7 +169,7 @@
                     android:layout_marginLeft="32dp"
                     android:layout_marginRight="32dp"
                     android:padding="4dp"
-                    android:background="@color/mainAppOverlay">
+                    android:background="@color/colorPrimaryDark">
 
                     <android.support.v7.widget.CardView
                         android:layout_width="wrap_content"
@@ -177,7 +177,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_margin="2dp"
-                        card_view:cardBackgroundColor="@color/mainAppBackground"
+                        card_view:cardBackgroundColor="@color/colorPrimary"
                         card_view:cardCornerRadius="4dp"
                         card_view:cardElevation="2dp">
 
@@ -198,14 +198,14 @@
                         android:layout_height="match_parent"
                         android:layout_centerHorizontal="true"
                         android:layout_margin="2dp"
-                        card_view:cardBackgroundColor="@color/mainAppBackground"
+                        card_view:cardBackgroundColor="@color/colorPrimary"
                         card_view:cardCornerRadius="4dp"
                         card_view:cardElevation="2dp">
 
                         <TextView
                             android:text="@string/stats"
                             android:textStyle="bold"
-                            android:textColor="@color/mainAppOverlay"
+                            android:textColor="@color/colorPrimaryDark"
                             android:typeface="serif"
                             android:textSize="25sp"
                             android:padding="4dp"
@@ -222,7 +222,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true"
                         android:layout_margin="2dp"
-                        card_view:cardBackgroundColor="@color/mainAppBackground"
+                        card_view:cardBackgroundColor="@color/colorPrimary"
                         card_view:cardCornerRadius="4dp"
                         card_view:cardElevation="2dp">
 
@@ -261,7 +261,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
-            android:textColor="@color/mainAppOverlay"
+            android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold"
             android:textSize="25sp"
             android:typeface="serif"
@@ -269,8 +269,6 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="8dp"/>
-
-        <!-- Then another view to contain ad (banner ads) -->
 
     </RelativeLayout>
 

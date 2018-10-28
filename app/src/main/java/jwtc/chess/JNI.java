@@ -62,34 +62,49 @@ public class JNI {
 			while(pos < 64 && i < sFEN.length()){
 				iAdd = 1;
 				s = sFEN.substring(i, i+1);
-				if(s.equals("k")){
-					putPiece(pos, BoardConstants.KING, BoardConstants.BLACK);
-				} else if(s.equals("K")){
-					putPiece(pos, BoardConstants.KING, BoardConstants.WHITE);
-				} else if(s.equals("q")){
-					putPiece(pos, BoardConstants.QUEEN, BoardConstants.BLACK);
-				} else if(s.equals("Q")){
-					putPiece(pos, BoardConstants.QUEEN, BoardConstants.WHITE);
-				} else if(s.equals("r")){
-					putPiece(pos, BoardConstants.ROOK, BoardConstants.BLACK);
-				} else if(s.equals("R")){
-					putPiece(pos, BoardConstants.ROOK, BoardConstants.WHITE);
-				} else if(s.equals("b")){
-					putPiece(pos, BoardConstants.BISHOP, BoardConstants.BLACK);
-				} else if(s.equals("B")){
-					putPiece(pos, BoardConstants.BISHOP, BoardConstants.WHITE);
-				} else if(s.equals("n")){
-					putPiece(pos, BoardConstants.KNIGHT, BoardConstants.BLACK);
-				} else if(s.equals("N")){
-					putPiece(pos, BoardConstants.KNIGHT, BoardConstants.WHITE);
-				} else if(s.equals("p")){
-					putPiece(pos, BoardConstants.PAWN, BoardConstants.BLACK);
-				} else if(s.equals("P")){
-					putPiece(pos, BoardConstants.PAWN, BoardConstants.WHITE);
-				} else if(s.equals("/")){
-					iAdd = 0;
-				} else {
-					iAdd = Integer.parseInt(s);
+				switch (s) {
+					case "k":
+						putPiece(pos, BoardConstants.KING, BoardConstants.BLACK);
+						break;
+					case "K":
+						putPiece(pos, BoardConstants.KING, BoardConstants.WHITE);
+						break;
+					case "q":
+						putPiece(pos, BoardConstants.QUEEN, BoardConstants.BLACK);
+						break;
+					case "Q":
+						putPiece(pos, BoardConstants.QUEEN, BoardConstants.WHITE);
+						break;
+					case "r":
+						putPiece(pos, BoardConstants.ROOK, BoardConstants.BLACK);
+						break;
+					case "R":
+						putPiece(pos, BoardConstants.ROOK, BoardConstants.WHITE);
+						break;
+					case "b":
+						putPiece(pos, BoardConstants.BISHOP, BoardConstants.BLACK);
+						break;
+					case "B":
+						putPiece(pos, BoardConstants.BISHOP, BoardConstants.WHITE);
+						break;
+					case "n":
+						putPiece(pos, BoardConstants.KNIGHT, BoardConstants.BLACK);
+						break;
+					case "N":
+						putPiece(pos, BoardConstants.KNIGHT, BoardConstants.WHITE);
+						break;
+					case "p":
+						putPiece(pos, BoardConstants.PAWN, BoardConstants.BLACK);
+						break;
+					case "P":
+						putPiece(pos, BoardConstants.PAWN, BoardConstants.WHITE);
+						break;
+					case "/":
+						iAdd = 0;
+						break;
+					default:
+						iAdd = Integer.parseInt(s);
+						break;
 				}
 				pos += iAdd;
 				i++;
@@ -105,21 +120,21 @@ public class JNI {
 						turn = BoardConstants.BLACK;
 					}
 					if(arr.length > 1){
-						if(arr[1].indexOf("k") != -1){
+						if(arr[1].contains("k")){
 							bccs = 1;
 						}
-						if(arr[1].indexOf("q") != -1){
+						if(arr[1].contains("q")){
 							bccl = 1;
 						} 
-						if(arr[1].indexOf("K") != -1){
+						if(arr[1].contains("K")){
 							wccs = 1;
 						}
-						if(arr[1].indexOf("Q") != -1){
+						if(arr[1].contains("Q")){
 							wccl = 1;
 						}
 						
 						if(arr.length > 2){
-							if(false == arr[2].equals("-")){
+							if(!arr[2].equals("-")){
 								ep = Pos.fromString(arr[2]);
 							}
 							if(arr.length > 3){

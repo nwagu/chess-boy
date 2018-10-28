@@ -7,7 +7,7 @@
     android:layout_marginBottom="40dp"
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp"
-    card_view:cardBackgroundColor="@color/mainAppBackground"
+    card_view:cardBackgroundColor="@color/colorPrimary"
     card_view:cardElevation="4dp"
     card_view:cardCornerRadius="8dp">
 
@@ -23,22 +23,37 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp">
 
+            <TextView
+                android:id="@+id/pgn_view_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/pgn"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_alignParentTop="true" />
 
             <EditText
-                android:inputType="text"
                 android:id="@+id/pgn_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
                 android:text="@string/pgn_placeholder"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/fifteenSP"
                 android:typeface="monospace"
                 android:hint="@string/pgn_of_game"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:lines="4"
+                android:minLines="3"
+                android:maxLines="10"
                 android:padding="8dp"
-                android:layout_alignParentTop="true"/>
+                android:gravity="top|start"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_below="@id/pgn_view_header"/>
 
             <LinearLayout
-                android:id="@+id/herst"
+                android:id="@+id/pgn_options"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -52,12 +67,12 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     card_view:contentPadding="4dp"
-                    card_view:cardBackgroundColor="@color/mainAppOverlay"
+                    card_view:cardBackgroundColor="@color/colorPrimaryDark"
                     card_view:cardCornerRadius="2dp"
                     card_view:cardElevation="0dp">
 
                     <Button
-                        android:id="@+id/button_close_pgn"
+                        android:id="@+id/btn_close_pgn"
                         android:text="@string/close_pgn"
                         android:textSize="20sp"
                         android:textColor="@android:color/holo_blue_dark"
@@ -73,12 +88,12 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     card_view:contentPadding="4dp"
-                    card_view:cardBackgroundColor="@color/mainAppOverlay"
+                    card_view:cardBackgroundColor="@color/colorPrimaryDark"
                     card_view:cardCornerRadius="2dp"
                     card_view:cardElevation="0dp">
 
                     <Button
-                        android:id="@+id/button_share_pgn"
+                        android:id="@+id/btn_share_pgn"
                         android:text="@string/share_pgn"
                         android:textSize="20sp"
                         android:textColor="@android:color/holo_blue_dark"

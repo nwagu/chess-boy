@@ -59,7 +59,7 @@ class Game implements Serializable, Parcelable {
 
     private final long serialVersionUID = -152305222281557734L;
 
-    Game(int mode, boolean isWhite) { //this constructs two arrays: boardArray & pathsArray
+    Game(int mode, boolean isWhite) { // this constructs two arrays: boardArray & pathsArray
 
         gameMode = mode;
 
@@ -78,14 +78,14 @@ class Game implements Serializable, Parcelable {
 
         //boardArray with each row containing: ROW; COL; sum of ROW and COL; difference of same; and chessman code
         int d = 0;
-        for(int r = 1; r <= 8; r++){ //per row of chessboard
-            for(int c = 1; c <= 8; c++){ //per column of each row
+        for(int r = 1; r <= 8; r++){ // per row of chessboard
+            for(int c = 1; c <= 8; c++){ // per column of each row
                 boardArray[d][0] = r;
                 boardArray[d][1] = c;
                 boardArray[d][2] = (r + c);
                 boardArray[d][3] = (r - c);
                 if((r == 1) || (r == 2) || (r == 7) || (r == 8))
-                    boardArray[d][4] = ((r * 10) + c); //places chessmen with codes according to position at start eg. black rook on Queens side is 11
+                    boardArray[d][4] = ((r * 10) + c); // places chessmen with codes according to position at start eg. black rook on Queens side is 11
                 else boardArray[d][4] = 0;
                 d++;
             }
@@ -106,8 +106,8 @@ class Game implements Serializable, Parcelable {
 
     }
 
-    //this method is used for the initial construction of the pathsArray
-    private StringBuffer findPath(int v, int w) { //this selects spots that match every chessman from every spot
+    // This method is used for the initial construction of the pathsArray
+    private StringBuffer findPath(int v, int w) { // this selects spots that match every chessman from every spot
         StringBuffer path = new StringBuffer();
         switch(w){
             case 0: //King
@@ -212,7 +212,7 @@ class Game implements Serializable, Parcelable {
         localWhite = !localWhite;
         isLocalTurn = localWhite;
 
-        //RECREATE THE PATHSARRAY!!. I DONT LIKE THIS ONE BIT!!!
+        // RECREATE THE PATHSARRAY!!. I DONT LIKE THIS ONE BIT!!!
         // (i have to do this because of one portion of the pathsarray creation code, the one about castling. there the localWhite of the game is required. so here make sure to reset the local white before recreating pathsarray)
         // TODO if possible avoid this recreation
         for(int e = 0; e < pathsArray.length; e++) {
@@ -427,7 +427,7 @@ class Game implements Serializable, Parcelable {
 
         if(movesHistory.size() <= 0) return;
 
-        int moveNumber = movesHistory.size() - 1; //index starts from 0
+        int moveNumber = movesHistory.size() - 1; // index starts at 0
         String[] lastMove = movesHistory.get(moveNumber);
         movesHistory.remove(moveNumber);
 
@@ -475,7 +475,7 @@ class Game implements Serializable, Parcelable {
     }
 
     void undoLastMultiplayMove() {
-        int moveNumber = movesHistory.size() - 1; //index starts from 0
+        int moveNumber = movesHistory.size() - 1; // index starts at 0
         String[] lastMove = movesHistory.get(moveNumber);
         movesHistory.remove(moveNumber);
         rotateBoard();

@@ -33,5 +33,6 @@
 
     <string name="image_button_content_desc">image</string>
     <string name="pgn_of_game">PGN of game</string>
+    <string name="pgn">PGN</string>
 
 </resources>

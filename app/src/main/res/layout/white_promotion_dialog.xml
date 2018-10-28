@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:text="@string/promo_message"
         android:textSize="20sp"
-        android:textColor="@color/mainAppOverlay"
+        android:textColor="@color/colorPrimaryDark"
         android:gravity="center"/>
 
 
@@ -32,7 +32,7 @@
             android:layout_height="match_parent"
             android:layout_margin="8dp"
             card_view:contentPadding="4dp"
-            card_view:cardBackgroundColor="@color/mainAppOverlay"
+            card_view:cardBackgroundColor="@color/colorPrimaryDark"
             card_view:cardCornerRadius="4dp"
             card_view:cardElevation="2dp">
 
@@ -53,7 +53,7 @@
             android:layout_height="match_parent"
             android:layout_margin="8dp"
             card_view:contentPadding="4dp"
-            card_view:cardBackgroundColor="@color/mainAppOverlay"
+            card_view:cardBackgroundColor="@color/colorPrimaryDark"
             card_view:cardCornerRadius="4dp"
             card_view:cardElevation="2dp">
 
@@ -74,7 +74,7 @@
             android:layout_height="match_parent"
             android:layout_margin="8dp"
             card_view:contentPadding="4dp"
-            card_view:cardBackgroundColor="@color/mainAppOverlay"
+            card_view:cardBackgroundColor="@color/colorPrimaryDark"
             card_view:cardCornerRadius="4dp"
             card_view:cardElevation="2dp">
 
@@ -95,7 +95,7 @@
             android:layout_height="match_parent"
             android:layout_margin="8dp"
             card_view:contentPadding="4dp"
-            card_view:cardBackgroundColor="@color/mainAppOverlay"
+            card_view:cardBackgroundColor="@color/colorPrimaryDark"
             card_view:cardCornerRadius="4dp"
             card_view:cardElevation="2dp">
 

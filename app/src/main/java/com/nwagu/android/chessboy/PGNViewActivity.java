@@ -27,14 +27,14 @@ public class PGNViewActivity extends Activity {
         pgnEditView.setText(hio, TextView.BufferType.EDITABLE);
 
 
-        Button closeButton = (Button) findViewById(R.id.button_close_pgn);
+        Button closeButton = (Button) findViewById(R.id.btn_close_pgn);
         closeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 finish();
             }
         });
 		
-        Button shareButton = (Button) findViewById(R.id.button_share_pgn);
+        Button shareButton = (Button) findViewById(R.id.btn_share_pgn);
         shareButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent  i = new Intent(android.content.Intent.ACTION_SEND);
