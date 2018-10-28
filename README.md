@@ -15,7 +15,7 @@ Chess Boy incorporates all the following popular game modes of classic chess on 
 
 Additionally, there is PGN support. Users can share PGNs of games played with AI.
 
-For the AI currently running in the app, Chess Boy Inc. wishes to say a big thanks to Jeroen Carolus and his open-source chess engine found <a href="https://github.com/jcarolus/android-chess" target="_blank">here</a>
+For the AI currently running in the app, Chess Boy Inc. wishes to say a big thanks to Jeroen Carolus and his open-source chess engine found <a href="https://github.com/jcarolus/android-chess" target="_blank">here</a>.
 
 
-Chess Boy requires access to external storage in order to save game progress when app is closed."
+Chess Boy requires access to external storage in order to save game progress when app is closed.
