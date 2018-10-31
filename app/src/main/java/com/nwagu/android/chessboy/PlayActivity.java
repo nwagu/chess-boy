@@ -87,7 +87,6 @@ public class PlayActivity extends AppCompatActivity {
     int widthOfScreen;
     int heightOfScreen;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -1391,6 +1390,11 @@ public class PlayActivity extends AppCompatActivity {
         Intent intent = new Intent(PlayActivity.this, PGNViewActivity.class);
         intent.putExtra("PGN", heck);
         startActivityForResult(intent, Constants.SHOW_PGN);
+    }
+
+    public void openOptions(View view) {
+        Intent intent = new Intent(PlayActivity.this, OptionsActivity.class);
+        startActivity(intent);
     }
 
 }
