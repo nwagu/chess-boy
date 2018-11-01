@@ -90,7 +90,7 @@ public class PlayActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        try {Thread.sleep(1000);} catch (InterruptedException e) {} //give time for user to enjoy splash screen:)
+        try {Thread.sleep(1000);} catch (InterruptedException ignored) {} //give time for user to enjoy splash screen:)
         setTheme(R.style.MyTheme);
         setContentView(R.layout.activity_play);
 
@@ -155,9 +155,6 @@ public class PlayActivity extends AppCompatActivity {
         //-------Bluetooth prelims---------
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
-        renderBoard();
-        heyJude();
-
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -166,6 +163,9 @@ public class PlayActivity extends AppCompatActivity {
 
         settingsPanel.requestLayout();
         settingsPanel.getLayoutParams().height = widthOfScreen - 10; // -8 because of the margin to allow for
+
+        renderBoard();
+        heyJude();
 
     }
 
@@ -896,7 +896,6 @@ public class PlayActivity extends AppCompatActivity {
 
         for(int i = game.movesHistory.size() - 1; i >= 0; i--) {
             String capturedPiece = game.movesHistory.get(i)[1];
-
             int capturedPieceInt;
 
             if(capturedPiece.length() < 3) capturedPieceInt = Integer.parseInt(capturedPiece);
@@ -919,6 +918,7 @@ public class PlayActivity extends AppCompatActivity {
 
                 if ((game.localWhite && capturedPieceInt > 50) || (!game.localWhite && capturedPieceInt < 50)) {
                     judeCaptivesCage.addView(captiveCell);
+                    Log.e("FATAL", "im in");
                 } else {
                     myCaptivesCage.addView(captiveCell);
                 }
