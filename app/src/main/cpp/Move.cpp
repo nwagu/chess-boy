@@ -1,28 +1,21 @@
 #include "Move.h"
 
-Move::Move(void)
-{
+Move::Move(void) {
+	//
 }
 
-Move::~Move(void)
-{
+Move::~Move(void) {
+	//
 }
-
-/*int Move::makeMove(const int from, const int to)
-{
-	return from | (to << SHIFT_TO);
-}*/
-
 
 // returns pgn alike string representation of the move - not full pgn format because then more information is needed
 
-void Move::toDbgString(const int move, char* buf)
-{
-	if(Move_isOO(move)){
+void Move::toDbgString(const int move, char* buf) {
+	if(Move_isOO(move)) {
 		strcpy(buf, "O-O");
 		return;
 	}
-	if(Move_isOOO(move)){
+	if(Move_isOOO(move)) {
 		strcpy(buf, "O-O-O");
 		return;
 	}

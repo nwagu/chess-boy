@@ -7,4 +7,15 @@
     android:background="@color/colorPrimary"
     tools:context=".OptionsActivity">
 
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/image_button_content_desc"
+        android:src="@drawable/settings"
+        android:background="@android:color/transparent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:scaleType="centerInside"
+        android:layout_gravity="end"/>
+
 </android.support.constraint.ConstraintLayout>

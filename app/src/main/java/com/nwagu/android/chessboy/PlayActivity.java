@@ -1392,9 +1392,4 @@ public class PlayActivity extends AppCompatActivity {
         startActivityForResult(intent, Constants.SHOW_PGN);
     }
 
-    public void openOptions(View view) {
-        Intent intent = new Intent(PlayActivity.this, OptionsActivity.class);
-        startActivity(intent);
-    }
-
 }

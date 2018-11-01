@@ -258,22 +258,9 @@
         android:layout_above="@id/main_view"
         android:layout_marginTop="8dp">
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:contentDescription="@string/image_button_content_desc"
-            android:src="@drawable/settings"
-            android:background="@android:color/transparent"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:scaleType="centerInside"
-            android:layout_gravity="end"
-            android:onClick="openOptions"/>
-
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="@string/app_name"
             android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold"

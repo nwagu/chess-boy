@@ -2,96 +2,59 @@
 
 #include <math.h>
 
-ChessBoard::ChessBoard(void)
-{
+ChessBoard::ChessBoard(void) {
 	m_parent = NULL;
 	reset();
 }
 
-ChessBoard::~ChessBoard(void)
-{
-	//if(m_parent)
-	//	delete m_parent;
+ChessBoard::~ChessBoard(void) {
+	//
 }
 
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-// attack functions - used to find out if a king is checked - so no special
-// moves like en-passant and castlings have to be generated 
-// return a bitb with bits set to 1 where the piece can move to
-/*
-BITBOARD ChessBoard::pawnAttacks(const int turn, const BITBOARD bb)
-{
-	// no en-passant, no promotion, only for detection of attacked squares
-	// TODO with file BITS and other "BITS_pawn[pos]" this can be improved
-         old
-	BITBOARD bbTmp = 0L;
-	int o_turn = turn ^1;
 
-	if(turn == WHITE)
-	{
-		bbTmp = ((bb & ~FILE_BITS[0]) >> 9) & m_bitbPositions[o_turn];
-		bbTmp |= ((bb & ~FILE_BITS[7]) >> 7) & m_bitbPositions[o_turn];
-		return bbTmp;
-	}
-	else
-	{
-		bbTmp = ((bb & ~FILE_BITS[7]) << 9) & m_bitbPositions[o_turn]; 
-		bbTmp |= ((bb & ~FILE_BITS[0]) << 7) & m_bitbPositions[o_turn];
-		return bbTmp;
-	}
-
-}
-*/
-BITBOARD ChessBoard::knightAttacks(const int turn, BITBOARD bb)
-{
+BITBOARD ChessBoard::knightAttacks(const int turn, BITBOARD bb) {
 	int pos; BITBOARD bbRet = 0;
-	while(bb != 0)
-	{
+	while(bb != 0) {
 		pos = ChessBoard::trailingZeros(bb);
 		bb &= NOT_BITS[pos];
 		bbRet |= knightMoves(turn, pos);
 	}
 	return bbRet;
 }
-BITBOARD ChessBoard::bishopAttacks(const int turn, BITBOARD bb)
-{
+
+BITBOARD ChessBoard::bishopAttacks(const int turn, BITBOARD bb) {
 	int pos; BITBOARD bbRet = 0;
-	while(bb != 0)
-	{
+	while(bb != 0) {
 		pos = ChessBoard::trailingZeros(bb);
 		bb &= NOT_BITS[pos];
 		bbRet |= bishopMoves(turn, pos);
 	}
 	return bbRet;
 }
-BITBOARD ChessBoard::rookAttacks(const int turn, BITBOARD bb)
-{
+
+BITBOARD ChessBoard::rookAttacks(const int turn, BITBOARD bb) {
 	int pos; BITBOARD bbRet = 0;
-	while(bb != 0)
-	{
+	while(bb != 0) {
 		pos = ChessBoard::trailingZeros(bb);
 		bb &= NOT_BITS[pos];
 		bbRet |= rookMoves(turn, pos);
 	}
 	return bbRet;
 }
-BITBOARD ChessBoard::queenAttacks(const int turn, BITBOARD bb)
-{
+
+BITBOARD ChessBoard::queenAttacks(const int turn, BITBOARD bb){
 	int pos; BITBOARD bbRet = 0;
-	while(bb != 0)
-	{
+	while(bb != 0) {
 		pos = ChessBoard::trailingZeros(bb);
 		bb &= NOT_BITS[pos];
 		bbRet |= queenMoves(turn, pos);
 	}
 	return bbRet;
 }
-BITBOARD ChessBoard::kingAttacks(const int turn, BITBOARD bb)
-{
+
+BITBOARD ChessBoard::kingAttacks(const int turn, BITBOARD bb) {
 	int pos; BITBOARD bbRet = 0;
-	while(bb != 0)
-	{
+	while(bb != 0) {
 		pos = ChessBoard::trailingZeros(bb);
 		bb &= NOT_BITS[pos];
 		bbRet |= kingMoves(turn, pos);
@@ -103,8 +66,7 @@ BITBOARD ChessBoard::kingAttacks(const int turn, BITBOARD bb)
 // returns true when square of turn is attacked - it does not matter if there
 // is nothing at @pos
 ////////////////////////////////////////////////////////////////////////////////
-boolean ChessBoard::isSquareAttacked(const int turn, const int pos)
-{
+boolean ChessBoard::isSquareAttacked(const int turn, const int pos) {
 	BITBOARD square = BITS[pos];
 	//co.pl("turn" + turn + " pos " + pos);
 	//co.pl(bitbToString(bb));
@@ -115,7 +77,7 @@ boolean ChessBoard::isSquareAttacked(const int turn, const int pos)
 		return true;
 
         // except the knight, all pieces work within queen range
-        if((QUEEN_RANGE[pos] & m_bitbPositions[o_turn]) != 0){
+        if((QUEEN_RANGE[pos] & m_bitbPositions[o_turn]) != 0) {
 
             // todo - is saving a method call really an improvement?
 
@@ -134,31 +96,16 @@ boolean ChessBoard::isSquareAttacked(const int turn, const int pos)
             }
             // use the pos square for the pawn range, so from direction of turn
             if((m_bitbPieces[o_turn][PAWN] & PAWN_RANGE[turn][pos]) != 0)
-                    return true;
+                return true;
             //TODO more efficient pawn attack range (instead of king_range)
             //if((pawnAttacks(o_turn, m_bitbPieces[o_turn][PAWN] & KING_RANGE[pos]) & square) != 0)
             //	return true;
 
             if((m_bitbPieces[o_turn][KING] & KING_RANGE[pos]) != 0)
-                    return true;
+                return true;
         }
 	return false;
 }
-
-////////////////////////////////////////////////////////////////////////////////
-// returns bitb of all attack moves. unused 
-////////////////////////////////////////////////////////////////////////////////
-/*
-BITBOARD ChessBoard::getAttacks(const int turn)
-{
-	return pawnAttacks(turn, m_bitbPieces[turn][PAWN]) |
-		   knightAttacks(turn, m_bitbPieces[turn][KNIGHT]) |
-		   bishopAttacks(turn, m_bitbPieces[turn][BISHOP]) |
-		   rookAttacks(turn, m_bitbPieces[turn][ROOK]) |
-		   queenAttacks(turn, m_bitbPieces[turn][QUEEN]) |
-		   kingAttacks(turn, m_bitbPieces[turn][KING]);
-}
-*/
 
 ////////////////////////////////////////////////////////////////////////////////
 // calculate the state of the board
@@ -167,36 +114,25 @@ BITBOARD ChessBoard::getAttacks(const int turn)
 // when a move generates a board in which the opponent king is attacked, set 
 // the move to a "checking" move
 ////////////////////////////////////////////////////////////////////////////////
-void ChessBoard::calcState(ChessBoard* board)
-{
+void ChessBoard::calcState(ChessBoard* board) {
 	if(isEnded())
 		return;
 	genMoves();
 
 	int move; 
 	m_indexMoves = 0;
-	while(hasMoreMoves())
-	{
+	while(hasMoreMoves()) {
 		move = getNextMove();
-		
-		//char buf[20];
-		//Move::toDbgString(move, buf);
-		//DEBUG_PRINT(buf);
-		//co.pl("Filtering " + );
 
 		makeMove(move, board);
 
 		// check if king is attacked - since a move is done, this is in m_o_kingPos
-		if(board->isSquareAttacked(m_turn, board->m_o_kingPos))
-		{
+		if(board->isSquareAttacked(m_turn, board->m_o_kingPos)) {
 			//co.pl("removed");
 			removeMoveElementAt();
-		}
-		else
-		{
+		} else {
 			// check if opponent king is checked
-			if(board->isSquareAttacked(m_o_turn, board->m_kingPos))
-			{	
+			if(board->isSquareAttacked(m_o_turn, board->m_kingPos)) {	
 				//co.pl("CHECK! " + m_indexMoves);
 				// set checked flag in move - so in makeMove m_state can be set to check
 				m_arrMoves[m_indexMoves-1] = Move_setCheck(move);
@@ -204,164 +140,117 @@ void ChessBoard::calcState(ChessBoard* board)
 		}
 	}
 
-	//co.pl("attackedbits ");
-	//co.pl(ChessBoard::bitbToString(m_bitbAttackMoveSquares));
-	//co.pl("After filter " + m_sizeMoves + " - state " + m_state);
-
 	// game over when no moves left
-	if(m_sizeMoves == 0)
-	{
+	if(m_sizeMoves == 0) {
 		// state set to check in makeMove
-		if(m_state == CHECK)
-		{
+		if(m_state == CHECK) {
 			m_state = MATE;
 			//co.pl("MATE");
-		}
-		else
-		{
+		} else {
 			m_state = STALEMATE;
 			//co.pl("STALEMATE");
 		}
 	}
 	//printB();
 }
+
 // this is called from search, so check for king of turn
-boolean ChessBoard::checkInCheck()
-{
+boolean ChessBoard::checkInCheck() {
     // working:
     if(isSquareAttacked(m_turn, m_kingPos)){
-	
-    //if(m_bitbAttackMoveSquares & BITS[m_o_kingPos]){
-        // todo consider not taking king moves in attackmovessquares?
-    //    if((KING_RANGE[m_kingPos] & BITS[m_o_kingPos]) == 0){
-
-            m_state = CHECK;
-            return true;
-    //    }
+        m_state = CHECK;
+        return true;
     }
     return false;
 }
+
 // this is called from search, so check for opponent king!
 // only valid result if called after genmoves
-boolean ChessBoard::checkInSelfCheck()
-{
+boolean ChessBoard::checkInSelfCheck() {
     // orig:
     //return (m_bitbAttackMoveSquares & BITS[m_o_kingPos]);
     // working
     return isSquareAttacked(m_o_turn, m_o_kingPos);
 }
 	
-int ChessBoard::getState()
-{
+int ChessBoard::getState() {
 	return m_state;
 }
-boolean ChessBoard::isLegalPosition()
-{
+
+boolean ChessBoard::isLegalPosition() {
     if((m_bitbPieces[WHITE][PAWN] & (ROW_BITS[0] | ROW_BITS[7])) ||
-       (m_bitbPieces[BLACK][PAWN] & (ROW_BITS[0] | ROW_BITS[7])))
-    {
+       (m_bitbPieces[BLACK][PAWN] & (ROW_BITS[0] | ROW_BITS[7]))) {
         return false;
     }
     if(ChessBoard::bitCount(m_bitbPieces[WHITE][PAWN]) > 8 ||
-       ChessBoard::bitCount(m_bitbPieces[BLACK][PAWN]) > 8)
-    {
+       ChessBoard::bitCount(m_bitbPieces[BLACK][PAWN]) > 8) {
         return false;
     }
-    if(isSquareAttacked(m_o_turn, m_o_kingPos))
-    {
+    if(isSquareAttacked(m_o_turn, m_o_kingPos)) {
         return false;
     }
     return true;
 }
-/*
-String ChessBoard::getStateToString()
-{
-	String msg = "";
-	switch(m_state)
-	{
-	case ChessBoard::MATE: msg = "Mate"; break;
-	case ChessBoard::DRAW_MATERIAL: msg = "Draw (material)"; break;
-	case ChessBoard::CHECK: msg = "Check"; break;
-	case ChessBoard::STALEMATE: msg = "Draw (stalemate)"; break;
-	case ChessBoard::DRAW_50: msg = "Draw (50 move rule)"; break;
-	case ChessBoard::DRAW_REPEAT: msg = "Draw (repeat)"; break;
-	default: msg = "In play"; break;
-	}
-	return msg;
-}
-*/
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // returns true when the game is ended
 // TODO repeat check can be made more efficient with repeat index of hashkey
 ////////////////////////////////////////////////////////////////////////////////
-boolean ChessBoard::isEnded()
-{
-	if(m_state == MATE || m_state == STALEMATE){
+boolean ChessBoard::isEnded() {
+	if(m_state == MATE || m_state == STALEMATE) {
 		return true;
-        }
+    }
 	// TODO skip this when m_state == CHECK?
-	if(m_50RuleCount == 100)
-	{
+	if(m_50RuleCount == 100) {
 		m_state = DRAW_50;
 		return true;
 	}
 	//check DRAW by material
-        // first check for no pawns, rooks and queens on either side.
-        // ASSUME: value of knight or bishop is never twice as big as the other
-        if(m_bitbPieces[m_turn][PAWN] == 0  && m_bitbPieces[m_o_turn][PAWN]  == 0 &&
-           m_bitbPieces[m_turn][ROOK] == 0  && m_bitbPieces[m_o_turn][ROOK]  == 0 &&
-           m_bitbPieces[m_turn][QUEEN] == 0 && m_bitbPieces[m_o_turn][QUEEN] == 0)
-        {
-            // KNk or KBk is draw
-            if(m_o_quality == 0 &&
-		(m_quality <= ChessBoard::PIECE_VALUES[KNIGHT] || m_quality <= ChessBoard::PIECE_VALUES[BISHOP]))
-            {
-                m_state = ChessBoard::DRAW_MATERIAL;
-		return true;
-            }
-            if(m_quality == 0 &&
-               (m_o_quality <= ChessBoard::PIECE_VALUES[KNIGHT] || m_o_quality <= ChessBoard::PIECE_VALUES[BISHOP]))
-            {
-                m_state = ChessBoard::DRAW_MATERIAL;
-		return true;
-            }
-            // also KNkn and KBkb, KBkn are almost always draw; theoretical mates only with king in corner (and own piece next to it)
-            if((m_o_quality <= ChessBoard::PIECE_VALUES[KNIGHT] || m_o_quality <= ChessBoard::PIECE_VALUES[BISHOP]) &&
-               (m_quality   <= ChessBoard::PIECE_VALUES[KNIGHT] || m_quality   <= ChessBoard::PIECE_VALUES[BISHOP]))
-            {
-                // test for either king NOT in a corner
-                if(!(m_o_kingPos == a8 || m_o_kingPos == h8 || m_o_kingPos == a1 || m_o_kingPos == h1 ||
-                     m_kingPos   == a8 || m_kingPos   == h8 || m_kingPos   == a1 || m_kingPos   == h1))
-                {
-                    m_state = ChessBoard::DRAW_MATERIAL;
-                    return true;
-                }
-            }
-
+    // first check for no pawns, rooks and queens on either side.
+    // ASSUME: value of knight or bishop is never twice as big as the other
+    if(m_bitbPieces[m_turn][PAWN] == 0  && m_bitbPieces[m_o_turn][PAWN]  == 0 &&
+       m_bitbPieces[m_turn][ROOK] == 0  && m_bitbPieces[m_o_turn][ROOK]  == 0 &&
+       m_bitbPieces[m_turn][QUEEN] == 0 && m_bitbPieces[m_o_turn][QUEEN] == 0) {
+        // KNk or KBk is draw
+        if(m_o_quality == 0 && (m_quality <= ChessBoard::PIECE_VALUES[KNIGHT] || m_quality <= ChessBoard::PIECE_VALUES[BISHOP])) {
+            m_state = ChessBoard::DRAW_MATERIAL;
+			return true;
         }
+        if(m_quality == 0 && (m_o_quality <= ChessBoard::PIECE_VALUES[KNIGHT] || m_o_quality <= ChessBoard::PIECE_VALUES[BISHOP])) {
+            m_state = ChessBoard::DRAW_MATERIAL;
+			return true;
+        }
+        // also KNkn and KBkb, KBkn are almost always draw; theoretical mates only with king in corner (and own piece next to it)
+        if((m_o_quality <= ChessBoard::PIECE_VALUES[KNIGHT] || m_o_quality <= ChessBoard::PIECE_VALUES[BISHOP]) &&
+           (m_quality   <= ChessBoard::PIECE_VALUES[KNIGHT] || m_quality   <= ChessBoard::PIECE_VALUES[BISHOP])) {
+            // test for either king NOT in a corner
+            if(!(m_o_kingPos == a8 || m_o_kingPos == h8 || m_o_kingPos == a1 || m_o_kingPos == h1 ||
+                 m_kingPos   == a8 || m_kingPos   == h8 || m_kingPos   == a1 || m_kingPos   == h1)) {
+                m_state = ChessBoard::DRAW_MATERIAL;
+                return true;
+            }
+        }
+        
+    }
 
 
 	//DRAW by repetition, no need to check with noHitcount < 4, because repetition needs at least 4 sequential moves
 	// that can lead to the same position
-	if(m_50RuleCount > 3 && m_parent != NULL)
-	{
+	if(m_50RuleCount > 3 && m_parent != NULL) {
 		//start at parent
 		ChessBoard* tmpBoard = m_parent;
 		int repeatCount = 0;
-		while(tmpBoard != NULL)
-		{
+		while(tmpBoard != NULL) {
 			if(tmpBoard->m_hashKey == m_hashKey)
 				repeatCount++;
-			if(repeatCount == 2)
-			{
+			if(repeatCount == 2) {
 				m_state = ChessBoard::DRAW_REPEAT;
 				return true;
 			}
-                        // after hit or pawn move never the same
+            // after hit or pawn move never the same
 			if(tmpBoard->m_50RuleCount == 0)
 				break;
-
 			tmpBoard = tmpBoard->m_parent;
 		}
 	}
@@ -369,29 +258,24 @@ boolean ChessBoard::isEnded()
 }
 
 // called from search, a little different than isEnded (no MATE and STALEMATE)
-boolean ChessBoard::checkEnded()
-{
-	if(m_50RuleCount == 100)
-	{
+boolean ChessBoard::checkEnded() {
+	if(m_50RuleCount == 100) {
 		m_state = DRAW_50;
 		return true;
 	}
-	if(m_50RuleCount > 3 && m_parent != NULL)
-	{
+	if(m_50RuleCount > 3 && m_parent != NULL) {
 		//start at parent
 		ChessBoard* tmpBoard = m_parent->m_parent;
 		int repeatCount = 0;
-		while(tmpBoard != NULL)
-		{
+		while(tmpBoard != NULL) {
 			
 			if(tmpBoard->m_hashKey == m_hashKey)
 				repeatCount++;
-			if(repeatCount == 2)
-			{
+			if(repeatCount == 2) {
 				m_state = ChessBoard::DRAW_REPEAT;
 				return true;
 			}
-                        // after hit or pawn move never the same
+            // after hit or pawn move never the same
 			if(tmpBoard->m_50RuleCount == 0)
 				break;
 			tmpBoard = tmpBoard->m_parent;
@@ -409,25 +293,19 @@ boolean ChessBoard::checkEnded()
 // return 0 when move is not ambigious, otherwise the ambigious move.
 // ambigous when pieces of the same kind move to the same destination
 ////////////////////////////////////////////////////////////////////////////////
-int ChessBoard::ambigiousMove()
-{
-	if(m_parent != NULL)
-	{
+int ChessBoard::ambigiousMove() {
+	if(m_parent != NULL) {
 		ChessBoard* tmpBoard = new ChessBoard();
 		m_parent->duplicate(tmpBoard);
 		
 		tmpBoard->m_indexMoves = 0;
 		tmpBoard->genMoves(); // NEW, all (illegal) moves
 		int m2;
-		while(tmpBoard->hasMoreMoves())
-		{
+		while(tmpBoard->hasMoreMoves()) {
 			m2 = tmpBoard->getNextMove();
-			if(m_myMove != m2 && Move_equalTos(m2, m_myMove))
-			{
-				if(Move_getFrom(m2) != Move_getFrom(m_myMove) && (tmpBoard->m_bitbPieces[m_o_turn][PAWN] & BITS[Move_getFrom(m_myMove)]) == 0)
-				{
-					if(tmpBoard->pieceAt(m_o_turn, Move_getFrom(m_myMove)) == tmpBoard->pieceAt(m_o_turn, Move_getFrom(m2)))
-					{
+			if(m_myMove != m2 && Move_equalTos(m2, m_myMove)) {
+				if(Move_getFrom(m2) != Move_getFrom(m_myMove) && (tmpBoard->m_bitbPieces[m_o_turn][PAWN] & BITS[Move_getFrom(m_myMove)]) == 0) {
+					if(tmpBoard->pieceAt(m_o_turn, Move_getFrom(m_myMove)) == tmpBoard->pieceAt(m_o_turn, Move_getFrom(m2))) {
 						delete tmpBoard;
 						return m2;
 					}
@@ -442,24 +320,19 @@ int ChessBoard::ambigiousMove()
 ////////////////////////////////////////////////////////////////////////////////
 // returns true if the move is a valid move - the move will be made when valid
 ////////////////////////////////////////////////////////////////////////////////
-boolean ChessBoard::requestMove(const int from, const int to, ChessBoard* board, ChessBoard* tmpBoard, int promoPiece)
-{
+boolean ChessBoard::requestMove(const int from, const int to, ChessBoard* board, ChessBoard* tmpBoard, int promoPiece) {
 	if(isEnded())
 		return false;
 	m_indexMoves = 0;
 	int move;
-	while(hasMoreMoves())
-	{
+	while(hasMoreMoves()) {
 		move = getNextMove();
-		if(Move_isPromotionMove(move)){
+		if(Move_isPromotionMove(move)) {
 			if(promoPiece != Move_getPromotionPiece(move))
 				continue;
 		}
-		if(Move_equalPositions(move, Move_makeMove(from, to)))
-		{
-
+		if(Move_equalPositions(move, Move_makeMove(from, to))) {
 			makeMove(move, board);
-
 			// requestMove is a definitive move, so calcState can be invoked
 			board->calcState(tmpBoard);
 			return true;
@@ -476,29 +349,28 @@ boolean ChessBoard::isAmbiguousCastle(const int from, const int to){
 	m_indexMoves = 0;
 	int move, cnt = 0;
 
-        if(abs(Pos::col(from) - Pos::col(to)) <= 1){
+    if(abs(Pos::col(from) - Pos::col(to)) <= 1){
 
-            while(hasMoreMoves())
-            {
-                    move = getNextMove();
-                    if(Move_equalPositions(move, Move_makeMove(from, to))){
-                            if(Move_isOO(move) || Move_isOOO(move)){
-                                    cnt++;
-                            }
-                    }
+        while(hasMoreMoves()) {
+            move = getNextMove();
+            if(Move_equalPositions(move, Move_makeMove(from, to))){
+                if(Move_isOO(move) || Move_isOOO(move)){
+                    cnt++;
+                }
             }
-            return (cnt > 0);
         }
-        return false;
+        return (cnt > 0);
+    }
+    return false;
 }
+
 ////////////////////////////////////////////////////////////////////////////////
 // return the move that is castling from the two provided positions
 ////////////////////////////////////////////////////////////////////////////////
 int ChessBoard::getCastleMove(const int from, const int to){
 	m_indexMoves = 0;
 	int move; 
-	while(hasMoreMoves())
-	{
+	while(hasMoreMoves()) {
 		move = getNextMove();
 		if(Move_equalPositions(move, Move_makeMove(from, to))){
 			if(Move_isOO(move) || Move_isOOO(move)){
@@ -508,24 +380,19 @@ int ChessBoard::getCastleMove(const int from, const int to){
 	}
 	return 0;
 }
+
 ////////////////////////////////////////////////////////////////////////////////
 // iterator over all moves, if valid move, than make the move
 ////////////////////////////////////////////////////////////////////////////////
-boolean ChessBoard::requestMove(const int m, ChessBoard* board, ChessBoard* tmpBoard)
-{
-
+boolean ChessBoard::requestMove(const int m, ChessBoard* board, ChessBoard* tmpBoard) {
 	if(isEnded())
 		return false;
 	m_indexMoves = 0;
 	int move;
-	while(hasMoreMoves())
-	{
+	while(hasMoreMoves()) {
 		move = getNextMove();
-		if(move == m)
-		{
-
+		if(move == m) {
 			makeMove(move, board);
-
 			// requestMove is a definitive move, so calcState can be invoked
 			board->calcState(tmpBoard);
 			return true;
@@ -538,108 +405,57 @@ boolean ChessBoard::requestMove(const int m, ChessBoard* board, ChessBoard* tmpB
 // make move @move, and initialize datastructure of board @ret to the new 
 // position
 ////////////////////////////////////////////////////////////////////////////////
-void ChessBoard::makeMove(const int move, ChessBoard* ret)
-{
+void ChessBoard::makeMove(const int move, ChessBoard* ret) {
 	//ret->reset();
-	
 	const int from = Move_getFrom(move), to = Move_getTo(move);
-        const int pieceFrom = pieceAt(m_turn, from);
+    const int pieceFrom = pieceAt(m_turn, from);
 
-        // BOF COPY
-        memcpy(ret, this, SIZEOF_BOARD);
-        ret->m_bitbAttackMoveSquares = 0L;
-        // EOF COPY
+    // BOF COPY
+    memcpy(ret, this, SIZEOF_BOARD);
+    ret->m_bitbAttackMoveSquares = 0L;
+    // EOF COPY
 
-        // BOF COPY
-        /*
-	ret->m_hashKey = m_hashKey;
-	
-	ret->m_bitbAttackMoveSquares = 0L;
-	
-	ret->m_bitb = m_bitb;
-	ret->m_bitb_45 = m_bitb_45;
-	ret->m_bitb_90 = m_bitb_90;
-	ret->m_bitb_315 = m_bitb_315;
-	
-	for(int i = 0; i < NUM_PIECES; i++)
-	{
-		ret->m_bitbPieces[BLACK][i] = this->m_bitbPieces[BLACK][i];
-		ret->m_bitbPieces[WHITE][i] = this->m_bitbPieces[WHITE][i];
-	}
-	ret->m_bitbPositions[m_turn] = m_bitbPositions[m_turn];
-	ret->m_bitbPositions[m_o_turn] = m_bitbPositions[m_o_turn];
-
-	ret->m_castlings[BLACK] = m_castlings[BLACK];
-	ret->m_castlings[WHITE] = m_castlings[WHITE];
-        */
-	// EOF COPYY
-
-        // if it is a 'first pawn move' set ep square
-        if(Move_isFirstPawnMove(move))
-	{
+    // if it is a 'first pawn move' set ep square
+    if(Move_isFirstPawnMove(move)) {
 		ret->m_ep = to + (m_turn == WHITE ? 8 : -8);
 		//co.pl("Setting EP " + to + " from move " + Move::toDbgString(move));
-	}
-	else
+	} else
 		ret->m_ep = -1;
 
-        // keep count of the board
+    // keep count of the board
 	ret->m_numBoard = m_numBoard+1;
 	
 	if(Move_isCheck(move))
 		ret->m_state = CHECK;
-        else
-            ret->m_state = PLAY; // not the final state, but different to this
-        //
+    else
+        ret->m_state = PLAY; // not the final state, but different to this
 
-        // administration for castling
-	if(pieceFrom == ROOK)
-	{
-		if(COL[from] == ChessBoard::COL_AROOK)
-                {
+    // administration for castling
+	if(pieceFrom == ROOK) {
+		if(COL[from] == ChessBoard::COL_AROOK) {
 			ret->m_castlings[m_turn] = m_castlings[m_turn] | MASK_AROOK;
-                }
-		else if(COL[from] == ChessBoard::COL_HROOK)
-                {
+        } else if(COL[from] == ChessBoard::COL_HROOK) {
 			ret->m_castlings[m_turn] = m_castlings[m_turn] | MASK_HROOK;
-                }
+        }
 	}
-        // administration for king position
-        if(pieceFrom == KING)
-	{
+    // administration for king position
+    if(pieceFrom == KING) {
 		ret->m_castlings[m_turn] = m_castlings[m_turn] | MASK_KING;
 		ret->m_kingPos = m_o_kingPos;
 		ret->m_o_kingPos = to;
-	}
-	else
-	{
+	} else {
 		ret->m_kingPos = m_o_kingPos;
 		ret->m_o_kingPos = m_kingPos;
 	}
-
-	// debug "assertation"
-	//TODO remove (is a result from incorrect administration of m_pieces)
-	// status is fixed, but since final makeMove is not done yet, leave this code
-        /*
-	if((m_bitbPositions[m_turn] & BITS[from]) == 0)
-	{
-		//co.pl("MakeMove pieces = -1 at move " + Move::toDbgString(move));
-		//printB();
-		//System.exit(0);
-	}
-        */
 	
-	if(Move_isHIT(move))
-	{
+	if(Move_isHIT(move)) {
 		ret->m_50RuleCount = 0;
 		ret->m_o_quality = m_quality;
 		
 		// separate handling for en-passant, because the captured piece is not on the to square
-		if(Move_isEP(move))
-		{
+		if(Move_isEP(move)) {
 			ret->m_quality = m_o_quality - ChessBoard::PIECE_VALUES[PAWN];
-			if(m_turn == WHITE)
-			{
+			if(m_turn == WHITE) {
 				ret->m_hashKey ^= HASH_KEY[m_o_turn][PAWN][to+8];
 				ret->m_bitbPositions[m_o_turn] &= NOT_BITS[to+8];
 				ret->m_bitbPieces[m_o_turn][PAWN] &= NOT_BITS[to+8];
@@ -648,9 +464,7 @@ void ChessBoard::makeMove(const int move, ChessBoard* ret)
 				ret->m_bitb_45 &= ~ROT_45_BITS[to+8];
 				ret->m_bitb_90 &= ~ROT_90_BITS[to+8];
 				ret->m_bitb_315 &= ~ROT_315_BITS[to+8];
-			}
-			else
-			{
+			} else {
 				ret->m_hashKey ^= HASH_KEY[m_o_turn][PAWN][to-8];
 				ret->m_bitbPositions[m_o_turn] &= NOT_BITS[to-8];
 				ret->m_bitbPieces[m_o_turn][PAWN]  &= NOT_BITS[to-8];
@@ -660,11 +474,9 @@ void ChessBoard::makeMove(const int move, ChessBoard* ret)
 				ret->m_bitb_90 &= ~ROT_90_BITS[to-8];
 				ret->m_bitb_315 &= ~ROT_315_BITS[to-8];
 			}
-		}
-		else
-		{
+		} else {
 			// normal hit
-                        const int pieceTo = pieceAt(m_o_turn, to);
+            const int pieceTo = pieceAt(m_o_turn, to);
 			ret->m_hashKey ^= HASH_KEY[m_o_turn][pieceTo][to];
 			ret->m_quality = m_o_quality - ChessBoard::PIECE_VALUES[pieceTo];
 			ret->m_bitbPieces[m_o_turn][pieceTo] &= NOT_BITS[to];
@@ -672,9 +484,7 @@ void ChessBoard::makeMove(const int move, ChessBoard* ret)
 			
 			// bitb and rotated bitb's do not have to be changed here
 		}
-	}
-	else // not a hit
-	{
+	} else { // not a hit
 		ret->m_o_quality = m_quality;
 		ret->m_quality = m_o_quality;
 		if((m_bitbPieces[m_turn][PAWN] & BITS[from]) != 0)
@@ -686,7 +496,7 @@ void ChessBoard::makeMove(const int move, ChessBoard* ret)
 	//////////////////////////////////////////////////////////////////////////////////
 	// ? set to, first check for random Fischer castling where king goes to rook square?
 
-        // set to
+    // set to
 
 	ret->m_hashKey ^= HASH_KEY[m_turn][pieceFrom][to];
 	ret->m_bitbPieces[m_turn][pieceFrom] |= BITS[to];
@@ -697,7 +507,7 @@ void ChessBoard::makeMove(const int move, ChessBoard* ret)
 	ret->m_bitb_315 |= ROT_315_BITS[to];
 	//////////////////////////////////////////////////////////////////////////////////
 	// clean up from
-	if(from != to){ // if from == to, when castling in random Fischer it is possible the kings stays
+	if(from != to) { // if from == to, when castling in random Fischer it is possible the kings stays
 		ret->m_hashKey ^= HASH_KEY[m_turn][pieceFrom][from];
 		ret->m_bitbPieces[m_turn][pieceFrom] &= NOT_BITS[from];
 		ret->m_bitbPositions[m_turn] &= NOT_BITS[from];
@@ -709,8 +519,7 @@ void ChessBoard::makeMove(const int move, ChessBoard* ret)
 	}
 	///////////////////////////////////////////////////////////////////////////////////
 	// replace promotion piece
-	if(Move_isPromotionMove(move))
-	{
+	if(Move_isPromotionMove(move)) {
 		ret->m_o_quality += ChessBoard::PIECE_VALUES[Move_getPromotionPiece(move)];
 		ret->m_bitbPieces[m_turn][Move_getPromotionPiece(move)] |= BITS[to];
 		ret->m_bitbPieces[m_turn][PAWN] &= NOT_BITS[to];
@@ -720,11 +529,9 @@ void ChessBoard::makeMove(const int move, ChessBoard* ret)
 	
 	////////////////////////////////////////////////////////////////////////////////////
 	// 'extra' move for short or long castling
-	if(Move_isOO(move))
-	{
-                ret->m_castlings[m_turn] = m_castlings[m_turn] | MASK_CASTLED | MASK_KING;
-		if(m_turn == WHITE)
-		{
+	if(Move_isOO(move)) {
+        ret->m_castlings[m_turn] = m_castlings[m_turn] | MASK_CASTLED | MASK_KING;
+		if(m_turn == WHITE) {
 			int rookFrom = h1;
 			if(ChessBoard::COL_HROOK != 7){ // random Fisher castling
 				rookFrom = from+1;
@@ -736,7 +543,7 @@ void ChessBoard::makeMove(const int move, ChessBoard* ret)
 				// assert rookFrom <= h1
 			}
 			// only move if rook is not already on spot (random fischer)
-			if(rookFrom != f1){
+			if(rookFrom != f1) {
 				ret->m_bitbPositions[m_turn] |= BITS[f1]; // already done that? => no; to = pos of king
 				ret->m_bitbPieces[m_turn][ROOK] |= BITS[f1];
 				ret->m_bitbPieces[m_turn][ROOK] &= NOT_BITS[rookFrom];
@@ -746,7 +553,7 @@ void ChessBoard::makeMove(const int move, ChessBoard* ret)
 				ret->m_bitb_315 |= ROT_315_BITS[f1];
 				
 				// if king is not on this square!
-				if((ret->m_bitbPieces[m_turn][KING] & BITS[rookFrom]) == 0){
+				if((ret->m_bitbPieces[m_turn][KING] & BITS[rookFrom]) == 0) {
 					ret->m_bitbPositions[m_turn] &= NOT_BITS[rookFrom];
 					ret->m_bitb &= NOT_BITS[rookFrom];
 					ret->m_bitb_45 &= ~ROT_45_BITS[rookFrom];
@@ -755,9 +562,7 @@ void ChessBoard::makeMove(const int move, ChessBoard* ret)
 				}
 			}
 			ret->m_hashKey ^= HASH_OO[WHITE];
-		}
-		else
-		{
+		} else {
 			int rookFrom = h8;
 			if(ChessBoard::COL_HROOK != 7){ // random Fisher castling
 				rookFrom = from+1;
@@ -768,6 +573,7 @@ void ChessBoard::makeMove(const int move, ChessBoard* ret)
 				}
 				// assert rookFrom <= h1
 			}
+			
 			// only move if rook is not already on spot
 			if(rookFrom != f8){
 				ret->m_bitbPositions[m_turn] |= BITS[f8];
@@ -790,14 +596,11 @@ void ChessBoard::makeMove(const int move, ChessBoard* ret)
 			}
 			ret->m_hashKey ^= HASH_OO[BLACK];
 		}
-	}
-	else if(Move_isOOO(move))
-	{
+	} else if(Move_isOOO(move)) {
                 ret->m_castlings[m_turn] = m_castlings[m_turn] | MASK_CASTLED | MASK_KING;
-		if(m_turn == WHITE)
-		{
+		if(m_turn == WHITE) {
 			int rookFrom = a1;
-			if(ChessBoard::COL_AROOK != 0){ // random Fisher castling
+			if(ChessBoard::COL_AROOK != 0) { // random Fisher castling
 				rookFrom = from-1;
 				while(rookFrom >= a1){
 					if(COL[rookFrom] == ChessBoard::COL_AROOK)
@@ -807,7 +610,7 @@ void ChessBoard::makeMove(const int move, ChessBoard* ret)
 				// assert rookFrom <= h1
 			}
 			// only move if rook is not already on spot
-			if(rookFrom != d1){
+			if(rookFrom != d1) {
 				ret->m_bitbPositions[m_turn] |= BITS[d1];
 				ret->m_bitbPieces[m_turn][ROOK] |= BITS[d1];
 				ret->m_bitbPieces[m_turn][ROOK] &= NOT_BITS[rookFrom];
@@ -826,13 +629,11 @@ void ChessBoard::makeMove(const int move, ChessBoard* ret)
 				}
 			}
 			ret->m_hashKey ^= HASH_OOO[WHITE];
-		}
-		else
-		{
+		} else {
 			int rookFrom = a8;
-			if(ChessBoard::COL_AROOK != 0){ // random Fisher castling
+			if(ChessBoard::COL_AROOK != 0) { // random Fisher castling
 				rookFrom = from-1;
-				while(rookFrom >= a8){
+				while(rookFrom >= a8) {
 					if(COL[rookFrom] == ChessBoard::COL_AROOK)
 						break;
 					rookFrom--;
@@ -840,7 +641,7 @@ void ChessBoard::makeMove(const int move, ChessBoard* ret)
 				// assert rookFrom <= h1
 			}
 			// only move if rook is not already on spot
-			if(rookFrom != d8){
+			if(rookFrom != d8) {
 				ret->m_bitbPositions[m_turn] |= BITS[d8];
 				ret->m_bitbPieces[m_turn][ROOK] |= BITS[d8];
 				ret->m_bitbPieces[m_turn][ROOK] &= NOT_BITS[rookFrom];
@@ -850,7 +651,7 @@ void ChessBoard::makeMove(const int move, ChessBoard* ret)
 				ret->m_bitb_315 |= ROT_315_BITS[d8];
 				
 				// if king is not on this square!
-				if((ret->m_bitbPieces[m_turn][KING] & BITS[rookFrom]) == 0){
+				if((ret->m_bitbPieces[m_turn][KING] & BITS[rookFrom]) == 0) {
 					ret->m_bitbPositions[m_turn] &= NOT_BITS[rookFrom];
 					ret->m_bitb &= NOT_BITS[rookFrom];
 					ret->m_bitb_45 &= ~ROT_45_BITS[rookFrom];
@@ -861,17 +662,6 @@ void ChessBoard::makeMove(const int move, ChessBoard* ret)
 			ret->m_hashKey ^= HASH_OOO[BLACK];
 		}
 	}
-	
-	/*
-	co.pl("[[[----ps\n" + ret->piecesToString());
-	co.pl("----bb");
-	co.pl(ChessBoard::bitbToString(ret->m_bitb));
-	co.pl("----bbt");
-	co.pl(ChessBoard::bitbToString(ret->m_bitbPositions[m_turn]));
-	co.pl("----bbot");
-	co.pl(ChessBoard::bitbToString(ret->m_bitbPositions[m_o_turn]));
-	co.pl("----]]]");
-	*/
 
 	// finalize
 	ret->m_parent = this;
@@ -891,14 +681,11 @@ void ChessBoard::makeMove(const int move, ChessBoard* ret)
 // returns true when one of the moves in m_arrMoves is a hit, check or 
 // promotion move
 ////////////////////////////////////////////////////////////////////////////////
-boolean ChessBoard::containsQuiescenceMove()
-{
+boolean ChessBoard::containsQuiescenceMove() {
 	int i, move;
-	for(i = 0; i < m_sizeMoves; i++)
-	{
+	for(i = 0; i < m_sizeMoves; i++) {
 		move = m_arrMoves[i];
-		if(Move_isHIT(move) || Move_isCheck(move) || Move_isPromotionMove(move))
-		{
+		if(Move_isHIT(move) || Move_isCheck(move) || Move_isPromotionMove(move)) {
 			return true;
 		}
 	}
@@ -912,51 +699,41 @@ boolean ChessBoard::containsQuiescenceMove()
 // add the moves from position @from to the positions in bitb @bb
 // the attackedsquares bitb is updated
 ////////////////////////////////////////////////////////////////////////////////
-void ChessBoard::addMoves(const int from, BITBOARD bb)
-{
+void ChessBoard::addMoves(const int from, BITBOARD bb) {
 	int to; 
 	//co.pl("addmoves " + from);
 	//co.pl(ChessBoard::bitbToString(bb));
 	
 	m_bitbAttackMoveSquares |= bb;
-	while(bb != 0)
-	{
+	while(bb != 0) {
 		to = ChessBoard::trailingZeros(bb);
 		
 		//co.pl("AddMove from " + from + " to " + to);
 		bb &= NOT_BITS[to];
-		if((m_bitbPositions[m_o_turn] & BITS[to]) != 0)
-		{
-			if((m_bitbPieces[m_o_turn][KING] & BITS[to]) != 0)
-			{
+		if((m_bitbPositions[m_o_turn] & BITS[to]) != 0) {
+			if((m_bitbPieces[m_o_turn][KING] & BITS[to]) != 0) {
 				//co.pl("1 INVALID STATE FROM MOVE -- " + from + " - " + to);
 				return;
-			}
-			else
+			} else
 				addMoveElement(Move_makeMoveHit(from, to));
-		}
-		else
+		} else
 			addMoveElement(Move_makeMove(from, to));
 	}
 }
-void ChessBoard::addKingMove(const int move)
-{
+
+void ChessBoard::addKingMove(const int move) {
 	addMoveElement(move);
 	m_bitbAttackMoveSquares |= BITS[Move_getTo(move)];
 }
 
-void ChessBoard::addPawnCaptureMove(const int move)
-{
+void ChessBoard::addPawnCaptureMove(const int move) {
 	addMoveElement(move);
 	m_bitbAttackMoveSquares |= BITS[Move_getTo(move)];
 }
 
-void ChessBoard::addMove(const int from, const int to)
-{
-	if((m_bitbPositions[m_o_turn] & BITS[to]) != 0)
-	{
-		if((m_bitbPieces[m_o_turn][KING] & BITS[to]) != 0)
-		{
+void ChessBoard::addMove(const int from, const int to) {
+	if((m_bitbPositions[m_o_turn] & BITS[to]) != 0) {
+		if((m_bitbPieces[m_o_turn][KING] & BITS[to]) != 0) {
 			//co.pl("2 INVALID STATE FROM MOVE -- " + from + " - " + to);
 			return;
 		}
@@ -968,15 +745,14 @@ void ChessBoard::addMove(const int from, const int to)
 ////////////////////////////////////////////////////////////////////////////////
 // return the move that lead to this board
 ////////////////////////////////////////////////////////////////////////////////
-int ChessBoard::getMyMove()
-{
+int ChessBoard::getMyMove() {
 	return m_myMove;
 }
+
 ////////////////////////////////////////////////////////////////////////////////
 // generate all moves
 ////////////////////////////////////////////////////////////////////////////////
-void ChessBoard::genMoves()
-{
+void ChessBoard::genMoves() {
 	m_sizeMoves = 0;
 	m_indexMoves = 0;
 	genKnightMoves();
@@ -992,16 +768,14 @@ void ChessBoard::genMoves()
 
 
 ////////////////////////////////////////////////////////////////////////////////
-void ChessBoard::genMovesHouse()
-{
+void ChessBoard::genMovesHouse() {
 	genMoves();
 	// TODO
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
-void ChessBoard::genPawnMoves()
-{
+void ChessBoard::genPawnMoves() {
 	BITBOARD bbPiece = m_bitbPieces[m_turn][PAWN];
 
 	// bbOthers bitb for opponent pieces + en-passant position when available
@@ -1009,25 +783,21 @@ void ChessBoard::genPawnMoves()
 
 	int iPos;
 	
-	if(m_turn == WHITE)
-	{
+	if(m_turn == WHITE) {
 		////////////////////////////////////////////////////////////////////////////////
 		// 1 step forward on free square
 		bbTmp = (bbPiece >> 8) & ~m_bitb;	
-		while(bbTmp != 0)
-		{
+		while(bbTmp != 0) {
 			iPos = trailingZeros(bbTmp);
 			bbTmp &= NOT_BITS[iPos];
 
 			
-			if(iPos <= 7) // promotion
-			{
+			if(iPos <= 7) { // promotion
 				addMoveElement(Move_makeMovePromotion(iPos+8, iPos, QUEEN, false));
 				addMoveElement(Move_makeMovePromotion(iPos+8, iPos, ROOK, false));
 				addMoveElement(Move_makeMovePromotion(iPos+8, iPos, BISHOP, false));
 				addMoveElement(Move_makeMovePromotion(iPos+8, iPos, KNIGHT, false));
-			}
-			else
+			} else
 				addMoveElement(Move_makeMove(iPos+8, iPos));
 		}
 		/////////////////////////////////////////////////////////////////////////////////
@@ -1035,8 +805,7 @@ void ChessBoard::genPawnMoves()
 		bbTmp = ((bbPiece & ROW_BITS[6]) >> 8) & ~m_bitb;
 		bbTmp = (bbTmp >> 8) & ~m_bitb;
 
-		while(bbTmp != 0)
-		{
+		while(bbTmp != 0) {
 			iPos = trailingZeros(bbTmp);
 			bbTmp &= NOT_BITS[iPos];
 
@@ -1048,63 +817,47 @@ void ChessBoard::genPawnMoves()
 		bbTmp = bbPiece & ~FILE_BITS[0];		// to the left 
 		bbTmp = (bbTmp >> 9) & bbOthers;
 
-		while(bbTmp != 0)
-		{
+		while(bbTmp != 0) {
 			iPos = trailingZeros(bbTmp);
 			bbTmp &= NOT_BITS[iPos];
 
-			if(iPos <= 7)
-			{
+			if(iPos <= 7) {
 				addPawnCaptureMove(Move_makeMovePromotion(iPos+9, iPos, QUEEN, true));
 				addPawnCaptureMove(Move_makeMovePromotion(iPos+9, iPos, ROOK, true));
 				addPawnCaptureMove(Move_makeMovePromotion(iPos+9, iPos, BISHOP, true));
 				addPawnCaptureMove(Move_makeMovePromotion(iPos+9, iPos, KNIGHT, true));
-			}
-			else if(iPos == m_ep)
-			{
+			} else if(iPos == m_ep) {
 				addPawnCaptureMove(Move_makeMoveEP(iPos+9, iPos));
-			}
-			else
-			{
+			} else {
 				addPawnCaptureMove(Move_makeMoveHit(iPos+9, iPos));
 			}
 		}
 		bbTmp = bbPiece & ~FILE_BITS[7];		// to the right
 		bbTmp = (bbTmp >> 7) & bbOthers;
 
-		while(bbTmp != 0)
-		{
+		while(bbTmp != 0) {
 			iPos = trailingZeros(bbTmp);
 			bbTmp &= NOT_BITS[iPos];
 
-			if(iPos <= 7)
-			{
+			if(iPos <= 7) {
 				addPawnCaptureMove(Move_makeMovePromotion(iPos+7, iPos, QUEEN, true));
 				addPawnCaptureMove(Move_makeMovePromotion(iPos+7, iPos, ROOK, true));
 				addPawnCaptureMove(Move_makeMovePromotion(iPos+7, iPos, BISHOP, true));
 				addPawnCaptureMove(Move_makeMovePromotion(iPos+7, iPos, KNIGHT, true));
-			}
-			else if(iPos == m_ep)
-			{
+			} else if(iPos == m_ep) {
 				addPawnCaptureMove(Move_makeMoveEP(iPos+7, iPos));
-			}
-			else
-			{
+			} else {
 				addPawnCaptureMove(Move_makeMoveHit(iPos+7, iPos));
 			}
 		}
-	}
-	else // BLACK ////////////////////////////////////////////////////////////////////
-	{
+	} else { // BLACK ////////////////////////////////////////////////////////////////////
 		///////////////////////////////////////////////////////////////////////////////////
 		bbTmp = (bbPiece << 8) & ~m_bitb;
-		while(bbTmp != 0)
-		{
+		while(bbTmp != 0) {
 			iPos = trailingZeros(bbTmp);
 			bbTmp &= NOT_BITS[iPos];
 
-			if(iPos >= 56)
-			{
+			if(iPos >= 56) {
 				addMoveElement(Move_makeMovePromotion(iPos-8, iPos, QUEEN, false));
 				addMoveElement(Move_makeMovePromotion(iPos-8, iPos, ROOK, false));
 				addMoveElement(Move_makeMovePromotion(iPos-8, iPos, BISHOP, false));
@@ -1117,8 +870,7 @@ void ChessBoard::genPawnMoves()
 		bbTmp = ((bbPiece & ROW_BITS[1]) << 8) & ~m_bitb;
 		bbTmp = (bbTmp << 8) & ~m_bitb;
 
-		while(bbTmp != 0)
-		{
+		while(bbTmp != 0) {
 			iPos = trailingZeros(bbTmp);
 			bbTmp &= NOT_BITS[iPos];
 
@@ -1129,24 +881,18 @@ void ChessBoard::genPawnMoves()
 		bbTmp = bbPiece & ~FILE_BITS[7];
 		bbTmp = (bbTmp << 9) & bbOthers;
 
-		while(bbTmp != 0)
-		{
+		while(bbTmp != 0) {
 			iPos = trailingZeros(bbTmp);
 			bbTmp &= NOT_BITS[iPos];
 
-			if(iPos >= 56)
-			{
+			if(iPos >= 56) {
 				addPawnCaptureMove(Move_makeMovePromotion(iPos-9, iPos, QUEEN, true));
 				addPawnCaptureMove(Move_makeMovePromotion(iPos-9, iPos, ROOK, true));
 				addPawnCaptureMove(Move_makeMovePromotion(iPos-9, iPos, BISHOP, true));
 				addPawnCaptureMove(Move_makeMovePromotion(iPos-9, iPos, KNIGHT, true));
-			}
-			else if(iPos == m_ep)
-			{
+			} else if(iPos == m_ep) {
 				addPawnCaptureMove(Move_makeMoveEP(iPos-9, iPos));
-			}
-			else
-			{
+			} else {
 				addPawnCaptureMove(Move_makeMoveHit(iPos-9, iPos));
 			}
 		}
@@ -1154,24 +900,18 @@ void ChessBoard::genPawnMoves()
 		bbTmp = bbPiece & ~FILE_BITS[0];
 		bbTmp = (bbTmp << 7) & bbOthers;
 
-		while(bbTmp != 0)
-		{
+		while(bbTmp != 0) {
 			iPos = trailingZeros(bbTmp);
 			bbTmp &= NOT_BITS[iPos];
 
-			if(iPos >= 56)
-			{
+			if(iPos >= 56) {
 				addPawnCaptureMove(Move_makeMovePromotion(iPos-7, iPos, QUEEN, true));
 				addPawnCaptureMove(Move_makeMovePromotion(iPos-7, iPos, ROOK, true));
 				addPawnCaptureMove(Move_makeMovePromotion(iPos-7, iPos, BISHOP, true));
 				addPawnCaptureMove(Move_makeMovePromotion(iPos-7, iPos, KNIGHT, true));
-			}
-			else if(iPos == m_ep)
-			{
+			} else if(iPos == m_ep) {
 				addPawnCaptureMove(Move_makeMoveEP(iPos-7, iPos));
-			}
-			else
-			{
+			} else {
 				addPawnCaptureMove(Move_makeMoveHit(iPos-7, iPos));
 			}
 		}
@@ -1183,16 +923,14 @@ void ChessBoard::genPawnMoves()
 // method pairs - one returning the bitb of moves, other one for generation
 ////////////////////////////////////////////////////////////////////////////////
 
-BITBOARD ChessBoard::knightMoves(const int turn, const int pos)
-{
+BITBOARD ChessBoard::knightMoves(const int turn, const int pos) {
 	return (~m_bitbPositions[turn]) & ChessBoard::KNIGHT_RANGE[pos];
 }
-void ChessBoard::genKnightMoves()
-{
+
+void ChessBoard::genKnightMoves() {
 	BITBOARD bbPiece = m_bitbPieces[m_turn][KNIGHT];
 	int iPos;
-	while(bbPiece != 0)
-	{
+	while(bbPiece != 0) {
 		iPos = ChessBoard::trailingZeros(bbPiece);
 		bbPiece &= NOT_BITS[iPos];
 		addMoves(iPos, knightMoves(m_turn, iPos));
@@ -1200,21 +938,17 @@ void ChessBoard::genKnightMoves()
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-BITBOARD ChessBoard::rookMoves(const int turn, const int pos)
-{
+BITBOARD ChessBoard::rookMoves(const int turn, const int pos) {
 	//co.pl("90 pos " + pos + " << " + SHIFT_90[pos] + " = " + ((int)(m_bitb_90 >> SHIFT_90[pos]) & 0xFF));
 	return (~m_bitbPositions[turn]) & 
-			(
-			(RANK_MOVES[pos][(int)(m_bitb >> SHIFT_0[pos]) & 0xFF]) |
-			(FILE_MOVES[pos][(int)(m_bitb_90 >> SHIFT_90[pos]) & 0xFF])
-			);
+			((RANK_MOVES[pos][(int)(m_bitb >> SHIFT_0[pos]) & 0xFF]) |
+			(FILE_MOVES[pos][(int)(m_bitb_90 >> SHIFT_90[pos]) & 0xFF]));
 }
-void ChessBoard::genRookMoves()
-{
+
+void ChessBoard::genRookMoves() {
 	BITBOARD bbPiece = m_bitbPieces[m_turn][ROOK];
 	int iPos;
-	while(bbPiece != 0)
-	{
+	while(bbPiece != 0) {
 		iPos = ChessBoard::trailingZeros(bbPiece);
 		bbPiece &= NOT_BITS[iPos];
 		addMoves(iPos, rookMoves(m_turn, iPos));
@@ -1222,22 +956,18 @@ void ChessBoard::genRookMoves()
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-BITBOARD ChessBoard::bishopMoves(const int turn, const int pos)
-{
-//		co.pl("45 pos " + pos + " << " + SHIFT_45[pos] + " mask " + ChessBoard::bits8ToString(MASK_45[pos]) + " on " + ChessBoard::bits8ToString((int)((m_bitb_45 >> SHIFT_45[pos]) & 0xFF)) + " = " + ChessBoard::bits8ToString(((int)(m_bitb_45 >> SHIFT_45[pos]) & MASK_45[pos])));
-//		co.pl("315 pos " + pos + " << " + SHIFT_315[pos]  + " mask " + ChessBoard::bits8ToString(MASK_315[pos]) + " on " + ChessBoard::bits8ToString((int)((m_bitb_315 >> SHIFT_315[pos]) & 0xFF)) + " = " + ChessBoard::bits8ToString(((int)(m_bitb_315 >> SHIFT_315[pos]) & MASK_315[pos])));
+BITBOARD ChessBoard::bishopMoves(const int turn, const int pos) {
+	// co.pl("45 pos " + pos + " << " + SHIFT_45[pos] + " mask " + ChessBoard::bits8ToString(MASK_45[pos]) + " on " + ChessBoard::bits8ToString((int)((m_bitb_45 >> SHIFT_45[pos]) & 0xFF)) + " = " + ChessBoard::bits8ToString(((int)(m_bitb_45 >> SHIFT_45[pos]) & MASK_45[pos])));
+	// co.pl("315 pos " + pos + " << " + SHIFT_315[pos]  + " mask " + ChessBoard::bits8ToString(MASK_315[pos]) + " on " + ChessBoard::bits8ToString((int)((m_bitb_315 >> SHIFT_315[pos]) & 0xFF)) + " = " + ChessBoard::bits8ToString(((int)(m_bitb_315 >> SHIFT_315[pos]) & MASK_315[pos])));
 	return (~m_bitbPositions[turn]) & 
-			(
-			(DIAG_45_MOVES[pos][(int)(m_bitb_45 >> SHIFT_45[pos]) & MASK_45[pos]]) | 
-			(DIAG_315_MOVES[pos][(int)(m_bitb_315 >> SHIFT_315[pos]) & MASK_315[pos]])
-			);
+			((DIAG_45_MOVES[pos][(int)(m_bitb_45 >> SHIFT_45[pos]) & MASK_45[pos]]) | 
+			(DIAG_315_MOVES[pos][(int)(m_bitb_315 >> SHIFT_315[pos]) & MASK_315[pos]]));
 }
-void ChessBoard::genBishopMoves()
-{
+
+void ChessBoard::genBishopMoves() {
 	BITBOARD bbPiece = m_bitbPieces[m_turn][BISHOP];
 	int iPos;
-	while(bbPiece != 0)
-	{
+	while(bbPiece != 0) {
 		iPos = ChessBoard::trailingZeros(bbPiece);
 		bbPiece &= NOT_BITS[iPos];
 		addMoves(iPos, bishopMoves(m_turn, iPos));
@@ -1245,16 +975,14 @@ void ChessBoard::genBishopMoves()
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-BITBOARD ChessBoard::queenMoves(const int turn, const int pos)
-{
+BITBOARD ChessBoard::queenMoves(const int turn, const int pos) {
 	return rookMoves(turn, pos) | bishopMoves(turn, pos);
 }
-void ChessBoard::genQueenMoves()
-{
+
+void ChessBoard::genQueenMoves() {
 	BITBOARD bbPiece = m_bitbPieces[m_turn][QUEEN];
 	int iPos;
-	while(bbPiece != 0)
-	{
+	while(bbPiece != 0) {
 		iPos = ChessBoard::trailingZeros(bbPiece);
 		bbPiece &= NOT_BITS[iPos];
 		addMoves(iPos, queenMoves(m_turn, iPos));
@@ -1262,15 +990,14 @@ void ChessBoard::genQueenMoves()
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-BITBOARD ChessBoard::kingMoves(const int turn, const int pos)
-{
+BITBOARD ChessBoard::kingMoves(const int turn, const int pos) {
 	return (~m_bitbPositions[turn]) & KING_RANGE[pos];
 }
+
 ////////////////////////////////////////////////////////////////////////////////
 // no while(bb) - only 1 king
 ////////////////////////////////////////////////////////////////////////////////
-void ChessBoard::genKingMoves()
-{
+void ChessBoard::genKingMoves() {
 	const int pos = trailingZeros(m_bitbPieces[m_turn][KING]);
 	addMoves(pos, kingMoves(m_turn, pos));
 	genExtraKingMoves(pos);
@@ -1279,45 +1006,35 @@ void ChessBoard::genKingMoves()
 ////////////////////////////////////////////////////////////////////////////////
 // generate castlings, when they are available
 // TODO can isSquareAttacked be replaced by attacked bits of parent board?
-void ChessBoard::genExtraKingMoves(const int pos)
-{
-	if(m_turn == WHITE)
-	{
-		if(hasOO(m_turn) &&
-				!isSquareAttacked(m_turn, pos) && 
-				!isSquareAttacked(m_turn, f1) && 
-				!isSquareAttacked(m_turn, g1))
-		{
+void ChessBoard::genExtraKingMoves(const int pos) {
+	if(m_turn == WHITE) {
+		if(hasOO(m_turn) && !isSquareAttacked(m_turn, pos) && 
+		  !isSquareAttacked(m_turn, f1) && !isSquareAttacked(m_turn, g1)) {
 			// default starting position of rook and king, default chess rules apply
-			if(pos == e1 && ChessBoard::COL_HROOK == 7)
-			{
+			if(pos == e1 && ChessBoard::COL_HROOK == 7) {
 				//String s = printB();
 				if(isPosFree(f1) && isPosFree(g1) && 
-					 (m_bitbPieces[WHITE][ROOK] & BITS[h1]) != 0)
-				{
+					 (m_bitbPieces[WHITE][ROOK] & BITS[h1]) != 0) {
 					addKingMove(Move_makeMoveOO(pos, g1));
 				}
-			}
-			else // random Fischer chess
-			{
+			} else { // random Fischer chess
 				// start looking from the king to the rook; to the right for short castle
 				int posRook = pos+1;
-				while(posRook <= h1 && isPosFree(posRook) && !isSquareAttacked(m_turn, posRook)){
+				while(posRook <= h1 && isPosFree(posRook) && !isSquareAttacked(m_turn, posRook)) {
 					posRook++;
 				}
-				if(posRook <= h1){ // the rook is to the right of the king
+				if(posRook <= h1) { // the rook is to the right of the king
 					// check if we found the rook and if it's on its original rank
 					if(COL[posRook] == ChessBoard::COL_HROOK && (m_bitbPieces[WHITE][ROOK] & BITS[posRook]) != 0){
 						// can we castle
 						if(isPosFree(f1) && isPosFree(g1) ||    // both squares free
-                                                    posRook == f1 && isPosFree(g1) ||   // rook allready on f1, g1 free
-                                                    posRook == g1 && pos == f1 ||       // swap places
-                                                    posRook == g1 && isPosFree(f1) ||   // rook in place of king
+                            posRook == f1 && isPosFree(g1) ||   // rook allready on f1, g1 free
+                            posRook == g1 && pos == f1 ||       // swap places
+                            posRook == g1 && isPosFree(f1) ||   // rook in place of king
 						    pos == g1 && isPosFree(f1) ||       // king allready on g1, f1 free
-						    pos == f1 && isPosFree(g1)          // king on f1 and g1 free
-						   )
-						{
-                                                    //DEBUG_PRINT
+						    pos == f1 && isPosFree(g1)) {      // king on f1 and g1 free
+						    
+                            //DEBUG_PRINT
 							addKingMove(Move_makeMoveOO(pos, g1));
 						}
 					}
@@ -1327,18 +1044,13 @@ void ChessBoard::genExtraKingMoves(const int pos)
 		if(hasOOO(m_turn) && 
 				!isSquareAttacked(m_turn, pos) && 
 				!isSquareAttacked(m_turn, d1) && 
-				!isSquareAttacked(m_turn, c1))
-		{
+				!isSquareAttacked(m_turn, c1)) {
 			// default starting position of rook and king, default chess rules apply
-			if(pos == e1 && ChessBoard::COL_AROOK == 0)
-			{
-				if(isPosFree(d1) && isPosFree(c1) && isPosFree(b1) && (m_bitbPieces[WHITE][ROOK] & BITS[a1]) != 0)
-				{
+			if(pos == e1 && ChessBoard::COL_AROOK == 0) {
+				if(isPosFree(d1) && isPosFree(c1) && isPosFree(b1) && (m_bitbPieces[WHITE][ROOK] & BITS[a1]) != 0) {
 					addKingMove(Move_makeMoveOOO(pos, c1));
 				}
-			}
-			else // random Fischer chess
-			{
+			} else { // random Fischer chess
 				// start looking from the king to the rook
 				int posRook = pos-1;
 				while(posRook >= a1 && isPosFree(posRook) && !isSquareAttacked(m_turn, posRook)){
@@ -1362,24 +1074,17 @@ void ChessBoard::genExtraKingMoves(const int pos)
 				}
 			}
 		}
-	}
-	else
-	{
+	} else {
 		if(hasOO(m_turn) && 
 				!isSquareAttacked(m_turn, pos)  && 
 				!isSquareAttacked(m_turn, f8) && 
-				!isSquareAttacked(m_turn, g8))
-		{
+				!isSquareAttacked(m_turn, g8)) {
 			// default starting position of rook and king, default chess rules apply
-			if(pos == e8 && ChessBoard::COL_HROOK == 7)
-			{
-				 if(isPosFree(f8) && isPosFree(g8) && (m_bitbPieces[BLACK][ROOK] & BITS[h8]) != 0)
-				 {
+			if(pos == e8 && ChessBoard::COL_HROOK == 7) {
+				 if(isPosFree(f8) && isPosFree(g8) && (m_bitbPieces[BLACK][ROOK] & BITS[h8]) != 0) {
 					 addKingMove(Move_makeMoveOO(pos, g8));
 				 }
-			}
-			else if(ChessBoard::COL_HROOK != 5)// random Fischer chess
-			{
+			} else if(ChessBoard::COL_HROOK != 5) { // random Fischer chess
 				// start looking from the king to the rook
 				int posRook = pos+1;
 				while(posRook <= h8 && isPosFree(posRook) && !isSquareAttacked(m_turn, posRook)){
@@ -1395,28 +1100,24 @@ void ChessBoard::genExtraKingMoves(const int pos)
                                                     posRook == g8 && isPosFree(f8) ||   // rook in place of king
 						    pos == g8 && isPosFree(f8) ||
 						    pos == f8 && isPosFree(g8)
-						   )
-						{
+						   ) {
 							addKingMove(Move_makeMoveOO(pos, g8));
 						}
 					}
 				}
 			}
 		}
+		
 		if(hasOOO(m_turn) && 
 				 !isSquareAttacked(m_turn, pos)  && 
 				 !isSquareAttacked(m_turn, d8) && 
-				 !isSquareAttacked(m_turn, c8))
-		{
+				 !isSquareAttacked(m_turn, c8)) {
 			// default starting position of rook and king, default chess rules apply
 			if(pos == e8 && ChessBoard::COL_AROOK == 0){
-				 if(isPosFree(d8) && isPosFree(c8) && isPosFree(b8) && (m_bitbPieces[BLACK][ROOK] & BITS[a8]) != 0)
-				 {
+				 if(isPosFree(d8) && isPosFree(c8) && isPosFree(b8) && (m_bitbPieces[BLACK][ROOK] & BITS[a8]) != 0) {
 					 addKingMove(Move_makeMoveOOO(pos, c8));
 				 }
-			}
-			else // random Fischer chess
-			{
+			} else { // random Fischer chess
 				// start looking from the king to the rook
 				int posRook = pos-1;
 				while(posRook >= a8 && isPosFree(posRook) && !isSquareAttacked(m_turn, posRook)){
@@ -1432,8 +1133,7 @@ void ChessBoard::genExtraKingMoves(const int pos)
                                                         pos == c8 && isPosFree(d8) ||
                                                         pos == d8 && isPosFree(c8) ||
                                                         posRook == c8 && isPosFree(d8)
-						   )
-						{
+						   ) {
 							addKingMove(Move_makeMoveOOO(pos, c8));
 						}
 					}
@@ -1447,27 +1147,21 @@ void ChessBoard::genExtraKingMoves(const int pos)
 ////////////////////////////////////////////////////////////////////////////////
 // reset the move index, moves are allready generated
 ////////////////////////////////////////////////////////////////////////////////
-void ChessBoard::getMoves()
-{
+void ChessBoard::getMoves() {
 	m_indexMoves = 0;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // sort generated moves
 ////////////////////////////////////////////////////////////////////////////////
-void ChessBoard::getScoredMoves()
-{
+void ChessBoard::getScoredMoves() {
 	int i, j, tmp, tmpMove, from, to, piece;
-	for(i = 0; i < m_sizeMoves; i++)
-	{
+	for(i = 0; i < m_sizeMoves; i++) {
 		m_arrScoreMoves[i] = scoreMove(m_arrMoves[i]);
 	}
-	for(i = 0; i < m_sizeMoves - 1; i++)
-	{
-		for(j = 0; j < m_sizeMoves - 1 - i; j++)
-		{
-			if(m_arrScoreMoves[j+1] > m_arrScoreMoves[j])
-			{
+	for(i = 0; i < m_sizeMoves - 1; i++) {
+		for(j = 0; j < m_sizeMoves - 1 - i; j++) {
+			if(m_arrScoreMoves[j+1] > m_arrScoreMoves[j]) {
 				tmp = m_arrScoreMoves[j];
 				m_arrScoreMoves[j] = m_arrScoreMoves[j+1];
 				m_arrScoreMoves[j+1] = tmp;
@@ -1481,18 +1175,16 @@ void ChessBoard::getScoredMoves()
 	
 	m_indexMoves = 0;
 }
-void ChessBoard::scoreMoves()
-{
-	for(int i = 0; i < m_sizeMoves; i++)
-	{
+
+void ChessBoard::scoreMoves() {
+	for(int i = 0; i < m_sizeMoves; i++) {
 		m_arrScoreMoves[i] = scoreMove(m_arrMoves[i]);
 	}
 	m_indexMoves = 0;
 }
-void ChessBoard::scoreMovesPV(const int move)
-{
-        for(int i = 0; i < m_sizeMoves; i++)
-	{
+
+void ChessBoard::scoreMovesPV(const int move) {
+        for(int i = 0; i < m_sizeMoves; i++) {
             if(m_arrMoves[i] == move)
                 m_arrScoreMoves[i] = 100000;
             else
@@ -1500,14 +1192,14 @@ void ChessBoard::scoreMovesPV(const int move)
 	}
 	m_indexMoves = 0;
 }
-void ChessBoard::setMyMoveCheck()
-{
+
+void ChessBoard::setMyMoveCheck() {
 	m_myMove = Move_setCheck(m_myMove);
 }
+
 // lazy sorting the m_arrMoves, on each call get the best scored move and put on 
 // m_indexMoves and return. advance m_indexMoves
-int ChessBoard::getNextScoredMove()
-{
+int ChessBoard::getNextScoredMove() {
 	int bestScore = -1, bestIndex = 0;
 	for(int i = m_indexMoves; i < m_sizeMoves; i++){
 		if(m_arrScoreMoves[i] > bestScore){
@@ -1529,11 +1221,9 @@ int ChessBoard::getNextScoredMove()
 ////////////////////////////////////////////////////////////////////////////////
 // sort generated moves with extra score for transposition and killer moves
 ////////////////////////////////////////////////////////////////////////////////
-void ChessBoard::getScoredMovesTT(const int ttMove, const int killerMove, const int killerMove2)
-{
+void ChessBoard::getScoredMovesTT(const int ttMove, const int killerMove, const int killerMove2) {
 	int i, j, tmp, tmpMove;
-	for(i = 0; i < m_sizeMoves; i++)
-	{
+	for(i = 0; i < m_sizeMoves; i++) {
 		if(m_arrMoves[i] == ttMove)
 			m_arrScoreMoves[i] = 2000;
 		else if(m_arrMoves[i] == killerMove || m_arrMoves[i] == killerMove2)
@@ -1543,12 +1233,10 @@ void ChessBoard::getScoredMovesTT(const int ttMove, const int killerMove, const 
 			m_arrScoreMoves[i] = scoreMove(m_arrMoves[i]);
 		}
 	}
-	for(i = 0; i < m_sizeMoves - 1; i++)
-	{
-		for(j = 0; j < m_sizeMoves - 1 - i; j++)
-		{
-			if(m_arrScoreMoves[j+1] > m_arrScoreMoves[j])
-			{
+	
+	for(i = 0; i < m_sizeMoves - 1; i++) {
+		for(j = 0; j < m_sizeMoves - 1 - i; j++) {
+			if(m_arrScoreMoves[j+1] > m_arrScoreMoves[j]) {
 				tmp = m_arrScoreMoves[j];
 				m_arrScoreMoves[j] = m_arrScoreMoves[j+1];
 				m_arrScoreMoves[j+1] = tmp;
@@ -1566,33 +1254,32 @@ void ChessBoard::getScoredMovesTT(const int ttMove, const int killerMove, const 
 ////////////////////////////////////////////////////////////////////////////////
 // basic move score 
 ////////////////////////////////////////////////////////////////////////////////
-int ChessBoard::scoreMove(int move)
-{
+int ChessBoard::scoreMove(int move) {
 	const int from = Move_getFrom(move), to = Move_getTo(move);
 	const int piece = pieceAt(m_turn, from);
 	
-	if(Move_isHIT(move))
-	{
+	if(Move_isHIT(move)) {
 		if(Move_isEP(move))
 			return 30000;
 		return 30000 + ChessBoard::PIECE_VALUES[pieceAt(m_o_turn, to)] - ChessBoard::PIECE_VALUES[piece];
 	}
+	
 	// we don't know if a move is check!
-	if(/*Move_isCheck(move) || */Move_isPromotionMove(move))
-	{
+	if(/*Move_isCheck(move) || */Move_isPromotionMove(move)) {
 		return 25000;
 	}
 	
-	if(piece == KING)
-	{
+	if(piece == KING) {
 		if(m_o_quality == 0)
 			return 20000;
 		return 0;
 	}
+	
 	if(piece == KNIGHT)
 		return 2000 + (HOOK_DISTANCE[from][d5] - HOOK_DISTANCE[to][e4]);
 	if(piece == PAWN)
 		return 1900 + ROW_TURN[m_turn][to] + (HOOK_DISTANCE[from][d5] - HOOK_DISTANCE[to][e4]);
+	
 	return 1000 + ROW_TURN[m_turn][to];
 }
 
@@ -1600,13 +1287,11 @@ int ChessBoard::scoreMove(int move)
 ////////////////////////////////////////////////////////////////////////////////
 // returns comma seperated per 5 moves new-lined string of pgn moves.
 ////////////////////////////////////////////////////////////////////////////////
-void ChessBoard::getPGNMoves(ChessBoard* board, char *sz)
-{
+void ChessBoard::getPGNMoves(ChessBoard* board, char *sz) {
 	strcpy(sz, "");
 	int move, i = 0; char tmp[20] = ""; ChessBoard* tmpBoard = new ChessBoard();
 	m_indexMoves = 0;
-	while(hasMoreMoves())
-	{
+	while(hasMoreMoves()) {
 		move = getNextMove();
 		makeMove(move, board);
 		board->calcState(tmpBoard);
@@ -1620,39 +1305,12 @@ void ChessBoard::getPGNMoves(ChessBoard* board, char *sz)
 	delete tmpBoard;
 }
 
-// returns the history of moves in pgn format
-/*
-String ChessBoard::getHistoryDebug()
-{
-	ChessBoard* tmpBoard;
-	String sz = ""; 
-	tmpBoard = this;
-	while(tmpBoard != NULL)
-	{
-		sz = Move::toDbgString(tmpBoard->m_myMove) + " " + sz;
-		tmpBoard = tmpBoard->m_parent;
-	}		
-	return sz;
-}
-*/
-
 ////////////////////////////////////////////////////////////////////////////////
 // BASIC evaluation function
 // returns the value of the board, called from search method to compare board 
 // values
 ////////////////////////////////////////////////////////////////////////////////
-int ChessBoard::boardValue()
-{
-	// no state!
-	/*
-	if(m_state == ChessBoard::MATE)
-		return -ChessBoard::VALUATION_MATE;
-	if(m_state == ChessBoard::DRAW_MATERIAL || m_state == ChessBoard::DRAW_50)
-		return ChessBoard::VALUATION_DRAW;
-	if(m_state == ChessBoard::DRAW_REPEAT)
-		return ChessBoard::VALUATION_DRAW_REPEAT;
-	*/
-	// standard super simple evaluation. sum of material quality
+int ChessBoard::boardValue() {
 	return m_quality - m_o_quality;
 }
 
@@ -1660,29 +1318,24 @@ int ChessBoard::boardValue()
 // boardValue will call this method when one of the players only has its king 
 // on the board and no pawns
 ////////////////////////////////////////////////////////////////////////////////
-int ChessBoard::loneKingValue(const int turn)
-{
-	if(turn == m_turn){
+int ChessBoard::loneKingValue(const int turn) {
+	if(turn == m_turn) {
 		return ChessBoard::VALUATION_LONE_KING_BONUS - ChessBoard::VALUATION_LONE_KING * HOOK_DISTANCE[m_kingPos][m_o_kingPos] - ChessBoard::VALUATION_KING_ENDINGS[m_o_kingPos] + m_quality;
-        }
+    }
 	return ChessBoard::VALUATION_LONE_KING_BONUS - ChessBoard::VALUATION_LONE_KING * HOOK_DISTANCE[m_o_kingPos][m_kingPos] - ChessBoard::VALUATION_KING_ENDINGS[m_kingPos] + m_o_quality;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // return "value" of king bishop knight against lone king
 ////////////////////////////////////////////////////////////////////////////////
-int ChessBoard::kbnkValue(const int turn)
-{
+int ChessBoard::kbnkValue(const int turn) {
 	int winnerKingPos, loserKingPos, value = 0;
-	if(m_turn == turn)
-	{
+	if(m_turn == turn) {
 		winnerKingPos = m_kingPos;
 		loserKingPos = m_o_kingPos;
 		if((m_bitbPieces[m_turn][KING] & ChessBoard::CENTER_4x4_SQUARES) != 0)
 			value = 20;
-	}
-	else
-	{
+	} else {
 		winnerKingPos = m_o_kingPos;
 		loserKingPos = m_kingPos;
 		if((m_bitbPieces[m_o_turn][KING] & ChessBoard::CENTER_4x4_SQUARES) != 0)
@@ -1700,28 +1353,24 @@ int ChessBoard::kbnkValue(const int turn)
 ////////////////////////////////////////////////////////////////////////////////
 // evaluation to promote promoting...
 ////////////////////////////////////////////////////////////////////////////////
-int ChessBoard::promotePawns(const int turn)
-{
+int ChessBoard::promotePawns(const int turn) {
 	int value = 0;
 	BITBOARD bb = m_bitbPieces[turn][PAWN];
 	int pos;
-	if(m_turn == turn)
-	{
+	if(m_turn == turn) {
 		value += (15 - HOOK_DISTANCE[m_kingPos][m_o_kingPos]);
 		value += ROW_TURN[turn][m_kingPos];
-	}
-	else
-	{
+	} else {
 		value += (15 - HOOK_DISTANCE[m_kingPos][m_o_kingPos]);
 		value += ROW_TURN[turn][m_o_kingPos];
 	}
 	 
-	while(bb != 0)
-	{
+	while(bb != 0) {
 		pos = ChessBoard::trailingZeros(bb);
 		bb &= NOT_BITS[pos];
 		value += 10 * ROW_TURN[turn][pos];
 	}
+	
 	return value;
 }
 
@@ -1729,34 +1378,11 @@ int ChessBoard::promotePawns(const int turn)
 // Extended evaluation function
 // 
 ////////////////////////////////////////////////////////////////////////////////
-int ChessBoard::boardValueExtension()
-{
-	// no m_state
-	/*
-	if(m_state == ChessBoard::MATE)
-		return -ChessBoard::VALUATION_MATE;
-	if(m_state == ChessBoard::DRAW_MATERIAL || m_state == ChessBoard::DRAW_50)
-		return ChessBoard::VALUATION_DRAW;
-	if(m_state == ChessBoard::DRAW_REPEAT)
-	{
-		// penalty when better or equal quality
-		if(m_quality >= m_o_quality)
-			return ChessBoard::VALUATION_DRAW_REPEAT;
-		return ChessBoard::VALUATION_DRAW;
-	}
-	*/
-
-        /*
-	if(m_parent == NULL)
-            return 0;
-	//co.pl("boardValue called with NULL parent!!!");
-	*/
+int ChessBoard::boardValueExtension() {
 	// lone king
-	if(m_quality == 0)
-	{
+	if(m_quality == 0) {
 		// no pawns to promote but enough mating material (m_state != DRAW_MATERIAL)
-		if(m_bitbPieces[m_o_turn][PAWN] == 0)
-		{
+		if(m_bitbPieces[m_o_turn][PAWN] == 0) {
 			// kbnk is special case
 			if((m_o_quality == ChessBoard::PIECE_VALUES[KNIGHT] + ChessBoard::PIECE_VALUES[BISHOP]) && ChessBoard::bitCount(m_bitbPieces[m_o_turn][KNIGHT]) == 1 && ChessBoard::bitCount(m_bitbPieces[m_o_turn][BISHOP]) == 1)
 				return -kbnkValue(m_o_turn);
@@ -1764,38 +1390,19 @@ int ChessBoard::boardValueExtension()
 		}
 		// promote pawns
 		return -promotePawns(m_o_turn);
-	} // opponent has lone king
-	else if(m_o_quality == 0)
-	{
-		if(m_bitbPieces[m_turn][PAWN] == 0)
-		{
+	} else if(m_o_quality == 0) { // opponent has lone king
+		if(m_bitbPieces[m_turn][PAWN] == 0) {
 			if((m_quality == ChessBoard::PIECE_VALUES[KNIGHT] + ChessBoard::PIECE_VALUES[BISHOP]) && ChessBoard::bitCount(m_bitbPieces[m_turn][KNIGHT]) == 1 && ChessBoard::bitCount(m_bitbPieces[m_turn][BISHOP]) == 1)
 				return kbnkValue(m_turn);
 			return loneKingValue(m_turn);
 		}
 		return promotePawns(m_turn);
 	}
-	// TODO some known end-game evaluations (kqkq, kqkr, krkn, krkb...)
 
 
-        // always start with
+    // always start with
 	// standard basic evaluation. sum of material quality
 	int val = m_quality - m_o_quality;
-
-        /*
-	// center and king squares attacked
-        
-	val += ChessBoard::bitCount(m_bitbAttackMoveSquares & (ChessBoard::CENTER_SQUARES | KING_RANGE[m_o_kingPos])) * 2;
-	val -= ChessBoard::bitCount(m_parent->m_bitbAttackMoveSquares & (ChessBoard::CENTER_SQUARES | KING_RANGE[m_kingPos])) * 2;
-	
-	// attacked square count
-	val += ChessBoard::bitCount(m_bitbAttackMoveSquares);
-	val -= ChessBoard::bitCount(m_parent->m_bitbAttackMoveSquares);
-	
-	// attacked pieces
-	val += ChessBoard::bitCount(m_bitbAttackMoveSquares & m_bitbPositions[m_o_turn]);
-	val -= ChessBoard::bitCount(m_parent->m_bitbAttackMoveSquares & m_bitbPositions[m_turn]);
-        */
 	
 	val += pawnValueExtension(m_turn);
 	val -= pawnValueExtension(m_o_turn);
@@ -1822,34 +1429,30 @@ int ChessBoard::boardValueExtension()
 //
 // penalty for early queen move
 ////////////////////////////////////////////////////////////////////////////////
-int ChessBoard::queenValueExtension(const int turn)
-{
+int ChessBoard::queenValueExtension(const int turn) {
      BITBOARD bbPiece = m_bitbPieces[turn][QUEEN];
-	if(bbPiece != 0)
-	{
-            // TODO this assumes a default game and other pieces
-            if(m_numBoard < 12){
-		const BITBOARD bbRows = ROW_BITS[ROW_TURN[turn][0]];
-		if((bbRows & bbPiece) == 0) // Queen not on first row
-			return VALUATION_EARLY_QUEEN;
-            } else {
-                
-                int iPos; int val = 0;
-                while(bbPiece != 0) {
-                    iPos = ChessBoard::trailingZeros(bbPiece);
-                    bbPiece &= NOT_BITS[iPos];
-
-                    val += ChessBoard::bitCount(rookMoves(turn, iPos)) * VALUATION_ROOK_MOBILITY;
-                    val += ChessBoard::bitCount(bishopMoves(turn, iPos)) * VALUATION_BISHOP_MOBILITY;
-                }
-                return val;
+	if(bbPiece != 0) {
+        // TODO this assumes a default game and other pieces
+        if(m_numBoard < 12) {
+			const BITBOARD bbRows = ROW_BITS[ROW_TURN[turn][0]];
+			if((bbRows & bbPiece) == 0) // Queen not on first row
+				return VALUATION_EARLY_QUEEN;
+	   	} else {
+	                
+            int iPos; int val = 0;
+            while(bbPiece != 0) {
+                iPos = ChessBoard::trailingZeros(bbPiece);
+                bbPiece &= NOT_BITS[iPos];
+                val += ChessBoard::bitCount(rookMoves(turn, iPos)) * VALUATION_ROOK_MOBILITY;
+                val += ChessBoard::bitCount(bishopMoves(turn, iPos)) * VALUATION_BISHOP_MOBILITY;
             }
+	       	return val;
+        }
 	}
 	return 0;
 }
 
-int ChessBoard::kingValueExtension(const int turn)
-{
+int ChessBoard::kingValueExtension(const int turn) {
     int val;
     if(m_castlings[turn] & MASK_CASTLED){
         val = VALUATION_CASTLED;
@@ -1860,14 +1463,14 @@ int ChessBoard::kingValueExtension(const int turn)
             val = VALUATION_CASTLING_NOT_POSSIBLE;
     }
     //m_bitbPieces[turn][KING]
-    if(turn == m_turn){
+    if(turn == m_turn) {
         return (ChessBoard::bitCount(KING_RANGE[m_kingPos] & m_bitbPieces[turn][PAWN]) * VALUATION_PAWN_IN_KING_RANGE) + val;
     }
     return (ChessBoard::bitCount(KING_RANGE[m_o_kingPos] & m_bitbPieces[turn][PAWN]) * VALUATION_PAWN_IN_KING_RANGE) + val;
 }
-int ChessBoard::knightValueExtension(const int turn)
-{
-    ///
+
+int ChessBoard::knightValueExtension(const int turn) {
+    //
     BITBOARD bbPiece = m_bitbPieces[turn][KNIGHT];
     int iPos; int val = ChessBoard::bitCount(m_bitbPieces[turn][KNIGHT] & CENTER_4x4_SQUARES) * VALUATION_KNIGHT_CENTER;
     while(bbPiece != 0) {
@@ -1878,14 +1481,11 @@ int ChessBoard::knightValueExtension(const int turn)
     }
     return val;
 }
-int ChessBoard::rookValueExtension(const int turn)
-{
+
+int ChessBoard::rookValueExtension(const int turn) {
     const BITBOARD bbRooks = m_bitbPieces[turn][ROOK];
     BITBOARD bbPiece = bbRooks;
     int iPos; int val = 0, col = -1, row = -1;
-
-    /*
-      */
 
     while(bbPiece != 0) {
         iPos = ChessBoard::trailingZeros(bbPiece);
@@ -1893,7 +1493,7 @@ int ChessBoard::rookValueExtension(const int turn)
 
         val += ChessBoard::bitCount(rookMoves(turn, iPos)) * VALUATION_ROOK_MOBILITY;
 
-        if(row == -1){
+        if(row == -1) {
             row = Pos::row(iPos);
             col = Pos::col(iPos);
         } else {
@@ -1921,11 +1521,10 @@ int ChessBoard::rookValueExtension(const int turn)
 // different valuation for single bishop
 // penalty for the number of colored squares that are occupied by own pawns
 //
-int ChessBoard::bishopValueExtension(const int turn)
-{
+int ChessBoard::bishopValueExtension(const int turn) {
     BITBOARD bbPiece = m_bitbPieces[turn][BISHOP];
     int iPos; int val = 0; 
-    if(bbPiece > 0){
+    if(bbPiece > 0) {
         if(ChessBoard::bitCount(bbPiece) == 1){
             iPos = ChessBoard::trailingZeros(bbPiece);
 
@@ -1949,8 +1548,8 @@ int ChessBoard::bishopValueExtension(const int turn)
     }
     return val;
 }
-int ChessBoard::pawnValueExtension(const int turn)
-{
+
+int ChessBoard::pawnValueExtension(const int turn) {
     int val = 0;
     const BITBOARD bbPawn = m_bitbPieces[turn][PAWN];
     const BITBOARD bbPawnOpp = m_bitbPieces[turn^1][PAWN];
@@ -1967,40 +1566,40 @@ int ChessBoard::pawnValueExtension(const int turn)
     //
 
     int iPos;
-    while(bbPiece != 0)
-    {
-            iPos = ChessBoard::trailingZeros(bbPiece);
-            bbPiece &= NOT_BITS[iPos];
+    while(bbPiece != 0) {
+        iPos = ChessBoard::trailingZeros(bbPiece);
+        bbPiece &= NOT_BITS[iPos];
 
-            val += ROW_TURN[turn][iPos] * VALUATION_PAWN_ROW; // advance pawn
+        val += ROW_TURN[turn][iPos] * VALUATION_PAWN_ROW; // advance pawn
 
-            if(PASSED_PAWN_MASK[turn][iPos] & bbPawn)
-                val += VALUATION_PAWN_FILE_NEIGHBOUR; // neighbours on files
+        if(PASSED_PAWN_MASK[turn][iPos] & bbPawn)
+            val += VALUATION_PAWN_FILE_NEIGHBOUR; // neighbours on files
 
-            if(PAWN_RANGE[turn][iPos] & bbPawn)
-                val += VALUATION_PAWN_CONNECTED; // covering neighbours
+        if(PAWN_RANGE[turn][iPos] & bbPawn)
+            val += VALUATION_PAWN_CONNECTED; // covering neighbours
 
-            if(FILE_BITS[COL[iPos]] & (bbPawn & NOT_BITS[iPos])) 
-                val += VALUATION_PAWN_DOUBLED; // doubled pawn
-            
-            if((PASSED_PAWN_MASK[turn][iPos] & bbPawnOpp) == 0) // passed pawn
-                val += VALUATION_PAWN_PASSED;
+        if(FILE_BITS[COL[iPos]] & (bbPawn & NOT_BITS[iPos])) 
+            val += VALUATION_PAWN_DOUBLED; // doubled pawn
+        
+        if((PASSED_PAWN_MASK[turn][iPos] & bbPawnOpp) == 0) // passed pawn
+            val += VALUATION_PAWN_PASSED;
             
     }
     //
     return val;
 }
+
 ////////////////////////////////////////////////////////////////////////////////
 // used in random fischer setup to check if colNum is available column
 ////////////////////////////////////////////////////////////////////////////////
-int ChessBoard::getAvailableCol(int colNum){
+int ChessBoard::getAvailableCol(int colNum) {
 	int col = 0, i = 0, pos;
-	do{
+	do {
 		pos = Pos::fromColAndRow(col, 0);
 		if(isPosFree(pos))
 			i++;
 		col++;
-	}while(i <= colNum);
+	} while(i <= colNum);
 	col--;
 	return col;
 }
@@ -2016,8 +1615,7 @@ int ChessBoard::getAvailableCol(int colNum){
 // set all default values
 // king positions are e1 and e8, but bitboards are emptied
 ////////////////////////////////////////////////////////////////////////////////
-void ChessBoard::reset()
-{
+void ChessBoard::reset() {
 	m_numBoard = 1;
 	m_parent = NULL;
 	m_myMove = 0;
@@ -2041,21 +1639,17 @@ void ChessBoard::reset()
 	m_bitb_315 = 0L;
 	m_bitbAttackMoveSquares = 0L;
 	
-	for(int i = 0; i < NUM_PIECES; i++)
-	{
+	for(int i = 0; i < NUM_PIECES; i++) {
 		m_bitbPieces[BLACK][i] = 0L;
 		m_bitbPieces[WHITE][i] = 0L;
 	}
 
-        //COL_AROOK = 0;
-        //COL_HROOK = 7;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // after pieces have been added, commit the board; ie do necassary calc
 ////////////////////////////////////////////////////////////////////////////////
-void ChessBoard::commitBoard()
-{
+void ChessBoard::commitBoard() {
 	m_state = PLAY;
 	initHashKey();
 	calcQuality();
@@ -2065,51 +1659,14 @@ void ChessBoard::commitBoard()
 ////////////////////////////////////////////////////////////////////////////////
 // duplicate this object
 ////////////////////////////////////////////////////////////////////////////////
-void ChessBoard::duplicate(ChessBoard* ret)
-{
+void ChessBoard::duplicate(ChessBoard* ret) {
     memcpy(ret, this, SIZEOF_BOARD);
-    /*
-	ret->m_turn = this->m_turn;
-	ret->m_o_turn = this->m_o_turn;
-	ret->m_ep = this->m_ep;
-	ret->m_state = this->m_state;
-	ret->m_castlings[BLACK] = this->m_castlings[BLACK];
-	ret->m_castlings[WHITE] = this->m_castlings[WHITE];
-	ret->m_50RuleCount = this->m_50RuleCount;
-	ret->m_hashKey = this->m_hashKey;
-	ret->m_parent = this->m_parent;
-	ret->m_myMove = this->m_myMove;
-	ret->m_numBoard = this->m_numBoard;
-	
-	ret->m_quality = this->m_quality;
-	ret->m_o_quality = this->m_o_quality;
-	ret->m_kingPos = this->m_kingPos;
-	ret->m_o_kingPos = this->m_o_kingPos;
-	
-	ret->m_bitbPositions[BLACK] = this->m_bitbPositions[BLACK];
-	ret->m_bitbPositions[WHITE] = this->m_bitbPositions[WHITE];
-	ret->m_bitb = this->m_bitb;
-	ret->m_bitb_45 = this->m_bitb_45;
-	ret->m_bitb_90 = this->m_bitb_90;
-	ret->m_bitb_315 = this->m_bitb_315;
-	ret->m_bitbAttackMoveSquares = this->m_bitbAttackMoveSquares;
-	
-	for(int i = 0; i < NUM_PIECES; i++)
-	{
-		ret->m_bitbPieces[BLACK][i] = this->m_bitbPieces[BLACK][i];
-		ret->m_bitbPieces[WHITE][i] = this->m_bitbPieces[WHITE][i];
-	}
-	ret->m_sizeMoves = this->m_sizeMoves;
-	for(int i = 0; i < m_sizeMoves; i++)
-		ret->m_arrMoves[i] = this->m_arrMoves[i];
-     */
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // convinient method to return pointer to first board
 ////////////////////////////////////////////////////////////////////////////////
-ChessBoard* ChessBoard::getFirstBoard()
-{
+ChessBoard* ChessBoard::getFirstBoard() {
 	ChessBoard *ret = this;
 	while(ret->m_parent != NULL)
 		ret = ret->m_parent;
@@ -2121,28 +1678,27 @@ ChessBoard* ChessBoard::getFirstBoard()
 ////////////////////////////////////////////////////////////////////////////////
 
 
-int ChessBoard::getNumBoard()
-{
+int ChessBoard::getNumBoard() {
 	return m_numBoard;
 }
-BITBOARD ChessBoard::getHashKey()
-{
+
+BITBOARD ChessBoard::getHashKey() {
 	return m_hashKey;
 }
-int ChessBoard::countPieces()
-{
+
+int ChessBoard::countPieces() {
 	return ChessBoard::bitCount(m_bitb);
 }
-int ChessBoard::getNoHitCount()
-{
+
+int ChessBoard::getNoHitCount() {
 	return m_50RuleCount;
 }
-int ChessBoard::getTurn()
-{
+
+int ChessBoard::getTurn() {
 	return m_turn;	
 }
-void ChessBoard::switchTurn()
-{
+
+void ChessBoard::switchTurn() {
 	int tmp = m_o_kingPos;
 	m_o_kingPos = m_kingPos;
 	m_kingPos = tmp;
@@ -2155,63 +1711,62 @@ void ChessBoard::switchTurn()
 	m_quality = m_o_quality;
 	m_o_quality = tmp;
 }
-int ChessBoard::opponentTurn()
-{
+
+int ChessBoard::opponentTurn() {
 	return m_o_turn;
 }
-boolean ChessBoard::isPieceOfTurnAt(const int p)
-{
+
+boolean ChessBoard::isPieceOfTurnAt(const int p) {
 	return (m_bitbPositions[m_turn] & BITS[p]) != 0;
 }
-int ChessBoard::getEP()
-{
+
+int ChessBoard::getEP() {
 	return m_ep;	
 }
-boolean ChessBoard::hasOO(const int t)
-{
+
+boolean ChessBoard::hasOO(const int t) {
 	return (m_castlings[t] & MASK_HROOK) == 0 && (m_castlings[t] & MASK_KING) == 0;	
 }
-boolean ChessBoard::hasOOO(const int t)
-{
+
+boolean ChessBoard::hasOOO(const int t) {
 	return (m_castlings[t] & MASK_AROOK) == 0 && (m_castlings[t] & MASK_KING) == 0;
 }
-BITBOARD ChessBoard::bitbPositions()
-{
+
+BITBOARD ChessBoard::bitbPositions() {
 	return m_bitbPositions[m_turn];	
 }
-BITBOARD ChessBoard::bitbOpponentPositions()
-{
+
+BITBOARD ChessBoard::bitbOpponentPositions() {
 	return m_bitbPositions[m_o_turn];	
 }
-BITBOARD ChessBoard::bitb()
-{
+
+BITBOARD ChessBoard::bitb() {
 	return m_bitb;
 }
-BITBOARD ChessBoard::bitbAttacked()
-{
+
+BITBOARD ChessBoard::bitbAttacked() {
 	return m_bitbAttackMoveSquares;
 }
-BITBOARD ChessBoard::bitbTurnPiece(const int t, const int p)
-{
+
+BITBOARD ChessBoard::bitbTurnPiece(const int t, const int p) {
 	return m_bitbPieces[t][p];
 }
-boolean ChessBoard::isPosFree(const int p)
-{
+
+boolean ChessBoard::isPosFree(const int p) {
 	return (m_bitb & BITS[p]) == 0;
 }
-boolean ChessBoard::isPosFriend(const int p)
-{
+
+boolean ChessBoard::isPosFriend(const int p) {
 	return (m_bitbPositions[m_turn] & BITS[p]) != 0;
 }
-boolean ChessBoard::isPosEnemy(const int p)
-{
+
+boolean ChessBoard::isPosEnemy(const int p) {
 	return (m_bitbPositions[m_o_turn] & BITS[p]) != 0;
 }
-int ChessBoard::pieceAt(const int t, const int p)
-{
+
+int ChessBoard::pieceAt(const int t, const int p) {
     const BITBOARD bb = BITS[p];
-	if((m_bitbPositions[t] & bb) != 0)
-	{
+	if((m_bitbPositions[t] & bb) != 0) {
 		if((m_bitbPieces[t][PAWN] & bb) != 0)
 			return PAWN;
 		if((m_bitbPieces[t][KNIGHT] & bb) != 0)
@@ -2227,24 +1782,23 @@ int ChessBoard::pieceAt(const int t, const int p)
 	}
 	return FIELD;
 }
-boolean ChessBoard::isPieceOfColorAt(const int t, const int p)
-{
+
+boolean ChessBoard::isPieceOfColorAt(const int t, const int p) {
 	return (m_bitbPositions[t] & BITS[p]) != 0;
 }
-boolean ChessBoard::isFieldAt(const int p)
-{
+
+boolean ChessBoard::isFieldAt(const int p) {
 	return (m_bitb & BITS[p]) == 0;  
 }
-int ChessBoard::getIndex(const int col, const int row)
-{
+
+int ChessBoard::getIndex(const int col, const int row) {
 	return (row * 8) + col;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // return FEN notation of board (just the pieces on the board board)
 ////////////////////////////////////////////////////////////////////////////////
-void ChessBoard::toFENBoard(char* s){
-	
+void ChessBoard::toFENBoard(char* s) {
 	strcpy(s, "");
 	
 	char sP[2], buf[50];
@@ -2300,7 +1854,7 @@ void ChessBoard::toFENBoard(char* s){
 ////////////////////////////////////////////////////////////////////////////////
 // return complete FEN representation of the board
 ////////////////////////////////////////////////////////////////////////////////
-void ChessBoard::toFEN(char* s){
+void ChessBoard::toFEN(char* s) {
 	
 	toFENBoard(s);
 	char buf[10];
@@ -2354,21 +1908,19 @@ void ChessBoard::toFEN(char* s){
 // in case of a setup, set 'white can castle short'=>wccs etc and ep square
 // and number of moves for 50 move rule
 ////////////////////////////////////////////////////////////////////////////////
-void ChessBoard::setCastlingsEPAnd50(boolean wccl, boolean wccs, boolean bccl, boolean bccs, int ep, int r50)
-{
+void ChessBoard::setCastlingsEPAnd50(boolean wccl, boolean wccs, boolean bccl, boolean bccs, int ep, int r50) {
 	m_ep = ep;
 	m_50RuleCount = r50;
 	COL_AROOK = 0;
 	COL_HROOK = 7;
-	if(wccl){
+	if(wccl) {
 		int posRook = m_kingPos-1;
 		while(posRook >= a1){
 			if((m_bitbPieces[WHITE][ROOK] & BITS[posRook]) != 0)
 				COL_AROOK = COL[posRook];
 			posRook--;
 		}
-	}
-	else
+	} else
 		m_castlings[WHITE] |= MASK_AROOK;
 	if(wccs){
 		int posRook = m_kingPos+1;
@@ -2377,8 +1929,7 @@ void ChessBoard::setCastlingsEPAnd50(boolean wccl, boolean wccs, boolean bccl, b
 				COL_HROOK = COL[posRook];
 			posRook++;
 		}
-	}
-	else
+	} else
 		m_castlings[WHITE] |= MASK_HROOK;
 		
 	if(!wccl && !wccs)
@@ -2391,8 +1942,7 @@ void ChessBoard::setCastlingsEPAnd50(boolean wccl, boolean wccs, boolean bccl, b
 				COL_AROOK = COL[posRook];
 			posRook--;
 		}
-	}
-	else
+	} else
 		m_castlings[BLACK] |= MASK_AROOK;
 	if(bccs){
 		int posRook = m_o_kingPos+1;
@@ -2401,8 +1951,7 @@ void ChessBoard::setCastlingsEPAnd50(boolean wccl, boolean wccs, boolean bccl, b
 				COL_HROOK = COL[posRook];
 			posRook++;
 		}
-	}
-	else
+	} else
 		m_castlings[BLACK] |= MASK_HROOK;
 		
 	if(!bccl && !bccs)
@@ -2414,25 +1963,23 @@ void ChessBoard::setCastlingsEPAnd50(boolean wccl, boolean wccs, boolean bccl, b
 ////////////////////////////////////////////////////////////////////////////////
 // change variables so that side to move is turn
 ////////////////////////////////////////////////////////////////////////////////
-void ChessBoard::setTurn(const int turn)
-{
+void ChessBoard::setTurn(const int turn) {
 	if(m_turn == turn)
 		return;
 	switchTurn();
 }
+
 ////////////////////////////////////////////////////////////////////////////////
 // get the number of captured pieces of turn and piece
 ////////////////////////////////////////////////////////////////////////////////
-int ChessBoard::getNumCaptured(int turn, int piece)
-{
+int ChessBoard::getNumCaptured(int turn, int piece) {
 	ChessBoard* tmpBoard = this;
 	int cnt = ChessBoard::bitCount(m_bitbPieces[turn][piece]);
         #if DEBUG_LEVEL & 2
                 DEBUG_PRINT("CountCaptured [%d, %d]@%d", turn, piece, cnt);
         #endif
 
-	while(tmpBoard->m_parent != NULL)
-	{
+	while(tmpBoard->m_parent != NULL) {
             #if DEBUG_LEVEL & 2
                 DEBUG_PRINT(".%d", ChessBoard::bitCount(tmpBoard->m_bitbPieces[turn][piece]));
             #endif
@@ -2445,16 +1992,12 @@ int ChessBoard::getNumCaptured(int turn, int piece)
 ////////////////////////////////////////////////////////////////////////////////
 // init hash key, zobrist approach
 ////////////////////////////////////////////////////////////////////////////////
-void ChessBoard::initHashKey()
-{
+void ChessBoard::initHashKey() {
 	int turn, piece, pos;
 	m_hashKey = 0L;
-	for(turn = BLACK; turn <= WHITE; turn++)
-	{
-		for(pos = a8; pos <= h1; pos++)
-		{
-			if(isPieceOfColorAt(turn, pos))
-			{
+	for(turn = BLACK; turn <= WHITE; turn++) {
+		for(pos = a8; pos <= h1; pos++) {
+			if(isPieceOfColorAt(turn, pos)) {
 				piece = pieceAt(turn, pos);
 				m_hashKey ^= HASH_KEY[turn][piece][pos];
 			}
@@ -2471,8 +2014,7 @@ void ChessBoard::initHashKey()
 // put a piece on the board. update all applicable memebers - bitb's etc.
 // assumes m_turn == WHITE !!!!
 ////////////////////////////////////////////////////////////////////////////////
-void ChessBoard::put(const int pos, const int piece, const int turn)
-{
+void ChessBoard::put(const int pos, const int piece, const int turn) {
 	BITBOARD bb = BITS[pos];
 	m_bitbPieces[turn][piece] |= bb;
 	m_bitbPositions[turn] |= bb;
@@ -2481,8 +2023,7 @@ void ChessBoard::put(const int pos, const int piece, const int turn)
 	m_bitb_90 |= ROT_90_BITS[pos];
 	m_bitb_315 |= ROT_315_BITS[pos];
 
-	if(piece == KING)
-	{
+	if(piece == KING) {
 		if(turn == WHITE)
 			m_kingPos = pos;
 		else
@@ -2493,7 +2034,7 @@ void ChessBoard::put(const int pos, const int piece, const int turn)
             else
                 m_o_quality += PIECE_VALUES[piece];
 
-        }
+    }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2502,15 +2043,13 @@ void ChessBoard::put(const int pos, const int piece, const int turn)
 // returns false if put on top of another piece
 // or if a piece gets attacked in case attack is not allowed
 ////////////////////////////////////////////////////////////////////////////////
-boolean ChessBoard::putHouse(const int pos, const int piece, ChessBoard *nextBoard, ChessBoard *tmpBoard, const boolean allowAttack)
-{
+boolean ChessBoard::putHouse(const int pos, const int piece, ChessBoard *nextBoard, ChessBoard *tmpBoard, const boolean allowAttack) {
 	BITBOARD bb = BITS[pos];
 	
 	// m_bitbAttackMoveSquares
 	
 	// not stepping on another piece
-	if((bb & m_bitb) == 0)
-	{
+	if((bb & m_bitb) == 0) {
 		// duplicate this board to nextBoard
 		duplicate(nextBoard);
 		
@@ -2534,10 +2073,9 @@ boolean ChessBoard::putHouse(const int pos, const int piece, ChessBoard *nextBoa
 		
 		const int state = nextBoard->getState();
 
-DEBUG_PRINT("step, state %d\n", nextBoard->getState());
+		DEBUG_PRINT("step, state %d\n", nextBoard->getState());
 
-		if((allowAttack || state == ChessBoard::PLAY) && state != ChessBoard::MATE)
-		{
+		if((allowAttack || state == ChessBoard::PLAY) && state != ChessBoard::MATE) {
 			
 			nextBoard->m_parent = this;
 			return true;	
@@ -2550,7 +2088,7 @@ DEBUG_PRINT("step, state %d\n", nextBoard->getState());
 ////////////////////////////////////////////////////////////////////////////////
 // remove a piece of turn
 ////////////////////////////////////////////////////////////////////////////////
-void ChessBoard::remove(const int t, const int p){
+void ChessBoard::remove(const int t, const int p) {
 	m_hashKey ^= HASH_KEY[t][pieceAt(t, p)][p];
 	m_bitbPieces[t][pieceAt(t, p)] &= NOT_BITS[p];
 	m_bitbPositions[t] &= NOT_BITS[p];
@@ -2565,8 +2103,7 @@ void ChessBoard::remove(const int t, const int p){
 // undo a move
 // the current board is not deleted since it exists in refurbish table for reuse
 ////////////////////////////////////////////////////////////////////////////////
-ChessBoard* ChessBoard::undoMove()
-{
+ChessBoard* ChessBoard::undoMove() {
 	return m_parent;
 }
 
@@ -2577,38 +2114,37 @@ ChessBoard* ChessBoard::undoMove()
 ////////////////////////////////////////////////////////////////////////////////
 // returns true if moves available in generated move array
 ////////////////////////////////////////////////////////////////////////////////
-boolean ChessBoard::hasMoreMoves()
-{
+boolean ChessBoard::hasMoreMoves() {
 	return m_indexMoves >= 0 && m_indexMoves < m_sizeMoves;
 }
+
 ////////////////////////////////////////////////////////////////////////////////
 // advance pointer in generated moves array
 ////////////////////////////////////////////////////////////////////////////////
-int ChessBoard::getNextMove()
-{
+int ChessBoard::getNextMove() {
 	return m_arrMoves[m_indexMoves++];
 }
-int ChessBoard::getNumMoves()
-{
+
+int ChessBoard::getNumMoves() {
 	return m_sizeMoves;
 }
+
 ////////////////////////////////////////////////////////////////////////////////
 // replace current selected element with the last element, hereby overwriting 
 // the current element and decreasing size
 // used for removing illegal moves
 ////////////////////////////////////////////////////////////////////////////////
-void ChessBoard::removeMoveElementAt()
-{
+void ChessBoard::removeMoveElementAt() {
 	m_indexMoves--;
 	m_sizeMoves--;
 	m_arrMoves[m_indexMoves] = m_arrMoves[m_sizeMoves];
 }
-void ChessBoard::addMoveElement(const int move)
-{
+
+void ChessBoard::addMoveElement(const int move) {
 	m_arrMoves[m_sizeMoves++] = move;
 }
-int ChessBoard::remainingMoves()
-{
+
+int ChessBoard::remainingMoves() {
 	return m_sizeMoves - m_indexMoves;
 }
 
@@ -2616,8 +2152,7 @@ int ChessBoard::remainingMoves()
 // resturns pgn string representation of the move that lead to @board; 
 // the move in the m_myMove member of the board
 ////////////////////////////////////////////////////////////////////////////////
-void ChessBoard::myMoveToString(char* buf)
-{
+void ChessBoard::myMoveToString(char* buf) {
 	strcpy(buf, "");
 	if(m_myMove == 0){
 		return;
@@ -2626,14 +2161,10 @@ void ChessBoard::myMoveToString(char* buf)
 	if(Move_isOO(m_myMove)){
 		strcat(buf, "O-O");
 		strcat(buf, (this->getState() == ChessBoard::CHECK ? "+" : ""));
-	}
-	else if(Move_isOOO(m_myMove))
-	{
+	} else if(Move_isOOO(m_myMove)) {
 		strcat(buf, "O-O-O");
 		strcat(buf, (this->getState() == ChessBoard::CHECK ? "+" : ""));
-	}
-	else if(Move_isPromotionMove(m_myMove))
-	{
+	} else if(Move_isPromotionMove(m_myMove)) {
 		char tmp[10];
 		if(Move_isHIT(m_myMove)){
 			Pos::colToString(Move_getFrom(m_myMove), tmp);
@@ -2649,9 +2180,7 @@ void ChessBoard::myMoveToString(char* buf)
 			strcat(buf, "+");
 		else if(this->getState() == ChessBoard::MATE)
 			strcat(buf, "#");
-	}				
-	else
-	{
+	} else {
 		char tmp[10];
 		ChessBoard::pieceToString(this->pieceAt(this->opponentTurn(), Move_getTo(m_myMove)), tmp);
 		strcat(buf, tmp);
@@ -2669,8 +2198,7 @@ void ChessBoard::myMoveToString(char* buf)
 			}
 			//sRet += Pos.col(Move_getFrom(m)) == Pos.col(getFrom(board.getMyMove())) ? Pos.rowToString(m) : Pos.colToString(board.getMyMove());
 		}
-		if(Move_isHIT(m_myMove))
-		{
+		if(Move_isHIT(m_myMove)) {
 			if(this->pieceAt(this->opponentTurn(), Move_getTo(m_myMove)) == ChessBoard::PAWN){
 				Pos::colToString(Move_getFrom(m_myMove), tmp);
 				strcat(buf, tmp);
@@ -2692,20 +2220,16 @@ void ChessBoard::myMoveToString(char* buf)
 ////////////////////////////////////////////////////////////////////////////////
 //	 to initialize the quality members after a position is set up
 ////////////////////////////////////////////////////////////////////////////////
-void ChessBoard::calcQuality()
-{
+void ChessBoard::calcQuality() {
 	m_quality = 0;
 	m_o_quality = 0;
 	int p;
-	for(int i = 0; i < ChessBoard::NUM_FIELDS; i++)
-	{
-		if(isPieceOfColorAt(m_turn, i))
-		{
+	for(int i = 0; i < ChessBoard::NUM_FIELDS; i++) {
+		if(isPieceOfColorAt(m_turn, i)) {
 			p = pieceAt(m_turn, i);
 			m_quality += ChessBoard::PIECE_VALUES[p];
 		}
-		else if(isPieceOfColorAt(m_o_turn, i))
-		{
+		else if(isPieceOfColorAt(m_o_turn, i)) {
 			p = pieceAt(m_o_turn, i);
 			m_o_quality += ChessBoard::PIECE_VALUES[p];
 		}
@@ -2769,6 +2293,7 @@ const int ChessBoard::ROT_45[64] = {
 		d5, c4, b3, h3, e2, a1, d1, f1,
 		d4, c3, a2, f2, b1, e1, g1, h1
 };
+
 ////////////////////////////////////////////////////////////////////////////////
 // same as above, but with BIT positions
 ////////////////////////////////////////////////////////////////////////////////
@@ -2782,6 +2307,7 @@ const BITBOARD ChessBoard::ROT_45_BITS[64] = {
 		D5, C4, B3, H3, E2, A1, D1, F1,
 		D4, C3, A2, F2, B1, E1, G1, H1
 };
+
 ////////////////////////////////////////////////////////////////////////////////
 // the shifts used on the 45 bitb
 ////////////////////////////////////////////////////////////////////////////////
@@ -2795,6 +2321,7 @@ const int ChessBoard::SHIFT_45[64] = {
 		21, 28, 36, 43, 49, 54, 58, 61,
 		28, 36, 43, 49, 54, 58, 61, 63
 };
+
 ////////////////////////////////////////////////////////////////////////////////
 // the masks used on the 45 bitb
 ////////////////////////////////////////////////////////////////////////////////
@@ -2807,6 +2334,7 @@ const int ChessBoard::MASK_45[64] = {
 		0x3F, 0x7F, 0xFF, 0x7F, 0x3F, 0x1F, 0x0F, 0x07, 
 		0x7F, 0xFF, 0x7F, 0x3F, 0x1F, 0x0F, 0x07, 0x03, 
 		0xFF, 0x7F, 0x3F, 0x1F, 0x0F, 0x07, 0x03, 0x01};
+
 ////////////////////////////////////////////////////////////////////////////////
 // "rotation" table for file move generation
 ////////////////////////////////////////////////////////////////////////////////
@@ -2822,6 +2350,7 @@ const int ChessBoard::ROT_90[64] = {
 		h1, h2, h3, h4, h5, h6, h7, h8
 };
 */
+
 ////////////////////////////////////////////////////////////////////////////////
 const BITBOARD ChessBoard::ROT_90_BITS[64] = {
 		A1, A2, A3, A4, A5, A6, A7, A8,
@@ -2833,6 +2362,7 @@ const BITBOARD ChessBoard::ROT_90_BITS[64] = {
 		G1, G2, G3, G4, G5, G6, G7, G8,
 		H1, H2, H3, H4, H5, H6, H7, H8
 		};
+
 ////////////////////////////////////////////////////////////////////////////////
 const int ChessBoard::SHIFT_90[64] = {
 		56, 48, 40, 32, 24, 16, 8, 0,
@@ -2845,6 +2375,7 @@ const int ChessBoard::SHIFT_90[64] = {
 		56, 48, 40, 32, 24, 16, 8, 0
 		
 };
+
 ////////////////////////////////////////////////////////////////////////////////
 /*
 const int ChessBoard::ROT_315[64] = {
@@ -2857,6 +2388,7 @@ const int ChessBoard::ROT_315[64] = {
 		b8, e8, a7, f7, d6, c5, c4, c3,
 		a8, c8, f8, b7, g7, e6, d5, d4};
 */
+
 ////////////////////////////////////////////////////////////////////////////////
 const BITBOARD ChessBoard::ROT_315_BITS[64] = {
 		E5, E4, D3, B2, G2, C1, F1, H1,
@@ -2868,6 +2400,7 @@ const BITBOARD ChessBoard::ROT_315_BITS[64] = {
 		B8, E8, A7, F7, D6, C5, C4, C3,
 		A8, C8, F8, B7, G7, E6, D5, D4
 };
+
 ////////////////////////////////////////////////////////////////////////////////
 const int ChessBoard::SHIFT_315[64] = {
 		28, 36, 43, 49, 54, 58, 61, 63,
@@ -2879,6 +2412,7 @@ const int ChessBoard::SHIFT_315[64] = {
 		1,  3,  6, 10, 15, 21, 28, 36,
 		0,  1,  3,  6, 10, 15, 21, 28
 };
+
 ////////////////////////////////////////////////////////////////////////////////
 const int ChessBoard::MASK_315[64] = {
 		
@@ -2905,6 +2439,7 @@ const int ChessBoard::ROW[64] = {
 		 6, 6, 6, 6, 6, 6, 6, 6, 
 		 7, 7, 7, 7, 7, 7, 7, 7};
 ////////////////////////////////////////////////////////////////////////////////
+
 // as with ROW, but for column
 const int ChessBoard::COL[64] = {
 		0, 1, 2, 3, 4, 5, 6, 7,
@@ -2961,6 +2496,8 @@ const int ChessBoard::VALUATION_KING_ENDINGS[64] = {
 				0,  6, 12, 18, 18, 12,  6,  0
 };
 ////////////////////////////////////////////////////////////////////////////////
+
+
 // kbnk score, first index is "square color" of the bishop, second index the position of the losing king
 // after gnu-chess
 const int ChessBoard::VALUATION_KBNK_SCORE[2][64] = {
@@ -2995,16 +2532,12 @@ const char ChessBoard::TRAILING_ZEROS_8_BITS[256] = {0,0,1,0,2,0,1,0,3,0,1,0,2,0
 // precalculated bitcount of 8bit numbers
 //const char ChessBoard::BIT_COUNT_8_BITS[] =  {0,1,1,2,1,2,2,3,1,2,2,3,2,3,3,4,1,2,2,3,2,3,3,4,2,3,3,4,3,4,4,5,1,2,2,3,2,3,3,4,2,3,3,4,3,4,4,5,2,3,3,4,3,4,4,5,3,4,4,5,4,5,5,6,1,2,2,3,2,3,3,4,2,3,3,4,3,4,4,5,2,3,3,4,3,4,4,5,3,4,4,5,4,5,5,6,2,3,3,4,3,4,4,5,3,4,4,5,4,5,5,6,3,4,4,5,4,5,5,6,4,5,5,6,5,6,6,7,1,2,2,3,2,3,3,4,2,3,3,4,3,4,4,5,2,3,3,4,3,4,4,5,3,4,4,5,4,5,5,6,2,3,3,4,3,4,4,5,3,4,4,5,4,5,5,6,3,4,4,5,4,5,5,6,4,5,5,6,5,6,6,7,2,3,3,4,3,4,4,5,3,4,4,5,4,5,5,6,3,4,4,5,4,5,5,6,4,5,5,6,5,6,6,7,3,4,4,5,4,5,5,6,4,5,5,6,5,6,6,7,4,5,5,6,5,6,6,7,5,6,6,7,6,7,7,8};
 
-int ChessBoard::trailingZeros(const BITBOARD bb)
-{
-	if((bb & 0xFFFFFFFF00000000LL) != 0)
-	{
+int ChessBoard::trailingZeros(const BITBOARD bb) {
+	if((bb & 0xFFFFFFFF00000000LL) != 0) {
 		if((bb & 0x0000FFFF00000000LL) != 0)
 			return TRAILING_ZEROS_16_BITS[(int)((bb >> 32) & 0xFFFF)] + 32;
 		return TRAILING_ZEROS_16_BITS[(int)((bb >> 48) & 0xFFFF)] + 48;	
-	}
-	else
-	{
+	} else {
 		if((bb & 0xFFFF) != 0)
 			return TRAILING_ZEROS_16_BITS[(int)(bb & 0xFFFF)];
 		return TRAILING_ZEROS_16_BITS[(int)((bb >> 16) & 0xFFFF)] + 16;
@@ -3012,14 +2545,7 @@ int ChessBoard::trailingZeros(const BITBOARD bb)
 }
 
 // number of bits in bitb @bb
-int ChessBoard::bitCount(const BITBOARD bb)
-{
-    /*
-	return BIT_COUNT_8_BITS[(int)((bb >> 56) & 0xFF)] + BIT_COUNT_8_BITS[(int)((bb >> 48) & 0xFF)] + 
-		       BIT_COUNT_8_BITS[(int)((bb >> 40) & 0xFF)] + BIT_COUNT_8_BITS[(int)((bb >> 32) & 0xFF)] + 
-			   BIT_COUNT_8_BITS[(int)((bb >> 24) & 0xFF)] + BIT_COUNT_8_BITS[(int)((bb >> 16) & 0xFF)] + 
-			   BIT_COUNT_8_BITS[(int)((bb >> 8) & 0xFF)] + BIT_COUNT_8_BITS[(int)(bb & 0xFF)]; 
-	*/
+int ChessBoard::bitCount(const BITBOARD bb) {
 	return (
 		ChessBoard::BIT_COUNT_16_BITS[(int)((bb >> 48) & 0xffff)] +
 		ChessBoard::BIT_COUNT_16_BITS[(int)((bb >> 32) & 0xffff)] +
@@ -3079,8 +2605,7 @@ void ChessBoard::initBitCount(){
    ChessBoard::BIT_COUNT_16_BITS[0] = 0;
    ChessBoard::BIT_COUNT_16_BITS[1] = 1; 
    i = 1;
-   for (n = 2; n <= 16; n++)
-   {
+   for (n = 2; n <= 16; n++) {
       i <<= 1;
       for (j = i; j <= i + (i-1); j++)  
          ChessBoard::BIT_COUNT_16_BITS[j] = 1 + ChessBoard::BIT_COUNT_16_BITS[j - i]; 
@@ -3093,10 +2618,8 @@ void ChessBoard::initDistance(){
 	int from, to;
 	int d1, d2;
 
-	for (from = 0; from < 64; from++)
-	{
-		for (to = from; to < 64; to++)
-		{
+	for (from = 0; from < 64; from++) {
+		for (to = from; to < 64; to++) {
 			d1 = (to & 0x07) - (from & 0x07);
 			if (d1 < 0) d1 = -d1;
 			d2 = (to >> 3) - (from >> 3);
@@ -3892,12 +3415,9 @@ void ChessBoard::initHashKeys(){
 	
 	
 	int turn, piece, pos, i = 0;
-	for(turn = BLACK; turn <= WHITE; turn++)
-	{
-		for(piece = PAWN; piece <= KING; piece++)
-		{
-			for(pos = a8; pos <= h1; pos++)
-			{
+	for(turn = BLACK; turn <= WHITE; turn++) {
+		for(piece = PAWN; piece <= KING; piece++) {
+			for(pos = a8; pos <= h1; pos++) {
 				HASH_KEY[turn][piece][pos] = HASH_KEYS[i++];
 			}
 		}
@@ -3911,16 +3431,13 @@ void ChessBoard::initHashKeys(){
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-void ChessBoard::initMoveArrays()
-{
+void ChessBoard::initMoveArrays() {
 	int pos, bits, tmp, bit;
 	BITBOARD bbRank, bbFile, bb45, bb315, bbBoard; 
 	
-	for(pos = 0; pos < NUM_FIELDS; pos++)
-	{
+	for(pos = 0; pos < NUM_FIELDS; pos++) {
 		//pos = 36;
-		for(bits = 0; bits < 256; bits++)
-		{
+		for(bits = 0; bits < 256; bits++) {
 			//bits = 40;
 			//co.pl(ChessBoard::bits8ToString(bits));
 			//co.pl("============");
@@ -3934,26 +3451,22 @@ void ChessBoard::initMoveArrays()
 			
 			tmp = pos;
 			
-			while(COL[tmp] > 0)
-			{
+			while(COL[tmp] > 0) {
 				tmp--;
 				if((BITS[tmp] & bbBoard) == 0)
 					bbRank |= BITS[tmp];
-				if((BITS[tmp] & bbBoard) == BITS[tmp])
-				{
+				if((BITS[tmp] & bbBoard) == BITS[tmp]) {
 					bbRank |= BITS[tmp];
 					break;
 				}
 			}
 			
 			tmp = pos;
-			while(COL[tmp] < 7)
-			{
+			while(COL[tmp] < 7) {
 				tmp++;
 				if((BITS[tmp] & bbBoard) == 0)
 					bbRank |= BITS[tmp];
-				if((BITS[tmp] & bbBoard) == BITS[tmp])
-				{
+				if((BITS[tmp] & bbBoard) == BITS[tmp]) {
 					bbRank |= BITS[tmp];
 					break;
 				}
@@ -3965,14 +3478,12 @@ void ChessBoard::initMoveArrays()
 			tmp = pos;
 			bit = (int)pow(2, ROW[tmp]+1);
 			
-			while(ROW[tmp] < 7)
-			{
+			while(ROW[tmp] < 7) {
 				tmp+=8;
 				//co.pl("ROW+" + ROW[tmp] + " r90 " + ROT_90_BITS[tmp]);
 				//co.pl(bitbToString(ROT_90_BITS[tmp]));
 				
-				if((bits & bit) == bit)
-				{
+				if((bits & bit) == bit) {
 					bbFile |= BITS[tmp];
 					break;
 				}
@@ -3984,14 +3495,12 @@ void ChessBoard::initMoveArrays()
 			
 			tmp = pos;
 			bit = (int)pow(2, ROW[tmp]-1);
-			while(ROW[tmp] > 0)
-			{
+			while(ROW[tmp] > 0) {
 				tmp-=8;
 				//co.pl("ROW-" + ROW[tmp] + " - " + tmp + " - " + bit);
 				//co.pl(bitbToString(ROT_90_BITS[tmp]));
 				
-				if((bits & bit) == bit)
-				{
+				if((bits & bit) == bit) {
 					bbFile |= BITS[tmp];
 					break;
 				}
@@ -4011,17 +3520,14 @@ void ChessBoard::initMoveArrays()
 			//co.pl("pos bit + 1 = " + bit);
 			//co.pl(bitbToString(ROT_45_BITS[tmp]));
 			
-			while(COL[tmp] > 0 && ROW[tmp] < 7)
-			{
+			while(COL[tmp] > 0 && ROW[tmp] < 7) {
 				tmp+=7;
 				//co.pl("bit+" + bit);
 				
-				if((bits & bit) == bit)
-				{
+				if((bits & bit) == bit) {
 					bb45 |= BITS[tmp];
 					break;
-				}
-				else
+				} else
 					bb45 |= BITS[tmp];
 				
 				bit*=2;
@@ -4030,17 +3536,14 @@ void ChessBoard::initMoveArrays()
 			tmp = pos;
 			bit = (int)pow(2, MIN(ROW[tmp], 7-COL[tmp])-1);
 			//co.pl("pos bit - 1 = " + bit);
-			while(COL[tmp] < 7 && ROW[tmp] > 0)
-			{
+			while(COL[tmp] < 7 && ROW[tmp] > 0) {
 				tmp-=7;
 				//co.pl("bit" + bit);
 				
-				if((bits & bit) == bit)
-				{
+				if((bits & bit) == bit) {
 					bb45 |= BITS[tmp];
 					break;
-				}
-				else
+				} else
 					bb45 |= BITS[tmp];
 				
 				bit/=2;
@@ -4056,18 +3559,15 @@ void ChessBoard::initMoveArrays()
 			//co.pl(bit);
 			//co.pl(bitbToString(ROT_45_BITS[tmp]));
 			
-			while(COL[tmp] < 7 && ROW[tmp] < 7)
-			{
+			while(COL[tmp] < 7 && ROW[tmp] < 7) {
 				tmp+=9;
 				//co.pl("ROW+" + ROW[tmp] + " r90 " + ROT_90_BITS[tmp]);
 				//co.pl(bitbToString(ROT_90_BITS[tmp]));
 				
-				if((bits & bit) == bit)
-				{
+				if((bits & bit) == bit) {
 					bb315 |= BITS[tmp];
 					break;
-				}
-				else
+				} else
 					bb315 |= BITS[tmp];
 				
 				bit*=2;
@@ -4075,18 +3575,15 @@ void ChessBoard::initMoveArrays()
 			
 			tmp = pos;
 			bit = (int)pow(2, MIN(ROW[tmp], COL[tmp])-1);
-			while(COL[tmp] > 0 && ROW[tmp] > 0)
-			{
+			while(COL[tmp] > 0 && ROW[tmp] > 0){
 				tmp-=9;
 				//co.pl("ROW+" + ROW[tmp] + " r90 " + ROT_90_BITS[tmp]);
 				//co.pl(bitbToString(ROT_90_BITS[tmp]));
 				
-				if((bits & bit) == bit)
-				{
+				if((bits & bit) == bit){
 					bb315 |= BITS[tmp];
 					break;
-				}
-				else
+				} else
 					bb315 |= BITS[tmp];
 				
 				bit/=2;
@@ -4099,10 +3596,8 @@ void ChessBoard::initMoveArrays()
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-void ChessBoard::initTrailingZeros()
-{
-	for(int i = 0; i < 65536; i++)
-	{
+void ChessBoard::initTrailingZeros() {
+	for(int i = 0; i < 65536; i++) {
 		if((i & 0xFF) != 0)
 			TRAILING_ZEROS_16_BITS[i] = TRAILING_ZEROS_8_BITS[i & 0xFF];
 		else
@@ -4111,28 +3606,22 @@ void ChessBoard::initTrailingZeros()
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-void ChessBoard::initPawnRange()
-{
+void ChessBoard::initPawnRange() {
     int row, col; BITBOARD bb;
-    for(int i = 0; i < 64; i++)
-    {
-        for(int t = 0; t < 2; t++)
-        {
+    for(int i = 0; i < 64; i++) {
+        for(int t = 0; t < 2; t++) {
             row = ROW_TURN[t][i];
             bb = 0L;
 
-            if(row < 7)
-            {
+            if(row < 7) {
                 col = COL[i];
-                if(col > 0)
-                {
+                if(col > 0) {
                     if(t == 0)
                         bb |= BITS[i+7];
                     else
                         bb |= BITS[i-9];
                 }
-                if(col < 7)
-                {
+                if(col < 7) {
                     if(t == 0)
                         bb |= BITS[i+9];
                     else
@@ -4144,16 +3633,14 @@ void ChessBoard::initPawnRange()
         }
     }
 }
-void ChessBoard::initPassedPawnMask()
-{
+
+void ChessBoard::initPassedPawnMask() {
 	// 
 	int i, j;
-	for (i = 55; i < 23; i--)
-	{
+	for (i = 55; i < 23; i--) {
 		PASSED_PAWN_MASK[WHITE][i] |= BITS[i];
 		j = 1;
-		while(ROW[i-j*8] > 0)
-		{
+		while(ROW[i-j*8] > 0) {
 			PASSED_PAWN_MASK[WHITE][i] |= BITS[i-j*8];
 			if(COL[i] > 1)
 				PASSED_PAWN_MASK[WHITE][i] |= BITS[i-j*8-1];
@@ -4162,12 +3649,10 @@ void ChessBoard::initPassedPawnMask()
 			j++;
 		}
 	}
-	for (i = 8; i < 48; i++)
-	{
+	for (i = 8; i < 48; i++) {
 		PASSED_PAWN_MASK[BLACK][i] |= BITS[i];
 		j = 1;
-		while(ROW[i+j*8] < 7)
-		{
+		while(ROW[i+j*8] < 7) {
 			PASSED_PAWN_MASK[BLACK][i] |= BITS[i+j*8];
 			if(COL[i] > 1)
 				PASSED_PAWN_MASK[BLACK][i] |= BITS[i+j*8-1];
@@ -4183,26 +3668,23 @@ void ChessBoard::initPassedPawnMask()
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
-void ChessBoard::pieceToString(const int p, char* buf)
-{
-	switch(p)
-	{
-	case PAWN: strcpy(buf, ""); break;
-	case KNIGHT: strcpy(buf, "N");break;
-	case BISHOP: strcpy(buf, "B");break;
-	case ROOK: strcpy(buf, "R");break;
-	case QUEEN: strcpy(buf, "Q");break;
-	case KING: strcpy(buf, "K");break;
-	default: strcpy(buf, "@"); 
+void ChessBoard::pieceToString(const int p, char* buf) {
+	switch(p) {
+		case PAWN: strcpy(buf, ""); break;
+		case KNIGHT: strcpy(buf, "N");break;
+		case BISHOP: strcpy(buf, "B");break;
+		case ROOK: strcpy(buf, "R");break;
+		case QUEEN: strcpy(buf, "Q");break;
+		case KING: strcpy(buf, "K");break;
+		default: strcpy(buf, "@"); 
 	}
 }
+
 ////////////////////////////////////////////////////////////////////////////////
-void ChessBoard::bitbToString(const BITBOARD bb, char* ret)
-{
+void ChessBoard::bitbToString(const BITBOARD bb, char* ret) {
 	strcpy(ret, "");
 	BITBOARD bT = 1L; int i = 0;
-	while(i < NUM_FIELDS)
-	{
+	while(i < NUM_FIELDS) {
 		if((bb & bT) == bT)
 			strcat(ret, "1");
 		else
@@ -4213,76 +3695,14 @@ void ChessBoard::bitbToString(const BITBOARD bb, char* ret)
 		bT <<= 1;
 	}
 }
+
 ////////////////////////////////////////////////////////////////////////////////
-void ChessBoard::printB(char* s)
-{
+void ChessBoard::printB(char* s) {
 	char buf[1024];
 	sprintf(s, "\n# %d. State %d qualities: %d, %d\nCastling %d %d\n\0", m_numBoard, m_state, m_quality, m_o_quality, m_castlings[m_turn], m_castlings[m_o_turn]);
 
-	//s += "HashKey "+ "\n";
-	//s += bitbToString(m_hashKey)+ "\n";
-	/*
-	strcat(s, "bitbPositions 0\n");
-	bitbToString(m_bitbPositions[BLACK], buf);
-	strcat(s, buf);
-        strcat(s, "\nbitbPositions 1\n");
-	bitbToString(m_bitbPositions[WHITE], buf);
-	strcat(s, buf);
-         */
-
-        /*
-	//s += "Pieces"+ "\n";
-	//s += piecesToString()+ "\n";
-	*/
 	strcat(s, "\nBitb\n");
 	bitbToString(m_bitb, buf);
 	strcat(s, buf);
-	/*
-	strcat(s, "\nBitb45\n");
-	bitbToString(m_bitb_45, buf);
-	strcat(s, buf);
-	strcat(s, "\nBitb_90\n");
-	bitbToString(m_bitb_90, buf);
-	strcat(s, buf);
-	strcat(s, "\nBitb_315\n");
-	bitbToString(m_bitb_315, buf);
-	strcat(s, buf);
-	*/
-        //strcat(s, "\nBitb Attacksquares\n");
-	//bitbToString(m_bitbAttackMoveSquares, buf);
-	//strcat(s, buf);
-           
-	//strcat(s, "\nMoves:\n");
-	//for(int i = 0; i < m_sizeMoves; i++){
-	//	Move::toDbgString(m_arrMoves[i], buf);
-//		strcat(s, buf);
-//		strcat(s, ";");
-//	}
-	/*
-	strcat(s, "\nHistory:\n");
-	Move::toDbgString(m_myMove, buf);
-	strcat(s, buf);
-	
-	ChessBoard *bP = m_parent;
-	while(bP != NULL)
-	{
-		strcat(s, "\n");
-		Move::toDbgString(bP->m_myMove, buf);
-		strcat(s, buf);
-		bP = bP->m_parent;
-	}
-	if(m_parent != NULL)
-	{
-		//s += ("Parent ep square: " + m_parent->m_ep + "\n");
-		strcat(s, "\nParent moves:\n");
-		
-		for(int i = 0; i < m_parent->m_sizeMoves; i++){
-			Move::toDbgString(m_parent->m_arrMoves[i], buf);
-			strcat(s, buf);
-			strcat(s, ";");
-		}
-			
-		strcat(s, "\n");
-	}
-            */
+
 }
