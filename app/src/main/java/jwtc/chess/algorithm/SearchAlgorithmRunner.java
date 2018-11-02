@@ -1,7 +1,5 @@
 package jwtc.chess.algorithm;
 
-import android.util.Log;
-
 import jwtc.chess.GameControl;
 import jwtc.chess.JNI;
 import jwtc.chess.Move;
@@ -11,6 +9,7 @@ public class SearchAlgorithmRunner implements Runnable{
 	public SearchAlgorithmRunner(GameControl gc){
 		m_control = gc;
 	}
+
     // @Override
     public void run() {
     	try
@@ -53,7 +52,7 @@ public class SearchAlgorithmRunner implements Runnable{
 					//m_control.sendMessageFromThread("SearchAlg - peeking");
 					//Log.i("SearchAlgorithmRunner", "sleep");
 					Thread.sleep(iSleep);
-					
+
 					//Log.i("SearchAlgorithmRunner", "peeking");
 					ply = _jni.peekSearchDepth();
 					
@@ -79,7 +78,7 @@ public class SearchAlgorithmRunner implements Runnable{
 					
 					m_control.sendMessageFromThread(s);
 				}
-				
+
 				move = _jni.getMove();
 				m_control.sendMoveMessageFromThread(move);
 				

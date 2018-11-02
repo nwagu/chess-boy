@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<string name="app_name">Chess Boy</string>
+    <string name="app_name">Chess Boy</string>
 
     <string name="scanning">Scanning devices</string>
     <string name="select_device">Select device</string>

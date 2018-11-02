@@ -385,8 +385,9 @@ public class JNI {
     public native void loadDB(String sFile, int depth);
     public native void interrupt();
     public native int getNumCaptured(int turn, int piece);
-    
+
     static {
         System.loadLibrary("chess-jni");
     }
+
 }
