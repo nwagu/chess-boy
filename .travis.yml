@@ -1,0 +1,22 @@
+language: android
+android:
+  components:
+    - tools
+    - platform-tools
+    - tools
+
+    - build-tools-27.0.3
+
+    - android-27
+
+    - extra-google-google_play_services
+    - extra-google-m2repository
+    - extra-android-m2repository
+
+script:
+  - chmod +x ./gradlew
+   
+notifications:
+  email:
+    on_success: always # default: change
+    on_failure: never # default: always
