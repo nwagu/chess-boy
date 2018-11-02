@@ -1,4 +1,4 @@
-# Chess Boy Android
+# Chess Boy Android   [![Build Status](https://travis-ci.com/nwagu/chess-boy-android.svg?branch=master)](https://travis-ci.com/nwagu/chess-boy-android)
 
 ![screenshot_20170916-204528](https://user-images.githubusercontent.com/29481787/47620190-9496a000-dae7-11e8-8381-477f862ee630.png)
 
