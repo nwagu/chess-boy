@@ -508,7 +508,7 @@ public class PlayActivity extends AppCompatActivity {
                     byte[] writeBuf = (byte[]) msg.obj;
                     // construct a string from the buffer
                     String writeMessage = new String(writeBuf);
-                    //Toast.makeText(PlayActivity.this, "Move sent: " + writeMessage, Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(activity, "Move sent: " + writeMessage, Toast.LENGTH_SHORT).show();
                     break;
 
                 case Constants.MESSAGE_READ:
@@ -593,15 +593,15 @@ public class PlayActivity extends AppCompatActivity {
                 case Constants.MESSAGE_DEVICE_NAME:
                     // save the connected device's name
                     activity.bluetoothManager.setConnectedDeviceName(msg.getData().getString(Constants.DEVICE_NAME));
-                    //if(null != activity) {
-                    Toast.makeText(activity, "Connected to " + activity.bluetoothManager.getConnectedDeviceName(), Toast.LENGTH_SHORT).show();
-                    //}
+                    if(null != activity) {
+                        Toast.makeText(activity, "Connected to " + activity.bluetoothManager.getConnectedDeviceName(), Toast.LENGTH_SHORT).show();
+                    }
                     break;
                 case Constants.MESSAGE_TOAST:
-                    //if(null != activity) {
-                    Toast.makeText(activity, msg.getData().getString(Constants.TOAST),
-                            Toast.LENGTH_SHORT).show();
-                    //}
+                    if(null != activity) {
+                        Toast.makeText(activity, msg.getData().getString(Constants.TOAST),
+                                Toast.LENGTH_SHORT).show();
+                    }
                     break;
             }
         }

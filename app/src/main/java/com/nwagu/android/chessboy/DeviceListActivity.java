@@ -126,6 +126,9 @@ public class DeviceListActivity extends Activity {
             discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
             startActivity(discoverableIntent);
         }
+        // It is important to finish this activity before the connection is made
+        // to avoid overwriting the bluetooth game with the previous game
+        finish();
     }
 
     //The on-click listener for discovered devices
