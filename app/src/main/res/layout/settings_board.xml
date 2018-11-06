@@ -16,32 +16,12 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/settings_current_game"
+        android:text="@string/app_name"
         android:textColor="@android:color/black"
         android:textSize="@dimen/fifteenSP"
         android:textStyle="bold"
-        android:typeface="monospace"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="24dp">
-
-        <TextView
-            android:id="@+id/game_status_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/default_game_status"
-            android:textSize="@dimen/fifteenSP"
-            android:typeface="monospace"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"/>
-
-        <!-- Add save PGN button here -->
-
-    </LinearLayout>
+        android:gravity="center"
+        android:layout_marginBottom="24dp"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -72,7 +52,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:background="@android:color/transparent"
-                android:onClick="setSoundPref"/>
+                android:onClick="toggleSoundPref"/>
 
     </LinearLayout>
 

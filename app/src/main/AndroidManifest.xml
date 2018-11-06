@@ -38,7 +38,6 @@
             android:screenOrientation="sensorPortrait"
             android:theme="@android:style/Theme.Holo.Light.Panel"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".OptionsActivity"></activity>
     </application>
 
 </manifest>

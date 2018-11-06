@@ -1,4 +1,4 @@
-package com.nwagu.android.chessboy;
+package com.nwagu.android.chessboy.Bluetooth;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+
+import com.nwagu.android.chessboy.Data.Constants;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -57,7 +59,7 @@ public class BluetoothChatService {
      * @param context The UI Activity Context
      * @param handler A Handler to send messages back to the UI Activity
      */
-    public BluetoothChatService(Context context, Handler handler) {
+    BluetoothChatService(Context context, Handler handler) {
         mAdapter = BluetoothAdapter.getDefaultAdapter();
         mState = STATE_NONE;
         mNewState = mState;
@@ -151,7 +153,7 @@ public class BluetoothChatService {
      * @param socket The BluetoothSocket on which the connection was made
      * @param device The BluetoothDevice that has been connected
      */
-    public synchronized void connected(BluetoothSocket socket, BluetoothDevice
+    private synchronized void connected(BluetoothSocket socket, BluetoothDevice
             device, final String socketType) {
         Log.d(TAG, "connected, Socket Type:" + socketType);
 
@@ -287,7 +289,7 @@ public class BluetoothChatService {
         private final BluetoothServerSocket mmServerSocket;
         private String mSocketType;
 
-        public AcceptThread(boolean secure) {
+        AcceptThread(boolean secure) {
             BluetoothServerSocket tmp = null;
             mSocketType = secure ? "Secure" : "Insecure";
 
@@ -312,7 +314,7 @@ public class BluetoothChatService {
                     "BEGIN mAcceptThread" + this);
             setName("AcceptThread" + mSocketType);
 
-            BluetoothSocket socket = null;
+            BluetoothSocket socket;
 
             // Listen to the server socket if we're not connected
             while (mState != STATE_CONNECTED) {
@@ -352,7 +354,7 @@ public class BluetoothChatService {
 
         }
 
-        public void cancel() {
+        void cancel() {
             Log.d(TAG, "Socket Type" + mSocketType + "cancel " + this);
             try {
                 mmServerSocket.close();
@@ -373,7 +375,7 @@ public class BluetoothChatService {
         private final BluetoothDevice mmDevice;
         private String mSocketType;
 
-        public ConnectThread(BluetoothDevice device, boolean secure) {
+        ConnectThread(BluetoothDevice device, boolean secure) {
             mmDevice = device;
             BluetoothSocket tmp = null;
             mSocketType = secure ? "Secure" : "Insecure";
@@ -428,7 +430,7 @@ public class BluetoothChatService {
             connected(mmSocket, mmDevice, mSocketType);
         }
 
-        public void cancel() {
+        void cancel() {
             try {
                 mmSocket.close();
             } catch (IOException e) {
@@ -446,7 +448,7 @@ public class BluetoothChatService {
         private final InputStream mmInStream;
         private final OutputStream mmOutStream;
 
-        public ConnectedThread(BluetoothSocket socket, String socketType) {
+        ConnectedThread(BluetoothSocket socket, String socketType) {
             Log.d(TAG, "create ConnectedThread: " + socketType);
             mmSocket = socket;
             InputStream tmpIn = null;
@@ -492,7 +494,7 @@ public class BluetoothChatService {
          *
          * @param buffer The bytes to write
          */
-        public void write(byte[] buffer) {
+        void write(byte[] buffer) {
             try {
                 mmOutStream.write(buffer);
 
@@ -504,7 +506,7 @@ public class BluetoothChatService {
             }
         }
 
-        public void cancel() {
+        void cancel() {
             try {
                 mmSocket.close();
             } catch (IOException e) {

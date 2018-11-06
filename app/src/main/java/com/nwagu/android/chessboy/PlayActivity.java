@@ -1,10 +1,8 @@
 package com.nwagu.android.chessboy;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
@@ -18,13 +16,10 @@ import android.widget.TextView;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -41,7 +36,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.Toast;
 
-import android.media.MediaPlayer;
+import com.nwagu.android.chessboy.Bluetooth.BluetoothChatService;
+import com.nwagu.android.chessboy.Bluetooth.BluetoothManager;
+import com.nwagu.android.chessboy.Data.Constants;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -50,6 +47,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import jwtc.chess.BoardConstants;
@@ -57,35 +55,31 @@ import jwtc.chess.BoardConstants;
 public class PlayActivity extends AppCompatActivity {
 
     public static Game game;
-    private UI ui;
+    EnginePort enginePort;
 
-    LinearLayout boardLayout, topBar, bottomBar, judeCaptivesCage, myCaptivesCage;
+    LinearLayout boardLayout, header, topBar, bottomBar, judeCaptivesCage, myCaptivesCage,
+            modeOne, modeTwo, modeThree, modeFour, modeFive;
     NestedScrollView settingsPanel;
     RelativeLayout mRack, tRack;
-    TextView mTurnLine, tTurnLine, gameStateView;
-    ImageButton prevView, soundControl;
-    LinearLayout modeOne, modeTwo, modeThree, modeFour, modeFive;
+    TextView headerText;
+    View mTurnLine, tTurnLine;
+    ImageButton prevView, soundControlButton;
     CardView boardLayoutFrame;
 
     ArrayList<ImageButton> pathViews;
-
-    MediaPlayer onCheckSound, checkBro, moveMade, boardSet;
 
     Animation animSlideInLeft;
     Animation animslideInRight;
     Animation animSlideOutLeft;
     Animation animslideOutRight;
 
-    SharedPreferences settings;
+    BluetoothManager bluetoothManager;
+    SoundManager soundManager;
+    public final BluetoothHandler bluetoothHandler = new BluetoothHandler(new WeakReference<>(this));
 
-    boolean iAmWhite;
+    public boolean iAmBluetoothWhite;
 
-    private String mConnectedDeviceName = null; //send it to handler
-    private BluetoothAdapter mBluetoothAdapter = null;
-    private BluetoothChatService mChatService = null;
-
-    int widthOfScreen;
-    int heightOfScreen;
+    int screenWidth, screenHeight;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -96,13 +90,13 @@ public class PlayActivity extends AppCompatActivity {
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) { ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0); }
 
-        ui = new UI(PlayActivity.this);
+        enginePort = new EnginePort(PlayActivity.this);
 
         game = new Game(Constants.GAME_MODE_AI_WHITE, true); //make AI game default
         if (savedInstanceState != null) {
             game = savedInstanceState.getParcelable("key");
             if(game.gameMode == Constants.GAME_MODE_AI_WHITE || game.gameMode == Constants.GAME_MODE_AI_BLACK) {
-                ui.loadPGN(savedInstanceState.getString("key2"));
+                enginePort.loadPGN(savedInstanceState.getString("key2"));
             }
         }
 
@@ -115,10 +109,10 @@ public class PlayActivity extends AppCompatActivity {
 
         //--------Primitives and non-primitives-----------
         pathViews = new ArrayList<>();
-        settings = getSharedPreferences("mSoundPrefs", MODE_PRIVATE);
 
         //--------Layouts and views------
-        topBar = this.findViewById(R.id.upper_bar);
+        header = this.findViewById(R.id.header);
+        topBar = this.findViewById(R.id.top_bar);
         boardLayout = this.findViewById(R.id.game_board);
         settingsPanel = this.findViewById(R.id.settings_frame);
         bottomBar = this.findViewById(R.id.lower_bar);
@@ -132,19 +126,12 @@ public class PlayActivity extends AppCompatActivity {
         modeThree = findViewById(R.id.mode_3);
         modeFour = findViewById(R.id.mode_4);
         modeFive = findViewById(R.id.mode_5);
-        soundControl = findViewById(R.id.sound_control);
+        headerText = findViewById(R.id.header_text);
+        soundControlButton = findViewById(R.id.sound_control);
         judeCaptivesCage = this.findViewById(R.id.opponent_captives_cage);
         myCaptivesCage = this.findViewById(R.id.my_captives_cage);
         mTurnLine = this.findViewById(R.id.m_turn_line);
         tTurnLine = this.findViewById(R.id.t_turn_line);
-        gameStateView = findViewById(R.id.game_status_view);
-
-        //------Sounds and music--------
-        onCheckSound = MediaPlayer.create(getApplicationContext(), R.raw.u_ar_on_check);
-        checkBro = MediaPlayer.create(getApplicationContext(), R.raw.check_bro);
-        moveMade = MediaPlayer.create(getApplicationContext(), R.raw.move);
-        boardSet = MediaPlayer.create(getApplicationContext(), R.raw.boardset);
-        resetVolumes();
 
         //--------Animations --------------
         animSlideInLeft = AnimationUtils.loadAnimation(this, R.anim.slide_in_left);
@@ -152,48 +139,25 @@ public class PlayActivity extends AppCompatActivity {
         animSlideOutLeft = AnimationUtils.loadAnimation(this, R.anim.slide_out_left);
         animslideOutRight = AnimationUtils.loadAnimation(this, R.anim.slide_out_right);
 
-        //-------Bluetooth prelims---------
-        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        bluetoothManager = new BluetoothManager(this);
+        soundManager = new SoundManager(this, soundControlButton);
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        widthOfScreen = size.x;
-        heightOfScreen = size.y;
+        screenWidth = size.x;
+        screenHeight = size.y;
 
         settingsPanel.requestLayout();
-        settingsPanel.getLayoutParams().height = widthOfScreen - 10; // -8 because of the margin to allow for
+        settingsPanel.getLayoutParams().height = screenWidth - 10; // -8 because of the margin to allow for
 
+        setHeader(game.gameMode);
         renderBoard();
         heyJude();
 
-    }
+    } // End of onCreate Method
 
-    //===========================================================================================
-    //===========================================================================================
-    //===========================================================================================
-    //===========================================================================================
-    //===========================================================================================
-
-    public void startBluetooth() {
-        if (mBluetoothAdapter == null) {
-            Toast.makeText(PlayActivity.this, "Bluetooth is not supported on your device.", Toast.LENGTH_LONG).show();
-        } else {
-
-            if (!mBluetoothAdapter.isEnabled()) {
-                Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                startActivityForResult(enableIntent, Constants.REQUEST_ENABLE_BT);
-            } else {
-                if (mChatService == null) {
-                    mChatService = new BluetoothChatService(PlayActivity.this, mHandler);
-                    mChatService.start();
-                }
-                Intent serverIntent = new Intent(PlayActivity.this, DeviceListActivity.class);
-                startActivityForResult(serverIntent, Constants.REQUEST_CONNECT_DEVICE_INSECURE);
-            }
-            iAmWhite = false;
-        }
-    }
 
     public void placeClicked(View view) {
         boolean hasAValidMoveBeenMade = false;
@@ -244,7 +208,7 @@ public class PlayActivity extends AppCompatActivity {
                             game.undoLastMove(true);
                             hasAValidMoveBeenMade = false;
                             Toast.makeText(PlayActivity.this, "Invalid move!", Toast.LENGTH_SHORT).show();
-                            onCheckSound.start();
+                            soundManager.soundCheck();
                             game.repair();
                             renderBoard(); //this is to remove the path dots
                         } else if(promoTime) {
@@ -279,7 +243,7 @@ public class PlayActivity extends AppCompatActivity {
                             final ImageButton finalView = (ImageButton) view;
                             final ImageButton finalPrevView = prevView;
 
-                            View.OnClickListener terro = new View.OnClickListener() {
+                            View.OnClickListener clickListener = new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     String chosenPromoPiece = v.getTag().toString();
@@ -291,18 +255,28 @@ public class PlayActivity extends AppCompatActivity {
                                         int dest = Integer.parseInt(finalView.getTag().toString());
                                         //Here message will be source row 'n column + dest row 'n column + promo piece
                                         String moveToBeSent =  chosenPromoPiece + game.boardArray[source][0] + game.boardArray[source][1] + game.boardArray[dest][0] + game.boardArray[dest][1];
-                                        sendBluetoothMessage(moveToBeSent);
+                                        bluetoothManager.sendMessage(moveToBeSent);
                                     }
                                     else if(game.gameMode == Constants.GAME_MODE_AI_WHITE || game.gameMode == Constants.GAME_MODE_AI_BLACK) {
                                         int source = Integer.parseInt(finalPrevView.getTag().toString());
                                         int dest = Integer.parseInt(finalView.getTag().toString());
                                         int thepromoPiece = BoardConstants.QUEEN;
-                                        if(chosenPromoPiece.equals("84") || chosenPromoPiece.equals("14")) thepromoPiece = BoardConstants.QUEEN;
-                                        else if(chosenPromoPiece.equals("82") || chosenPromoPiece.equals("12")) thepromoPiece = BoardConstants.KNIGHT;
-                                        else if(chosenPromoPiece.equals("81") || chosenPromoPiece.equals("11")) thepromoPiece = BoardConstants.ROOK;
-                                        else if(chosenPromoPiece.equals("83") || chosenPromoPiece.equals("13")) thepromoPiece = BoardConstants.BISHOP;
-                                        ui.setPromo(thepromoPiece);
-                                        ui.requestMove(source, dest);
+                                        switch (chosenPromoPiece) {
+                                            case "84": case "14":
+                                                thepromoPiece = BoardConstants.QUEEN;
+                                                break;
+                                            case "82": case "12":
+                                                thepromoPiece = BoardConstants.KNIGHT;
+                                                break;
+                                            case "81": case "11":
+                                                thepromoPiece = BoardConstants.ROOK;
+                                                break;
+                                            case "83": case "13":
+                                                thepromoPiece = BoardConstants.BISHOP;
+                                                break;
+                                        }
+                                        enginePort.setPromo(thepromoPiece);
+                                        enginePort.requestMove(source, dest);
                                     }
                                     game.repair();
                                     game.isLocalTurn = false;
@@ -311,10 +285,10 @@ public class PlayActivity extends AppCompatActivity {
                                 }
                             };
                             dialog.setCanceledOnTouchOutside(false);
-                            dialog.findViewById(R.id.queen_choice).setOnClickListener(terro);
-                            dialog.findViewById(R.id.knight_choice).setOnClickListener(terro);
-                            dialog.findViewById(R.id.rook_choice).setOnClickListener(terro);
-                            dialog.findViewById(R.id.bishop_choice).setOnClickListener(terro);
+                            dialog.findViewById(R.id.queen_choice).setOnClickListener(clickListener);
+                            dialog.findViewById(R.id.knight_choice).setOnClickListener(clickListener);
+                            dialog.findViewById(R.id.rook_choice).setOnClickListener(clickListener);
+                            dialog.findViewById(R.id.bishop_choice).setOnClickListener(clickListener);
 
                             dialog.setOnCancelListener(new DialogInterface.OnCancelListener() { //for in case user presses the back button without selecting
                                 @Override
@@ -334,16 +308,15 @@ public class PlayActivity extends AppCompatActivity {
                                 int source = Integer.parseInt(prevView.getTag().toString());
                                 int dest = Integer.parseInt(view.getTag().toString());
                                 String moveToBeSent = "" + game.boardArray[source][0] + game.boardArray[source][1] + game.boardArray[dest][0] + game.boardArray[dest][1];
-                                sendBluetoothMessage(moveToBeSent);
+                                bluetoothManager.sendMessage(moveToBeSent);
                             }
 
                             if(game.gameMode == Constants.GAME_MODE_AI_WHITE || game.gameMode == Constants.GAME_MODE_AI_BLACK) {
-                                //jeroen chess engine
                                 //send message to chess engine if in spar mode
                                 int source = Integer.parseInt(prevView.getTag().toString());
                                 int dest = Integer.parseInt(view.getTag().toString());
                                 game.isLocalTurn = false;
-                                ui.requestMove(source, dest);
+                                enginePort.requestMove(source, dest);
                             }
 
                             //ok then, make move frontend
@@ -353,7 +326,7 @@ public class PlayActivity extends AppCompatActivity {
 
                             if ((!game.localWhite && game.whiteOnCheck) ||
                                     (game.localWhite && game.blackOnCheck)) { //if homeboy just checked jude
-                                checkBro.start();
+                                soundManager.reSoundCheck();
                             }
                             if(game.gameMode != Constants.GAME_MODE_AI_WHITE && game.gameMode != Constants.GAME_MODE_AI_BLACK)
                                 game.isLocalTurn = false;
@@ -369,7 +342,7 @@ public class PlayActivity extends AppCompatActivity {
                 pathViews = new ArrayList<>();
 
                 if (hasAValidMoveBeenMade) {
-                    moveMade.start();
+                    soundManager.soundMove();
                     heyJude();
                 }
 
@@ -383,16 +356,16 @@ public class PlayActivity extends AppCompatActivity {
         if(!game.isLocalTurn) {
             switch (game.gameMode) {
                 case Constants.GAME_MODE_MULTI_BLUETOOTH:
-                    renderTurnsLine(); //render and wait for opponent to send message across bluetooth........
+                    renderTurnsLine(); // Render and wait for opponent to send message across bluetooth...
                     break;
                 case Constants.GAME_MODE_MULTI_LOCAL:
                     rotateBoard();
                     break;
                 case Constants.GAME_MODE_PRACTICE:
-                    new RandomMoveGenerator().execute();
+                    new RandomMoveGenerator(new WeakReference<>(PlayActivity.this), game).execute();
                     break;
                 case Constants.GAME_MODE_AI_WHITE:case Constants.GAME_MODE_AI_BLACK:
-                    renderTurnsLine(); //render and wait for chess engine to send move...
+                    renderTurnsLine(); // Render and wait for chess engine to send move...
                     break;
                 default: break;
             }
@@ -403,7 +376,7 @@ public class PlayActivity extends AppCompatActivity {
         if (game.movesHistory.size() > 0) {
             switch (game.gameMode) {
                 case Constants.GAME_MODE_MULTI_BLUETOOTH:
-                    sendBluetoothMessage(Integer.toString(Constants.BLUETOOTH_UNDO_REQUEST));
+                    bluetoothManager.sendMessage(Integer.toString(Constants.BLUETOOTH_UNDO_REQUEST));
                     break;
                 case Constants.GAME_MODE_MULTI_LOCAL:
                     game.undoLastMultiplayMove();
@@ -413,13 +386,13 @@ public class PlayActivity extends AppCompatActivity {
                     break;
                 case Constants.GAME_MODE_AI_BLACK: case Constants.GAME_MODE_AI_WHITE:
                     if(!game.isLocalTurn) break;
-                    ui.undoTwice();
+                    enginePort.undoTwice();
                     game.undoLastMove(true);
                     game.repair();
                     renderBoard();
                     if(game.movesHistory.size() == 0 && !game.localWhite) {
                         game.isLocalTurn = false;
-                        ui.play();
+                        enginePort.play();
                     }
                     break;
                 case Constants.GAME_MODE_PRACTICE:
@@ -439,6 +412,10 @@ public class PlayActivity extends AppCompatActivity {
         }
     }
 
+    /*
+    //TODO
+    This method should allow the user to switch sides in the middle of a game
+     */
     public void rotateBoard(View view) { // method to turn table
         if((game.gameMode != Constants.GAME_MODE_MULTI_BLUETOOTH && game.gameMode != Constants.GAME_MODE_MULTI_LOCAL) &&
                 (game.movesHistory.size() == 0)) {
@@ -469,7 +446,10 @@ public class PlayActivity extends AppCompatActivity {
         }
     }
 
-    public void rotateBoard() { // method to turn table for local multiplayer mode..
+    /*
+        Method to turn table for local multiplayer mode..
+     */
+    public void rotateBoard() {
         game.rotateBoard();
         final Animation an = new RotateAnimation(0.0f, 180.0f, boardLayout.getHeight() / 2, boardLayout.getWidth() / 2);
         an.setDuration(1500);
@@ -498,45 +478,27 @@ public class PlayActivity extends AppCompatActivity {
 
 
 
-//========================================================================================================================
-
-
-
-
-    private void sendBluetoothMessage(String message) {
-        // Check that we're actually connected before trying anything
-        if (mChatService.getState() != BluetoothChatService.STATE_CONNECTED) {
-            Toast.makeText(PlayActivity.this, "You are not connected", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Check that there's actually something to send
-        if (message.length() > 0) {
-            // Get the message bytes and tell the BluetoothChatService to write
-            byte[] send = message.getBytes();
-            mChatService.write(send); //=====HERE!!!!!!!!!!!!!--------------!!!!!!!!!!!!!!!!!
-
-        }
-    }
-
-
     /**
      * The Handler that gets information back from the BluetoothChatService
      */
-    @SuppressLint("HandlerLeak")
-    private final Handler mHandler = new Handler() {
+    private static class BluetoothHandler extends Handler {
+        private final WeakReference<PlayActivity> mActivity;
+
+        BluetoothHandler(WeakReference<PlayActivity> activity) {
+            this.mActivity = activity;
+        }
+
         @Override
         public void handleMessage(Message msg) {
-            Activity activity = PlayActivity.this;
+            final PlayActivity activity = mActivity.get();
             switch (msg.what) {
                 case Constants.MESSAGE_STATE_CHANGE:
                     switch (msg.arg1) {
                         case BluetoothChatService.STATE_CONNECTED:
-                            saveGame(game); // save the ongoing game
-                            startNewGame(Constants.GAME_MODE_MULTI_BLUETOOTH);
+                            activity.saveGame(game); // save the ongoing game
+                            activity.startNewGame(Constants.GAME_MODE_MULTI_BLUETOOTH);
                             break;
                         case BluetoothChatService.STATE_CONNECTING:
-                            break;
                         case BluetoothChatService.STATE_LISTEN:
                         case BluetoothChatService.STATE_NONE:
                             break;
@@ -554,7 +516,10 @@ public class PlayActivity extends AppCompatActivity {
                     // construct a string from the valid bytes in the buffer
                     String readMessage = new String(readBuf, 0, msg.arg1);
 
-                    //here i will get message from other device, decode it for local consumption, make the move, and set local turn to be true and render
+                    /*
+                        Here we will get message from other device, decode it for local consumption,
+                        make the move, and set local turn to be true, and render
+                     */
                     if(readMessage.length() == 4) { // Standard move length
                         int orderInt = Integer.parseInt(readMessage); //readMessage is opponentsMove
                         int source = (((orderInt / 1000) - 1) * 8) + (((orderInt / 100) % 10) - 1); // this conversion is repeated in the makemove method. it is not necessary. use only one makemove method
@@ -565,7 +530,7 @@ public class PlayActivity extends AppCompatActivity {
                         game.playMove(source, destination, 2); //make move backend
                         game.repair();
                         game.isLocalTurn = true;
-                        renderBoard();
+                        activity.renderBoard();
 
                     } else if (readMessage.length() > 4) { // Promotion move length
                         int orderInt = Integer.parseInt(readMessage); //readMessage is opponentsMove
@@ -579,24 +544,24 @@ public class PlayActivity extends AppCompatActivity {
                         game.boardArray[destination][4] = chosenPromoPiece;
                         game.repair();
                         game.isLocalTurn = true;
-                        renderBoard();
+                        activity.renderBoard();
 
                     } else { //then it is a communication about undo, etc..
                         switch (Integer.parseInt(readMessage)) {
                             case Constants.BLUETOOTH_UNDO_REQUEST:
-                                new AlertDialog.Builder(PlayActivity.this)
+                                new AlertDialog.Builder(activity)
                                         .setIcon(R.drawable.undo)
                                         .setTitle("Undo")
-                                        .setMessage(mConnectedDeviceName + " wants to undo last move. Agree?")
+                                        .setMessage(activity.bluetoothManager.getConnectedDeviceName() + " wants to undo last move. Agree?")
                                         .setPositiveButton("Undo",
                                                 new DialogInterface.OnClickListener() {
                                                     @Override
                                                     public void onClick(DialogInterface abc, int def) {
-                                                        sendBluetoothMessage(Integer.toString(Constants.BLUETOOTH_UNDO_GRANTED));
+                                                        activity.bluetoothManager.sendMessage(Integer.toString(Constants.BLUETOOTH_UNDO_GRANTED));
                                                         game.undoLastMove(false);
                                                         game.isLocalTurn = false;
                                                         game.repair();
-                                                        renderBoard();
+                                                        activity.renderBoard();
                                                     }
 
                                                 })
@@ -604,20 +569,20 @@ public class PlayActivity extends AppCompatActivity {
                                         .setNegativeButton("Reject", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface abc, int def) {
-                                                sendBluetoothMessage(Integer.toString(Constants.BLUETOOTH_UNDO_DENIED));
+                                                activity.bluetoothManager.sendMessage(Integer.toString(Constants.BLUETOOTH_UNDO_DENIED));
                                             }
 
                                         }).show();
                                 break;
                             case Constants.BLUETOOTH_UNDO_GRANTED:
-                                Toast.makeText(PlayActivity.this, "Request granted", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(activity, "Request granted", Toast.LENGTH_SHORT).show();
                                 game.undoLastMove(true);
                                 game.isLocalTurn = true;
                                 game.repair();
-                                renderBoard();
+                                activity.renderBoard();
                                 break;
                             case Constants.BLUETOOTH_UNDO_DENIED:
-                                Toast.makeText(PlayActivity.this, "Request denied", Toast.LENGTH_LONG).show();
+                                Toast.makeText(activity, "Request denied", Toast.LENGTH_LONG).show();
                                 break;
                             default: break;
 
@@ -627,27 +592,22 @@ public class PlayActivity extends AppCompatActivity {
                     break;
                 case Constants.MESSAGE_DEVICE_NAME:
                     // save the connected device's name
-                    mConnectedDeviceName = msg.getData().getString(Constants.DEVICE_NAME);
-                    if (null != activity) {
-                        Toast.makeText(activity, "Connected to " + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
-                    }
+                    activity.bluetoothManager.setConnectedDeviceName(msg.getData().getString(Constants.DEVICE_NAME));
+                    //if(null != activity) {
+                    Toast.makeText(activity, "Connected to " + activity.bluetoothManager.getConnectedDeviceName(), Toast.LENGTH_SHORT).show();
+                    //}
                     break;
                 case Constants.MESSAGE_TOAST:
-                    if (null != activity) {
-                        Toast.makeText(activity, msg.getData().getString(Constants.TOAST),
-                                Toast.LENGTH_SHORT).show();
-                    }
+                    //if(null != activity) {
+                    Toast.makeText(activity, msg.getData().getString(Constants.TOAST),
+                            Toast.LENGTH_SHORT).show();
+                    //}
                     break;
             }
         }
-    };
-
-    private void connectDevice(Intent data, boolean secure) {
-        String address = data.getExtras().getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS); // Get the device MAC address
-        BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address); // Get the BluetoothDevice object
-        iAmWhite = true; //the initiator of the connection is white
-        mChatService.connect(device, secure); // Attempt to connect to the device
     }
+
+
 
 
     public void switchGameSettingsBoards(View view) {
@@ -687,7 +647,7 @@ public class PlayActivity extends AppCompatActivity {
             public void onAnimationEnd(Animation animation) {
                 if(game.movesHistory.size() == 0 && !game.localWhite) {
                     if(game.gameMode == Constants.GAME_MODE_PRACTICE) heyJude();
-                    if(game.gameMode == Constants.GAME_MODE_AI_BLACK) { heyJude(); ui.play(); }
+                    if(game.gameMode == Constants.GAME_MODE_AI_BLACK) { heyJude(); enginePort.play(); }
                 }
             }
 
@@ -706,7 +666,7 @@ public class PlayActivity extends AppCompatActivity {
         String alertTitle  = "";
         String alertMessage = "";
         switch (modeViewTagAsGameMode) {
-            case Constants.GAME_MODE_MULTI_BLUETOOTH: startBluetooth(); break;
+            case Constants.GAME_MODE_MULTI_BLUETOOTH: bluetoothManager.startBluetooth(); break;
             case Constants.GAME_MODE_AI_WHITE:
                 alertTitle = "White";
                 alertMessage = "Play as white against a chess AI.\nYour last game will be discarded.";
@@ -750,40 +710,32 @@ public class PlayActivity extends AppCompatActivity {
 
 
     public void startNewGame(int mode) {
-        gameStateView.setTextColor(Color.rgb(128, 128, 128));
         switch (mode) {
             case Constants.GAME_MODE_MULTI_BLUETOOTH:
-                game = new Game(mode, iAmWhite); returnBoardStuff(); game.repair(); renderBoard(); boardSet.start();
-                gameStateView.setText("Bluetooth mode\n");
+                game = new Game(mode, iAmBluetoothWhite); returnBoardStuff(); game.repair(); renderBoard(); soundManager.soundBoardSet();
                 break;
             case Constants.GAME_MODE_AI_WHITE:
-                ui.newGame();
-                game = new Game(mode, true); returnBoardStuff(); game.repair(); renderBoard(); boardSet.start();
-                gameStateView.setText("With Computer\n");
+                enginePort.newGame();
+                game = new Game(mode, true); returnBoardStuff(); game.repair(); renderBoard(); soundManager.soundBoardSet();
                 break;
             case Constants.GAME_MODE_AI_BLACK:
-                ui.newGame();
-                game = new Game(mode, false); returnBoardStuff(); game.repair(); renderBoard(); boardSet.start();
-                gameStateView.setText("With Computer\n");
+                enginePort.newGame();
+                game = new Game(mode, false); returnBoardStuff(); game.repair(); renderBoard(); soundManager.soundBoardSet();
                 //let engine start the game
-                //ui.play();
+                //enginePort.play();
                 break;
             case Constants.GAME_MODE_MULTI_LOCAL:
-                game = new Game(mode, true); returnBoardStuff(); game.repair(); renderBoard(); boardSet.start();
-                gameStateView.setText("MultiPlayer mode\n");
+                game = new Game(mode, true); returnBoardStuff(); game.repair(); renderBoard(); soundManager.soundBoardSet();
                 break;
             case Constants.GAME_MODE_PRACTICE:
-                game = new Game(mode, !game.localWhite); returnBoardStuff(); game.repair(); renderBoard(); boardSet.start();
-                gameStateView.setText("Random mode\n");
+                game = new Game(mode, !game.localWhite); returnBoardStuff(); game.repair(); renderBoard(); soundManager.soundBoardSet();
                 break;
             default: break;
         }
 
+        setHeader(mode);
+
     }
-
-
-
-    //============================RENDER METHODS ======================================================================
 
 
     public void renderBoard() {
@@ -854,32 +806,27 @@ public class PlayActivity extends AppCompatActivity {
         renderTurnsLine();
 
         if(game.gameMode == Constants.GAME_MODE_AI_WHITE || game.gameMode == Constants.GAME_MODE_AI_BLACK) {
-            switch (ui.getStateOfPlay()) {
+            switch (enginePort.getStateOfPlay()) {
                 case Constants.MATE:
-                    if(game.isLocalTurn) gameStateView.setText("Checkmate. You Lost.\n");
-                    else gameStateView.setText("Checkmate. You Win.\n");
-                    gameStateView.setTextColor(Color.rgb(178, 34, 34));
-                    checkBro.start();
+                    if(game.isLocalTurn) headerText.setText("Checkmate. You Lost.\n");
+                    else headerText.setText("Checkmate. You Win.\n");
+                    soundManager.reSoundCheck();
                     switchGameSettingsBoards(new View(this));
                     break;
                 case Constants.STALEMATE:
-                    gameStateView.setText("Stalemate\n");
-                    gameStateView.setTextColor(Color.rgb(128, 0, 0));
+                    headerText.setText("Stalemate\n");
                     switchGameSettingsBoards(new View(this));
                     break;
                 case Constants.DRAW_REPEAT:
-                    gameStateView.setText("Draw by repeat\n");
-                    gameStateView.setTextColor(Color.rgb(128, 0, 0));
+                    headerText.setText("Draw by repeat\n");
                     switchGameSettingsBoards(new View(this));
                     break;
 
                 case Constants.DRAW_50:
-                    gameStateView.setText("Draw by 50 moves rule\n");
-                    gameStateView.setTextColor(Color.rgb(128, 0, 0));
+                    headerText.setText("Draw by 50 moves rule\n");
                     switchGameSettingsBoards(new View(this));
                     break;
                 default:
-                    gameStateView.setTextColor(Color.rgb(128, 128, 128));
                     break;
             }
         }
@@ -914,7 +861,7 @@ public class PlayActivity extends AppCompatActivity {
 
                 //set a default dimension of 40 * 40 before adjusting to size of screen
                 captiveCell.setLayoutParams(new LinearLayout.LayoutParams(40, 40));
-                captiveCell.getLayoutParams().height = widthOfScreen / 8;
+                captiveCell.getLayoutParams().height = screenWidth / 8;
 
                 if ((game.localWhite && capturedPieceInt > 50) || (!game.localWhite && capturedPieceInt < 50)) {
                     judeCaptivesCage.addView(captiveCell);
@@ -981,10 +928,10 @@ public class PlayActivity extends AppCompatActivity {
             case 17:case 12: //black knights
                 place.setImageResource(R.drawable.blackknight);
                 break;
-            case 71:case 72:case 73:case 74:case 75:case 76:case 77:case 78: //white pawns
+            case 71:case 72:case 73:case 74:case 75:case 76:case 77:case 78: // white pawns
                 place.setImageResource(R.drawable.whitepawn);
                 break;
-            case 21:case 22:case 23:case 24:case 25:case 26:case 27:case 28: //black pawns
+            case 21:case 22:case 23:case 24:case 25:case 26:case 27:case 28: // black pawns
                 place.setImageResource(R.drawable.blackpawn);
                 break;
         }
@@ -1049,9 +996,6 @@ public class PlayActivity extends AppCompatActivity {
 
 
 
-
-    //================== TECHNICAL METHODS ============================
-
     public void highlightGameMode() { //hmm.. see coding
         if(Integer.parseInt(modeOne.getTag().toString()) != game.gameMode) modeOne.setAlpha(1.0f); else modeOne.setAlpha(0.5f);
         if(Integer.parseInt(modeTwo.getTag().toString()) != game.gameMode) modeTwo.setAlpha(1.0f); else modeTwo.setAlpha(0.5f);
@@ -1060,33 +1004,46 @@ public class PlayActivity extends AppCompatActivity {
         if(Integer.parseInt(modeFive.getTag().toString()) != game.gameMode) modeFive.setAlpha(1.0f); else modeFive.setAlpha(0.5f);
     }
 
-    public void setSoundPref(View view) {
-        SharedPreferences.Editor editor = settings.edit();
-        boolean soundState = settings.getBoolean("soundState", true);
-        editor.putBoolean("soundState", !soundState);
-        editor.apply();
-        //this gap of time is not enough like.
-        resetVolumes();
-        moveMade.start(); //make a test sound with the new set volume
+
+
+    public void toggleSoundPref(View view) {
+        soundManager.toggleSoundPref();
     }
 
-    public void resetVolumes() {
-        boolean soundState = settings.getBoolean("soundState", true);
-        if(soundState) {
-            checkBro.setVolume(1.0f, 1.0f);
-            onCheckSound.setVolume(1.0f, 1.0f);
-            moveMade.setVolume(1.0f, 1.0f);
-            boardSet.setVolume(1.0f, 1.0f);
-            soundControl.setImageResource(R.drawable.vol_on);
-        } else {
-            checkBro.setVolume(0.0f, 0.0f);
-            onCheckSound.setVolume(0.0f, 0.0f);
-            moveMade.setVolume(0.0f, 0.0f);
-            boardSet.setVolume(0.0f, 0.0f);
-            soundControl.setImageResource(R.drawable.vol_off);
+    public void setHeader(int gameMode) {
+        String text;
+        switch (gameMode) {
+            case Constants.GAME_MODE_MULTI_BLUETOOTH:
+                text = Constants.GAME_TITLE_MULTI_BLUETOOTH;
+                break;
+            case Constants.GAME_MODE_AI_WHITE:
+                text = Constants.GAME_TITLE_AI_WHITE;
+                break;
+            case Constants.GAME_MODE_AI_BLACK:
+                text = Constants.GAME_TITLE_AI_BLACK;
+                break;
+            case Constants.GAME_MODE_MULTI_LOCAL:
+                text = Constants.GAME_TITLE_MULTI_LOCAL;
+                break;
+            case Constants.GAME_MODE_PRACTICE:
+                text = Constants.GAME_TITLE_PRACTICE;
+                break;
+            default: text = Constants.APP_NAME; break;
         }
+        headerText.setText(text);
     }
 
+
+    public void viewGamePGN(View view) {
+        String pgnNote = "PGN is only available for games against AI";
+
+        if(game.gameMode == Constants.GAME_MODE_AI_WHITE || game.gameMode == Constants.GAME_MODE_AI_BLACK)
+            pgnNote = enginePort.getFullPGN();
+
+        Intent intent = new Intent(PlayActivity.this, PGNViewActivity.class);
+        intent.putExtra("PGN", pgnNote);
+        startActivityForResult(intent, Constants.SHOW_PGN);
+    }
 
 
 
@@ -1105,18 +1062,17 @@ public class PlayActivity extends AppCompatActivity {
             case Constants.REQUEST_CONNECT_DEVICE_INSECURE:
                 // When DeviceListActivity returns with a device to connect
                 if (resultCode == Activity.RESULT_OK) {
-                    connectDevice(data, false);
+                    bluetoothManager.connectDevice(data, false);
                 }
                 break;
             case Constants.REQUEST_ENABLE_BT:
                 // When the request to enable Bluetooth returns
                 if (resultCode == Activity.RESULT_OK) {
-                    mChatService = new BluetoothChatService(PlayActivity.this, mHandler);
-                    mChatService.start();
+                    bluetoothManager.init();
                     Intent serverIntent = new Intent(PlayActivity.this, DeviceListActivity.class);
                     startActivityForResult(serverIntent, Constants.REQUEST_CONNECT_DEVICE_INSECURE);
                 } else {
-
+                    Toast.makeText(PlayActivity.this, "Bluetooth must be enabled", Toast.LENGTH_LONG).show();
                 }
                 break;
             case Constants.REQUEST_AI_MOVE:
@@ -1137,7 +1093,7 @@ public class PlayActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putParcelable("key", game);
         if(game.gameMode == Constants.GAME_MODE_AI_WHITE || game.gameMode == Constants.GAME_MODE_AI_BLACK) {
-            String s = ui.getMovesPGN();
+            String s = enginePort.getMovesPGN();
             outState.putString("key2", s);
         }
     }
@@ -1145,19 +1101,8 @@ public class PlayActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         if(loadGame() != null) { game = loadGame(); game.repair(); }
-
-        // Performing this check in onResume() covers the case in which BT was
-        // not enabled during onStart(), so we were paused to enable it...
-        // onResume() will be called when ACTION_REQUEST_ENABLE activity returns.
-        if (mChatService != null) {
-            // Only if the state is STATE_NONE, do we know that we haven't started already
-            if (mChatService.getState() == BluetoothChatService.STATE_NONE) {
-                // Start the Bluetooth chat services
-                mChatService.start();
-            }
-        }
+        bluetoothManager.startChatService();
 
     }
 
@@ -1170,9 +1115,7 @@ public class PlayActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mChatService != null) {
-            mChatService.stop();
-        }
+        bluetoothManager.stopChatService();
     }
 
     @Override
@@ -1185,7 +1128,7 @@ public class PlayActivity extends AppCompatActivity {
 
         switch (game.gameMode) {
             case Constants.GAME_MODE_MULTI_LOCAL:case Constants.GAME_MODE_PRACTICE:case Constants.GAME_MODE_AI_WHITE:case Constants.GAME_MODE_AI_BLACK:
-                new FinishGame().execute();
+                new ExitSequence(new WeakReference<>(PlayActivity.this)).execute();
                 break;
             case Constants.GAME_MODE_MULTI_BLUETOOTH:
                 new AlertDialog.Builder(this, R.style.MyDialogTheme)
@@ -1238,7 +1181,7 @@ public class PlayActivity extends AppCompatActivity {
 
         if(instance.gameMode == Constants.GAME_MODE_AI_WHITE || instance.gameMode == Constants.GAME_MODE_AI_BLACK) {
             String fileNamePGN = "gcsparpgn";
-            String s = ui.getMovesPGN();
+            String s = enginePort.getMovesPGN();
             FileOutputStream fosPGN;
             DataOutputStream outPGN;
             try {
@@ -1280,7 +1223,7 @@ public class PlayActivity extends AppCompatActivity {
                 inPGN = new DataInputStream(fisPGN);
                 savedGamePGN = inPGN.readLine();
                 inPGN.close();
-                ui.loadPGN(savedGamePGN);
+                enginePort.loadPGN(savedGamePGN);
             } catch (Exception e) {
                 Log.e("FATAL", e.toString());
                 //Toast.makeText(PlayActivity.this, "Could not load saved game PGN.", Toast.LENGTH_SHORT).show();
@@ -1291,105 +1234,40 @@ public class PlayActivity extends AppCompatActivity {
     }
 
 
+    private static class ExitSequence extends AsyncTask<Void, Void, Void> {
 
-    //============================ INNER CLASSES ================================
+        private final WeakReference<PlayActivity> mActivity;
 
-
-    private class RandomMoveGenerator extends AsyncTask<Void, Void, Void> {
-
-        //Game gameCopy = new Game(Constants.GAME_MODE_PRACTICE, game.localWhite); //to test moves on
-
-        //Damn but the two instances still interact
-
-        String finalMove = "";
-        StringBuffer allMoves = game.getAllMoves(false, !game.localWhite);
+        ExitSequence(WeakReference<PlayActivity> activity) {
+            this.mActivity = activity;
+        }
 
         @Override
         protected void onPreExecute() {
-            renderTurnsLine();
-            //gameCopy = game;
+            PlayActivity activity = mActivity.get();
+            // TODO Use animations to make the disappearance nicer
+            activity.header.setVisibility(View.INVISIBLE);
+            activity.topBar.setVisibility(View.INVISIBLE);
+            activity.bottomBar.setVisibility(View.INVISIBLE);
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            if(Looper.myLooper() == null) Looper.prepare();
-
-            boolean r = false;
-            do {
-                if(r) {
-                    game.undoLastMove(false);
-                    //remove the previous checked move from allmoves
-                    for (int i = 0; i < allMoves.length(); i = i + 5) {
-                        if(allMoves.substring(i, (i + 4)).equals(finalMove)) {
-                            allMoves.delete(i, (i + 5));
-                        }
-                    }
-                }
-                r = true;
-                game.repair();
-
-                if(allMoves.length() < 3) return null; //stop when there is no more move in all moves
-
-                finalMove = game.chooseRandomMove(allMoves); //choose random move after getting all moves for black
-                game.playMove(finalMove, 2); //make move backend
-                game.repair();
-            } while((game.localWhite && game.blackOnCheck) || (!game.localWhite && game.whiteOnCheck));
-
-            game.undoLastMove(false);
+            PlayActivity activity = mActivity.get();
+            activity.saveGame(game);
+            activity.bluetoothManager.closeBluetooth();
             return null;
-
         }
 
         @Override
         protected void onPostExecute(Void result) {
-            try {Thread.sleep(200);} catch (InterruptedException e) {} // give time for homeboy to think that the computer is thinking :)
-            if (game.isLocalTurn)
+            PlayActivity activity = mActivity.get();
+            if(activity == null)
                 return;
-            if(allMoves.length() > 3) {
-                game.playMove(finalMove, 2);
-                game.repair();
-                game.isLocalTurn = true;
-                renderBoard();
-                moveMade.start(); //play the move made sound clip
-            } else {
-                Toast.makeText(PlayActivity.this, "No move found", Toast.LENGTH_LONG).show();
-            }
+            activity.finish();
         }
 
     }
 
-
-    private class FinishGame extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            //Toast.makeText(PlayActivity.this, "Saving your progress...", Toast.LENGTH_SHORT).show();
-            finish();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            saveGame(game);
-            if (mBluetoothAdapter.isEnabled()) mBluetoothAdapter.disable(); //close bluetooth
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            //finish();
-        }
-
-    }
-
-    public void viewGamePGN(View view) {
-        String heck = "PGN is only available for games against AI";
-
-        if(game.gameMode == Constants.GAME_MODE_AI_WHITE || game.gameMode == Constants.GAME_MODE_AI_BLACK)
-            heck = ui.getFullPGN();
-
-        Intent intent = new Intent(PlayActivity.this, PGNViewActivity.class);
-        intent.putExtra("PGN", heck);
-        startActivityForResult(intent, Constants.SHOW_PGN);
-    }
 
 }

@@ -27,7 +27,7 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/upper_bar"
+                android:id="@+id/top_bar"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -63,7 +63,7 @@
 
                 </RelativeLayout>
 
-                <TextView
+                <View
                     android:id="@+id/t_turn_line"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
@@ -124,7 +124,7 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <TextView
+                <View
                     android:id="@+id/m_turn_line"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
@@ -250,7 +250,7 @@
 
     <!-- This below layout is the top bar -->
     <LinearLayout
-        android:id="@+id/top_bar"
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -259,6 +259,7 @@
         android:layout_marginTop="8dp">
 
         <TextView
+            android:id="@+id/header_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/app_name"

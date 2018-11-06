@@ -2,6 +2,9 @@ package com.nwagu.android.chessboy;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.nwagu.android.chessboy.Data.Constants;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
@@ -45,15 +48,15 @@ class Game implements Serializable, Parcelable {
     boolean localWhite = true;
     boolean isLocalTurn = true;
 
-    private int can11Castle; //castling may occur with rook 11 only when this variables is 0
-    private int can18Castle; //castling may occur with rook 18 only when this variables is 0
-    private int can81Castle; //castling may occur with rook 81 only when this variables is 0
-    private int can88Castle; //castling may occur with rook 88 only when this variables is 0
+    private int can11Castle; // castling may occur with rook 11 only when this variable is 0
+    private int can18Castle; // castling may occur with rook 18 only when this variable is 0
+    private int can81Castle; // castling may occur with rook 81 only when this variable is 0
+    private int can88Castle; // castling may occur with rook 88 only when this variable is 0
 
     int lastSource = -1;
     int lastDestination = -1;
-    private int whiteFlag; //this represents the position of the white King
-    private int blackFlag; //this represents the position of the black King
+    private int whiteFlag; // this represents the position of the white King
+    private int blackFlag; // this represents the position of the black King
     boolean whiteOnCheck = false;
     boolean blackOnCheck = false;
 

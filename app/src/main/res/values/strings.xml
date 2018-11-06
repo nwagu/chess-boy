@@ -8,7 +8,6 @@
     <string name="none_found">No devices found</string>
 
     <string name="settings_foot_note">Chess Boy, Inc.</string>
-    <string name="settings_current_game">Current game:</string>
     <string name="default_game_status"> </string>
     <string name="settings_game_controls">Game controls:</string>
     <string name="settings_game_modes">Game modes:</string>
