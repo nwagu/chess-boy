@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "397711418233",
+    "project_id": "chess-boy",
+    "storage_bucket": "chess-boy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397711418233:android:60a89b3683e2c470da85a8",
+        "android_client_info": {
+          "package_name": "com.nwagu.android.chessboy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "397711418233-91l3m8m3ed95ict5u1qgvcb5ip96elf5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAia2IlY0HEGXapYUuDRoQvPCpt2b_Gje8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "397711418233-91l3m8m3ed95ict5u1qgvcb5ip96elf5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
