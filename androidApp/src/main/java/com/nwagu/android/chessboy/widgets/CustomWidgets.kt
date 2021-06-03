@@ -40,19 +40,6 @@ fun SubHeader(modifier: Modifier = Modifier, text: String) {
 }
 
 @Composable
-fun ClickableHeader(modifier: Modifier = Modifier, text: String, action: () -> Unit) {
-    Text(
-        modifier = modifier
-            .clickable(onClick = {
-                action()
-            }),
-        text = text,
-        fontSize = 20.sp,
-        style = TextStyle(Color.Blue, fontWeight = FontWeight.Bold)
-    )
-}
-
-@Composable
 fun QuickActionView(
     quickAction: QuickAction
 ) {

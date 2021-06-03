@@ -146,7 +146,10 @@ fun ChessBoardThumbView(
     game: Game
 ) {
 
-    Card(modifier = modifier,
+    Card(
+        modifier = modifier
+            .width(120.dp)
+            .aspectRatio(1f),
         shape = RoundedCornerShape(2.dp),
         backgroundColor = AppColor.boardBackground,
         elevation = 0.dp

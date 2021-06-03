@@ -23,7 +23,11 @@ import com.nwagu.android.chessboy.model.data.ScreenConfig
 import com.nwagu.android.chessboy.vm.GameViewModel
 import com.nwagu.android.chessboy.vm.NewBluetoothGameViewModel
 import com.nwagu.android.chessboy.vm.NewGameViewModel
-import com.nwagu.android.chessboy.widgets.*
+import com.nwagu.android.chessboy.widgets.ChessBoardThumbView
+import com.nwagu.android.chessboy.widgets.Header
+import com.nwagu.android.chessboy.widgets.QuickActionView
+import com.nwagu.android.chessboy.widgets.SimpleFlowRow
+import com.nwagu.chess.Game
 import kotlinx.coroutines.launch
 
 @ExperimentalMaterialApi
@@ -98,6 +102,11 @@ fun HomeView(
                             },
                             QuickAction("New game", R.drawable.img_white_king) {
                                 navHostController.navigate(Screen.NewGame.route)
+                            },
+                            QuickAction("Continue current game", R.drawable.img_white_king) {
+                                coroutineScope.launch {
+                                    bottomSheetScaffoldState.bottomSheetState.expand()
+                                }
                             }
                         )
 
@@ -107,29 +116,13 @@ fun HomeView(
                             }
                         }
 
-                        ClickableHeader(Modifier.padding(0.dp, 16.dp), "Continue current game") {
-                            coroutineScope.launch {
-                                bottomSheetScaffoldState.bottomSheetState.expand()
-                            }
-                        }
-
                         Header(Modifier.padding(0.dp, 16.dp), "Your recent games")
 
-                        val gameHistory = listOf(
-                            gameViewModel.game,
-                            gameViewModel.game,
-                            gameViewModel.game,
-                            gameViewModel.game,
-                            gameViewModel.game
-                        )
+                        val gameHistory = listOf<Game>()
 
-                        GridView(
-                            modifier = Modifier.fillMaxWidth(),
-                            numberOfColumns = 3,
-                            items = gameHistory
-                        ) {
-                            Box {
-                                ChessBoardThumbView(modifier = Modifier.padding(4.dp), it)
+                        SimpleFlowRow {
+                            for(game in gameHistory) {
+                                ChessBoardThumbView(modifier = Modifier.padding(4.dp), game)
                             }
                         }
 
