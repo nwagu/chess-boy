@@ -136,9 +136,9 @@ fun GameViewPortrait(
     ) {
 
         PlayerDisplay(modifier = Modifier, viewModel, viewModel.game.colorOnUserSideOfBoard.opposite())
-        CaptivesView(modifier = Modifier.fillMaxWidth(), viewModel, viewModel.game.colorOnUserSideOfBoard)
+        // CaptivesView(modifier = Modifier.fillMaxWidth(), viewModel, viewModel.game.colorOnUserSideOfBoard)
         ChessBoardView(modifier = Modifier.fillMaxWidth(), viewModel)
-        CaptivesView(modifier = Modifier.fillMaxWidth(), viewModel, viewModel.game.colorOnUserSideOfBoard.opposite())
+        // CaptivesView(modifier = Modifier.fillMaxWidth(), viewModel, viewModel.game.colorOnUserSideOfBoard.opposite())
         PlayerDisplay(modifier = Modifier, viewModel, viewModel.game.colorOnUserSideOfBoard)
         Row(modifier = Modifier
             .fillMaxWidth()
@@ -177,13 +177,11 @@ fun GameViewLandscape(
             PlayerDisplay(
                 modifier = Modifier,
                 viewModel, viewModel.game.colorOnUserSideOfBoard.opposite())
-            CaptivesView(modifier = Modifier.fillMaxWidth(),
-                viewModel, viewModel.game.colorOnUserSideOfBoard)
+            // CaptivesView(modifier = Modifier.fillMaxWidth(), viewModel, viewModel.game.colorOnUserSideOfBoard)
             PlayerDisplay(
                 modifier = Modifier,
                 viewModel, viewModel.game.colorOnUserSideOfBoard)
-            CaptivesView(modifier = Modifier.fillMaxWidth(),
-                viewModel, viewModel.game.colorOnUserSideOfBoard.opposite())
+            // CaptivesView(modifier = Modifier.fillMaxWidth(), viewModel, viewModel.game.colorOnUserSideOfBoard.opposite())
             Row(modifier = Modifier
                 .fillMaxWidth()
                 .height(64.dp)) {
