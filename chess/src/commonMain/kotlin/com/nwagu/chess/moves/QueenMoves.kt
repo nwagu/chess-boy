@@ -5,12 +5,12 @@ import com.nwagu.chess.enums.ChessPieceType
 
 fun Board.getQueenMovesFrom(source: Square): List<Move> {
 
-    if (getCellOccupant(source).chessPieceType != ChessPieceType.QUEEN)
+    if (getSquareOccupant(source).chessPieceType != ChessPieceType.QUEEN)
         throw IllegalStateException("Type must be QUEEN!")
 
     return this.squaresMap.keys.filter { destination ->
         canQueenMoveFrom(source, destination) &&
-                destinationIsEmptyOrHasEnemy(destination, getCellOccupant(source).chessPieceColor)
+                destinationIsEmptyOrHasEnemy(destination, getSquareOccupant(source).chessPieceColor)
     }.map { destination ->
         RegularMove(source, destination)
     }

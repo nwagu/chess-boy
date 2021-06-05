@@ -8,22 +8,18 @@ fun Board.getPawnMovesFrom(source: Square): List<Move> {
 
     try {
 
-        if (getCellOccupant(source).chessPieceType != ChessPieceType.PAWN)
+        if (getSquareOccupant(source).chessPieceType != ChessPieceType.PAWN)
             throw IllegalStateException("Type must be PAWN!")
 
         return this.squaresMap.keys.filter { destination ->
             canPawnMoveFrom(source, destination) &&
                     destinationIsEmptyOrHasEnemy(
                         destination,
-                        getCellOccupant(source).chessPieceColor
+                        getSquareOccupant(source).chessPieceColor
                     )
         }.map { destination ->
             if (column(destination) != column(source) && squareEmpty(destination))
-                EnPassant(
-                    source,
-                    destination,
-                    captivePosition = square(row(source), column(destination))
-                )
+                EnPassant(source, destination)
             else if (isPawnPromotionSquare(destination))
                 Promotion(source, destination, promotionType = ChessPieceType.QUEEN)
             else
@@ -44,11 +40,11 @@ fun Board.canPawnMoveFrom(source: Square, destination: Square): Boolean {
         return false
 
     // The pawn wants to step forward two steps if not moved before
-    return (abs(row(destination) - row(source)) == 2 && column(destination) == column(source) && row(source) == pawn.startingRow && squareEmpty(destination))
+    return (abs(row(destination) - row(source)) == 2 && areSquaresClearOnSameColumn(source, destination) && row(source) == pawn.startingRow && squareEmpty(destination))
                 ||
 
                 // The pawn wants to step forward one step
-                (abs(row(destination) - row(source)) == 1 && column(destination) == column(source) && squareEmpty(destination))
+                (abs(row(destination) - row(source)) == 1 && areSquaresOnSameColumn(source, destination) && squareEmpty(destination))
 
                 ||
 

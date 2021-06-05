@@ -1,7 +1,7 @@
 package com.nwagu.chess
 
 import com.nwagu.chess.board.Board
-import com.nwagu.chess.positions.setToStandardStartingPosition
+import com.nwagu.chess.convention.setToStandardStartingPosition
 
 class Game(
     val whitePlayer: Player,

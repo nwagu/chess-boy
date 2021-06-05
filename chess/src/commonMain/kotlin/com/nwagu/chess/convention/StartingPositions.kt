@@ -1,4 +1,4 @@
-package com.nwagu.chess.positions
+package com.nwagu.chess.convention
 
 import com.nwagu.chess.board.*
 import com.nwagu.chess.enums.ChessPieceColor

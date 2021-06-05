@@ -5,12 +5,10 @@ import com.nwagu.chess.enums.ChessPieceColor
 fun Board.squareEmpty(square: Square) = squaresMap[square] is EmptySquare
 
 fun Board.destinationIsEmptyOrHasEnemy(destination: Square, color: ChessPieceColor): Boolean {
-    squaresMap[destination].let {
-        return if (it is EmptySquare)
-            true
-        else
-            (it as ChessPiece).chessPieceColor != color
-    }
+    return if (squareEmpty(destination))
+        true
+    else
+        getSquareOccupant(destination).chessPieceColor != color
 }
 
 fun Board.destinationContainsAnEnemy(destination: Square, color: ChessPieceColor): Boolean {

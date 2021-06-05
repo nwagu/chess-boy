@@ -29,7 +29,7 @@ sealed class BluetoothMessage {
             get() {
                 return when(move) {
                     is Castling -> "MOVE-CASTLING-${move.source}-${move.destination}-${move.secondarySource}-${move.secondaryDestination}"
-                    is EnPassant -> "MOVE-ENPASSANT-${move.source}-${move.destination}-${move.captivePosition}"
+                    is EnPassant -> "MOVE-ENPASSANT-${move.source}-${move.destination}"
                     is Promotion -> "MOVE-PROMOTION-${move.source}-${move.destination}-${move.promotionType.name}"
                     is RegularMove -> "MOVE-REGULAR-${move.source}-${move.destination}"
                 }
@@ -107,8 +107,7 @@ fun parseMessage(message: String): BluetoothMessage? {
                     return BluetoothMessage.MoveMessage(
                         EnPassant(
                             source = messageSplit[2].toInt(),
-                            destination = messageSplit[3].toInt(),
-                            captivePosition = messageSplit[4].toInt()))
+                            destination = messageSplit[3].toInt()))
                 }
                 else -> {
                     // throw IllegalStateException("Illegal message ($message) received!")

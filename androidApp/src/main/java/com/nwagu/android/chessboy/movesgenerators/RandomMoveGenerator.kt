@@ -2,6 +2,8 @@ package com.nwagu.android.chessboy.movesgenerators
 
 import com.nwagu.android.chessboy.widgets.SelectableOpponent
 import com.nwagu.chess.board.Board
+import com.nwagu.chess.board.squaresWithPiecesColored
+import com.nwagu.chess.board.turn
 import com.nwagu.chess.enums.Level
 import com.nwagu.chess.moves.Move
 import com.nwagu.chess.moves.getPossibleMovesFrom
@@ -15,7 +17,7 @@ class RandomMoveGenerator : AI, SelectableOpponent {
 
         val moves = mutableListOf<Move>()
 
-        board.positionsWithPiecesColored(board.turn).forEach {
+        board.squaresWithPiecesColored(board.turn).forEach {
             moves.addAll(board.getPossibleMovesFrom(it))
         }
 

@@ -8,12 +8,12 @@ import com.nwagu.chess.enums.ChessPieceType
 
 fun Board.getBishopMovesFrom(source: Square): List<Move> {
 
-    if (getCellOccupant(source).chessPieceType != ChessPieceType.BISHOP)
+    if (getSquareOccupant(source).chessPieceType != ChessPieceType.BISHOP)
         throw IllegalStateException("Type must be BISHOP!")
 
     return this.squaresMap.keys.filter { destination ->
         canBishopMoveFrom(source, destination) &&
-                destinationIsEmptyOrHasEnemy(destination, getCellOccupant(source).chessPieceColor)
+                destinationIsEmptyOrHasEnemy(destination, getSquareOccupant(source).chessPieceColor)
     }.map { destination ->
         RegularMove(source, destination)
     }

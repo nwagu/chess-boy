@@ -5,12 +5,12 @@ import com.nwagu.chess.enums.ChessPieceType
 
 fun Board.getRookMovesFrom(source: Square): List<Move> {
 
-    if (getCellOccupant(source).chessPieceType != ChessPieceType.ROOK)
+    if (getSquareOccupant(source).chessPieceType != ChessPieceType.ROOK)
         throw IllegalStateException("Type must be ROOK!")
 
     return this.squaresMap.keys.filter { destination ->
         canRookMoveFrom(source, destination) &&
-                destinationIsEmptyOrHasEnemy(destination, getCellOccupant(source).chessPieceColor)
+                destinationIsEmptyOrHasEnemy(destination, getSquareOccupant(source).chessPieceColor)
     }.map { destination ->
         RegularMove(source, destination)
     }

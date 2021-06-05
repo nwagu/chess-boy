@@ -4,16 +4,24 @@ import android.app.Application
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
 import com.nwagu.android.chessboy.BluetoothMessage
+import com.nwagu.android.chessboy.constants.PreferenceKeys.LAST_GAME
 import com.nwagu.android.chessboy.movesgenerators.AI
 import com.nwagu.android.chessboy.movesgenerators.BluetoothOpponent
 import com.nwagu.android.chessboy.movesgenerators.RandomMoveGenerator
 import com.nwagu.android.chessboy.movesgenerators.User
 import com.nwagu.android.chessboy.parseMessage
+import com.nwagu.android.chessboy.util.SharedPrefUtils
+import com.nwagu.android.chessboy.util.SharedPrefUtils.saveString
 import com.nwagu.bluetoothchat.BluetoothChatService
 import com.nwagu.chess.Game
 import com.nwagu.chess.Player
 import com.nwagu.chess.board.Square
+import com.nwagu.chess.board.move
+import com.nwagu.chess.board.turn
+import com.nwagu.chess.board.undoMove
+import com.nwagu.chess.convention.*
 import com.nwagu.chess.enums.ChessPieceColor
 import com.nwagu.chess.moves.Move
 import com.nwagu.chess.moves.getPossibleMovesFrom
@@ -25,11 +33,7 @@ import java.security.InvalidParameterException
 
 class GameViewModel(application: Application): AndroidViewModel(application) {
 
-    // TODO get game from last saved game
-    var game = Game(
-        whitePlayer = User,
-        blackPlayer = RandomMoveGenerator()
-    )
+    lateinit var game: Game
 
     val boardUpdated = MutableStateFlow(0)
 
@@ -37,6 +41,42 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
     var possibleMoves = MutableStateFlow<List<Move>>(listOf())
 
     val bluetoothChatService: BluetoothChatService by lazy { BluetoothChatService() }
+
+    init {
+        viewModelScope.launch {
+
+            var lastGamePgn = ""
+            try {
+                lastGamePgn = SharedPrefUtils.readString(getApplication(), LAST_GAME, "") ?: ""
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            if (lastGamePgn.isEmpty()) {
+                game = Game(
+                    whitePlayer = User,
+                    blackPlayer = RandomMoveGenerator()
+                )
+                return@launch
+            }
+
+            game = Game(
+                getPlayerWithPgnTag(getHeaderValueFromPgn(PGN_HEADER_WHITE_PLAYER, lastGamePgn)),
+                getPlayerWithPgnTag(getHeaderValueFromPgn(PGN_HEADER_BLACK_PLAYER, lastGamePgn))
+            )
+            game.importPGN(lastGamePgn)
+
+            updateBoardUI()
+            getNextMove()
+        }
+    }
+
+    private fun getPlayerWithPgnTag(tag: String?): Player {
+        return when(tag) {
+            User.name -> User
+            else -> RandomMoveGenerator()
+        }
+    }
 
     fun startNewGame(
         whitePlayer: Player = User,
@@ -247,4 +287,12 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
             Toast.makeText(getApplication(), message, Toast.LENGTH_LONG).show()
         }
     }
+
+    override fun onCleared() {
+        GlobalScope.launch {
+            saveString(getApplication(), LAST_GAME, game.exportPGN())
+            super.onCleared()
+        }
+    }
+
 }

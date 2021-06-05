@@ -116,7 +116,7 @@ fun HomeView(
                             }
                         }
 
-                        Header(Modifier.padding(0.dp, 16.dp), "Your recent games")
+                        Header(Modifier.padding(0.dp, 16.dp), "Your saved games")
 
                         val gameHistory = listOf<Game>()
 

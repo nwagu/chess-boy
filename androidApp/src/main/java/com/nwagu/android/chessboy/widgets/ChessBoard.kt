@@ -21,7 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.nwagu.android.chessboy.colorResource
+import com.nwagu.android.chessboy.util.colorResource
 import com.nwagu.android.chessboy.movesgenerators.User
 import com.nwagu.android.chessboy.screens.ChessPieceView
 import com.nwagu.android.chessboy.ui.AppColor

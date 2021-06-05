@@ -6,12 +6,12 @@ import kotlin.math.abs
 
 fun Board.getKnightMovesFrom(source: Square): List<Move> {
 
-    if (getCellOccupant(source).chessPieceType != ChessPieceType.KNIGHT)
+    if (getSquareOccupant(source).chessPieceType != ChessPieceType.KNIGHT)
         throw IllegalStateException("Type must be KNIGHT!")
 
     return this.squaresMap.keys.filter { destination ->
         canKnightMoveFrom(source, destination) &&
-                destinationIsEmptyOrHasEnemy(destination, getCellOccupant(source).chessPieceColor)
+                destinationIsEmptyOrHasEnemy(destination, getSquareOccupant(source).chessPieceColor)
     }.map { destination ->
         RegularMove(source, destination)
     }

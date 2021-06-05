@@ -3,6 +3,7 @@ package com.nwagu.android.chessboy.vm
 import com.nwagu.android.chessboy.movesgenerators.BluetoothOpponent
 import com.nwagu.android.chessboy.movesgenerators.User
 import com.nwagu.chess.Game
+import com.nwagu.chess.board.turn
 import com.nwagu.chess.enums.ChessPieceColor
 
 fun Game.isBluetoothGame(): Boolean {

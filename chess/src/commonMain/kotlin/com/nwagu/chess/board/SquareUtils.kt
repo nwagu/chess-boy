@@ -1,5 +1,7 @@
 package com.nwagu.chess.board
 
+import com.nwagu.chess.enums.ChessPieceColor
+import com.nwagu.chess.enums.ChessPieceType
 import com.nwagu.chess.enums.SquareColor
 
 fun Board.square(row: Int, column: Int): Square = row * numberOfRows + column
@@ -84,4 +86,20 @@ fun Board.squaresBetweenSquaresOnDiagonal(a: Square, b: Square): IntArray {
         else -> throw IllegalArgumentException("The two cells must be in the same diagonal!")
     }
 
+}
+
+fun Board.squaresWithPiecesColored(color: ChessPieceColor): List<Int> {
+    return squaresMap.filter {
+        it.value.let {
+            it is ChessPiece && it.chessPieceColor == color
+        }
+    }.map { it.key }
+}
+
+fun Board.squaresWithPiecesColoredAndType(color: ChessPieceColor, type: ChessPieceType): List<Int> {
+    return squaresMap.filter {
+        it.value.let {
+            it is ChessPiece && it.chessPieceColor == color && it.chessPieceType == type
+        }
+    }.map { it.key }
 }

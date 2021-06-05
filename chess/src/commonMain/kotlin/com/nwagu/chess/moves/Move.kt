@@ -7,6 +7,7 @@ sealed class Move {
     abstract val source: Square
     abstract val destination: Square
     var isCapture: Boolean = false
+    var san: String = ""
 }
 
 data class RegularMove(
@@ -22,8 +23,7 @@ data class Promotion(
 
 data class EnPassant(
     override val source: Square,
-    override val destination: Square,
-    val captivePosition: Square
+    override val destination: Square
 ): Move()
 
 data class Castling(

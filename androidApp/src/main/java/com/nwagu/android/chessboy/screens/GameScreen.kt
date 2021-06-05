@@ -26,9 +26,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.nwagu.android.chessboy.dialogs.DialogController
-import com.nwagu.android.chessboy.imageRes
 import com.nwagu.android.chessboy.model.data.LightAction
 import com.nwagu.android.chessboy.model.data.ScreenConfig
+import com.nwagu.android.chessboy.util.imageRes
 import com.nwagu.android.chessboy.vm.GameViewModel
 import com.nwagu.android.chessboy.vm.colorOnUserSideOfBoard
 import com.nwagu.android.chessboy.vm.isBluetoothGame
@@ -37,6 +37,7 @@ import com.nwagu.android.chessboy.widgets.LightActionView
 import com.nwagu.android.chessboy.widgets.SimpleFlowRow
 import com.nwagu.bluetoothchat.BluetoothChatService.ConnectionState.*
 import com.nwagu.chess.board.ChessPiece
+import com.nwagu.chess.board.turn
 import com.nwagu.chess.enums.ChessPieceColor
 import com.nwagu.chess.enums.opposite
 
@@ -144,12 +145,6 @@ fun GameViewPortrait(
             .fillMaxWidth()
             .height(64.dp)) {
             LightActionView(LightAction("Undo") { viewModel.undo() })
-            LightActionView(LightAction("Resign") {
-                dialogController.showDialog(Dialog.ResignGame.id)
-            })
-            LightActionView(LightAction("Reconnect") {
-                dialogController.showDialog(Dialog.QuitGame.id)
-            })
         }
     }
 }
@@ -186,12 +181,6 @@ fun GameViewLandscape(
                 .fillMaxWidth()
                 .height(64.dp)) {
                 LightActionView(LightAction("Undo") { viewModel.undo() })
-                LightActionView(LightAction("Resign") {
-                    dialogController.showDialog(Dialog.ResignGame.id)
-                })
-                LightActionView(LightAction("Reconnect") {
-                    dialogController.showDialog(Dialog.QuitGame.id)
-                })
             }
         }
 
@@ -200,7 +189,7 @@ fun GameViewLandscape(
             verticalArrangement = Arrangement.Center
         ) {
             ChessBoardView(
-                modifier = Modifier.width((screenConfig.screenWidthDp - 16).dp),
+                modifier = Modifier.width((screenConfig.screenWidthDp - 64).dp),
                 viewModel
             )
         }

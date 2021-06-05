@@ -6,8 +6,8 @@ import com.nwagu.chess.enums.opposite
 import com.nwagu.chess.moves.*
 
 fun Board.validateMoveDoesNotLeaveKingExposed(move: Move): Boolean {
-    move(move)
-    val kingNotExposed = !isOnCheck(getCellOccupant(move.destination).chessPieceColor)
+    move(move, false)
+    val kingNotExposed = !isOnCheck(getSquareOccupant(move.destination).chessPieceColor)
     undoMove()
     return kingNotExposed
 }
@@ -16,7 +16,7 @@ fun Board.isOnCheck(color: ChessPieceColor) = whoIsCheckingKingColored(color).is
 
 fun Board.isCheckMate(color: ChessPieceColor = turn): Boolean {
     return isOnCheck(color) &&
-            positionsWithPiecesColored(color).all {
+            squaresWithPiecesColored(color).all {
                 getPossibleMovesFrom(it).isEmpty()
             }
 }
@@ -26,7 +26,7 @@ fun Board.isDraw(color: ChessPieceColor = turn): Boolean {
 }
 
 fun Board.isStaleMate(color: ChessPieceColor = turn): Boolean {
-    return positionsWithPiecesColored(color).all {
+    return squaresWithPiecesColored(color).all {
         getPossibleMovesFrom(it).isEmpty()
     }
 }
@@ -35,7 +35,7 @@ fun Board.whoIsCheckingKingColored(color: ChessPieceColor): List<Int> {
 
     val kingPosition = if (color == ChessPieceColor.BLACK) blackKingPosition else whiteKingPosition
 
-    return positionsWithPiecesColored(color.opposite()).filter {
+    return squaresWithPiecesColored(color.opposite()).filter {
         canPieceMoveFrom(it, kingPosition)
     }
 }

@@ -1,7 +1,8 @@
-package com.nwagu.android.chessboy
+package com.nwagu.android.chessboy.util
 
 import androidx.annotation.DrawableRes
 import androidx.compose.ui.graphics.Color
+import com.nwagu.android.chessboy.R
 import com.nwagu.android.chessboy.ui.AppColor
 import com.nwagu.chess.board.ChessPiece
 import com.nwagu.chess.enums.ChessPieceColor
