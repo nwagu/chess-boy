@@ -49,12 +49,6 @@ class UCIBridge(
                         val line = _reader!!.readLine()
 
                         when {
-                            line == null -> {
-                                true
-                            }
-                            (line.isNotEmpty()) -> {
-                                var x = 6
-                            }
                             line.startsWith("id") -> {
                                 // TODO Parse id
                                 uciEngineListener.onId(Pair("", ""))
@@ -87,7 +81,8 @@ class UCIBridge(
                             }
                         }
                     }
-                } catch (ex: Exception) {
+                } catch (e: Exception) {
+                    e.printStackTrace()
                     try {
                         _process.destroy()
                     } catch (e: Exception) {
