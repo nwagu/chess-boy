@@ -21,8 +21,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.nwagu.android.chessboy.dialogs.DialogController
 import com.nwagu.android.chessboy.model.data.ScreenConfig
-import com.nwagu.android.chessboy.movesgenerators.AI
-import com.nwagu.android.chessboy.movesgenerators.User
+import com.nwagu.android.chessboy.players.AI
+import com.nwagu.android.chessboy.players.User
 import com.nwagu.android.chessboy.vm.GameViewModel
 import com.nwagu.android.chessboy.vm.NewGameViewModel
 import com.nwagu.android.chessboy.widgets.*

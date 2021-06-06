@@ -5,6 +5,8 @@ import com.nwagu.chess.board.move
 import java.util.regex.Pattern
 
 private val headerPattern = Pattern.compile("\\[.* \".*\"\\]")
+private val movePattern = Pattern.compile("(K|Q|R|B|N)?(a|b|c|d|e|f|g|h)?(1|2|3|4|5|6|7|8)?(x)?(a|b|c|d|e|f|g|h)(1|2|3|4|5|6|7|8)(=Q|=R|=B|=N)?(\\+|#)?([\\?\\!]*)?[\\s]*")
+private val castlingPattern = Pattern.compile("(O\\-O|O\\-O\\-O)(\\+|#)?([\\?\\!]*)?")
 
 const val PGN_HEADER_EVENT = "Event"
 const val PGN_HEADER_SITE = "Site"
@@ -56,7 +58,7 @@ fun getHeaderValueFromPgn(name: String, pgn: String): String? {
 
 fun Game.importPGN(pgn: String) {
 
-    board.setToStandardStartingPosition()
+    board.loadStandardStartingPosition()
 
     val lines = pgn.split("\n")
     for (line in lines) {
@@ -69,7 +71,7 @@ fun Game.importPGN(pgn: String) {
             println("PGN Header -> ${header.first}: ${header.second}")
         }
         else {
-            // is a moves string
+            // is 'moveslist'
 
             // remove all text between ( )
             var moves = line
@@ -101,7 +103,9 @@ fun Game.importPGN(pgn: String) {
             val sans = newMoves.split(" ").filter { !it.contains(".") && it.isNotBlank() }
 
             sans.forEach {
-                board.move(board.sanToMove(it.trim()), false)
+                if (movePattern.matcher(line).matches() || castlingPattern.matcher(line).matches()) {
+                    board.move(board.sanToMove(it.trim()), false)
+                }
             }
 
         }

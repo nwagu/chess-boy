@@ -42,10 +42,10 @@ dependencies {
     implementation(project(":bluetoothchat"))
     implementation(project(":chess"))
     implementation(project(":chessengineintegration"))
+
     implementation("com.google.android.material:material:1.3.0")
     implementation("androidx.appcompat:appcompat:1.3.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
-
     implementation("androidx.activity:activity-compose:1.3.0-alpha08")
     implementation("androidx.fragment:fragment-ktx:1.3.4")
 
@@ -64,5 +64,6 @@ dependencies {
     implementation("com.google.firebase:firebase-database-ktx")
 
     implementation("com.karumi:dexter:6.2.2")
+    implementation("com.jakewharton.timber:timber:4.7.1")
 
 }

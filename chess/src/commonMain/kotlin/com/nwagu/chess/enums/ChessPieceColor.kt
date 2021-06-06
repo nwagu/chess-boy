@@ -7,5 +7,6 @@ enum class ChessPieceColor {
 fun ChessPieceColor.opposite(): ChessPieceColor {
     return if (this == ChessPieceColor.WHITE)
         ChessPieceColor.BLACK
-    else ChessPieceColor.WHITE
+    else
+        ChessPieceColor.WHITE
 }

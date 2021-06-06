@@ -30,7 +30,7 @@ fun Board.canKingMoveFrom(source: Square, destination: Square): Boolean {
             ||
 
             // castling
-            kotlin.run {
+            run {
 
                 val kingColumn = column(source)
                 val destColumn = column(destination)

@@ -40,7 +40,7 @@ fun Board.canPawnMoveFrom(source: Square, destination: Square): Boolean {
         return false
 
     // The pawn wants to step forward two steps if not moved before
-    return (abs(row(destination) - row(source)) == 2 && areSquaresClearOnSameColumn(source, destination) && row(source) == pawn.startingRow && squareEmpty(destination))
+    return (abs(row(destination) - row(source)) == 2 && areSquaresClearOnSameColumn(source, destination) && squareOccupantHasNotMoved(source) && squareEmpty(destination))
                 ||
 
                 // The pawn wants to step forward one step

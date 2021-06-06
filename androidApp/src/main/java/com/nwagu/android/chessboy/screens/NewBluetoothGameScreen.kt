@@ -21,7 +21,7 @@ import com.nwagu.android.chessboy.BluetoothController
 import com.nwagu.android.chessboy.MainActivity
 import com.nwagu.android.chessboy.dialogs.DialogController
 import com.nwagu.android.chessboy.model.data.ScreenConfig
-import com.nwagu.android.chessboy.movesgenerators.BluetoothOpponent
+import com.nwagu.android.chessboy.players.BluetoothOpponent
 import com.nwagu.android.chessboy.ui.AppColor
 import com.nwagu.android.chessboy.vm.GameViewModel
 import com.nwagu.android.chessboy.vm.NewBluetoothGameViewModel

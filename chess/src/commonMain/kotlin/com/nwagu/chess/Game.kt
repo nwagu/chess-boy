@@ -1,7 +1,7 @@
 package com.nwagu.chess
 
 import com.nwagu.chess.board.Board
-import com.nwagu.chess.convention.setToStandardStartingPosition
+import com.nwagu.chess.convention.loadStandardStartingPosition
 
 class Game(
     val whitePlayer: Player,
@@ -13,7 +13,7 @@ class Game(
     val board: Board = Board()
 
     init {
-        board.setToStandardStartingPosition()
+        board.loadStandardStartingPosition()
     }
 
     private fun convertBoardPositionToString(): String {

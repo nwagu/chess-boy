@@ -7,11 +7,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.nwagu.android.chessboy.BluetoothMessage
 import com.nwagu.android.chessboy.constants.PreferenceKeys.LAST_GAME
-import com.nwagu.android.chessboy.movesgenerators.AI
-import com.nwagu.android.chessboy.movesgenerators.BluetoothOpponent
-import com.nwagu.android.chessboy.movesgenerators.RandomMoveGenerator
-import com.nwagu.android.chessboy.movesgenerators.User
 import com.nwagu.android.chessboy.parseMessage
+import com.nwagu.android.chessboy.players.*
 import com.nwagu.android.chessboy.util.SharedPrefUtils
 import com.nwagu.android.chessboy.util.SharedPrefUtils.saveString
 import com.nwagu.bluetoothchat.BluetoothChatService
@@ -86,6 +83,12 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
         if (whitePlayer is BluetoothOpponent || blackPlayer is BluetoothOpponent) {
             throw InvalidParameterException("Please use startNewBluetoothGame to start bluetooth game!")
         }
+
+        if (whitePlayer is UCIChessEngine)
+            whitePlayer.init()
+
+        if (blackPlayer is UCIChessEngine)
+            blackPlayer.init()
 
         game = Game(
             whitePlayer = whitePlayer,

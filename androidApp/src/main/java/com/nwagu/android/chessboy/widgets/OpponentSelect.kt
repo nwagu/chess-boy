@@ -5,12 +5,17 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.RadioButton
+import androidx.compose.material.Slider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.nwagu.android.chessboy.players.UCIChessEngine
+import com.nwagu.chess.Player
+
+interface SelectableOpponent: Player
 
 @Composable
 fun OpponentSelect(
@@ -27,29 +32,44 @@ fun OpponentSelect(
         elevation = 0.dp
     ) {
         Column {
+
             repeat(items.size) { index ->
-                Row(modifier = Modifier.padding(4.dp).height(60.dp)
+
+                Row(modifier = Modifier
+                    .padding(4.dp)
+                    .height(60.dp)
                     .clickable(onClick = {
                         onSelect(items[index])
                     }),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(
-                        modifier = Modifier.weight(1f),
-                        text = items[index].displayName)
+
+                    val isSelected = items[index] == selectedItem
+
+                    Column(
+                        modifier = Modifier.weight(1f)
+                    ) {
+
+                        Text(text = items[index].name)
+
+                        if (isSelected && items[index] is UCIChessEngine) {
+                            Slider(
+                                valueRange = 0f..10f,
+                                value = (items[index] as UCIChessEngine).level.toFloat(),
+                                onValueChange = { (items[index] as UCIChessEngine).level = it.toInt() }
+                            )
+                        }
+                    }
+
                     RadioButton(
-                        selected = items[index] == selectedItem,
+                        selected = isSelected,
                         onClick = {
                             onSelect(items[index])
-                        } )
+                        }
+                    )
                 }
             }
         }
     }
 
-}
-
-interface SelectableOpponent {
-    val displayName: String
-    var selected: Boolean
 }

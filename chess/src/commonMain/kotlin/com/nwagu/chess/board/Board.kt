@@ -1,7 +1,6 @@
 package com.nwagu.chess.board
 
 import com.nwagu.chess.moves.Move
-import com.nwagu.chess.convention.populateCellsWithEmpties
 
 typealias Square = Int
 
@@ -17,17 +16,17 @@ class Board(
     var whiteKingPosition: Int = 0
 
     init {
-        populateCellsWithEmpties()
-        movesHistory.clear()
-        captives.clear()
+        repeat(numberOfColumns * numberOfRows) { index ->
+            squaresMap[index] = EmptySquare
+        }
     }
 
-    fun getSquareOccupant(index: Int): ChessPiece {
-        return squaresMap[index] as ChessPiece
+    fun getSquareOccupant(square: Square): ChessPiece {
+        return squaresMap[square] as ChessPiece
     }
 
-    fun setSquareOccupant(index: Int, piece: SquareOccupant) {
-        squaresMap[index] = piece
+    fun setSquareOccupant(square: Square, piece: SquareOccupant) {
+        squaresMap[square] = piece
     }
 
 }
