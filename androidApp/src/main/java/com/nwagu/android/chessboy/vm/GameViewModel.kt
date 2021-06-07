@@ -73,10 +73,10 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
             PlayersRegister.USER.id -> User
             PlayersRegister.GRANDPA.id -> GrandPa()
             PlayersRegister.RANDOM.id -> RandomMoveGenerator()
-            PlayersRegister.JWTC.id -> JWTC()
+            PlayersRegister.JWTC.id -> JWTC().also { it.init() }
             PlayersRegister.UCI.id -> {
                 val pathToBinary = id.split("-")[1]
-                UCIChessEngine(pathToBinary = pathToBinary, name = "UCI Chess Engine")
+                UCIChessEngine(pathToBinary = pathToBinary, name = "UCI Chess Engine").also { it.init() }
             }
             PlayersRegister.BLUETOOTH.id -> {
                 val address = id.split("-")[1]
