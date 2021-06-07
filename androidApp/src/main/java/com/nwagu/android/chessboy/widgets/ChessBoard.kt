@@ -26,6 +26,7 @@ import com.nwagu.android.chessboy.screens.ChessPieceView
 import com.nwagu.android.chessboy.ui.AppColor
 import com.nwagu.android.chessboy.util.colorResource
 import com.nwagu.android.chessboy.vm.GameViewModel
+import com.nwagu.android.chessboy.vm.colorOnUserSideOfBoard
 import com.nwagu.chess.Game
 import com.nwagu.chess.board.ChessPiece
 import com.nwagu.chess.board.isOnCheck
@@ -62,10 +63,10 @@ fun ChessBoardView(
                 items = List(board.squaresMap.count()) { it }
             ) {
 
-                val cellPosition = if (viewModel.game.blackPlayer == User)
-                    (board.numberOfColumns * board.numberOfRows) - (it + 1)
-                else
+                val cellPosition = if (viewModel.game.colorOnUserSideOfBoard == ChessPieceColor.WHITE)
                     it
+                else
+                    (board.numberOfColumns * board.numberOfRows) - (it + 1)
 
                 val cellColor = board.squareColor(cellPosition).colorResource()
 

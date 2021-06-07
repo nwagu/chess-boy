@@ -32,6 +32,7 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
 
     lateinit var game: Game
 
+    val gameUpdated = MutableStateFlow(0)
     val boardUpdated = MutableStateFlow(0)
 
     var selectedPosition = MutableStateFlow<Square?>(null)
@@ -103,6 +104,7 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
             blackPlayer = blackPlayer
         )
 
+        updateGameUI()
         updateBoardUI()
         getNextMove()
     }
@@ -112,6 +114,7 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
             whitePlayer = if (isWhite) User else BluetoothOpponent(address = address),
             blackPlayer = if (isWhite) BluetoothOpponent(address = address) else User
         )
+        updateGameUI()
         updateBoardUI()
     }
 
@@ -195,6 +198,11 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
 
     fun updateBoardUI() {
         if (boardUpdated.value == 0) boardUpdated.value = 1 else boardUpdated.value = 0
+        clearPossibleMoves()
+    }
+
+    fun updateGameUI() {
+        if (gameUpdated.value == 0) gameUpdated.value = 1 else gameUpdated.value = 0
         clearPossibleMoves()
     }
 

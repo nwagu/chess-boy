@@ -131,11 +131,14 @@ fun GameViewPortrait(
     dialogController: DialogController
 ) {
 
+    val gameChanged by viewModel.gameUpdated.collectAsState(0)
+
     Column(
         modifier = Modifier.verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Center
     ) {
-
+        // Invisible text to force recompose on game changed
+        Text(text = gameChanged.toString(), Modifier.size(0.dp))
         PlayerDisplay(modifier = Modifier, viewModel, viewModel.game.colorOnUserSideOfBoard.opposite())
         // CaptivesView(modifier = Modifier.fillMaxWidth(), viewModel, viewModel.game.colorOnUserSideOfBoard)
         ChessBoardView(modifier = Modifier.fillMaxWidth(), viewModel)
@@ -159,6 +162,8 @@ fun GameViewLandscape(
     dialogController: DialogController
 ) {
 
+    val gameChanged by viewModel.gameUpdated.collectAsState(0)
+
     Row(modifier = Modifier
         .fillMaxWidth()
         .horizontalScroll(rememberScrollState())) {
@@ -169,6 +174,8 @@ fun GameViewLandscape(
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.Center
         ) {
+            // Invisible text to force recompose on game changed
+            Text(text = gameChanged.toString(), Modifier.size(0.dp))
             PlayerDisplay(
                 modifier = Modifier,
                 viewModel, viewModel.game.colorOnUserSideOfBoard.opposite())
