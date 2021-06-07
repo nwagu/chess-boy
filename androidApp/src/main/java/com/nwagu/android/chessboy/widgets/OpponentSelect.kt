@@ -5,14 +5,12 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.RadioButton
-import androidx.compose.material.Slider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.nwagu.android.chessboy.players.AI
 import com.nwagu.chess.Player
 
 interface SelectableOpponent: Player
@@ -52,13 +50,13 @@ fun OpponentSelect(
 
                         Text(text = items[index].name)
 
-                        if (isSelected && items[index] is AI) {
+                        /*if (isSelected && items[index] is AI) {
                             Slider(
                                 valueRange = 1f..10f,
                                 value = (items[index] as AI).level.toFloat(),
                                 onValueChange = { (items[index] as AI).level = it.toInt() }
                             )
-                        }
+                        }*/
                     }
 
                     RadioButton(
