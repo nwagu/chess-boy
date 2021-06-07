@@ -14,7 +14,7 @@ fun Board.getKingMovesFrom(source: Square): List<Move> {
                 destinationIsEmptyOrHasEnemy(destination, getSquareOccupant(source).chessPieceColor)
     }.map { destination ->
         if (abs(column(source) - column(destination)) == 2)
-            Castling(source, destination, getCastlePartnerSourceForKingMove(source, destination), getCastlePartnerDestinationForKingMove(source, destination))
+            Castling(source, destination)
         else
             RegularMove(source, destination)
     }
@@ -30,7 +30,7 @@ fun Board.canKingMoveFrom(source: Square, destination: Square): Boolean {
             ||
 
             // castling
-            kotlin.run {
+            run {
 
                 val kingColumn = column(source)
                 val destColumn = column(destination)

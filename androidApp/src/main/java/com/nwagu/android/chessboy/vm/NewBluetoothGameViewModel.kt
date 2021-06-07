@@ -2,7 +2,7 @@ package com.nwagu.android.chessboy.vm
 
 import androidx.lifecycle.ViewModel
 import com.nwagu.android.chessboy.model.data.BluetoothDevice
-import com.nwagu.android.chessboy.movesgenerators.BluetoothOpponent
+import com.nwagu.android.chessboy.players.BluetoothOpponent
 import com.nwagu.chess.enums.ChessPieceColor
 import kotlinx.coroutines.flow.MutableStateFlow
 

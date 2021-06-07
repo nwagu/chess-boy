@@ -1,8 +1,6 @@
 package com.nwagu.chess
 
-import com.nwagu.chess.enums.Level
-
 interface Player {
+    val id: String
     val name: String
-    val level: Level
 }

@@ -1,17 +1,15 @@
-package com.nwagu.android.chessboy.movesgenerators
+package com.nwagu.android.chessboy.players
 
-import com.nwagu.android.chessboy.widgets.SelectableOpponent
 import com.nwagu.chess.board.Board
 import com.nwagu.chess.board.squaresWithPiecesColored
 import com.nwagu.chess.board.turn
-import com.nwagu.chess.enums.Level
 import com.nwagu.chess.moves.Move
 import com.nwagu.chess.moves.getPossibleMovesFrom
 
-class RandomMoveGenerator : AI, SelectableOpponent {
+class RandomMoveGenerator : MoveGenerator {
 
+    override val id = PlayersRegister.RANDOM.id
     override val name = "Zero Intelligence"
-    override val level = Level.ZERO
 
     override suspend fun getNextMove(board: Board): Move? {
 
@@ -24,7 +22,4 @@ class RandomMoveGenerator : AI, SelectableOpponent {
         return moves.randomOrNull()
 
     }
-
-    override val displayName = name
-    override var selected = false
 }

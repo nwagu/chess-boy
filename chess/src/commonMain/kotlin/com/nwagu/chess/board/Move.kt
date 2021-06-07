@@ -52,7 +52,11 @@ fun Board.move(move: Move, attachSan: Boolean = true): Boolean {
             setSquareOccupant(captivePosition, EmptySquare)
         }
         is Castling -> {
-            val rook = getSquareOccupant(move.secondarySource)
+
+            val rookSource = getCastlePartnerSourceForKingMove(move.source, move.destination)
+            val rookDestination = getCastlePartnerDestinationForKingMove(move.source, move.destination)
+
+            val rook = getSquareOccupant(rookSource)
 
             movingPiece.numberOfMovesMade++
             rook.numberOfMovesMade++
@@ -60,8 +64,8 @@ fun Board.move(move: Move, attachSan: Boolean = true): Boolean {
             setSquareOccupant(move.source, EmptySquare)
             setSquareOccupant(move.destination, movingPiece)
 
-            setSquareOccupant(move.secondarySource, EmptySquare)
-            setSquareOccupant(move.secondaryDestination, rook)
+            setSquareOccupant(rookSource, EmptySquare)
+            setSquareOccupant(rookDestination, rook)
         }
     }
 
@@ -122,7 +126,10 @@ fun Board.undoMove(): Move? {
             setSquareOccupant(captivePosition, captives.removeLast())
         }
         is Castling -> {
-            val rook = getSquareOccupant(move.secondaryDestination)
+            val rookSource = getCastlePartnerSourceForKingMove(move.source, move.destination)
+            val rookDestination = getCastlePartnerDestinationForKingMove(move.source, move.destination)
+
+            val rook = getSquareOccupant(rookDestination)
 
             movingPiece.numberOfMovesMade--
             rook.numberOfMovesMade--
@@ -130,8 +137,8 @@ fun Board.undoMove(): Move? {
             setSquareOccupant(move.source, movingPiece)
             setSquareOccupant(move.destination, EmptySquare)
 
-            setSquareOccupant(move.secondarySource, rook)
-            setSquareOccupant(move.secondaryDestination, EmptySquare)
+            setSquareOccupant(rookSource, rook)
+            setSquareOccupant(rookDestination, EmptySquare)
         }
     }
 

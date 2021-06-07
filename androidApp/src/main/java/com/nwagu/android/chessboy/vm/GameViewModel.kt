@@ -7,11 +7,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.nwagu.android.chessboy.BluetoothMessage
 import com.nwagu.android.chessboy.constants.PreferenceKeys.LAST_GAME
-import com.nwagu.android.chessboy.movesgenerators.AI
-import com.nwagu.android.chessboy.movesgenerators.BluetoothOpponent
-import com.nwagu.android.chessboy.movesgenerators.RandomMoveGenerator
-import com.nwagu.android.chessboy.movesgenerators.User
 import com.nwagu.android.chessboy.parseMessage
+import com.nwagu.android.chessboy.players.*
 import com.nwagu.android.chessboy.util.SharedPrefUtils
 import com.nwagu.android.chessboy.util.SharedPrefUtils.saveString
 import com.nwagu.bluetoothchat.BluetoothChatService
@@ -35,6 +32,7 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
 
     lateinit var game: Game
 
+    val gameUpdated = MutableStateFlow(0)
     val boardUpdated = MutableStateFlow(0)
 
     var selectedPosition = MutableStateFlow<Square?>(null)
@@ -61,8 +59,8 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
             }
 
             game = Game(
-                getPlayerWithPgnTag(getHeaderValueFromPgn(PGN_HEADER_WHITE_PLAYER, lastGamePgn)),
-                getPlayerWithPgnTag(getHeaderValueFromPgn(PGN_HEADER_BLACK_PLAYER, lastGamePgn))
+                getPlayerWithRegisterId(getHeaderValueFromPgn(PGN_HEADER_WHITE_PLAYER_ID, lastGamePgn)),
+                getPlayerWithRegisterId(getHeaderValueFromPgn(PGN_HEADER_BLACK_PLAYER_ID, lastGamePgn))
             )
             game.importPGN(lastGamePgn)
 
@@ -71,53 +69,68 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
-    private fun getPlayerWithPgnTag(tag: String?): Player {
-        return when(tag) {
-            User.name -> User
+    private fun getPlayerWithRegisterId(id: String?): Player {
+        return when(id) {
+            PlayersRegister.USER.id -> User
+            PlayersRegister.GRANDPA.id -> GrandPa()
+            PlayersRegister.RANDOM.id -> RandomMoveGenerator()
+            PlayersRegister.JWTC.id -> JWTC().also { it.init() }
+            PlayersRegister.UCI.id -> {
+                val pathToBinary = id.split("-")[1]
+                UCIChessEngine(pathToBinary = pathToBinary, name = "UCI Chess Engine").also { it.init() }
+            }
+            PlayersRegister.BLUETOOTH.id -> {
+                val address = id.split("-")[1]
+                BluetoothOpponent(address = address)
+            }
             else -> RandomMoveGenerator()
         }
     }
 
     fun startNewGame(
-        whitePlayer: Player = User,
-        blackPlayer: Player = RandomMoveGenerator()
+        whitePlayer: Player,
+        blackPlayer: Player
     ) {
 
         if (whitePlayer is BluetoothOpponent || blackPlayer is BluetoothOpponent) {
             throw InvalidParameterException("Please use startNewBluetoothGame to start bluetooth game!")
         }
 
+        if (whitePlayer is AI) whitePlayer.init()
+        if (blackPlayer is AI) blackPlayer.init()
+
         game = Game(
             whitePlayer = whitePlayer,
             blackPlayer = blackPlayer
         )
 
+        updateGameUI()
         updateBoardUI()
         getNextMove()
     }
 
-    fun startNewBluetoothGame(isWhite: Boolean, address: String?) {
-
+    fun startNewBluetoothGame(isWhite: Boolean, address: String) {
         game = Game(
             whitePlayer = if (isWhite) User else BluetoothOpponent(address = address),
             blackPlayer = if (isWhite) BluetoothOpponent(address = address) else User
         )
-
+        updateGameUI()
         updateBoardUI()
+    }
 
-        bluetoothChatService.init(getApplication(), bluetoothChatListener)
+    fun attemptConnectToDevice(address: String) {
+        bluetoothChatService.init(getApplication(), getBluetoothChatListener(true))
+        bluetoothChatService.connectDevice(address, true)
+    }
 
-        if (isWhite) {
-            bluetoothChatService.connectDevice(address!!, true)
-        } else {
-            bluetoothChatService.startListeningForConnection()
-        }
-
+    fun listenForConnection() {
+        bluetoothChatService.init(getApplication(), getBluetoothChatListener(false))
+        bluetoothChatService.startListeningForConnection()
     }
 
     fun reconnectToBluetoothGame() {
         if (game.blackPlayer is BluetoothOpponent)
-            bluetoothChatService.connectDevice((game.blackPlayer as BluetoothOpponent).address!!, true)
+            bluetoothChatService.connectDevice((game.blackPlayer as BluetoothOpponent).address, true)
         else
             bluetoothChatService.startListeningForConnection()
     }
@@ -188,6 +201,11 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
         clearPossibleMoves()
     }
 
+    fun updateGameUI() {
+        if (gameUpdated.value == 0) gameUpdated.value = 1 else gameUpdated.value = 0
+        clearPossibleMoves()
+    }
+
     fun getNextMove() {
         GlobalScope.launch {
 
@@ -201,7 +219,7 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
                 is BluetoothOpponent -> {
                     //
                 }
-                is AI -> {
+                is MoveGenerator -> {
                     delay(200)
                     makeMove(player.getNextMove(game.board) ?: return@launch)
                     delay(100)
@@ -211,74 +229,97 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
-    val bluetoothChatListener = object : BluetoothChatService.ChatListener {
-        override fun onConnecting() {
-            showToast("Connecting...")
-        }
+    fun getBluetoothChatListener(isWhite: Boolean): BluetoothChatService.ChatListener {
 
-        override fun onListening() {
-            showToast("Listening...")
-        }
+        return object : BluetoothChatService.ChatListener {
 
-        override fun onConnected() {
-            showToast("Connected")
-        }
-
-        override fun onChatStart(deviceName: String) {
-            showToast("Game resumed")
-        }
-
-        override fun onConnectionFailed() {
-            showToast("Connection failed")
-        }
-
-        override fun onMessageSent(message: String) {
-            parseMessage(message).let {
-                if (it is BluetoothMessage.MoveMessage)
-                    makeMove(it.move)
+            override fun onConnecting() {
+                showToast("Connecting...")
             }
-        }
 
-        override fun onMessageReceived(message: String) {
-            val _message = parseMessage(message)
-            when(_message) {
-                is BluetoothMessage.MoveMessage -> {
-                    GlobalScope.launch {
-                        delay(200)
-                        if (makeMove(_message.move)) {
+            override fun onListening() {
+                showToast("Listening...")
+            }
+
+            override fun onConnected(address: String) {
+                showToast("Connected to: $address")
+                startNewBluetoothGame(isWhite, address)
+            }
+
+            override fun onChatStart(deviceName: String) {
+                showToast("Game resumed")
+            }
+
+            override fun onConnectionFailed() {
+                showToast("Connection failed")
+            }
+
+            override fun onMessageSent(message: String) {
+                parseMessage(message).let {
+                    if (it is BluetoothMessage.MoveMessage)
+                        makeMove(it.move)
+                }
+            }
+
+            override fun onMessageReceived(message: String) {
+                val _message = parseMessage(message)
+                when (_message) {
+                    is BluetoothMessage.MoveMessage -> {
+                        GlobalScope.launch {
                             delay(200)
-                            bluetoothChatService.sendMessage(BluetoothMessage.MoveOk.value)
-                        } else {
-                            delay(200)
-                            bluetoothChatService.sendMessage(BluetoothMessage.MoveFailed.value)
+                            if (makeMove(_message.move)) {
+                                delay(200)
+                                bluetoothChatService.sendMessage(BluetoothMessage.MoveOk.value)
+                            } else {
+                                delay(200)
+                                bluetoothChatService.sendMessage(BluetoothMessage.MoveFailed.value)
+                            }
+
                         }
-
+                    }
+                    BluetoothMessage.DrawAccepted -> {
+                        showToast("Draw accepted!")
+                    }
+                    BluetoothMessage.DrawRejected -> {
+                        showToast("Draw rejected")
+                    }
+                    BluetoothMessage.DrawRequest -> {
+                        showToast("Draw request received")
+                    }
+                    BluetoothMessage.MoveFailed -> {
+                        showToast("Move failed")
+                    }
+                    BluetoothMessage.MoveOk -> {
+                        showToast("Move ok")
+                    }
+                    BluetoothMessage.SyncFailed -> {
+                        showToast("Sync failed")
+                    }
+                    BluetoothMessage.SyncOk -> {
+                        showToast("Sync OK")
+                    }
+                    is BluetoothMessage.SyncRequest -> {
+                        showToast("Sync request")
+                        if (game.compareBoardPositionTo(_message.position)) {
+                            bluetoothChatService.sendMessage(BluetoothMessage.SyncOk.value)
+                        }
+                    }
+                    BluetoothMessage.UndoAccepted -> {
+                        showToast("Undo Accepted")
+                        // TODO Do Undo
+                    }
+                    BluetoothMessage.UndoRejected -> {
+                        showToast("Undo rejected")
+                    }
+                    BluetoothMessage.UndoRequest -> {
+                        showToast("Undo request received")
                     }
                 }
-                BluetoothMessage.DrawAccepted -> { showToast("Draw accepted!") }
-                BluetoothMessage.DrawRejected -> { showToast("Draw rejected") }
-                BluetoothMessage.DrawRequest -> { showToast("Draw request received") }
-                BluetoothMessage.MoveFailed -> { showToast("Move failed") }
-                BluetoothMessage.MoveOk -> { showToast("Move ok") }
-                BluetoothMessage.SyncFailed -> { showToast("Sync failed") }
-                BluetoothMessage.SyncOk -> { showToast("Sync OK") }
-                is BluetoothMessage.SyncRequest -> {
-                    showToast("Sync request")
-                    if (game.compareBoardPositionTo(_message.position)) {
-                        bluetoothChatService.sendMessage(BluetoothMessage.SyncOk.value)
-                    }
-                }
-                BluetoothMessage.UndoAccepted -> {
-                    showToast("Undo Accepted")
-                    // TODO Do Undo
-                }
-                BluetoothMessage.UndoRejected -> { showToast("Undo rejected") }
-                BluetoothMessage.UndoRequest -> { showToast("Undo request received") }
             }
-        }
 
-        override fun onDisconnected() {
-            showToast("Disconnected!")
+            override fun onDisconnected() {
+                showToast("Disconnected!")
+            }
         }
     }
 

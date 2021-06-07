@@ -59,18 +59,18 @@ fun Board.sanToMove(san: String): Move { // Qh8g7
 
     if (san == "O-O") {
         if (turn == ChessPieceColor.WHITE)
-            return Castling(60, 62, 63, 61)
+            return Castling(whiteKingPosition, whiteKingPosition + 2)
                 .also { it.san = san }
         else
-            return Castling(4, 6, 7, 5)
+            return Castling(blackKingPosition, blackKingPosition + 2)
                 .also { it.san = san }
     }
     else if (san == "O-O-O") {
         if (turn == ChessPieceColor.WHITE)
-            return Castling(60, 58, 56, 59)
+            return Castling(whiteKingPosition, whiteKingPosition - 2)
                 .also { it.san = san }
         else
-            return Castling(4, 2, 0, 3)
+            return Castling(blackKingPosition, blackKingPosition - 2)
                 .also { it.san = san }
     }
 
