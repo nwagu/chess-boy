@@ -12,7 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.nwagu.android.chessboy.players.UCIChessEngine
+import com.nwagu.android.chessboy.players.AI
 import com.nwagu.chess.Player
 
 interface SelectableOpponent: Player
@@ -52,11 +52,11 @@ fun OpponentSelect(
 
                         Text(text = items[index].name)
 
-                        if (isSelected && items[index] is UCIChessEngine) {
+                        if (isSelected && items[index] is AI) {
                             Slider(
-                                valueRange = 0f..10f,
-                                value = (items[index] as UCIChessEngine).level.toFloat(),
-                                onValueChange = { (items[index] as UCIChessEngine).level = it.toInt() }
+                                valueRange = 1f..10f,
+                                value = (items[index] as AI).level.toFloat(),
+                                onValueChange = { (items[index] as AI).level = it.toInt() }
                             )
                         }
                     }

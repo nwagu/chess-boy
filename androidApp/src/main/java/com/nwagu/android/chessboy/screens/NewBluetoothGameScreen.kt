@@ -177,15 +177,12 @@ fun NewBluetoothGameView(
                 when (selectedColor) {
                     ChessPieceColor.WHITE -> {
                         selectedDevice?.let {
-                            gameViewModel.startNewBluetoothGame(
-                                true,
-                                it.address
-                            )
+                            gameViewModel.attemptConnectToDevice(it.address)
                         }
                     }
                     ChessPieceColor.BLACK -> {
                         bluetoothController.ensureDiscoverable()
-                        gameViewModel.startNewBluetoothGame(false, null)
+                        gameViewModel.listenForConnection()
                     }
                 }
 

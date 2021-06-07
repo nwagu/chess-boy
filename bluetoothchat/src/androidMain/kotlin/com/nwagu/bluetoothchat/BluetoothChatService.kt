@@ -153,6 +153,7 @@ actual class BluetoothChatService {
         // Start the thread to manage the connection and perform transmissions
         mConnectedThread = ConnectedThread(socket, socketType)
         mConnectedThread?.start()
+        listener.onConnected(device.address)
 
         listener.onChatStart(device.name)
     }
@@ -364,8 +365,6 @@ actual class BluetoothChatService {
 
         override fun run() {
 
-            listener.onConnected()
-
             Log.i(TAG, "BEGIN mConnectedThread")
             val buffer = ByteArray(1024)
             var bytes: Int
@@ -424,7 +423,7 @@ actual class BluetoothChatService {
     interface ChatListener {
         fun onConnecting()
         fun onListening()
-        fun onConnected()
+        fun onConnected(address: String)
         fun onChatStart(deviceName: String)
         fun onConnectionFailed()
         fun onMessageSent(message: String)

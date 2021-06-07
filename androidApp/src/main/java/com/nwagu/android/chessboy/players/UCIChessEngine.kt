@@ -16,13 +16,14 @@ class UCIChessEngine(
     val pathToBinary: String
 ): AI {
 
-    var level: Int = 5
+    override val id = "${PlayersRegister.UCI.id}-${pathToBinary}"
+    override var level: Int = 5
 
     lateinit var uciBridge: UCIBridge
 
     private val chessEngineMove = MutableStateFlow("")
 
-    fun init() {
+    override fun init() {
 
         uciBridge = UCIBridge(pathToBinary, object : UCIBridge.UCIEngineListener {
             override fun onUciOk() {

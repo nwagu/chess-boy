@@ -41,6 +41,7 @@ android {
 dependencies {
     implementation(project(":bluetoothchat"))
     implementation(project(":chess"))
+    implementation(project(":jwtc"))
     implementation(project(":chessengineintegration"))
 
     implementation("com.google.android.material:material:1.3.0")

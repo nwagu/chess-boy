@@ -46,7 +46,7 @@ class UCIBridge(
                     var i = 0
                     while (true) {
 
-                        val line = _reader!!.readLine()
+                        val line = _reader!!.readLine() ?: continue
 
                         when {
                             line.startsWith("id") -> {
@@ -83,11 +83,11 @@ class UCIBridge(
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
-                    try {
-                        _process.destroy()
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
+//                    try {
+//                        _process.destroy()
+//                    } catch (e: Exception) {
+//                        e.printStackTrace()
+//                    }
                 }
             }.start()
             sendCommand("uci")

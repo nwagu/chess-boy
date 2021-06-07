@@ -6,8 +6,9 @@ import com.nwagu.chess.board.turn
 import com.nwagu.chess.moves.Move
 import com.nwagu.chess.moves.getPossibleMovesFrom
 
-class GrandPa : AI {
+class GrandPa : MoveGenerator {
 
+    override val id = PlayersRegister.GRANDPA.id
     override val name = "GrandPa"
 
     override suspend fun getNextMove(board: Board): Move? {
@@ -22,4 +23,5 @@ class GrandPa : AI {
         return moves.randomOrNull()
 
     }
+
 }
