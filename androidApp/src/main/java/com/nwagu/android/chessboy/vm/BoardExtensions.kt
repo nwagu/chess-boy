@@ -16,6 +16,9 @@ val Game.isUserTurn: Boolean
         ChessPieceColor.BLACK -> blackPlayer is User
     }
 
+val Game.userColor: ChessPieceColor
+    get() = colorOnUserSideOfBoard
+
 val Game.colorOnUserSideOfBoard: ChessPieceColor
     get() {
         return if (blackPlayer == User)

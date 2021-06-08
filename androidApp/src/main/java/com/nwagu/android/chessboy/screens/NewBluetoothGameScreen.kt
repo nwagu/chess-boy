@@ -6,7 +6,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -73,7 +73,7 @@ fun NewBluetoothGameView(
                         navHostController.navigateUp()
                     }
                 ) {
-                    Icon(Icons.Filled.Close, contentDescription = "Close", tint = Color.Black)
+                    Icon(Icons.Filled.ArrowBack, contentDescription = "Close", tint = Color.Black)
                 }
 
                 Header(Modifier.padding(0.dp, 8.dp), text = "Start a new bluetooth game")
