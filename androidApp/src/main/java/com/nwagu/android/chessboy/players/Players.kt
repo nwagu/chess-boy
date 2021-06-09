@@ -6,14 +6,14 @@ import com.nwagu.chess.board.Board
 import com.nwagu.chess.moves.Move
 
 object User: Player {
-    override val id = PlayersRegister.USER.id
+    override val id = PlayersRegister.USER
     override val name = "You"
 }
 
 data class BluetoothOpponent(
     override val name: String = "Bluetooth Opponent",
     val address: String,
-    override val id: String = "${PlayersRegister.BLUETOOTH.id}-${address}"
+    override val id: String = "${PlayersRegister.BLUETOOTH}-${address}"
 ): SelectableOpponent
 
 interface MoveGenerator: SelectableOpponent {
@@ -21,7 +21,7 @@ interface MoveGenerator: SelectableOpponent {
     suspend fun getNextMove(board: Board): Move?
 }
 
-interface AI: MoveGenerator {
+interface UCIChessEngine: MoveGenerator {
     var level: Int
     fun init()
 }

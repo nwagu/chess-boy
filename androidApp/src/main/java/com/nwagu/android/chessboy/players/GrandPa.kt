@@ -8,7 +8,7 @@ import com.nwagu.chess.moves.getPossibleMovesFrom
 
 class GrandPa : MoveGenerator {
 
-    override val id = PlayersRegister.GRANDPA.id
+    override val id = PlayersRegister.GRANDPA
     override val name = "GrandPa"
 
     override suspend fun getNextMove(board: Board): Move? {

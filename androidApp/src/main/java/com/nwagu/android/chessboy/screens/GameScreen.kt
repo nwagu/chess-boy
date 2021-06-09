@@ -37,6 +37,7 @@ import com.nwagu.android.chessboy.widgets.LightActionView
 import com.nwagu.android.chessboy.widgets.SimpleFlowRow
 import com.nwagu.bluetoothchat.BluetoothChatService.ConnectionState.*
 import com.nwagu.chess.board.ChessPiece
+import com.nwagu.chess.board.isStaleMate
 import com.nwagu.chess.board.turn
 import com.nwagu.chess.enums.ChessPieceColor
 import com.nwagu.chess.enums.opposite
@@ -311,6 +312,12 @@ fun PlayerDisplay(
                         modifier = Modifier,
                         text = "Checkmate",
                         color = Color.Red
+                    )
+                } else if (viewModel.game.board.isStaleMate()) {
+                    Text(
+                        modifier = Modifier,
+                        text = "Stalemate",
+                        color = Color.Blue
                     )
                 }
             }
