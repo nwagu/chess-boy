@@ -25,6 +25,10 @@ class Board(
         return squaresMap[square] as ChessPiece
     }
 
+    fun getSquareOccupantOrNull(square: Square): ChessPiece? {
+        return if (squareEmpty(square)) null else squaresMap[square] as ChessPiece
+    }
+
     fun setSquareOccupant(square: Square, piece: SquareOccupant) {
         squaresMap[square] = piece
     }

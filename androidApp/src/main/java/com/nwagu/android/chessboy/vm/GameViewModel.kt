@@ -14,10 +14,7 @@ import com.nwagu.android.chessboy.util.SharedPrefUtils.saveString
 import com.nwagu.bluetoothchat.BluetoothChatService
 import com.nwagu.chess.Game
 import com.nwagu.chess.Player
-import com.nwagu.chess.board.Square
-import com.nwagu.chess.board.move
-import com.nwagu.chess.board.turn
-import com.nwagu.chess.board.undoMove
+import com.nwagu.chess.board.*
 import com.nwagu.chess.convention.*
 import com.nwagu.chess.enums.ChessPieceColor
 import com.nwagu.chess.moves.Move
@@ -35,7 +32,7 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
     val gameUpdated = MutableStateFlow(0)
     val boardUpdated = MutableStateFlow(0)
 
-    var selectedPosition = MutableStateFlow<Square?>(null)
+    var selectedSquare = MutableStateFlow<Square?>(null)
     var possibleMoves = MutableStateFlow<List<Move>>(listOf())
 
     val bluetoothChatService: BluetoothChatService by lazy { BluetoothChatService() }
@@ -135,21 +132,23 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
             bluetoothChatService.startListeningForConnection()
     }
 
-    fun cellClicked(position: Square) {
-
-        if (!game.isUserTurn) {
-            clearPossibleMoves()
-            return
-        }
+    fun squareClicked(square: Square) {
 
         when {
-            selectedPosition.value == null || possibleMoves.value.isEmpty() -> {
-                selectedPosition.value = position
-                possibleMoves.value = game.board.getPossibleMovesFrom(position)
+            !game.isUserTurn -> {
+                clearPossibleMoves()
             }
-            position in possibleMoves.value.map { move -> move.destination } -> {
 
-                val move = possibleMoves.value.find { move -> position == move.destination }!!
+            selectedSquare.value == null || possibleMoves.value.isEmpty() -> {
+                if (game.board.squareContainsOccupantColored(square, game.userColor)) {
+                    selectedSquare.value = square
+                    possibleMoves.value = game.board.getPossibleMovesFrom(square)
+                }
+            }
+
+            square in possibleMoves.value.map { move -> move.destination } -> {
+
+                val move = possibleMoves.value.find { move -> square == move.destination }!!
 
                 if (game.whitePlayer is BluetoothOpponent || game.blackPlayer is BluetoothOpponent) {
                     if (bluetoothChatService.connectionState.value == BluetoothChatService.ConnectionState.CONNECTED) {
@@ -162,6 +161,7 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
                     makeMove(move)
                 }
             }
+
             else -> {
                 clearPossibleMoves()
             }
@@ -192,7 +192,7 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
     }
 
     private fun clearPossibleMoves() {
-        selectedPosition.value = null
+        selectedSquare.value = null
         possibleMoves.value = emptyList()
     }
 

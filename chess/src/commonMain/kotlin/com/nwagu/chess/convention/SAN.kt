@@ -45,9 +45,9 @@ fun Board.attachSanToMove(piece: ChessPiece, move: Move) {
     }
 
     if (isCheckMate(piece.chessPieceColor.opposite())) {
-        move.san = move.san + "#"
+        san.append("#")
     } else if (isOnCheck(piece.chessPieceColor.opposite())) {
-        move.san = move.san + "+"
+        san.append("+")
     }
 
     // TODO attach clock comment
@@ -57,7 +57,9 @@ fun Board.attachSanToMove(piece: ChessPiece, move: Move) {
 
 fun Board.sanToMove(san: String): Move { // Qh8g7
 
-    if (san == "O-O") {
+    val _san = san.takeWhile { it !in listOf('+', '#') }
+
+    if (_san == "O-O") {
         if (turn == ChessPieceColor.WHITE)
             return Castling(whiteKingPosition, whiteKingPosition + 2)
                 .also { it.san = san }
@@ -65,7 +67,7 @@ fun Board.sanToMove(san: String): Move { // Qh8g7
             return Castling(blackKingPosition, blackKingPosition + 2)
                 .also { it.san = san }
     }
-    else if (san == "O-O-O") {
+    else if (_san == "O-O-O") {
         if (turn == ChessPieceColor.WHITE)
             return Castling(whiteKingPosition, whiteKingPosition - 2)
                 .also { it.san = san }
@@ -74,10 +76,10 @@ fun Board.sanToMove(san: String): Move { // Qh8g7
                 .also { it.san = san }
     }
 
-    val isCapture = san.contains("x")
-    val isPromotion = san.contains("=")
+    val isCapture = _san.contains("x")
+    val isPromotion = _san.contains("=")
 
-    val moveCode = if (isPromotion) san.split("=")[0] else san
+    val moveCode = if (isPromotion) _san.split("=")[0] else _san
 
     val destinationLabel = moveCode.takeLast(2)
     val destination = coordinateToSquare(destinationLabel)
@@ -119,7 +121,7 @@ fun Board.sanToMove(san: String): Move { // Qh8g7
     }
 
     if (isPromotion) {
-        val promotionPieceType = chessPieceTypeWithSanSymbol(san.split("=")[1])
+        val promotionPieceType = chessPieceTypeWithSanSymbol(_san.split("=")[1])
         return Promotion(source, destination, promotionPieceType)
             .also {
                 it.isCapture = isCapture

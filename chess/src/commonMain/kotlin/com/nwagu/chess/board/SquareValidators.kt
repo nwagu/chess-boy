@@ -4,6 +4,10 @@ import com.nwagu.chess.enums.ChessPieceColor
 
 fun Board.squareEmpty(square: Square) = squaresMap[square] is EmptySquare
 
+fun Board.squareContainsOccupantColored(square: Square, color: ChessPieceColor): Boolean {
+    return getSquareOccupantOrNull(square)?.chessPieceColor == color
+}
+
 fun Board.squareOccupantHasNotMoved(square: Square): Boolean {
     if (squareEmpty(square))
         return false

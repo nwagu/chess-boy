@@ -76,7 +76,7 @@ fun ChessBoardView(
                     .aspectRatio(1.0f)
                     .clickable(
                         onClick = {
-                            viewModel.cellClicked(cellPosition)
+                            viewModel.squareClicked(cellPosition)
                         }
                     )
                 ) {

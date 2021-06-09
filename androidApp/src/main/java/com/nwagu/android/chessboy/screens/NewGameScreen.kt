@@ -9,6 +9,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -66,7 +67,7 @@ fun NewGameView(
                         navHostController.navigateUp()
                     }
                 ) {
-                    Icon(Icons.Filled.Close, contentDescription = "Close", tint = Color.Black)
+                    Icon(Icons.Filled.ArrowBack, contentDescription = "Close", tint = Color.Black)
                 }
 
                 Header(Modifier.padding(0.dp, 8.dp), text = "Start a new game with computer")

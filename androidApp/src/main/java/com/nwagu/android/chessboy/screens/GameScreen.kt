@@ -297,5 +297,24 @@ fun PlayerDisplay(
                     .background(Color.Green))
         }
 
+        if (isTurn) {
+            viewModel.game.board.movesHistory.lastOrNull()?.let {
+                val checkState = it.san.takeLast(1)
+                if (checkState == "+") {
+                    Text(
+                        modifier = Modifier,
+                        text = "Check",
+                        color = Color.Magenta
+                    )
+                } else if (checkState == "#") {
+                    Text(
+                        modifier = Modifier,
+                        text = "Checkmate",
+                        color = Color.Red
+                    )
+                }
+            }
+        }
+
     }
 }
