@@ -8,7 +8,7 @@ import com.nwagu.chess.moves.getPossibleMovesFrom
 
 class RandomMoveGenerator : MoveGenerator {
 
-    override val id = PlayersRegister.RANDOM.id
+    override val id = PlayersRegister.RANDOM
     override val name = "Zero Intelligence"
 
     override suspend fun getNextMove(board: Board): Move? {

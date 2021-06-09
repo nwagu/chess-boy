@@ -68,15 +68,12 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
 
     private fun getPlayerWithRegisterId(id: String?): Player {
         return when(id) {
-            PlayersRegister.USER.id -> User
-            PlayersRegister.GRANDPA.id -> GrandPa()
-            PlayersRegister.RANDOM.id -> RandomMoveGenerator()
-            PlayersRegister.JWTC.id -> JWTC().also { it.init() }
-            PlayersRegister.UCI.id -> {
-                val pathToBinary = id.split("-")[1]
-                UCIChessEngine(pathToBinary = pathToBinary, name = "UCI Chess Engine").also { it.init() }
-            }
-            PlayersRegister.BLUETOOTH.id -> {
+            PlayersRegister.USER -> User
+            PlayersRegister.GRANDPA -> GrandPa()
+            PlayersRegister.RANDOM -> RandomMoveGenerator()
+            PlayersRegister.JWTC -> JWTC().also { it.init() }
+            PlayersRegister.STOCKFISH13 -> Stockfish13().also { it.init() }
+            PlayersRegister.BLUETOOTH -> {
                 val address = id.split("-")[1]
                 BluetoothOpponent(address = address)
             }
@@ -93,8 +90,8 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
             throw InvalidParameterException("Please use startNewBluetoothGame to start bluetooth game!")
         }
 
-        if (whitePlayer is AI) whitePlayer.init()
-        if (blackPlayer is AI) blackPlayer.init()
+        if (whitePlayer is UCIChessEngine) whitePlayer.init()
+        if (blackPlayer is UCIChessEngine) blackPlayer.init()
 
         game = Game(
             whitePlayer = whitePlayer,

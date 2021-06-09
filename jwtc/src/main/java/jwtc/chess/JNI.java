@@ -387,7 +387,7 @@ public class JNI {
     public native int getNumCaptured(int turn, int piece);
 
     static {
-        System.loadLibrary("chess-jni");
+        System.loadLibrary("jwtc");
     }
 
 }

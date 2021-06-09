@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.nwagu.android.chessboy.players.JWTC
 import com.nwagu.android.chessboy.players.MoveGenerator
 import com.nwagu.android.chessboy.players.RandomMoveGenerator
+import com.nwagu.android.chessboy.players.Stockfish13
 import com.nwagu.chess.enums.ChessPieceColor
 import kotlinx.coroutines.flow.MutableStateFlow
 
@@ -14,10 +15,7 @@ class NewGameViewModel: ViewModel() {
 
     val opponents = listOf(
         RandomMoveGenerator(),
-        /*UCIChessEngine(
-            name = "StockFish",
-            pathToBinary = "/data/data/com.nwagu.android.chessboy/stockfish"
-        ),*/
+        Stockfish13(),
         JWTC()
     )
 }

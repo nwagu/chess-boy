@@ -8,9 +8,9 @@ import jwtc.chess.BoardConstants
 import jwtc.chess.JNI
 import jwtc.chess.Move.*
 
-class JWTC: AI {
+class JWTC: UCIChessEngine {
 
-    override val id = PlayersRegister.JWTC.id
+    override val id = PlayersRegister.JWTC
     override val name = "JWTC"
     override var level = 5
 
