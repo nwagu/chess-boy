@@ -20,10 +20,6 @@ android {
                         "-DANDROID_CPP_FEATURES=rtti exceptions"
             }
         }
-        ndk {
-            moduleName "stockfish13"
-            stl "c++_static"
-        }
     }
 
     buildTypes {
@@ -54,4 +50,11 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+}
+
+project.afterEvaluate {
+    // Not sure how much of a hack this is - but it allows CMake/SWIG to run before Android Studio
+    // complains about missing generated files
+    // TODO: Probably need a release hook too?
+    javaPreCompileDebug.dependsOn externalNativeBuildDebug
 }

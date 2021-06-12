@@ -36,7 +36,7 @@ using namespace std;
 
 extern vector<string> setup_bench(const Position&, istream&);
 
-namespace {
+//namespace {
 
   // FEN string of the initial position, normal chess
   const char* StartFEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
@@ -217,7 +217,7 @@ namespace {
      return int(0.5 + 1000 / (1 + std::exp((a - x) / b)));
   }
 
-} // namespace
+//} // namespace
 
 
 /// UCI::loop() waits for a command from stdin, parses it and calls the appropriate

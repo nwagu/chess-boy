@@ -20,10 +20,6 @@ android {
                         "-DANDROID_CPP_FEATURES=rtti exceptions"
             }
         }
-        ndk {
-            moduleName "jwtc"
-            stl "c++_static"
-        }
     }
     buildTypes {
         release {

@@ -41,7 +41,7 @@ typedef std::map<std::string, Option, CaseInsensitiveLess> OptionsMap;
 /// Option class implements an option as defined by UCI protocol
 class Option {
 
-  typedef void (*OnChange)(const Option&);
+public:typedef void (*OnChange)(const Option&);
 
 public:
   Option(OnChange = nullptr);

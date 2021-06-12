@@ -1,2 +1,3 @@
 /build
 *.nnue
+/src/main/java/com/nwagu/stockfish13/*
