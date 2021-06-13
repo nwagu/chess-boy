@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         when (requestCode) {
             RequestCodes.REQUEST_ENABLE_BT ->
                 if (resultCode == RESULT_OK) {
-                    // TODO show dialog to send or receive
+                    //
                 } else {
                     Toast.makeText(
                         this,
@@ -66,12 +66,6 @@ class MainActivity : AppCompatActivity() {
                     ).show()
                 }
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        // TODO end discovery on destroy
-        // btController.endDiscovery()
     }
 
 }
