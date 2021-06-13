@@ -155,7 +155,6 @@ fun NewBluetoothGameView(
                                     it as BluetoothOpponent
                             }
                         )
-
                     }
                 }
             }
