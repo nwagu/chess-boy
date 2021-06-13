@@ -10,8 +10,6 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.nwagu.android.chessboy.constants.RequestCodes
 import com.nwagu.android.chessboy.dialogs.DialogHost
 import com.nwagu.android.chessboy.dialogs.rememberDialogController
@@ -24,22 +22,8 @@ import com.nwagu.android.chessboy.vm.NewGameViewModel
 class MainActivity : AppCompatActivity() {
 
     val gameViewModel: GameViewModel by viewModels()
-    val newGameViewModel: NewGameViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return NewGameViewModel() as T
-            }
-
-        }
-    }
-    val newbluetoothGameViewModel: NewBluetoothGameViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return NewBluetoothGameViewModel() as T
-            }
-
-        }
-    }
+    val newGameViewModel: NewGameViewModel by viewModels()
+    val newbluetoothGameViewModel: NewBluetoothGameViewModel by viewModels()
 
     @ExperimentalMaterialApi
     @ExperimentalAnimationApi

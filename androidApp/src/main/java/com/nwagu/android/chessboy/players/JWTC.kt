@@ -7,12 +7,14 @@ import com.nwagu.chess.moves.*
 import jwtc.chess.BoardConstants
 import jwtc.chess.JNI
 import jwtc.chess.Move.*
+import kotlinx.coroutines.flow.MutableStateFlow
 
 class JWTC: UCIChessEngine {
 
     override val id = PlayersRegister.JWTC
     override val name = "JWTC"
     override var level = 5
+    override val connectionState = MutableStateFlow(true)
 
     lateinit var jni: JNI
 

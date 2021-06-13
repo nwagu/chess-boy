@@ -19,7 +19,7 @@ fun Board.convertChessEngineMoveToMove(move: String): Move? {
         return null
 
     val source = coordinateToSquare(move.take(2))
-    val destination = coordinateToSquare(move.substring(2, 3))
+    val destination = coordinateToSquare(move.substring(2, 4))
 
     if (move.length == 4) {
 
@@ -28,7 +28,7 @@ fun Board.convertChessEngineMoveToMove(move: String): Move? {
         if (getSquareOccupant(source).chessPieceType == ChessPieceType.PAWN && !areSquaresOnSameColumn(source, destination) && squareEmpty(destination)) {
             return EnPassant(source, destination)
         } else {
-            RegularMove(source, destination)
+            return RegularMove(source, destination)
         }
 
     } else if (move.length == 5) {

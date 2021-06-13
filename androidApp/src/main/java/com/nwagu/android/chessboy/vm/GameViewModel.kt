@@ -72,7 +72,7 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
             PlayersRegister.GRANDPA -> GrandPa()
             PlayersRegister.RANDOM -> RandomMoveGenerator()
             PlayersRegister.JWTC -> JWTC().also { it.init() }
-            PlayersRegister.STOCKFISH13 -> Stockfish13().also { it.init() }
+            PlayersRegister.STOCKFISH13 -> Stockfish13(getApplication()).also { it.init() }
             PlayersRegister.BLUETOOTH -> {
                 val address = id.split("-")[1]
                 BluetoothOpponent(address = address)
