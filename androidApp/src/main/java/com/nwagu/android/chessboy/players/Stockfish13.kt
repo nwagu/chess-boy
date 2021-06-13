@@ -156,12 +156,12 @@ class Stockfish13(val context: Context) : UCIChessEngine {
     private val mConnection: ServiceConnection = object : ServiceConnection {
         override fun onServiceConnected(componentName: ComponentName, service: IBinder) {
             mService = Messenger(service)
-            Toast.makeText(context, "Service connected.", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "Engine connected.", Toast.LENGTH_LONG).show()
         }
 
         override fun onServiceDisconnected(className: ComponentName) {
             mService = null
-            Toast.makeText(context, "Service disconnected.", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "Engine disconnected.", Toast.LENGTH_LONG).show()
         }
     }
 

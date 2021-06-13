@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                     gameViewModel, newGameViewModel, newbluetoothGameViewModel, screenConfig, dialogController
                 )
 
-                DialogHost(dialogController, gameViewModel)
+                DialogHost(dialogController)
             }
         }
 

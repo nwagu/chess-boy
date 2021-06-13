@@ -1,5 +1,6 @@
 package com.nwagu.android.chessboy.widgets
 
+import android.os.Bundle
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.fadeIn
@@ -21,8 +22,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.nwagu.android.chessboy.dialogs.DialogController
+import com.nwagu.android.chessboy.dialogs.KEY_PROMOTION_PIECE
 import com.nwagu.android.chessboy.players.User
 import com.nwagu.android.chessboy.screens.ChessPieceView
+import com.nwagu.android.chessboy.screens.Dialog
 import com.nwagu.android.chessboy.ui.AppColor
 import com.nwagu.android.chessboy.util.colorResource
 import com.nwagu.android.chessboy.vm.GameViewModel
@@ -32,12 +36,16 @@ import com.nwagu.chess.board.ChessPiece
 import com.nwagu.chess.board.isOnCheck
 import com.nwagu.chess.board.squareColor
 import com.nwagu.chess.enums.ChessPieceColor
+import com.nwagu.chess.enums.ChessPieceType
+import com.nwagu.chess.moves.Promotion
+import java.io.Serializable
 
 @ExperimentalAnimationApi
 @ExperimentalFoundationApi
 @Composable
 fun ChessBoardView(
     modifier: Modifier = Modifier,
+    dialogController: DialogController,
     viewModel: GameViewModel
 ) {
 
@@ -76,7 +84,23 @@ fun ChessBoardView(
                     .aspectRatio(1.0f)
                     .clickable(
                         onClick = {
-                            viewModel.squareClicked(cellPosition)
+
+                            val move = viewModel.squareClicked(cellPosition)
+
+                            // Handle promotion piece selection
+                            if (move is Promotion) {
+                                dialogController.showDialog(
+                                    Dialog.SelectPromotionPiece.id,
+                                    Bundle().also {
+                                        it.putSerializable(
+                                            KEY_PROMOTION_PIECE,
+                                            { selectedType: ChessPieceType ->
+                                                move.promotionType = selectedType
+                                                viewModel.makeMove(move)
+                                            } as Serializable)
+                                    }
+                                )
+                            }
                         }
                     )
                 ) {
