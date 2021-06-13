@@ -15,8 +15,8 @@ class NewGameViewModel(application: Application): AndroidViewModel(application) 
     val selectedOpponent = MutableStateFlow<MoveGenerator?>(null)
 
     val opponents = listOf(
-        RandomMoveGenerator(),
         Stockfish13(getApplication()),
-        JWTC()
+        JWTC(),
+        RandomMoveGenerator()
     )
 }

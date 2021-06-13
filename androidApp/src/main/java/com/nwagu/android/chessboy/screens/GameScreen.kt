@@ -28,7 +28,6 @@ import androidx.navigation.NavHostController
 import com.nwagu.android.chessboy.dialogs.DialogController
 import com.nwagu.android.chessboy.model.data.LightAction
 import com.nwagu.android.chessboy.model.data.ScreenConfig
-import com.nwagu.android.chessboy.players.UCIChessEngine
 import com.nwagu.android.chessboy.util.imageRes
 import com.nwagu.android.chessboy.vm.GameViewModel
 import com.nwagu.android.chessboy.vm.colorOnUserSideOfBoard
@@ -285,23 +284,6 @@ fun PlayerDisplay(
             text = player.name,
             color = Color.Black
         )
-        if (player is UCIChessEngine) {
-            AnimatedVisibility(
-                visible = true,
-                modifier = Modifier
-                    .width(16.dp)
-                    .height(16.dp),
-                enter = fadeIn(),
-                exit = fadeOut()
-            ) {
-                val online by player.connectionState.collectAsState()
-                Box(
-                    Modifier
-                        .clip(CircleShape)
-                        .background(if (online) Color.Green else Color.Red)
-                )
-            }
-        }
 
         AnimatedVisibility(
             visible = (isTurn),

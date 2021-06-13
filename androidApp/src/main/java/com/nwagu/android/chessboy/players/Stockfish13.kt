@@ -65,7 +65,9 @@ class Stockfish13(val context: Context) : UCIChessEngine {
 
         job.cancel()
 
-        return board.convertChessEngineMoveToMove(move ?: "")
+        chessEngineMove.value = ""
+
+        return board.convertChessEngineMoveToMove(move)
 
     }
 
