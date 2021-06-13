@@ -1,16 +1,21 @@
 package com.nwagu.android.chessboy.dialogs
 
+import android.os.Bundle
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class DialogStateViewModel: ViewModel() {
 
-    private val _dialogStates = hashMapOf<String, Boolean>()
+    companion object {
+        const val KEY_DIALOG_VISIBLE = "dialog_visible"
+    }
 
-    val dialogStates = MutableStateFlow<HashMap<String, Boolean>>(hashMapOf())
+    private val _dialogStates = hashMapOf<String, Bundle>()
 
-    fun setDialogStateValue(key: String, state: Boolean) {
-        _dialogStates[key] = state
-        dialogStates.value = _dialogStates.filter { it.value } as HashMap
+    val dialogStates = MutableStateFlow<HashMap<String, Bundle>>(hashMapOf())
+
+    fun setDialogStateValue(key: String, data: Bundle) {
+        _dialogStates[key] = data
+        dialogStates.value = _dialogStates.filter { it.value.getBoolean(KEY_DIALOG_VISIBLE) } as HashMap
     }
 }

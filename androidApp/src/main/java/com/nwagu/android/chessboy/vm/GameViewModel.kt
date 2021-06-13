@@ -18,6 +18,7 @@ import com.nwagu.chess.board.*
 import com.nwagu.chess.convention.*
 import com.nwagu.chess.enums.ChessPieceColor
 import com.nwagu.chess.moves.Move
+import com.nwagu.chess.moves.Promotion
 import com.nwagu.chess.moves.getPossibleMovesFrom
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -72,7 +73,7 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
             PlayersRegister.GRANDPA -> GrandPa()
             PlayersRegister.RANDOM -> RandomMoveGenerator()
             PlayersRegister.JWTC -> JWTC().also { it.init() }
-            PlayersRegister.STOCKFISH13 -> Stockfish13().also { it.init() }
+            PlayersRegister.STOCKFISH13 -> Stockfish13(getApplication()).also { it.init() }
             PlayersRegister.BLUETOOTH -> {
                 val address = id.split("-")[1]
                 BluetoothOpponent(address = address)
@@ -129,7 +130,7 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
             bluetoothChatService.startListeningForConnection()
     }
 
-    fun squareClicked(square: Square) {
+    fun squareClicked(square: Square): Move? {
 
         when {
             !game.isUserTurn -> {
@@ -155,7 +156,9 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
                         clearPossibleMoves()
                     }
                 } else {
-                    makeMove(move)
+                    if (move !is Promotion)
+                        makeMove(move)
+                    return move
                 }
             }
 
@@ -163,6 +166,8 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
                 clearPossibleMoves()
             }
         }
+
+        return null
     }
 
     fun makeMove(move: Move): Boolean {

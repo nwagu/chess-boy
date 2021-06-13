@@ -96,7 +96,7 @@ fun Board.sanToMove(san: String): Move { // Qh8g7
             ChessPieceType.PAWN
         }
 
-    val ambiguityResolver = sourceSan.removePrefix(sourceSan.take(1))
+    val ambiguityResolver = sourceSan.removePrefix(movingPieceType.sanSymbol)
 
     val source = when(ambiguityResolver.length) {
         0 -> {

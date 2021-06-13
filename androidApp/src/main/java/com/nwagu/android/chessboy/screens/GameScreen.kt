@@ -142,7 +142,7 @@ fun GameViewPortrait(
         Text(text = gameChanged.toString(), Modifier.size(0.dp))
         PlayerDisplay(modifier = Modifier, viewModel, viewModel.game.colorOnUserSideOfBoard.opposite())
         // CaptivesView(modifier = Modifier.fillMaxWidth(), viewModel, viewModel.game.colorOnUserSideOfBoard)
-        ChessBoardView(modifier = Modifier.fillMaxWidth(), viewModel)
+        ChessBoardView(modifier = Modifier.fillMaxWidth(), dialogController, viewModel)
         // CaptivesView(modifier = Modifier.fillMaxWidth(), viewModel, viewModel.game.colorOnUserSideOfBoard.opposite())
         PlayerDisplay(modifier = Modifier, viewModel, viewModel.game.colorOnUserSideOfBoard)
         Row(modifier = Modifier
@@ -198,6 +198,7 @@ fun GameViewLandscape(
         ) {
             ChessBoardView(
                 modifier = Modifier.width((screenConfig.screenWidthDp - 64).dp),
+                dialogController,
                 viewModel
             )
         }
@@ -284,6 +285,7 @@ fun PlayerDisplay(
             text = player.name,
             color = Color.Black
         )
+
         AnimatedVisibility(
             visible = (isTurn),
             modifier = Modifier

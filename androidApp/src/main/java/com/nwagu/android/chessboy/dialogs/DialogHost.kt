@@ -3,44 +3,36 @@ package com.nwagu.android.chessboy.dialogs
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import com.nwagu.android.chessboy.dialogs.DialogStateViewModel.Companion.KEY_DIALOG_VISIBLE
 import com.nwagu.android.chessboy.screens.Dialog
-import com.nwagu.android.chessboy.vm.GameViewModel
-import com.nwagu.android.chessboy.widgets.AlertDialogWrapper
+import com.nwagu.android.chessboy.widgets.SelectPromotionPieceDialog
+import com.nwagu.chess.enums.ChessPieceType
+
+const val KEY_PROMOTION_PIECE = "onselectpromo"
 
 @Composable
 fun DialogHost(
-    dialogController: DialogController,
-    gameViewModel: GameViewModel
+    dialogController: DialogController
 ) {
 
     val dialogStates by dialogController.getStates().collectAsState(hashMapOf())
 
-    fun getState(key: String): Boolean {
-        return dialogStates[key] ?: false
+    fun getVisibility(key: String): Boolean {
+        return dialogStates[key]?.getBoolean(KEY_DIALOG_VISIBLE) ?: false
     }
 
-    fun quitDialog(key: String) {
+    fun getData(dialogKey: String, dataKey: String): Any? {
+        return dialogStates[dialogKey]?.get(dataKey)
+    }
+
+    fun removeDialog(key: String) {
         dialogController.quitDialog(key)
     }
 
-    AlertDialogWrapper(getState(Dialog.QuitGame.id), { quitDialog(Dialog.QuitGame.id) },
-        title = "Quit Game",
-        message = "Are you sure you wish to quit?",
-        confirmMessage = "Quit",
-        dismissMessage = "Back to game",
-        cancellable = true,
-        confirmAction = {},
-        dismissAction = {}
-    )
-
-    AlertDialogWrapper(getState(Dialog.ResignGame.id), { quitDialog(Dialog.ResignGame.id) },
-        title = "Resign Game",
-        message = "Are you sure you wish to resign? This will be saved as a loss.",
-        confirmMessage = "Resign",
-        dismissMessage = "Back to game",
-        cancellable = true,
-        confirmAction = {},
-        dismissAction = {}
+    SelectPromotionPieceDialog(
+        getVisibility(Dialog.SelectPromotionPiece.id),
+        { removeDialog(Dialog.SelectPromotionPiece.id) },
+        getData(Dialog.SelectPromotionPiece.id, KEY_PROMOTION_PIECE) as ((ChessPieceType) -> Unit)?
     )
 
 }

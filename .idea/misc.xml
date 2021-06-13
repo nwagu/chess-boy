@@ -5,6 +5,7 @@
       <map>
         <entry key="androidApp/src/main/res/drawable/black_place_background.xml" value="0.19537037037037036" />
         <entry key="androidApp/src/main/res/drawable/path_place_background.xml" value="0.18385416666666668" />
+        <entry key="androidApp/src/main/res/layout/content_main.xml" value="0.175" />
       </map>
     </option>
   </component>

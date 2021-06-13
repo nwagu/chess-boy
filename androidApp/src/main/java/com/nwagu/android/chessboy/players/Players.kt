@@ -4,6 +4,7 @@ import com.nwagu.android.chessboy.widgets.SelectableOpponent
 import com.nwagu.chess.Player
 import com.nwagu.chess.board.Board
 import com.nwagu.chess.moves.Move
+import kotlinx.coroutines.flow.MutableStateFlow
 
 object User: Player {
     override val id = PlayersRegister.USER
@@ -23,5 +24,6 @@ interface MoveGenerator: SelectableOpponent {
 
 interface UCIChessEngine: MoveGenerator {
     var level: Int
+    val connectionState: MutableStateFlow<Boolean>
     fun init()
 }
