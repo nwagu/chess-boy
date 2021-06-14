@@ -150,7 +150,7 @@ class Stockfish13(val context: Context) : UCIChessEngine {
         }
     }
 
-    fun quit() {
+    override fun quit() {
         if (mService != null) {
             context.unbindService(mConnection)
             mService = null

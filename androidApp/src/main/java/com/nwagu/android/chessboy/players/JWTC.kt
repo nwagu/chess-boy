@@ -68,4 +68,8 @@ class JWTC: UCIChessEngine {
 
     }
 
+    override fun quit() {
+        jni.destroy()
+    }
+
 }

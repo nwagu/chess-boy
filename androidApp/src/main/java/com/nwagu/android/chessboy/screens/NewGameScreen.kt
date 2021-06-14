@@ -110,7 +110,6 @@ fun NewGameView(
                         newGameViewModel.selectedOpponent.value = it as MoveGenerator
                     }
                 )
-
             }
 
         }

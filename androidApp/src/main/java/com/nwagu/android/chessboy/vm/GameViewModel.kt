@@ -36,7 +36,7 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
     var selectedSquare = MutableStateFlow<Square?>(null)
     var possibleMoves = MutableStateFlow<List<Move>>(listOf())
 
-    val bluetoothChatService: BluetoothChatService by lazy { BluetoothChatService() }
+    lateinit var bluetoothChatService: BluetoothChatService
 
     init {
         viewModelScope.launch {
@@ -61,6 +61,10 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
                 getPlayerWithRegisterId(getHeaderValueFromPgn(PGN_HEADER_BLACK_PLAYER_ID, lastGamePgn))
             )
             game.importPGN(lastGamePgn)
+
+            if (game.isBluetoothGame()) {
+                recreateBluetoothChatService()
+            }
 
             updateBoardUI()
             getNextMove()
@@ -112,6 +116,8 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
             throw InvalidParameterException("Please use startNewBluetoothGame to start bluetooth game!")
         }
 
+        endCurrentGame()
+
         if (whitePlayer is UCIChessEngine) whitePlayer.init()
         if (blackPlayer is UCIChessEngine) blackPlayer.init()
 
@@ -125,7 +131,16 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
         getNextMove()
     }
 
-    fun startNewBluetoothGame(isWhite: Boolean, address: String) {
+    fun startNewBluetoothGame(bluetoothChatService: BluetoothChatService) {
+
+        val isWhite = bluetoothChatService.isInitiator
+        val address = bluetoothChatService.partnerAddress
+
+        endCurrentGame()
+
+        this.bluetoothChatService = bluetoothChatService
+        this.bluetoothChatService.setListener(bluetoothChatListener)
+
         game = Game(
             whitePlayer = if (isWhite) User else BluetoothPlayer(address = address),
             blackPlayer = if (isWhite) BluetoothPlayer(address = address) else User
@@ -134,21 +149,38 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
         updateBoardUI()
     }
 
-    fun attemptConnectToDevice(address: String) {
-        bluetoothChatService.init(getApplication(), getBluetoothChatListener(true))
+    private fun recreateBluetoothChatService() {
+        (game.userColor == ChessPieceColor.WHITE).let { userIsWhite ->
+            bluetoothChatService = BluetoothChatService()
+            bluetoothChatService.init(getApplication(), userIsWhite)
+            bluetoothChatService.setListener(bluetoothChatListener)
+        }
+    }
+
+    fun attemptReconnectToDevice(address: String) {
+
+        if (!this::bluetoothChatService.isInitialized) {
+            recreateBluetoothChatService()
+        }
+
+        if (bluetoothChatService.connectionState.value != BluetoothChatService.ConnectionState.NONE)
+            return
+
+        bluetoothChatService.init(getApplication(), true)
         bluetoothChatService.connectDevice(address, true)
     }
 
-    fun listenForConnection() {
-        bluetoothChatService.init(getApplication(), getBluetoothChatListener(false))
-        bluetoothChatService.startListeningForConnection()
-    }
+    fun listenForReconnection() {
 
-    fun reconnectToBluetoothGame() {
-        if (game.blackPlayer is BluetoothPlayer)
-            bluetoothChatService.connectDevice((game.blackPlayer as BluetoothPlayer).address, true)
-        else
-            bluetoothChatService.startListeningForConnection()
+        if (!this::bluetoothChatService.isInitialized) {
+            recreateBluetoothChatService()
+        }
+
+        if (bluetoothChatService.connectionState.value != BluetoothChatService.ConnectionState.NONE)
+            return
+
+        bluetoothChatService.init(getApplication(), false)
+        bluetoothChatService.startListeningForConnection()
     }
 
     fun squareClicked(square: Square): Move? {
@@ -169,18 +201,13 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
 
                 val move = possibleMoves.value.find { move -> square == move.destination }!!
 
-                if (game.whitePlayer is BluetoothPlayer || game.blackPlayer is BluetoothPlayer) {
-                    if (bluetoothChatService.connectionState.value == BluetoothChatService.ConnectionState.CONNECTED) {
-                        bluetoothChatService.sendMessage(BluetoothMessage.MoveMessage(move).value)
-                    } else {
-                        showToast("Not connected.")
-                        clearPossibleMoves()
-                    }
-                } else {
-                    if (move !is Promotion)
-                        makeMove(move)
-                    return move
-                }
+                if (move !is Promotion)
+                    makeUserMove(move)
+
+                clearPossibleMoves()
+
+                return move
+
             }
 
             else -> {
@@ -191,7 +218,19 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
         return null
     }
 
-    fun makeMove(move: Move): Boolean {
+    fun makeUserMove(move: Move) {
+        if (game.isBluetoothGame()) {
+            if (bluetoothChatService.connectionState.value == BluetoothChatService.ConnectionState.CONNECTED) {
+                bluetoothChatService.sendMessage(BluetoothMessage.MoveMessage(move).value)
+            } else {
+                showToast("Not connected.")
+            }
+        } else {
+            makeMove(move)
+        }
+    }
+
+    private fun makeMove(move: Move): Boolean {
         val response = game.board.move(move)
 
         if (response) {
@@ -203,6 +242,11 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
     }
 
     fun undo() {
+
+        if (game.isBluetoothGame()) {
+            showToast("Undo not available for bluetooth games")
+            return
+        }
 
         if (User !in listOf(game.whitePlayer, game.blackPlayer))
             return
@@ -252,9 +296,8 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
-    fun getBluetoothChatListener(isWhite: Boolean): BluetoothChatService.ChatListener {
-
-        return object : BluetoothChatService.ChatListener {
+    val bluetoothChatListener: BluetoothChatService.ChatListener
+        get() = object : BluetoothChatService.ChatListener {
 
             override fun onConnecting() {
                 showToast("Connecting...")
@@ -265,8 +308,8 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
             }
 
             override fun onConnected(address: String) {
-                showToast("Connected to: $address")
-                startNewBluetoothGame(isWhite, address)
+                // reconnected
+                showToast("Connected to bluetooth player at: $address")
             }
 
             override fun onChatStart(deviceName: String) {
@@ -313,7 +356,7 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
                         showToast("Move failed")
                     }
                     BluetoothMessage.MoveOk -> {
-                        showToast("Move ok")
+                        // showToast("Move ok")
                     }
                     BluetoothMessage.SyncFailed -> {
                         showToast("Sync failed")
@@ -341,10 +384,9 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
             }
 
             override fun onDisconnected() {
-                showToast("Disconnected!")
+                showToast("Bluetooth player disconnected.")
             }
         }
-    }
 
     fun showToast(message: String) {
         ContextCompat.getMainExecutor(getApplication()).execute {
@@ -355,6 +397,16 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
     fun saveGame() {
         viewModelScope.launch {
             saveString(getApplication(), LAST_GAME, game.exportPGN())
+        }
+    }
+
+    private fun endCurrentGame() {
+        if (game.isBluetoothGame()) {
+            bluetoothChatService.stop()
+        }
+        for (player in listOf(game.whitePlayer, game.blackPlayer)) {
+            if (player is UCIChessEngine)
+                player.quit()
         }
     }
 
