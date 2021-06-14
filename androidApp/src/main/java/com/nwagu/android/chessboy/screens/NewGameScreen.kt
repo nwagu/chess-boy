@@ -69,28 +69,28 @@ fun NewGameView(
                     Icon(Icons.Filled.ArrowBack, contentDescription = "Close", tint = Color.Black)
                 }
 
-                Header(Modifier.padding(0.dp, 8.dp), text = "Start a new game with computer")
+                Header(Modifier.padding(0.dp, 8.dp), text = "Start a new game against computer")
             }
 
-            SubHeader(Modifier.padding(0.dp, 16.dp), text = "Choose Color")
+            SubHeader(Modifier.padding(0.dp, 16.dp), text = "Choose your side")
 
             SimpleFlowRow {
                 RadioCard(
-                    selected = selectedColor == null,
+                    isSelected = selectedColor == null,
                     text = "Random",
                     onClick = {
                         newGameViewModel.selectedColor.value = null
                     }
                 )
                 RadioCard(
-                    selected = selectedColor == ChessPieceColor.WHITE,
+                    isSelected = selectedColor == ChessPieceColor.WHITE,
                     text = "White",
                     onClick = {
                         newGameViewModel.selectedColor.value = ChessPieceColor.WHITE
                     }
                 )
                 RadioCard(
-                    selected = selectedColor == ChessPieceColor.BLACK,
+                    isSelected = selectedColor == ChessPieceColor.BLACK,
                     text = "Black",
                     onClick = {
                         newGameViewModel.selectedColor.value = ChessPieceColor.BLACK
@@ -110,7 +110,6 @@ fun NewGameView(
                         newGameViewModel.selectedOpponent.value = it as MoveGenerator
                     }
                 )
-
             }
 
         }

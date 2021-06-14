@@ -96,7 +96,7 @@ fun ChessBoardView(
                                             KEY_PROMOTION_PIECE,
                                             { selectedType: ChessPieceType ->
                                                 move.promotionType = selectedType
-                                                viewModel.makeMove(move)
+                                                viewModel.makeUserMove(move)
                                             } as Serializable)
                                     }
                                 )

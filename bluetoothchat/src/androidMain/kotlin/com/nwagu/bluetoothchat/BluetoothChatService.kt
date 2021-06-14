@@ -16,6 +16,9 @@ actual class BluetoothChatService {
 
     lateinit var context: Context
 
+    var isInitiator: Boolean = false
+    lateinit var partnerAddress: String
+
     // Name for the SDP record when creating server socket
     private val NAME_SECURE = "BluetoothChatSecure"
     private val NAME_INSECURE = "BluetoothChatInsecure"
@@ -40,13 +43,22 @@ actual class BluetoothChatService {
 
     private lateinit var listener: ChatListener
 
-    fun init(context: Context, listener: ChatListener) {
+    fun init(context: Context, isInitiator: Boolean) {
         this.context = context
-        this.listener = listener
+        this.isInitiator = isInitiator
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
     }
 
+    fun setListener(listener: ChatListener) {
+        this.listener = listener
+    }
+
     fun connectDevice(address: String, secure: Boolean) {
+
+        if (!isInitiator)
+            throw IllegalStateException("A non-initiator must only listen. Use [startListeningForConnection] to listen for connection.")
+
+        partnerAddress = address
 
         val device = bluetoothAdapter?.getRemoteDevice(address) ?: return
 
@@ -69,15 +81,11 @@ actual class BluetoothChatService {
         mConnectThread?.start()
     }
 
-//    fun getConnectedDeviceName(): String? {
-//        return connectedDeviceName
-//    }
-//
-//    fun setConnectedDeviceName(connectedDeviceName: String) {
-//        connectedDeviceName = connectedDeviceName
-//    }
-
     fun startListeningForConnection() {
+
+        if (isInitiator)
+            throw IllegalStateException("An initiator must not listen for connection. Use [connectDevice] to connect")
+
         if (_connectionState == ConnectionState.NONE) {
             startAcceptThread()
         }
@@ -127,6 +135,8 @@ actual class BluetoothChatService {
     @Synchronized
     private fun startChatThread(socket: BluetoothSocket, device: BluetoothDevice, socketType: String) {
         Log.d(TAG, "connected, Socket Type:$socketType")
+
+        partnerAddress = device.address
 
         // Cancel the thread that completed the connection
         if (mConnectThread != null) {

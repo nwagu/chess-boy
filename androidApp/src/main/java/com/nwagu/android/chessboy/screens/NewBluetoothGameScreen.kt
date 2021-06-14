@@ -15,18 +15,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.nwagu.android.chessboy.BluetoothController
 import com.nwagu.android.chessboy.MainActivity
 import com.nwagu.android.chessboy.dialogs.DialogController
 import com.nwagu.android.chessboy.model.data.ScreenConfig
-import com.nwagu.android.chessboy.players.BluetoothOpponent
+import com.nwagu.android.chessboy.players.BluetoothPlayer
 import com.nwagu.android.chessboy.ui.AppColor
 import com.nwagu.android.chessboy.vm.GameViewModel
 import com.nwagu.android.chessboy.vm.NewBluetoothGameViewModel
 import com.nwagu.android.chessboy.vm.ScanState
 import com.nwagu.android.chessboy.widgets.*
+import com.nwagu.bluetoothchat.BluetoothChatService
 import com.nwagu.chess.enums.ChessPieceColor
 import kotlinx.coroutines.launch
 
@@ -43,6 +47,20 @@ fun NewBluetoothGameView(
 ) {
 
     val coroutineScope = rememberCoroutineScope()
+
+    newBluetoothGameViewModel.onConnectSuccessHandler = { bluetoothChatService ->
+        coroutineScope.launch {
+            gameViewModel.startNewBluetoothGame(bluetoothChatService)
+            bottomSheetScaffoldState.bottomSheetState.expand()
+            navHostController.navigateUp()
+
+            // return to defaults
+            newBluetoothGameViewModel.selectedColor.value = ChessPieceColor.WHITE
+            newBluetoothGameViewModel.selectedDevice.value = null
+        }
+    }
+
+    val connectionState by newBluetoothGameViewModel.connectState.collectAsState()
 
     Column(
         modifier = Modifier
@@ -79,24 +97,32 @@ fun NewBluetoothGameView(
                 Header(Modifier.padding(0.dp, 8.dp), text = "Start a new bluetooth game")
             }
 
-            SubHeader(Modifier.padding(0.dp, 16.dp), text = "Choose Color")
+            SubHeader(Modifier.padding(0.dp, 16.dp), text = "Choose your side")
 
             SimpleFlowRow {
                 RadioCard(
-                    selected = selectedColor == ChessPieceColor.WHITE,
+                    isSelected = selectedColor == ChessPieceColor.WHITE,
                     text = "White",
                     onClick = {
                         newBluetoothGameViewModel.selectedColor.value = ChessPieceColor.WHITE
                     }
                 )
                 RadioCard(
-                    selected = selectedColor == ChessPieceColor.BLACK,
+                    isSelected = selectedColor == ChessPieceColor.BLACK,
                     text = "Black",
                     onClick = {
                         newBluetoothGameViewModel.selectedColor.value = ChessPieceColor.BLACK
                     }
                 )
             }
+
+            Text(
+                text = if (selectedColor == ChessPieceColor.WHITE)
+                    "As white player, you are responsible for initiating a connection to the device playing black. Please click on SCAN to start discovering devices."
+                else
+                    "As black player, you will accept connection from the device playing white. Please click on RECEIVE to ensure discoverability and start listening.",
+                style = TextStyle(fontStyle = FontStyle.Italic, fontSize = 15.sp)
+            )
 
             if (selectedColor == ChessPieceColor.WHITE) {
 
@@ -144,7 +170,7 @@ fun NewBluetoothGameView(
                             modifier = Modifier
                                 .padding(0.dp, 16.dp, 0.dp, 16.dp),
                             items = devices.map {
-                                BluetoothOpponent(
+                                BluetoothPlayer(
                                     name = it.name,
                                     address = it.address
                                 )
@@ -152,13 +178,12 @@ fun NewBluetoothGameView(
                             selectedItem = selectedDevice,
                             onSelect = {
                                 newBluetoothGameViewModel.selectedDevice.value =
-                                    it as BluetoothOpponent
+                                    it as BluetoothPlayer
                             }
                         )
                     }
                 }
             }
-
         }
 
         SubmitButton(
@@ -167,30 +192,30 @@ fun NewBluetoothGameView(
                 .fillMaxWidth(0.9f)
                 .padding()
                 .align(Alignment.CenterHorizontally),
-            text = when (selectedColor) {
-                ChessPieceColor.WHITE -> "CONNECT"
-                ChessPieceColor.BLACK -> "RECEIVE"
+            text = when {
+                connectionState == BluetoothChatService.ConnectionState.CONNECTING -> "CONNECTING..."
+                connectionState == BluetoothChatService.ConnectionState.LISTENING -> "LISTENING..."
+                selectedColor == ChessPieceColor.WHITE -> "CONNECT"
+                selectedColor == ChessPieceColor.BLACK -> "RECEIVE"
+                else -> ""
             },
             onClick = {
-                // TODO change button ui to show progress
-                when (selectedColor) {
-                    ChessPieceColor.WHITE -> {
-                        selectedDevice?.let {
-                            gameViewModel.attemptConnectToDevice(it.address)
+                if (connectionState == BluetoothChatService.ConnectionState.NONE) {
+                    if (bluetoothController.isBluetoothEnabled) {
+                        when (selectedColor) {
+                            ChessPieceColor.WHITE -> {
+                                selectedDevice?.let {
+                                    newBluetoothGameViewModel.attemptConnectToDevice(it.address)
+                                }
+                            }
+                            ChessPieceColor.BLACK -> {
+                                bluetoothController.ensureDiscoverable()
+                                newBluetoothGameViewModel.listenForConnection()
+                            }
                         }
+                    } else {
+                        bluetoothController.startBluetooth()
                     }
-                    ChessPieceColor.BLACK -> {
-                        bluetoothController.ensureDiscoverable()
-                        gameViewModel.listenForConnection()
-                    }
-                }
-
-                newBluetoothGameViewModel.selectedColor.value = ChessPieceColor.WHITE
-                newBluetoothGameViewModel.selectedDevice.value = null
-
-                coroutineScope.launch {
-                    bottomSheetScaffoldState.bottomSheetState.expand()
-                    navHostController.navigateUp()
                 }
             }
         )
