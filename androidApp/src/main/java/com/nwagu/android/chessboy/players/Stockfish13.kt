@@ -24,8 +24,14 @@ val uciMovePattern = Pattern.compile("([a-h]{1}[1-8]{1})([a-h]{1}[1-8]{1})([qrbn
 
 class Stockfish13(val context: Context) : UCIChessEngine {
 
-    override val id = PlayersRegister.STOCKFISH13
+    override val id: String
+        get() {
+            return "${PlayersRegister.STOCKFISH13}-level=${level}"
+        }
+
     override val name = "Stockfish"
+    override val minLevel = 1
+    override val maxLevel = 10
     override var level: Int = 5
 
     private val chessEngineMove = MutableStateFlow("")

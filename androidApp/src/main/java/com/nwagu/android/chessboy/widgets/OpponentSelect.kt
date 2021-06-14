@@ -1,26 +1,30 @@
 package com.nwagu.android.chessboy.widgets
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.RadioButton
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.nwagu.android.chessboy.players.UCIChessEngine
+import com.nwagu.android.chessboy.ui.AppColor
 import com.nwagu.chess.Player
+import kotlin.math.roundToInt
 
-interface SelectableOpponent: Player
+interface SelectablePlayer: Player
 
+@ExperimentalMaterialApi
 @Composable
 fun OpponentSelect(
     modifier: Modifier = Modifier,
-    items: List<SelectableOpponent>,
-    selectedItem: SelectableOpponent?,
-    onSelect: (SelectableOpponent) -> Unit
+    items: List<SelectablePlayer>,
+    selectedItem: SelectablePlayer?,
+    onSelect: (SelectablePlayer) -> Unit
 ) {
 
     Card(
@@ -30,44 +34,83 @@ fun OpponentSelect(
         elevation = 0.dp
     ) {
         Column {
-
             repeat(items.size) { index ->
-
-                Row(modifier = Modifier
-                    .padding(4.dp)
-                    .height(60.dp)
-                    .clickable(onClick = {
-                        onSelect(items[index])
-                    }),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-
-                    val isSelected = items[index] == selectedItem
-
-                    Column(
-                        modifier = Modifier.weight(1f)
-                    ) {
-
-                        Text(text = items[index].name)
-
-                        /*if (isSelected && items[index] is AI) {
-                            Slider(
-                                valueRange = 1f..10f,
-                                value = (items[index] as AI).level.toFloat(),
-                                onValueChange = { (items[index] as AI).level = it.toInt() }
-                            )
-                        }*/
-                    }
-
-                    RadioButton(
-                        selected = isSelected,
-                        onClick = {
-                            onSelect(items[index])
-                        }
-                    )
-                }
+                val player = items[index]
+                PlayerSelect(player, player == selectedItem, onSelect)
             }
         }
     }
 
+}
+
+@ExperimentalMaterialApi
+@Composable
+fun PlayerSelect(
+    player: SelectablePlayer,
+    isSelected: Boolean,
+    onSelect: (SelectablePlayer) -> Unit
+) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth(),
+        onClick = {
+            onSelect(player)
+        },
+        shape = RoundedCornerShape(4.dp),
+        backgroundColor = if (isSelected) AppColor.PrimaryLight else Color.Transparent,
+        elevation = 0.dp
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(4.dp)
+                .fillMaxWidth()
+        ) {
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(60.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+
+                Text(
+                    modifier = Modifier.weight(1f),
+                    text = player.name,
+                )
+                RadioButton(
+                    selected = isSelected,
+                    onClick = {
+                        onSelect(player)
+                    }
+                )
+
+            }
+
+            // advanced settings space
+            if (isSelected) {
+                Box {
+                    Column {
+                        if (player is UCIChessEngine) {
+                            var playerLevel by remember { mutableStateOf(player.level) }
+                            Text(
+                                text = "Level $playerLevel",
+                                style = TextStyle(Color.Gray, fontWeight = FontWeight.Light, fontStyle = FontStyle.Italic)
+                            )
+                            Slider(
+                                modifier = Modifier.padding(8.dp, 0.dp),
+                                valueRange = player.minLevel.toFloat()..player.maxLevel.toFloat(),
+                                steps = (player.maxLevel - player.minLevel) - 1,
+                                value = playerLevel.toFloat(),
+                                enabled = true,
+                                onValueChange = {
+                                    player.level = it.roundToInt()
+                                    playerLevel = it.roundToInt()
+                                }
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

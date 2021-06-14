@@ -15,13 +15,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.nwagu.android.chessboy.BluetoothController
 import com.nwagu.android.chessboy.MainActivity
 import com.nwagu.android.chessboy.dialogs.DialogController
 import com.nwagu.android.chessboy.model.data.ScreenConfig
-import com.nwagu.android.chessboy.players.BluetoothOpponent
+import com.nwagu.android.chessboy.players.BluetoothPlayer
 import com.nwagu.android.chessboy.ui.AppColor
 import com.nwagu.android.chessboy.vm.GameViewModel
 import com.nwagu.android.chessboy.vm.NewBluetoothGameViewModel
@@ -79,24 +82,32 @@ fun NewBluetoothGameView(
                 Header(Modifier.padding(0.dp, 8.dp), text = "Start a new bluetooth game")
             }
 
-            SubHeader(Modifier.padding(0.dp, 16.dp), text = "Choose Color")
+            SubHeader(Modifier.padding(0.dp, 16.dp), text = "Choose your side")
 
             SimpleFlowRow {
                 RadioCard(
-                    selected = selectedColor == ChessPieceColor.WHITE,
+                    isSelected = selectedColor == ChessPieceColor.WHITE,
                     text = "White",
                     onClick = {
                         newBluetoothGameViewModel.selectedColor.value = ChessPieceColor.WHITE
                     }
                 )
                 RadioCard(
-                    selected = selectedColor == ChessPieceColor.BLACK,
+                    isSelected = selectedColor == ChessPieceColor.BLACK,
                     text = "Black",
                     onClick = {
                         newBluetoothGameViewModel.selectedColor.value = ChessPieceColor.BLACK
                     }
                 )
             }
+
+            Text(
+                text = if (selectedColor == ChessPieceColor.WHITE)
+                    "As white player, you are responsible for initiating a connection to the device playing black. Please click on SCAN to start discovering devices."
+                else
+                    "As black player, you will accept connection from the device playing white. Please click on RECEIVE to ensure discoverability and start listening.",
+                style = TextStyle(fontStyle = FontStyle.Italic, fontSize = 15.sp)
+            )
 
             if (selectedColor == ChessPieceColor.WHITE) {
 
@@ -144,7 +155,7 @@ fun NewBluetoothGameView(
                             modifier = Modifier
                                 .padding(0.dp, 16.dp, 0.dp, 16.dp),
                             items = devices.map {
-                                BluetoothOpponent(
+                                BluetoothPlayer(
                                     name = it.name,
                                     address = it.address
                                 )
@@ -152,7 +163,7 @@ fun NewBluetoothGameView(
                             selectedItem = selectedDevice,
                             onSelect = {
                                 newBluetoothGameViewModel.selectedDevice.value =
-                                    it as BluetoothOpponent
+                                    it as BluetoothPlayer
                             }
                         )
                     }

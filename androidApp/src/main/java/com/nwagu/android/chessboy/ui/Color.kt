@@ -9,6 +9,7 @@ val teal200 = Color(0xFF03DAC5)
 
 object AppColor {
     val Primary = Color(0xFFF4A460)
+    val PrimaryLight = Color(0xFFFFEEE1)
     val lightCell = Color(0xFFFFFADC)
     val darkCell = Color(0xFFCD853F)
     val boardBackground = Color(0xFFFFE4C4)

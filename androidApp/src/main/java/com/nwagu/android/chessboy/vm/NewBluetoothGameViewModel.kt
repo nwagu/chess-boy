@@ -2,14 +2,14 @@ package com.nwagu.android.chessboy.vm
 
 import androidx.lifecycle.ViewModel
 import com.nwagu.android.chessboy.model.data.BluetoothDevice
-import com.nwagu.android.chessboy.players.BluetoothOpponent
+import com.nwagu.android.chessboy.players.BluetoothPlayer
 import com.nwagu.chess.enums.ChessPieceColor
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class NewBluetoothGameViewModel: ViewModel() {
 
     val selectedColor = MutableStateFlow(ChessPieceColor.WHITE)
-    val selectedDevice = MutableStateFlow<BluetoothOpponent?>(null)
+    val selectedDevice = MutableStateFlow<BluetoothPlayer?>(null)
 
     val scanState = MutableStateFlow(ScanState.NONE)
 

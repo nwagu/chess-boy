@@ -47,7 +47,7 @@ dependencies {
     implementation("com.google.android.material:material:1.3.0")
     implementation("androidx.appcompat:appcompat:1.3.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
-    implementation("androidx.activity:activity-compose:1.3.0-alpha08")
+    implementation("androidx.activity:activity-compose:1.3.0-beta01")
     implementation("androidx.fragment:fragment-ktx:1.3.4")
 
     implementation("androidx.compose.runtime:runtime:${Versions.compose_version}")
@@ -57,7 +57,7 @@ dependencies {
     implementation("androidx.compose.foundation:foundation-layout:${Versions.compose_version}")
     implementation("androidx.compose.material:material:${Versions.compose_version}")
     implementation("androidx.compose.animation:animation:${Versions.compose_version}")
-    implementation("androidx.navigation:navigation-compose:2.4.0-alpha01")
+    implementation("androidx.navigation:navigation-compose:2.4.0-alpha02")
 
     implementation(platform("com.google.firebase:firebase-bom:28.0.1"))
     implementation("com.google.firebase:firebase-analytics-ktx")

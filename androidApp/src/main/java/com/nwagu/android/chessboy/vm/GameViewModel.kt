@@ -68,15 +68,36 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
     }
 
     private fun getPlayerWithRegisterId(id: String?): Player {
-        return when(id) {
-            PlayersRegister.USER -> User
-            PlayersRegister.GRANDPA -> GrandPa()
-            PlayersRegister.RANDOM -> RandomMoveGenerator()
-            PlayersRegister.JWTC -> JWTC().also { it.init() }
-            PlayersRegister.STOCKFISH13 -> Stockfish13(getApplication()).also { it.init() }
-            PlayersRegister.BLUETOOTH -> {
+        return when {
+            id == null -> RandomMoveGenerator()
+            id == PlayersRegister.USER -> User
+            id == PlayersRegister.GRANDPA -> GrandPa()
+            id == PlayersRegister.RANDOM -> RandomMoveGenerator()
+            id.startsWith(PlayersRegister.JWTC) -> {
+                val level = try {
+                    id.split("-")[1].split("=")[1].toInt()
+                } catch (e: Exception) {
+                    5
+                }
+                JWTC().also {
+                    it.level = level
+                    it.init()
+                }
+            }
+            id.startsWith(PlayersRegister.STOCKFISH13) -> {
+                val level = try {
+                    id.split("-")[1].split("=")[1].toInt()
+                } catch (e: Exception) {
+                    5
+                }
+                Stockfish13(getApplication()).also {
+                    it.level = level
+                    it.init()
+                }
+            }
+            id.startsWith(PlayersRegister.BLUETOOTH) -> {
                 val address = id.split("-")[1]
-                BluetoothOpponent(address = address)
+                BluetoothPlayer(address = address)
             }
             else -> RandomMoveGenerator()
         }
@@ -87,7 +108,7 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
         blackPlayer: Player
     ) {
 
-        if (whitePlayer is BluetoothOpponent || blackPlayer is BluetoothOpponent) {
+        if (whitePlayer is BluetoothPlayer || blackPlayer is BluetoothPlayer) {
             throw InvalidParameterException("Please use startNewBluetoothGame to start bluetooth game!")
         }
 
@@ -106,8 +127,8 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
 
     fun startNewBluetoothGame(isWhite: Boolean, address: String) {
         game = Game(
-            whitePlayer = if (isWhite) User else BluetoothOpponent(address = address),
-            blackPlayer = if (isWhite) BluetoothOpponent(address = address) else User
+            whitePlayer = if (isWhite) User else BluetoothPlayer(address = address),
+            blackPlayer = if (isWhite) BluetoothPlayer(address = address) else User
         )
         updateGameUI()
         updateBoardUI()
@@ -124,8 +145,8 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
     }
 
     fun reconnectToBluetoothGame() {
-        if (game.blackPlayer is BluetoothOpponent)
-            bluetoothChatService.connectDevice((game.blackPlayer as BluetoothOpponent).address, true)
+        if (game.blackPlayer is BluetoothPlayer)
+            bluetoothChatService.connectDevice((game.blackPlayer as BluetoothPlayer).address, true)
         else
             bluetoothChatService.startListeningForConnection()
     }
@@ -148,7 +169,7 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
 
                 val move = possibleMoves.value.find { move -> square == move.destination }!!
 
-                if (game.whitePlayer is BluetoothOpponent || game.blackPlayer is BluetoothOpponent) {
+                if (game.whitePlayer is BluetoothPlayer || game.blackPlayer is BluetoothPlayer) {
                     if (bluetoothChatService.connectionState.value == BluetoothChatService.ConnectionState.CONNECTED) {
                         bluetoothChatService.sendMessage(BluetoothMessage.MoveMessage(move).value)
                     } else {
@@ -218,7 +239,7 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
                 is User -> {
                     //
                 }
-                is BluetoothOpponent -> {
+                is BluetoothPlayer -> {
                     //
                 }
                 is MoveGenerator -> {
@@ -331,10 +352,9 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
-    override fun onCleared() {
-        GlobalScope.launch {
+    fun saveGame() {
+        viewModelScope.launch {
             saveString(getApplication(), LAST_GAME, game.exportPGN())
-            super.onCleared()
         }
     }
 

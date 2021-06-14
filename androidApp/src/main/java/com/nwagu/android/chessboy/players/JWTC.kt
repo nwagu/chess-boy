@@ -11,8 +11,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 class JWTC: UCIChessEngine {
 
-    override val id = PlayersRegister.JWTC
+    override val id: String
+        get() {
+            return "${PlayersRegister.JWTC}-level=${level}"
+        }
     override val name = "JWTC"
+    override val minLevel = 1
+    override val maxLevel = 7
     override var level = 5
     override val connectionState = MutableStateFlow(true)
 
