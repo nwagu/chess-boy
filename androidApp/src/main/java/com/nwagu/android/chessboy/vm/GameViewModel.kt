@@ -6,11 +6,10 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.nwagu.android.chessboy.BluetoothMessage
-import com.nwagu.android.chessboy.constants.PreferenceKeys.LAST_GAME
 import com.nwagu.android.chessboy.parseMessage
 import com.nwagu.android.chessboy.players.*
-import com.nwagu.android.chessboy.util.SharedPrefUtils
-import com.nwagu.android.chessboy.util.SharedPrefUtils.saveString
+import com.nwagu.android.chessboy.util.SharedPrefUtils.getSavedPGNs
+import com.nwagu.android.chessboy.util.SharedPrefUtils.savePGNs
 import com.nwagu.bluetoothchat.BluetoothChatService
 import com.nwagu.chess.Game
 import com.nwagu.chess.Player
@@ -41,14 +40,9 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
     init {
         viewModelScope.launch {
 
-            var lastGamePgn = ""
-            try {
-                lastGamePgn = SharedPrefUtils.readString(getApplication(), LAST_GAME, "") ?: ""
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+            val lastGamePgn = getLastGamePgn()
 
-            if (lastGamePgn.isEmpty()) {
+            if (lastGamePgn.isNullOrEmpty()) {
                 game = Game(
                     whitePlayer = User,
                     blackPlayer = RandomMoveGenerator()
@@ -56,10 +50,21 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
                 return@launch
             }
 
-            game = Game(
-                getPlayerWithRegisterId(getHeaderValueFromPgn(PGN_HEADER_WHITE_PLAYER_ID, lastGamePgn)),
-                getPlayerWithRegisterId(getHeaderValueFromPgn(PGN_HEADER_BLACK_PLAYER_ID, lastGamePgn))
-            )
+            val lastGameId = getHeaderValueFromPgn(PGN_HEADER_GAME_ID, lastGamePgn) ?: ""
+
+            val lastWhitePlayer =
+                getPlayerWithId(
+                    getApplication(),
+                    getHeaderValueFromPgn(PGN_HEADER_WHITE_PLAYER_ID, lastGamePgn) ?: ""
+                ).apply { if (this is UCIChessEngine) init() }
+
+            val lastBlackPlayer =
+                getPlayerWithId(
+                    getApplication(),
+                    getHeaderValueFromPgn(PGN_HEADER_BLACK_PLAYER_ID, lastGamePgn) ?: ""
+                ).apply { if (this is UCIChessEngine) init() }
+
+            game = Game(lastGameId, lastWhitePlayer, lastBlackPlayer)
             game.importPGN(lastGamePgn)
 
             if (game.isBluetoothGame()) {
@@ -68,42 +73,6 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
 
             updateBoardUI()
             getNextMove()
-        }
-    }
-
-    private fun getPlayerWithRegisterId(id: String?): Player {
-        return when {
-            id == null -> RandomMoveGenerator()
-            id == PlayersRegister.USER -> User
-            id == PlayersRegister.GRANDPA -> GrandPa()
-            id == PlayersRegister.RANDOM -> RandomMoveGenerator()
-            id.startsWith(PlayersRegister.JWTC) -> {
-                val level = try {
-                    id.split("-")[1].split("=")[1].toInt()
-                } catch (e: Exception) {
-                    5
-                }
-                JWTC().also {
-                    it.level = level
-                    it.init()
-                }
-            }
-            id.startsWith(PlayersRegister.STOCKFISH13) -> {
-                val level = try {
-                    id.split("-")[1].split("=")[1].toInt()
-                } catch (e: Exception) {
-                    5
-                }
-                Stockfish13(getApplication()).also {
-                    it.level = level
-                    it.init()
-                }
-            }
-            id.startsWith(PlayersRegister.BLUETOOTH) -> {
-                val address = id.split("-")[1]
-                BluetoothPlayer(address = address)
-            }
-            else -> RandomMoveGenerator()
         }
     }
 
@@ -136,10 +105,10 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
         val isWhite = bluetoothChatService.isInitiator
         val address = bluetoothChatService.partnerAddress
 
-        endCurrentGame()
-
         this.bluetoothChatService = bluetoothChatService
         this.bluetoothChatService.setListener(bluetoothChatListener)
+
+        endCurrentGame(disconnectBluetooth = false)
 
         game = Game(
             whitePlayer = if (isWhite) User else BluetoothPlayer(address = address),
@@ -396,14 +365,37 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
 
     fun saveGame() {
         viewModelScope.launch {
-            saveString(getApplication(), LAST_GAME, game.exportPGN())
+            val history = getGamesHistory()
+
+            while (history.size >= 20) {
+                history.removeFirst()
+            }
+
+            history.removeAll(history.filter {
+                getHeaderValueFromPgn(PGN_HEADER_GAME_ID, it) == game.id
+            })
+            history.addLast(game.exportPGN())
+
+            savePGNs(getApplication(), history.toList())
         }
     }
 
-    private fun endCurrentGame() {
-        if (game.isBluetoothGame()) {
+    private fun getLastGamePgn(): String? {
+        return getGamesHistory().lastOrNull()
+    }
+
+    fun getGamesHistory(): ArrayDeque<String> {
+        return ArrayDeque(getSavedPGNs(getApplication()))
+    }
+
+    fun endCurrentGame(disconnectBluetooth: Boolean = true) {
+
+        saveGame()
+
+        if (game.isBluetoothGame() && disconnectBluetooth) {
             bluetoothChatService.stop()
         }
+
         for (player in listOf(game.whitePlayer, game.blackPlayer)) {
             if (player is UCIChessEngine)
                 player.quit()

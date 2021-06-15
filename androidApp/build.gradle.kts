@@ -13,8 +13,8 @@ android {
         applicationId = "com.nwagu.android.chessboy"
         minSdk = 21
         targetSdk = 30
-        versionCode = 12
-        versionName = "3.2.0"
+        versionCode = 14
+        versionName = "3.4.0"
     }
     buildTypes {
         getByName("release") {

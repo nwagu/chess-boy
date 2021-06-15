@@ -14,11 +14,12 @@ const val PGN_HEADER_DATE = "Date"
 const val PGN_HEADER_ROUND = "Round"
 const val PGN_HEADER_WHITE_PLAYER = "White"
 const val PGN_HEADER_BLACK_PLAYER = "Black"
+const val PGN_HEADER_GAME_ID = "GameID"
 const val PGN_HEADER_WHITE_PLAYER_ID = "WhiteID"
 const val PGN_HEADER_BLACK_PLAYER_ID = "BlackID"
 const val PGN_HEADER_BLACK_RESULT = "Result"
 
-fun Game.exportPGN(includePlayerId: Boolean = true): String {
+fun Game.exportPGN(includeIds: Boolean = true): String {
 
     val sb = StringBuilder()
 
@@ -26,7 +27,8 @@ fun Game.exportPGN(includePlayerId: Boolean = true): String {
     sb.append(buildHeader(PGN_HEADER_WHITE_PLAYER, whitePlayer.name))
     sb.append(buildHeader(PGN_HEADER_BLACK_PLAYER, blackPlayer.name))
 
-    if (includePlayerId) {
+    if (includeIds) {
+        sb.append(buildHeader(PGN_HEADER_GAME_ID, id))
         sb.append(buildHeader(PGN_HEADER_WHITE_PLAYER_ID, whitePlayer.id))
         sb.append(buildHeader(PGN_HEADER_BLACK_PLAYER_ID, blackPlayer.id))
     }

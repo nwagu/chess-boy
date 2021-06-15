@@ -23,11 +23,11 @@ import com.nwagu.android.chessboy.model.data.ScreenConfig
 import com.nwagu.android.chessboy.vm.GameViewModel
 import com.nwagu.android.chessboy.vm.NewBluetoothGameViewModel
 import com.nwagu.android.chessboy.vm.NewGameViewModel
-import com.nwagu.android.chessboy.widgets.ChessBoardThumbView
+import com.nwagu.android.chessboy.vm.isBluetoothGame
 import com.nwagu.android.chessboy.widgets.Header
+import com.nwagu.android.chessboy.widgets.PreviousGameView
 import com.nwagu.android.chessboy.widgets.QuickActionView
 import com.nwagu.android.chessboy.widgets.SimpleFlowRow
-import com.nwagu.chess.Game
 import kotlinx.coroutines.launch
 
 @ExperimentalMaterialApi
@@ -98,6 +98,8 @@ fun HomeView(
 
                         val quickActions = listOf(
                             QuickAction("New bluetooth game", R.drawable.img_white_king) {
+                                if (gameViewModel.game.isBluetoothGame())
+                                    gameViewModel.endCurrentGame()
                                 navHostController.navigate(Screen.NewBluetoothGame.route)
                             },
                             QuickAction("New game", R.drawable.img_white_king) {
@@ -116,13 +118,15 @@ fun HomeView(
                             }
                         }
 
-                        Header(Modifier.padding(0.dp, 16.dp), "Your saved games")
+                        Header(Modifier.padding(0.dp, 16.dp), "Most recent games")
 
-                        val gameHistory = listOf<Game>()
+                        val mostRecentGames = gameViewModel.getGamesHistory().takeLast(3)
 
-                        SimpleFlowRow {
-                            for(game in gameHistory) {
-                                ChessBoardThumbView(modifier = Modifier.padding(4.dp), game)
+                        Column {
+                            for (gamePgn in mostRecentGames.asReversed()) {
+                                PreviousGameView(modifier = Modifier.fillMaxWidth(), gamePgn) {
+                                    // onclick
+                                }
                             }
                         }
 
@@ -150,5 +154,6 @@ fun HomeView(
             )
         }
     }
+
 }
 

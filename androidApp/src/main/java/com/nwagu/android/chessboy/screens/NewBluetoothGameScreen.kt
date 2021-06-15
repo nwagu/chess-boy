@@ -1,5 +1,8 @@
 package com.nwagu.android.chessboy.screens
 
+import android.content.Context
+import android.location.LocationManager
+import android.os.Build
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -125,7 +128,6 @@ fun NewBluetoothGameView(
             )
 
             if (selectedColor == ChessPieceColor.WHITE) {
-
                 Box {
 
                     Column {
@@ -147,7 +149,13 @@ fun NewBluetoothGameView(
                                 onClick = {
                                     when (scanState) {
                                         ScanState.NONE, ScanState.SCAN_FINISHED -> {
-                                            bluetoothController.startDiscovery()
+                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q &&
+                                                !(context.getSystemService(Context.LOCATION_SERVICE) as LocationManager).isLocationEnabled
+                                            ) {
+                                                dialogController.showDialog(Dialog.EnableLocationDialog.id)
+                                            } else {
+                                                bluetoothController.startDiscovery()
+                                            }
                                         }
                                         ScanState.SCANNING -> {
                                             bluetoothController.endDiscovery()
@@ -183,42 +191,83 @@ fun NewBluetoothGameView(
                         )
                     }
                 }
-            }
-        }
+            } else {
+                Box {
 
-        SubmitButton(
-            modifier = Modifier
-                .padding(0.dp, 16.dp, 0.dp, 0.dp)
-                .fillMaxWidth(0.9f)
-                .padding()
-                .align(Alignment.CenterHorizontally),
-            text = when {
-                connectionState == BluetoothChatService.ConnectionState.CONNECTING -> "CONNECTING..."
-                connectionState == BluetoothChatService.ConnectionState.LISTENING -> "LISTENING..."
-                selectedColor == ChessPieceColor.WHITE -> "CONNECT"
-                selectedColor == ChessPieceColor.BLACK -> "RECEIVE"
-                else -> ""
-            },
-            onClick = {
-                if (connectionState == BluetoothChatService.ConnectionState.NONE) {
-                    if (bluetoothController.isBluetoothEnabled) {
-                        when (selectedColor) {
-                            ChessPieceColor.WHITE -> {
-                                selectedDevice?.let {
-                                    newBluetoothGameViewModel.attemptConnectToDevice(it.address)
+                    Column {
+
+                        Row {
+
+                            Text(
+                                modifier = Modifier
+                                    .padding(16.dp)
+                                    .weight(1f),
+                                text = when (connectionState) {
+                                    BluetoothChatService.ConnectionState.NONE -> ""
+                                    BluetoothChatService.ConnectionState.LISTENING -> "Listening..."
+                                    BluetoothChatService.ConnectionState.CONNECTING -> "Connecting..."
+                                    BluetoothChatService.ConnectionState.CONNECTED -> "Connected"
                                 }
-                            }
-                            ChessPieceColor.BLACK -> {
-                                bluetoothController.ensureDiscoverable()
-                                newBluetoothGameViewModel.listenForConnection()
+                            )
+
+                            Button(
+                                onClick = {
+                                    when (connectionState) {
+                                        BluetoothChatService.ConnectionState.LISTENING -> {
+                                            newBluetoothGameViewModel.bluetoothChatService.stopListening()
+                                        }
+                                        BluetoothChatService.ConnectionState.NONE -> {
+                                            if (bluetoothController.isBluetoothEnabled) {
+                                                bluetoothController.ensureDiscoverable()
+                                                newBluetoothGameViewModel.listenForConnection()
+                                            } else {
+                                                bluetoothController.startBluetooth()
+                                            }
+                                        }
+                                        else -> {}
+                                    }
+                                },
+                                colors = ButtonDefaults.buttonColors(backgroundColor = AppColor.Primary)
+                            ) {
+                                Text(
+                                    text = when (connectionState) {
+                                        BluetoothChatService.ConnectionState.NONE -> "RECEIVE"
+                                        BluetoothChatService.ConnectionState.LISTENING -> "STOP LISTENING"
+                                        else -> ""
+                                    }
+                                )
                             }
                         }
-                    } else {
-                        bluetoothController.startBluetooth()
                     }
                 }
             }
-        )
+        }
+
+        if (selectedColor == ChessPieceColor.WHITE) {
+            SubmitButton(
+                modifier = Modifier
+                    .padding(0.dp, 16.dp, 0.dp, 0.dp)
+                    .fillMaxWidth(0.9f)
+                    .padding()
+                    .align(Alignment.CenterHorizontally),
+                text =
+                if (connectionState == BluetoothChatService.ConnectionState.CONNECTING)
+                    "CONNECTING..."
+                else
+                    "CONNECT",
+                onClick = {
+                    if (connectionState == BluetoothChatService.ConnectionState.NONE) {
+                        if (bluetoothController.isBluetoothEnabled) {
+                            selectedDevice?.let {
+                                newBluetoothGameViewModel.attemptConnectToDevice(it.address)
+                            }
+                        } else {
+                            bluetoothController.startBluetooth()
+                        }
+                    }
+                }
+            )
+        }
 
     }
 }

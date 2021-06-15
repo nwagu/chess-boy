@@ -18,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.nwagu.android.chessboy.R
+import com.nwagu.android.chessboy.ui.AppColor
 import com.nwagu.chess.enums.ChessPieceType
 
 @Composable
@@ -39,7 +40,6 @@ fun AlertDialogWrapper(
             onDismissRequest = {
                 if (cancellable) {
                     dismissDialog()
-                    dismissAction()
                 }
             },
             confirmButton = {
@@ -53,7 +53,7 @@ fun AlertDialogWrapper(
                             }
                         ),
                     text = confirmMessage,
-                    style = TextStyle(color = Color.Blue, fontWeight = FontWeight.Bold))
+                    style = TextStyle(color = AppColor.PrimaryDark, fontWeight = FontWeight.Bold))
             },
             dismissButton = {
                 Text(
@@ -66,7 +66,7 @@ fun AlertDialogWrapper(
                             }
                         ),
                     text = dismissMessage,
-                    style = TextStyle(color = Color.Blue, fontWeight = FontWeight.Bold))
+                    style = TextStyle(color = AppColor.PrimaryDark, fontWeight = FontWeight.Bold))
             }
         )
     }

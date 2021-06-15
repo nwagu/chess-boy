@@ -6,7 +6,6 @@ import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.content.Intent
 import android.content.IntentFilter
-import android.util.Log
 import androidx.core.app.ActivityCompat.startActivityForResult
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
@@ -17,6 +16,8 @@ import com.karumi.dexter.listener.single.PermissionListener
 import com.nwagu.android.chessboy.constants.RequestCodes
 import com.nwagu.android.chessboy.receiver.DeviceFoundReceiver
 import com.nwagu.android.chessboy.vm.ScanState
+import timber.log.Timber
+
 
 class BluetoothController(
     private val context: Activity
@@ -107,7 +108,7 @@ class BluetoothController(
         try {
             context.unregisterReceiver(receiver)
         } catch (e: IllegalArgumentException) {
-            Log.d(BluetoothController::class.java.name, "Receiver not registered.")
+            Timber.e(e)
         }
     }
 
