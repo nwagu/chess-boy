@@ -91,8 +91,8 @@ fun ChessBoardView(
                             if (move is Promotion) {
                                 dialogController.showDialog(
                                     Dialog.SelectPromotionPiece.id,
-                                    Bundle().also {
-                                        it.putSerializable(
+                                    Bundle().apply {
+                                        putSerializable(
                                             KEY_PROMOTION_PIECE,
                                             { selectedType: ChessPieceType ->
                                                 move.promotionType = selectedType
@@ -172,9 +172,7 @@ fun ChessBoardThumbView(
 ) {
 
     Card(
-        modifier = modifier
-            .width(120.dp)
-            .aspectRatio(1f),
+        modifier = modifier,
         shape = RoundedCornerShape(2.dp),
         backgroundColor = AppColor.boardBackground,
         elevation = 0.dp

@@ -2,8 +2,10 @@ package com.nwagu.chess
 
 import com.nwagu.chess.board.Board
 import com.nwagu.chess.convention.loadStandardStartingPosition
+import java.util.*
 
 class Game(
+    val id: String = UUID.randomUUID().toString(),
     val whitePlayer: Player,
     val blackPlayer: Player
 ) {

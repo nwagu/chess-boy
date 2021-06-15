@@ -20,7 +20,7 @@ class DialogController(viewModelStoreOwner: ViewModelStoreOwner) {
         return viewModel.dialogStates
     }
 
-    fun showDialog(dialogKey: String, data: Bundle) {
+    fun showDialog(dialogKey: String, data: Bundle = Bundle()) {
         viewModel.setDialogStateValue(dialogKey, data.also { it.putBoolean(KEY_DIALOG_VISIBLE, true) })
     }
 

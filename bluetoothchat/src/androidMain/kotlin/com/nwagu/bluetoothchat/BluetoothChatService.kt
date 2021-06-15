@@ -91,10 +91,6 @@ actual class BluetoothChatService {
         }
     }
 
-    fun stopChatService() {
-        stop()
-    }
-
     /**
      * Start the chat service. Specifically start AcceptThread to begin a
      * session in listening (server) mode. Called by the Activity onResume()
@@ -179,6 +175,20 @@ actual class BluetoothChatService {
             mConnectedThread?.write(message)
         }
 
+    }
+
+    fun stopListening() {
+        if (mSecureAcceptThread != null) {
+            mSecureAcceptThread?.cancel()
+            mSecureAcceptThread = null
+        }
+        if (mInsecureAcceptThread != null) {
+            mInsecureAcceptThread?.cancel()
+            mInsecureAcceptThread = null
+        }
+        if (mConnectedThread == null) {
+            _connectionState = ConnectionState.NONE
+        }
     }
 
     /**

@@ -1,5 +1,5 @@
 package com.nwagu.android.chessboy.constants
 
 object PreferenceKeys {
-    const val LAST_GAME = "lastgame"
+    const val GAMES_HISTORY = "games_history"
 }
