@@ -1,0 +1,21 @@
+PODS:
+  - bluetoothchat (1.0)
+  - chess (1.0)
+
+DEPENDENCIES:
+  - bluetoothchat (from `../bluetoothchat`)
+  - chess (from `../chess`)
+
+EXTERNAL SOURCES:
+  bluetoothchat:
+    :path: "../bluetoothchat"
+  chess:
+    :path: "../chess"
+
+SPEC CHECKSUMS:
+  bluetoothchat: 1dfc75361df91857ee7e3ec5d45866bebf7061c3
+  chess: 129ef01ba010d0f080bede28a0bb9b64d580d052
+
+PODFILE CHECKSUM: 1a590f7fc13883cce8793b436c66cfed47eb78da
+
+COCOAPODS: 1.9.3

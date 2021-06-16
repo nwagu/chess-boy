@@ -24,14 +24,14 @@ fun Move.isByType(type: ChessPieceType): Boolean {
         return true
 
     // remove promotion piece san symbol in case of promotion
-    val sanX = san.takeWhile { it != '=' }
+    val _san = san.takeWhile { it != '=' }
 
     if (type == ChessPieceType.PAWN) {
         return pieceSanSymbols().none {
-            sanX.contains(it)
+            _san.contains(it)
         }
     }
 
-    return sanX.contains(type.sanSymbol)
+    return _san.contains(type.sanSymbol)
 
 }
