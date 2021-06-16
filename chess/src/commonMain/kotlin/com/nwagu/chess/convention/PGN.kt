@@ -2,11 +2,10 @@ package com.nwagu.chess.convention
 
 import com.nwagu.chess.Game
 import com.nwagu.chess.board.move
-import java.util.regex.Pattern
 
-private val headerPattern = Pattern.compile("\\[.* \".*\"]")
-private val movePattern = Pattern.compile("([KQRBN])?([abcdefgh])?([12345678])?(x)?([abcdefgh])([12345678])(=Q|=R|=B|=N)?([+#])?([?!]*)?[\\s]*")
-private val castlingPattern = Pattern.compile("(O-O|O-O-O)([+#])?([?!]*)?")
+private val headerPattern = Regex("""\[.* ".*"]""")
+private val movePattern = Regex("""([KQRBN])?([abcdefgh])?([12345678])?(x)?([abcdefgh])([12345678])(=Q|=R|=B|=N)?([+#])?([?!]*)?[\\s]*""")
+private val castlingPattern = Regex("""(O-O|O-O-O)([+#])?([?!]*)?""")
 
 const val PGN_HEADER_EVENT = "Event"
 const val PGN_HEADER_SITE = "Site"
@@ -53,7 +52,7 @@ fun Game.exportPGN(includeIds: Boolean = true): String {
 fun getHeaderValueFromPgn(name: String, pgn: String): String? {
     val lines = pgn.split("\n")
     for (line in lines) {
-        if (headerPattern.matcher(line).matches()) {
+        if (headerPattern.matches(line)) {
             val header = parseHeader(line)
             if ((header.first) == name) {
                 return header.second
@@ -72,7 +71,7 @@ fun Game.importPGN(pgn: String) {
         if (line.trim().isBlank()) {
             continue
         }
-        else if (headerPattern.matcher(line).matches()) {
+        else if (headerPattern.matches(line)) {
             val header = parseHeader(line)
             // TODO check the header name and add it to game
             println("PGN Header -> ${header.first}: ${header.second}")

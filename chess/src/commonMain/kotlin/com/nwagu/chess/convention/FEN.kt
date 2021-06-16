@@ -4,7 +4,6 @@ import com.nwagu.chess.board.*
 import com.nwagu.chess.enums.ChessPieceColor
 import com.nwagu.chess.enums.ChessPieceType
 import com.nwagu.chess.enums.chessPieceTypeWithFenSymbol
-import java.lang.StringBuffer
 
 const val STARTING_POSITION_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 
@@ -59,7 +58,7 @@ fun Board.loadPositionFromFen(fen: String) {
 
 fun Board.getFen(): String {
 
-    val fen = StringBuffer()
+    val fen = StringBuilder()
 
     var emptySquaresCount = 0
 

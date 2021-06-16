@@ -6,7 +6,6 @@ import com.nwagu.chess.enums.ChessPieceType
 import com.nwagu.chess.enums.chessPieceTypeWithSanSymbol
 import com.nwagu.chess.enums.opposite
 import com.nwagu.chess.moves.*
-import java.lang.StringBuilder
 
 fun Board.getHistorySAN(): List<String> {
     return movesHistory.map { it.san }

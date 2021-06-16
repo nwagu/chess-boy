@@ -4,13 +4,12 @@ import com.nwagu.chess.board.*
 import com.nwagu.chess.enums.ChessPieceType
 import com.nwagu.chess.enums.chessPieceTypeWithSanSymbol
 import com.nwagu.chess.moves.*
-import java.util.regex.Pattern
 
-val uciMovePattern = Pattern.compile("([a-h]{1}[1-8]{1})([a-h]{1}[1-8]{1})([qrbn])?")
+val uciMovePattern = Regex("""([a-h]{1}[1-8]{1})([a-h]{1}[1-8]{1})([qrbn])?""")
 
 fun Board.convertChessEngineMoveToMove(move: String): Move? {
 
-    if (!uciMovePattern.matcher(move).matches())
+    if (!uciMovePattern.matches(move))
         return null
 
     val source = coordinateToSquare(move.take(2))
