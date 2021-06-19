@@ -17,7 +17,7 @@ class DeviceFoundReceiver(
         if (BluetoothDevice.ACTION_FOUND == action) {
 
             intent.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)?.let {
-                val device = com.nwagu.android.chessboy.model.data.BluetoothDevice(
+                val device = com.nwagu.android.chessboy.ui.data.BluetoothDevice(
                     address = it.address ?: return@let,
                     name = it.name ?: it.address,
                 )

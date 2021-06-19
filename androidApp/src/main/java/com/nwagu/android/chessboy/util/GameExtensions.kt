@@ -1,4 +1,4 @@
-package com.nwagu.android.chessboy.vm
+package com.nwagu.android.chessboy.util
 
 import com.nwagu.android.chessboy.players.BluetoothPlayer
 import com.nwagu.android.chessboy.players.User

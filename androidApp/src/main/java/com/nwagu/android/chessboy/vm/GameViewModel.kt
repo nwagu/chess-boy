@@ -5,11 +5,14 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.nwagu.android.chessboy.BluetoothMessage
-import com.nwagu.android.chessboy.parseMessage
+import com.nwagu.android.chessboy.bluetooth.BluetoothMessage
+import com.nwagu.android.chessboy.bluetooth.parseMessage
 import com.nwagu.android.chessboy.players.*
 import com.nwagu.android.chessboy.util.SharedPrefUtils.getSavedPGNs
 import com.nwagu.android.chessboy.util.SharedPrefUtils.savePGNs
+import com.nwagu.android.chessboy.util.isBluetoothGame
+import com.nwagu.android.chessboy.util.isUserTurn
+import com.nwagu.android.chessboy.util.userColor
 import com.nwagu.bluetoothchat.BluetoothChatService
 import com.nwagu.chess.Game
 import com.nwagu.chess.Player

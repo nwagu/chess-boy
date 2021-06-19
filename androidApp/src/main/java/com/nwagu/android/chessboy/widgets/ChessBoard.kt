@@ -28,7 +28,7 @@ import com.nwagu.android.chessboy.ui.AppColor
 import com.nwagu.android.chessboy.util.colorResource
 import com.nwagu.android.chessboy.util.imageRes
 import com.nwagu.android.chessboy.vm.GameViewModel
-import com.nwagu.android.chessboy.vm.colorOnUserSideOfBoard
+import com.nwagu.android.chessboy.util.colorOnUserSideOfBoard
 import com.nwagu.chess.board.ChessPiece
 import com.nwagu.chess.board.isOnCheck
 import com.nwagu.chess.board.squareColor

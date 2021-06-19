@@ -21,12 +21,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.nwagu.android.chessboy.R
 import com.nwagu.android.chessboy.dialogs.DialogController
-import com.nwagu.android.chessboy.model.data.QuickAction
-import com.nwagu.android.chessboy.model.data.ScreenConfig
+import com.nwagu.android.chessboy.ui.data.QuickAction
+import com.nwagu.android.chessboy.ui.data.ScreenConfig
 import com.nwagu.android.chessboy.vm.GameViewModel
 import com.nwagu.android.chessboy.vm.NewBluetoothGameViewModel
 import com.nwagu.android.chessboy.vm.NewGameViewModel
-import com.nwagu.android.chessboy.vm.isBluetoothGame
+import com.nwagu.android.chessboy.util.isBluetoothGame
 import com.nwagu.android.chessboy.widgets.Header
 import com.nwagu.android.chessboy.widgets.PreviousGameView
 import com.nwagu.android.chessboy.widgets.QuickActionView

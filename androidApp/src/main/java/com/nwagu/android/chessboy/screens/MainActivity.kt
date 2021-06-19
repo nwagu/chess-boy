@@ -1,4 +1,4 @@
-package com.nwagu.android.chessboy
+package com.nwagu.android.chessboy.screens
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,7 +13,7 @@ import androidx.compose.material.MaterialTheme
 import com.nwagu.android.chessboy.constants.RequestCodes
 import com.nwagu.android.chessboy.dialogs.DialogHost
 import com.nwagu.android.chessboy.dialogs.rememberDialogController
-import com.nwagu.android.chessboy.model.data.ScreenConfig
+import com.nwagu.android.chessboy.ui.data.ScreenConfig
 import com.nwagu.android.chessboy.screens.HomeView
 import com.nwagu.android.chessboy.vm.GameViewModel
 import com.nwagu.android.chessboy.vm.NewBluetoothGameViewModel

@@ -2,7 +2,7 @@ package com.nwagu.android.chessboy.vm
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import com.nwagu.android.chessboy.model.data.BluetoothDevice
+import com.nwagu.android.chessboy.ui.data.BluetoothDevice
 import com.nwagu.android.chessboy.players.BluetoothPlayer
 import com.nwagu.bluetoothchat.BluetoothChatService
 import com.nwagu.chess.enums.ChessPieceColor
