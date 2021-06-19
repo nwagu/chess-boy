@@ -12,7 +12,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -97,18 +100,18 @@ fun HomeView(
                         Header(Modifier.padding(0.dp, 16.dp),"Quick Actions")
 
                         val quickActions = listOf(
-                            QuickAction("New bluetooth game", R.drawable.img_white_king) {
-                                if (gameViewModel.game.isBluetoothGame())
-                                    gameViewModel.endCurrentGame()
-                                navHostController.navigate(Screen.NewBluetoothGame.route)
-                            },
-                            QuickAction("New game", R.drawable.img_white_king) {
-                                navHostController.navigate(Screen.NewGame.route)
-                            },
                             QuickAction("Continue current game", R.drawable.img_white_king) {
                                 coroutineScope.launch {
                                     bottomSheetScaffoldState.bottomSheetState.expand()
                                 }
+                            },
+                            QuickAction("New game", R.drawable.img_white_king) {
+                                navHostController.navigate(Screen.NewGame.route)
+                            },
+                            QuickAction("New bluetooth game", R.drawable.img_white_king) {
+                                if (gameViewModel.game.isBluetoothGame())
+                                    gameViewModel.endCurrentGame()
+                                navHostController.navigate(Screen.NewBluetoothGame.route)
                             }
                         )
 
@@ -118,7 +121,20 @@ fun HomeView(
                             }
                         }
 
-                        Header(Modifier.padding(0.dp, 16.dp), "Most recent games")
+                        Row(
+                            verticalAlignment = Alignment.Bottom
+                        ) {
+                            Header(Modifier.padding(0.dp, 16.dp).weight(1f), "Most recent games")
+                            Text(
+                                modifier = Modifier
+                                    .clickable(onClick = {
+                                        navHostController.navigate(Screen.History.route)
+                                    })
+                                    .padding(16.dp),
+                                text = "View all",
+                                style = TextStyle(color = Color.Blue, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                            )
+                        }
 
                         val mostRecentGames = gameViewModel.getGamesHistory().takeLast(3)
 
@@ -140,6 +156,16 @@ fun HomeView(
                 composable(Screen.NewBluetoothGame.route) {
                     NewBluetoothGameView(
                         gameViewModel, newBluetoothGameViewModel, screenConfig, bottomSheetScaffoldState, navHostController, dialogController
+                    )
+                }
+                composable(Screen.History.route) {
+                    HistoryView(
+                        gameViewModel, screenConfig, navHostController, dialogController
+                    )
+                }
+                composable(Screen.Settings.route) {
+                    SettingsView(
+                        gameViewModel, screenConfig, navHostController, dialogController
                     )
                 }
             }

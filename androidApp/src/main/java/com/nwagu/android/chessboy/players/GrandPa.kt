@@ -6,7 +6,7 @@ import com.nwagu.chess.board.turn
 import com.nwagu.chess.moves.Move
 import com.nwagu.chess.moves.getPossibleMovesFrom
 
-class GrandPa : MoveGenerator {
+class GrandPa : MoveGenerator() {
 
     override val id = PlayersRegister.GRANDPA
     override val name = "GrandPa"

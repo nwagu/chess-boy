@@ -9,7 +9,7 @@ import jwtc.chess.JNI
 import jwtc.chess.Move.*
 import kotlinx.coroutines.flow.MutableStateFlow
 
-class JWTC: UCIChessEngine {
+class JWTC: UCIChessEngine() {
 
     override val id: String
         get() {

@@ -59,18 +59,7 @@ fun NewGameView(
                 .verticalScroll(rememberScrollState())
         ) {
 
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                IconButton(
-                    modifier = Modifier.size(48.dp),
-                    onClick = {
-                        navHostController.navigateUp()
-                    }
-                ) {
-                    Icon(Icons.Filled.ArrowBack, contentDescription = "Close", tint = Color.Black)
-                }
-
-                Header(Modifier.padding(0.dp, 8.dp), text = "Start a new game against computer")
-            }
+            ScreenTopBar(title = "Start a new game against computer", navHostController)
 
             SubHeader(Modifier.padding(0.dp, 16.dp), text = "Choose your side")
 
