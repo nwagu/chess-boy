@@ -57,16 +57,27 @@ fun PlayerDisplay(
         // Invisible text to force recompose on board changed
         Text(text = boardChanged.toString(), Modifier.size(0.dp))
 
-        Image(
-            modifier = Modifier
-                .clip(RoundedCornerShape(4.dp))
-                .border(if (isTurn) 4.dp else 0.dp, if (isTurn) Color.Green else Color.Transparent)
-                .width(25.dp)
-                .aspectRatio(1f),
-            painter = painterResource(id = player.avatar),
-            contentDescription = "Player avatar",
-            contentScale = ContentScale.Fit
-        )
+        Box {
+            Image(
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .width(25.dp)
+                    .aspectRatio(1f),
+                painter = painterResource(id = player.avatar),
+                contentDescription = "Player avatar",
+                contentScale = ContentScale.Fit
+            )
+            if (isTurn) {
+                Box(
+                    modifier = modifier
+                        .align(Alignment.BottomEnd)
+                        .width(12.dp)
+                        .aspectRatio(1f)
+                        .clip(CircleShape)
+                        .background(Color.Green)
+                )
+            }
+        }
 
         if (isTurn) {
             viewModel.game.board.movesHistory.lastOrNull()?.let {
