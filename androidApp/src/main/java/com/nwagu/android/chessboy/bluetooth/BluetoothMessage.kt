@@ -1,4 +1,4 @@
-package com.nwagu.android.chessboy
+package com.nwagu.android.chessboy.bluetooth
 
 import com.nwagu.chess.enums.ChessPieceType
 import com.nwagu.chess.moves.*

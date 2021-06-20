@@ -1,4 +1,4 @@
-package com.nwagu.android.chessboy
+package com.nwagu.android.chessboy.bluetooth
 
 import android.Manifest
 import android.app.Activity
@@ -13,6 +13,7 @@ import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
+import com.nwagu.android.chessboy.screens.MainActivity
 import com.nwagu.android.chessboy.constants.RequestCodes
 import com.nwagu.android.chessboy.receiver.DeviceFoundReceiver
 import com.nwagu.android.chessboy.vm.ScanState

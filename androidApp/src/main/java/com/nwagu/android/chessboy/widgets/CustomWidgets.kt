@@ -14,8 +14,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.nwagu.android.chessboy.model.data.LightAction
-import com.nwagu.android.chessboy.model.data.QuickAction
+import com.nwagu.android.chessboy.ui.data.LightAction
+import com.nwagu.android.chessboy.ui.data.QuickAction
 import com.nwagu.android.chessboy.players.getPlayerWithId
 import com.nwagu.android.chessboy.ui.AppColor
 import com.nwagu.chess.Game

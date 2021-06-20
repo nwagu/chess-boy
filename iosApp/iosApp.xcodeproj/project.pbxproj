@@ -7,22 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
-		B3F2F482267A866100B55DA4 /* iosApp.app in Resources */ = {isa = PBXBuildFile; fileRef = 7555FF7B242A565900829871 /* iosApp.app */; };
-		B3F2F487267A9C7F00B55DA4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3F2F486267A9C7F00B55DA4 /* Default-568h@2x.png */; };
+		B3412FE6267F0B3E00AE7470 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3412FE5267F0B3E00AE7470 /* Assets.xcassets */; };
+		B3F48247267EE7A200002DDA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F48246267EE7A200002DDA /* AppDelegate.swift */; };
+		B3F48249267EE7BA00002DDA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F48248267EE7BA00002DDA /* SceneDelegate.swift */; };
 		F27E8B25D22AA9AFAD19416E /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F42204A97754A79718749B /* Pods_iosApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0E2BBCD73AE1EFCC3A7ED6D7 /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.debug.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
-		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
 		2F73FB75F585DC0BEAFB1B26 /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.release.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
 		62F42204A97754A79718749B /* Pods_iosApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7555FF7B242A565900829871 /* iosApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7555FF7B242A565900829871 /* Chess Boy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chess Boy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B3F2F486267A9C7F00B55DA4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		B3412FE5267F0B3E00AE7470 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = iosApp/Assets.xcassets; sourceTree = SOURCE_ROOT; };
+		B3F48246267EE7A200002DDA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B3F48248267EE7BA00002DDA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,18 +41,17 @@
 		7555FF72242A565900829871 = {
 			isa = PBXGroup;
 			children = (
-				B3F2F486267A9C7F00B55DA4 /* Default-568h@2x.png */,
-				7555FF7D242A565900829871 /* iosApp */,
-				7555FF7C242A565900829871 /* Products */,
-				A2949040B214E8962B592C06 /* Pods */,
 				C31EA3CF5EE84EACFDCC6B59 /* Frameworks */,
+				A2949040B214E8962B592C06 /* Pods */,
+				7555FF7C242A565900829871 /* Products */,
+				7555FF7D242A565900829871 /* iosApp */,
 			);
 			sourceTree = "<group>";
 		};
 		7555FF7C242A565900829871 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7555FF7B242A565900829871 /* iosApp.app */,
+				7555FF7B242A565900829871 /* Chess Boy.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -59,9 +59,11 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
+				B3F48246267EE7A200002DDA /* AppDelegate.swift */,
 				7555FF82242A565900829871 /* ContentView.swift */,
 				7555FF8C242A565B00829871 /* Info.plist */,
-				2152FB032600AC8F00CF470E /* iOSApp.swift */,
+				B3F48248267EE7BA00002DDA /* SceneDelegate.swift */,
+				B3412FE5267F0B3E00AE7470 /* Assets.xcassets */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -101,7 +103,7 @@
 			);
 			name = iosApp;
 			productName = iosApp;
-			productReference = 7555FF7B242A565900829871 /* iosApp.app */;
+			productReference = 7555FF7B242A565900829871 /* Chess Boy.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -142,8 +144,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3F2F482267A866100B55DA4 /* iosApp.app in Resources */,
-				B3F2F487267A9C7F00B55DA4 /* Default-568h@2x.png in Resources */,
+				B3412FE6267F0B3E00AE7470 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,8 +180,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
+				B3F48247267EE7A200002DDA /* AppDelegate.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
+				B3F48249267EE7BA00002DDA /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,6 +313,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 37T2JGTK63;
 				ENABLE_PREVIEWS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = iosApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -318,7 +321,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nwagu.chessboy;
-				PRODUCT_NAME = iosApp;
+				PRODUCT_NAME = "Chess Boy";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -332,6 +335,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 37T2JGTK63;
 				ENABLE_PREVIEWS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = iosApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -339,7 +343,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nwagu.chessboy;
-				PRODUCT_NAME = iosApp;
+				PRODUCT_NAME = "Chess Boy";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

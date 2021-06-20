@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.*
 import android.widget.Toast
+import com.nwagu.android.chessboy.R
 import com.nwagu.chess.board.Board
 import com.nwagu.chess.convention.convertChessEngineMoveToMove
 import com.nwagu.chess.convention.getFen
@@ -22,12 +23,14 @@ import java.util.regex.Pattern
 
 val uciMovePattern = Pattern.compile("([a-h]{1}[1-8]{1})([a-h]{1}[1-8]{1})([qrbn])?")
 
-class Stockfish13(val context: Context) : UCIChessEngine {
+class Stockfish13(val context: Context) : UCIChessEngine() {
 
     override val id: String
         get() {
             return "${PlayersRegister.STOCKFISH13}-level=${level}"
         }
+
+    override val avatar = R.drawable.img_avatar_stockfish
 
     override val name = "Stockfish"
     override val minLevel = 1

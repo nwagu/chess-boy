@@ -5,10 +5,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -21,17 +18,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.nwagu.android.chessboy.dialogs.DialogController
 import com.nwagu.android.chessboy.dialogs.KEY_PROMOTION_PIECE
-import com.nwagu.android.chessboy.players.User
-import com.nwagu.android.chessboy.screens.ChessPieceView
 import com.nwagu.android.chessboy.screens.Dialog
 import com.nwagu.android.chessboy.ui.AppColor
 import com.nwagu.android.chessboy.util.colorResource
+import com.nwagu.android.chessboy.util.imageRes
 import com.nwagu.android.chessboy.vm.GameViewModel
-import com.nwagu.android.chessboy.vm.colorOnUserSideOfBoard
-import com.nwagu.chess.Game
+import com.nwagu.android.chessboy.util.colorOnUserSideOfBoard
 import com.nwagu.chess.board.ChessPiece
 import com.nwagu.chess.board.isOnCheck
 import com.nwagu.chess.board.squareColor
@@ -163,45 +160,14 @@ fun ChessBoardView(
     }
 }
 
-@ExperimentalAnimationApi
-@ExperimentalFoundationApi
 @Composable
-fun ChessBoardThumbView(
-    modifier: Modifier = Modifier,
-    game: Game
-) {
-
-    Card(
-        modifier = modifier,
-        shape = RoundedCornerShape(2.dp),
-        backgroundColor = AppColor.boardBackground,
-        elevation = 0.dp
-    ) {
-
-        GridView(
-            modifier = Modifier.padding(0.dp),
-            numberOfColumns = game.board.numberOfColumns,
-            items = List(game.board.squaresMap.count()) { it }
-        ) {
-
-            val cellPosition = if (game.blackPlayer == User)
-                (game.board.numberOfColumns * game.board.numberOfRows) - (it + 1)
-            else
-                it
-
-            val cellColor = game.board.squareColor(cellPosition).colorResource()
-
-            Box(modifier = Modifier
-                .fillMaxSize()
-                .background(cellColor)
-                .aspectRatio(1.0f)
-            ) {
-                game.board.squaresMap[cellPosition]?.let { occupant ->
-                    if (occupant is ChessPiece)
-                        ChessPieceView(piece = occupant)
-                }
-
-            }
-        }
-    }
+fun ChessPieceView(piece: ChessPiece) {
+    Image(
+        painter = painterResource(piece.imageRes()),
+        contentDescription = "",
+        contentScale = ContentScale.Crop,
+        modifier = Modifier
+            .padding(4.dp)
+            .fillMaxSize()
+    )
 }

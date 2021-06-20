@@ -8,25 +8,21 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.nwagu.android.chessboy.BluetoothController
-import com.nwagu.android.chessboy.MainActivity
+import com.nwagu.android.chessboy.bluetooth.BluetoothController
 import com.nwagu.android.chessboy.dialogs.DialogController
-import com.nwagu.android.chessboy.model.data.ScreenConfig
+import com.nwagu.android.chessboy.ui.data.ScreenConfig
 import com.nwagu.android.chessboy.players.BluetoothPlayer
 import com.nwagu.android.chessboy.ui.AppColor
 import com.nwagu.android.chessboy.vm.GameViewModel
@@ -87,18 +83,7 @@ fun NewBluetoothGameView(
                 .verticalScroll(rememberScrollState())
         ) {
 
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                IconButton(
-                    modifier = Modifier.size(48.dp),
-                    onClick = {
-                        navHostController.navigateUp()
-                    }
-                ) {
-                    Icon(Icons.Filled.ArrowBack, contentDescription = "Close", tint = Color.Black)
-                }
-
-                Header(Modifier.padding(0.dp, 8.dp), text = "Start a new bluetooth game")
-            }
+            ScreenTopBar(title = "Start a new bluetooth game", navHostController)
 
             SubHeader(Modifier.padding(0.dp, 16.dp), text = "Choose your side")
 

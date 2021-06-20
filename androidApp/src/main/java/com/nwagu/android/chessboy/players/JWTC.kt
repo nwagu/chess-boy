@@ -1,5 +1,6 @@
 package com.nwagu.android.chessboy.players
 
+import com.nwagu.android.chessboy.R
 import com.nwagu.chess.board.Board
 import com.nwagu.chess.convention.getFen
 import com.nwagu.chess.enums.ChessPieceType
@@ -9,12 +10,14 @@ import jwtc.chess.JNI
 import jwtc.chess.Move.*
 import kotlinx.coroutines.flow.MutableStateFlow
 
-class JWTC: UCIChessEngine {
+class JWTC: UCIChessEngine() {
 
     override val id: String
         get() {
             return "${PlayersRegister.JWTC}-level=${level}"
         }
+
+    override val avatar = R.drawable.img_avatar_jwtc
     override val name = "JWTC"
     override val minLevel = 1
     override val maxLevel = 7

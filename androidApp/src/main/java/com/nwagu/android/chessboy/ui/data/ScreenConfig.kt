@@ -1,4 +1,4 @@
-package com.nwagu.android.chessboy.model.data
+package com.nwagu.android.chessboy.ui.data
 
 data class ScreenConfig(
     val orientation: Int,
