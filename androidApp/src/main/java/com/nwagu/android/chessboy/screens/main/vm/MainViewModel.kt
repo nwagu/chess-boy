@@ -78,9 +78,4 @@ class MainViewModel(application: Application): BaseViewModel(application) {
         return ArrayDeque(getSavedPGNs(getApplication()))
     }
 
-    companion object {
-
-
-    }
-
 }

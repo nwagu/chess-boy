@@ -8,6 +8,7 @@ import com.nwagu.android.chessboy.bluetooth.BluetoothMessage
 import com.nwagu.android.chessboy.bluetooth.parseMessage
 import com.nwagu.android.chessboy.players.*
 import com.nwagu.android.chessboy.screens.common.BaseViewModel
+import com.nwagu.android.chessboy.util.initPlayers
 import com.nwagu.android.chessboy.util.isBluetoothGame
 import com.nwagu.android.chessboy.util.isUserTurn
 import com.nwagu.android.chessboy.util.userColor
@@ -48,6 +49,8 @@ class PlayViewModel(application: Application): BaseViewModel(application) {
             attachBluetoothChatService()
         }
 
+        game.initPlayers()
+
         updateGameUI()
         updateBoardUI()
         getNextMove()
@@ -61,6 +64,8 @@ class PlayViewModel(application: Application): BaseViewModel(application) {
 
         this.bluetoothChatService = bluetoothChatService
         this.bluetoothChatService.setListener(bluetoothChatListener)
+
+        game.initPlayers()
 
         updateGameUI()
         updateBoardUI()

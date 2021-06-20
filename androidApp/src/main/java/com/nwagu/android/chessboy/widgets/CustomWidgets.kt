@@ -120,9 +120,6 @@ fun PreviousGameView(
     onClick: () -> Unit
 ) {
 
-    val context = LocalContext.current as MainActivity
-
-    // FIXME load these values as a string in the view model
     val whitePlayer = getHeaderValueFromPgn(PGN_HEADER_WHITE_PLAYER, pgn)
     val blackPlayer = getHeaderValueFromPgn(PGN_HEADER_BLACK_PLAYER, pgn)
 
@@ -140,13 +137,11 @@ fun PreviousGameView(
     ) {
 
         Row(
+            modifier = Modifier.height(60.dp).padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            ChessBoardThumbView(modifier = Modifier
-                .padding(4.dp)
-                .width(100.dp), board = board)
             Text(
-                text = "$whitePlayer vs $blackPlayer",
+                text = "$whitePlayer(W) vs $blackPlayer(B)",
                 style = TextStyle(Color.Black, fontSize = 16.sp, fontWeight = FontWeight.Normal)
             )
         }
