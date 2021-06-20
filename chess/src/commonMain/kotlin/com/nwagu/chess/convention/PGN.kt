@@ -16,7 +16,7 @@ const val PGN_HEADER_BLACK_PLAYER = "Black"
 const val PGN_HEADER_GAME_ID = "GameID"
 const val PGN_HEADER_WHITE_PLAYER_ID = "WhiteID"
 const val PGN_HEADER_BLACK_PLAYER_ID = "BlackID"
-const val PGN_HEADER_BLACK_RESULT = "Result"
+const val PGN_HEADER_RESULT = "Result"
 
 fun Game.exportPGN(includeIds: Boolean = true): String {
 

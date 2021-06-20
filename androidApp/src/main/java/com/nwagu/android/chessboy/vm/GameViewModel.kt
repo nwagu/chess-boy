@@ -370,7 +370,7 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
         viewModelScope.launch {
             val history = getGamesHistory()
 
-            while (history.size >= 20) {
+            while (history.size > 20) {
                 history.removeFirst()
             }
 

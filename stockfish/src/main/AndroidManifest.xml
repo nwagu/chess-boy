@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.nwagu.stockfish">
+
+    <application
+        android:supportsRtl="true">
+        <service
+            android:name="com.nwagu.stockfish.StockfishService"
+            android:exported="false"
+            android:process=":stockfishengine">
+
+        </service>
+    </application>
+
+</manifest>

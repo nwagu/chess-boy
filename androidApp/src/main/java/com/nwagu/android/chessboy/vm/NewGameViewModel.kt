@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import com.nwagu.android.chessboy.players.JWTC
 import com.nwagu.android.chessboy.players.MoveGenerator
 import com.nwagu.android.chessboy.players.RandomMoveGenerator
-import com.nwagu.android.chessboy.players.Stockfish13
+import com.nwagu.android.chessboy.players.Stockfish
 import com.nwagu.chess.enums.ChessPieceColor
 import kotlinx.coroutines.flow.MutableStateFlow
 
@@ -15,7 +15,7 @@ class NewGameViewModel(application: Application): AndroidViewModel(application) 
     val selectedOpponent = MutableStateFlow<MoveGenerator?>(null)
 
     val opponents = listOf(
-        Stockfish13(getApplication()),
+        Stockfish(getApplication()),
         JWTC(),
         RandomMoveGenerator()
     )
