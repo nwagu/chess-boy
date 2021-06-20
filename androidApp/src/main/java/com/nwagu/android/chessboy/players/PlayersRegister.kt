@@ -15,7 +15,6 @@ object PlayersRegister {
 fun getPlayerWithId(context: Context, id: String): Player {
     return when {
         id == PlayersRegister.USER -> User
-        id == PlayersRegister.GRANDPA -> GrandPa()
         id == PlayersRegister.RANDOM -> RandomMoveGenerator()
         id.startsWith(PlayersRegister.JWTC) -> {
             val level = try {

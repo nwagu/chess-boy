@@ -30,7 +30,7 @@ class Stockfish13(val context: Context) : UCIChessEngine() {
             return "${PlayersRegister.STOCKFISH13}-level=${level}"
         }
 
-    override val avatar = R.drawable.img_stockfish_avatar
+    override val avatar = R.drawable.img_avatar_stockfish
 
     override val name = "Stockfish"
     override val minLevel = 1

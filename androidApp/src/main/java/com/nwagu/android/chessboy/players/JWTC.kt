@@ -1,5 +1,6 @@
 package com.nwagu.android.chessboy.players
 
+import com.nwagu.android.chessboy.R
 import com.nwagu.chess.board.Board
 import com.nwagu.chess.convention.getFen
 import com.nwagu.chess.enums.ChessPieceType
@@ -15,6 +16,8 @@ class JWTC: UCIChessEngine() {
         get() {
             return "${PlayersRegister.JWTC}-level=${level}"
         }
+
+    override val avatar = R.drawable.img_avatar_jwtc
     override val name = "JWTC"
     override val minLevel = 1
     override val maxLevel = 7
