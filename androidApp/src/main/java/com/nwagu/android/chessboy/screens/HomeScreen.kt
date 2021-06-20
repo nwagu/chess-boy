@@ -165,7 +165,7 @@ fun HomeView(
                 }
                 composable(Screen.Settings.route) {
                     SettingsView(
-                        gameViewModel, screenConfig, navHostController, dialogController
+                        screenConfig, navHostController, dialogController
                     )
                 }
             }
