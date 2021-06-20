@@ -10,6 +10,6 @@ Chess mobile application with bluetooth multiplayer
 **Open source chess engines currently (being) integrated:**
 
 - [x] [JWTC](https://www.jwtc.nl/)
-- [x] [Stockfish](https://github.com/official-stockfish/Stockfish/)
-- [ ] [Ethereal](https://github.com/AndyGrant/Ethereal/)
+- [x] [Stockfish](https://github.com/official-stockfish/Stockfish/) (thanks to [StockfishService](https://github.com/chess24com/StockfishService))
+- [ ] [Igel](https://github.com/vshcherbyna/igel)
 
