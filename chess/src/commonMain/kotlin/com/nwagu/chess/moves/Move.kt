@@ -27,7 +27,7 @@ data class EnPassant(
 ): Move()
 
 data class Castling(
-    // Castling here is considered primarily as a king move
+    // Castling here is considered primarily a king move
     override val source: Square, // the initial position of the king
     override val destination: Square // the final position of the king
 ): Move()

@@ -142,7 +142,8 @@ fun MainView(dialogController: DialogController) {
                         Column {
                             for (gamePgn in mostRecentGames.asReversed()) {
                                 PreviousGameView(modifier = Modifier.fillMaxWidth(), gamePgn) {
-                                    // onclick
+                                    context.gameAnalysisViewModel.pgn = gamePgn
+                                    navHostController.navigate(Screen.GameAnalysis.route)
                                 }
                             }
                         }

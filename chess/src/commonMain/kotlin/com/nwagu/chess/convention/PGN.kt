@@ -38,13 +38,13 @@ fun Game.exportPGN(includeIds: Boolean = true): String {
     val historySan = board.getHistorySAN()
 
     historySan.forEachIndexed { index, san ->
-        val moveNumber = (index / 2) + 1
-        sb.append(san)
-        sb.append(' ')
-        if (index < historySan.size - 1 && index % 2 == 0 && index >= 2) {
-            sb.append(moveNumber)
+        val fullMovesNumber = (index / 2) + 1
+        if (index % 2 == 0) {
+            sb.append(fullMovesNumber)
             sb.append(". ")
         }
+        sb.append(san)
+        sb.append(' ')
     }
 
     return sb.toString()

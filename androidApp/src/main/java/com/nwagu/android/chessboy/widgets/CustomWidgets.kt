@@ -133,7 +133,7 @@ fun PreviousGameView(
         },
         shape = RoundedCornerShape(4.dp),
         backgroundColor = Color.White,
-        elevation = 2.dp
+        elevation = 1.dp
     ) {
 
         Row(

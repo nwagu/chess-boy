@@ -186,12 +186,12 @@ class PlayViewModel(application: Application): BaseViewModel(application) {
         possibleMoves.value = emptyList()
     }
 
-    fun updateBoardUI() {
+    private fun updateBoardUI() {
         if (boardUpdated.value == 0) boardUpdated.value = 1 else boardUpdated.value = 0
         clearPossibleMoves()
     }
 
-    fun updateGameUI() {
+    private fun updateGameUI() {
         if (gameUpdated.value == 0) gameUpdated.value = 1 else gameUpdated.value = 0
         clearPossibleMoves()
     }
@@ -219,7 +219,7 @@ class PlayViewModel(application: Application): BaseViewModel(application) {
         }
     }
 
-    val bluetoothChatListener: BluetoothChatService.ChatListener
+    private val bluetoothChatListener: BluetoothChatService.ChatListener
         get() = object : BluetoothChatService.ChatListener {
 
             override fun onConnecting() {

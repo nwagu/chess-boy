@@ -142,9 +142,9 @@ fun PlayView(
         }
 
         if (!isLandscape)
-            GameViewPortrait(viewModel, navHostController, dialogController, gameActions)
+            PlayViewPortrait(viewModel, navHostController, dialogController, gameActions)
         else
-            GameViewLandscape(viewModel, screenConfig, navHostController, dialogController, gameActions)
+            PlayViewLandscape(viewModel, screenConfig, navHostController, dialogController, gameActions)
     }
 
 }
@@ -153,7 +153,7 @@ fun PlayView(
 @ExperimentalAnimationApi
 @ExperimentalFoundationApi
 @Composable
-fun GameViewPortrait(
+fun PlayViewPortrait(
     viewModel: PlayViewModel,
     navHostController: NavHostController,
     dialogController: DialogController,
@@ -182,15 +182,13 @@ fun GameViewPortrait(
 @ExperimentalAnimationApi
 @ExperimentalFoundationApi
 @Composable
-fun GameViewLandscape(
+fun PlayViewLandscape(
     viewModel: PlayViewModel,
     screenConfig: ScreenConfig,
     navHostController: NavHostController,
     dialogController: DialogController,
     gameActions: List<LightAction>
 ) {
-
-
 
     Row(modifier = Modifier
         .fillMaxWidth()
