@@ -15,8 +15,9 @@
             <option value="$PROJECT_DIR$/bluetoothchat" />
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/chess" />
+            <option value="$PROJECT_DIR$/ethereal" />
             <option value="$PROJECT_DIR$/jwtc" />
-            <option value="$PROJECT_DIR$/stockfish13" />
+            <option value="$PROJECT_DIR$/stockfish" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

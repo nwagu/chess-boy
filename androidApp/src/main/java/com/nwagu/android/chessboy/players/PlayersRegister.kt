@@ -9,7 +9,7 @@ object PlayersRegister {
     const val RANDOM = "RANDOM"
     const val JWTC = "JWTC"
     const val BLUETOOTH = "BLUETOOTH"
-    const val STOCKFISH13 = "STOCKFISH13"
+    const val STOCKFISH = "STOCKFISH"
 }
 
 fun getPlayerWithId(context: Context, id: String): Player {
@@ -24,13 +24,13 @@ fun getPlayerWithId(context: Context, id: String): Player {
             }
             JWTC().also { it.level = level }
         }
-        id.startsWith(PlayersRegister.STOCKFISH13) -> {
+        id.startsWith(PlayersRegister.STOCKFISH) -> {
             val level = try {
                 id.split("-")[1].split("=")[1].toInt()
             } catch (e: Exception) {
                 5
             }
-            Stockfish13(context).also { it.level = level }
+            Stockfish(context).also { it.level = level }
         }
         id.startsWith(PlayersRegister.BLUETOOTH) -> {
             val address = id.split("-")[1]
