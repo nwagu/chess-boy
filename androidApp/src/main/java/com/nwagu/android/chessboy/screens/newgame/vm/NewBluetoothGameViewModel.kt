@@ -4,11 +4,12 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import com.nwagu.android.chessboy.ui.data.BluetoothDevice
 import com.nwagu.android.chessboy.players.BluetoothPlayer
+import com.nwagu.android.chessboy.screens.common.BaseViewModel
 import com.nwagu.bluetoothchat.BluetoothChatService
 import com.nwagu.chess.enums.ChessPieceColor
 import kotlinx.coroutines.flow.MutableStateFlow
 
-class NewBluetoothGameViewModel(application: Application): AndroidViewModel(application) {
+class NewBluetoothGameViewModel(application: Application): BaseViewModel(application) {
 
     val selectedColor = MutableStateFlow(ChessPieceColor.WHITE)
     val selectedDevice = MutableStateFlow<BluetoothPlayer?>(null)

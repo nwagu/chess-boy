@@ -16,6 +16,7 @@ import com.nwagu.android.chessboy.players.User
 import com.nwagu.android.chessboy.ui.AppColor
 import com.nwagu.android.chessboy.util.colorResource
 import com.nwagu.chess.Game
+import com.nwagu.chess.board.Board
 import com.nwagu.chess.board.ChessPiece
 import com.nwagu.chess.board.squareColor
 
@@ -24,7 +25,7 @@ import com.nwagu.chess.board.squareColor
 @Composable
 fun ChessBoardThumbView(
     modifier: Modifier = Modifier,
-    game: Game
+    board: Board
 ) {
 
     Card(
@@ -36,23 +37,18 @@ fun ChessBoardThumbView(
 
         GridView(
             modifier = Modifier.padding(0.dp),
-            numberOfColumns = game.board.numberOfColumns,
-            items = List(game.board.squaresMap.count()) { it }
-        ) {
+            numberOfColumns = board.numberOfColumns,
+            items = List(board.squaresMap.count()) { it }
+        ) { cellPosition ->
 
-            val cellPosition = if (game.blackPlayer == User)
-                (game.board.numberOfColumns * game.board.numberOfRows) - (it + 1)
-            else
-                it
-
-            val cellColor = game.board.squareColor(cellPosition).colorResource()
+            val cellColor = board.squareColor(cellPosition).colorResource()
 
             Box(modifier = Modifier
                 .fillMaxSize()
                 .background(cellColor)
                 .aspectRatio(1.0f)
             ) {
-                game.board.squaresMap[cellPosition]?.let { occupant ->
+                board.squaresMap[cellPosition]?.let { occupant ->
                     if (occupant is ChessPiece)
                         ChessPieceView(piece = occupant)
                 }

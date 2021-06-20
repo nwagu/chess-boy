@@ -1,4 +1,4 @@
-package com.nwagu.android.chessboy.screens
+package com.nwagu.android.chessboy.screens.main.view
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -21,11 +22,16 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.nwagu.android.chessboy.R
 import com.nwagu.android.chessboy.dialogs.DialogController
+import com.nwagu.android.chessboy.screens.history.view.HistoryView
+import com.nwagu.android.chessboy.screens.SettingsView
+import com.nwagu.android.chessboy.screens.analysis.view.GameAnalysisView
+import com.nwagu.android.chessboy.screens.main.vm.MainViewModel
+import com.nwagu.android.chessboy.screens.model.Screen
+import com.nwagu.android.chessboy.screens.newgame.view.NewBluetoothGameView
+import com.nwagu.android.chessboy.screens.newgame.view.NewGameView
+import com.nwagu.android.chessboy.screens.play.view.PlayView
 import com.nwagu.android.chessboy.ui.data.QuickAction
 import com.nwagu.android.chessboy.ui.data.ScreenConfig
-import com.nwagu.android.chessboy.vm.GameViewModel
-import com.nwagu.android.chessboy.vm.NewBluetoothGameViewModel
-import com.nwagu.android.chessboy.vm.NewGameViewModel
 import com.nwagu.android.chessboy.util.isBluetoothGame
 import com.nwagu.android.chessboy.widgets.Header
 import com.nwagu.android.chessboy.widgets.PreviousGameView
@@ -37,13 +43,12 @@ import kotlinx.coroutines.launch
 @ExperimentalAnimationApi
 @ExperimentalFoundationApi
 @Composable
-fun HomeView(
-    gameViewModel: GameViewModel,
-    newGameViewModel: NewGameViewModel,
-    newBluetoothGameViewModel: NewBluetoothGameViewModel,
-    screenConfig: ScreenConfig,
-    dialogController: DialogController
-) {
+fun MainView(dialogController: DialogController) {
+
+    val context = LocalContext.current as MainActivity
+    val screenConfig = context.screenConfig
+    val mainViewModel = context.mainViewModel
+    val playViewModel = context.playViewModel
 
     val navHostController = rememberNavController()
 
@@ -62,11 +67,7 @@ fun HomeView(
         sheetBackgroundColor = Color.White.copy(alpha = 0f),
         sheetPeekHeight = 64.dp,
         sheetContent = {
-            GameView(
-                gameViewModel,
-                screenConfig,
-                navHostController,
-                dialogController)
+            PlayView(navHostController, dialogController)
         }
     ) {
 
@@ -109,8 +110,8 @@ fun HomeView(
                                 navHostController.navigate(Screen.NewGame.route)
                             },
                             QuickAction("New bluetooth game", R.drawable.img_white_king) {
-                                if (gameViewModel.game.isBluetoothGame())
-                                    gameViewModel.endCurrentGame()
+                                if (playViewModel.game.isBluetoothGame())
+                                    playViewModel.endCurrentGame()
                                 navHostController.navigate(Screen.NewBluetoothGame.route)
                             }
                         )
@@ -136,7 +137,7 @@ fun HomeView(
                             )
                         }
 
-                        val mostRecentGames = gameViewModel.getGamesHistory().takeLast(3)
+                        val mostRecentGames = mainViewModel.getGamesHistory().takeLast(3)
 
                         Column {
                             for (gamePgn in mostRecentGames.asReversed()) {
@@ -149,24 +150,19 @@ fun HomeView(
                     }
                 }
                 composable(Screen.NewGame.route) {
-                    NewGameView(
-                        gameViewModel, newGameViewModel, screenConfig, bottomSheetScaffoldState, navHostController, dialogController
-                    )
+                    NewGameView(bottomSheetScaffoldState, navHostController, dialogController)
                 }
                 composable(Screen.NewBluetoothGame.route) {
-                    NewBluetoothGameView(
-                        gameViewModel, newBluetoothGameViewModel, screenConfig, bottomSheetScaffoldState, navHostController, dialogController
-                    )
+                    NewBluetoothGameView(bottomSheetScaffoldState, navHostController, dialogController)
+                }
+                composable(Screen.GameAnalysis.route) {
+                    GameAnalysisView(navHostController, dialogController)
                 }
                 composable(Screen.History.route) {
-                    HistoryView(
-                        gameViewModel, screenConfig, navHostController, dialogController
-                    )
+                    HistoryView(navHostController, dialogController)
                 }
                 composable(Screen.Settings.route) {
-                    SettingsView(
-                        screenConfig, navHostController, dialogController
-                    )
+                    SettingsView(screenConfig, navHostController, dialogController)
                 }
             }
 

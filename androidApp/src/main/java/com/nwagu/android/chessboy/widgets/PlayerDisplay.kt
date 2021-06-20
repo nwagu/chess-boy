@@ -1,16 +1,11 @@
 package com.nwagu.android.chessboy.widgets
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -23,7 +18,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.nwagu.android.chessboy.players.GUIPlayer
-import com.nwagu.android.chessboy.vm.GameViewModel
+import com.nwagu.android.chessboy.screens.play.vm.PlayViewModel
 import com.nwagu.chess.board.isStaleMate
 import com.nwagu.chess.board.turn
 import com.nwagu.chess.enums.ChessPieceColor
@@ -32,7 +27,7 @@ import com.nwagu.chess.enums.ChessPieceColor
 @Composable
 fun PlayerDisplay(
     modifier: Modifier = Modifier,
-    viewModel: GameViewModel,
+    viewModel: PlayViewModel,
     color: ChessPieceColor
 ) {
 

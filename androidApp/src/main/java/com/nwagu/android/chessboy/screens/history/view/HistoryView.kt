@@ -1,4 +1,4 @@
-package com.nwagu.android.chessboy.screens
+package com.nwagu.android.chessboy.screens.history.view
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -13,11 +13,15 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.nwagu.android.chessboy.dialogs.DialogController
+import com.nwagu.android.chessboy.screens.main.view.MainActivity
+import com.nwagu.android.chessboy.screens.main.vm.MainViewModel
+import com.nwagu.android.chessboy.screens.model.Screen
 import com.nwagu.android.chessboy.ui.data.ScreenConfig
-import com.nwagu.android.chessboy.vm.GameViewModel
+import com.nwagu.android.chessboy.screens.play.vm.PlayViewModel
 import com.nwagu.android.chessboy.widgets.PreviousGameView
 import com.nwagu.android.chessboy.widgets.ScreenTopBar
 
@@ -26,13 +30,15 @@ import com.nwagu.android.chessboy.widgets.ScreenTopBar
 @ExperimentalFoundationApi
 @Composable
 fun HistoryView(
-    gameViewModel: GameViewModel,
-    screenConfig: ScreenConfig,
     navHostController: NavHostController,
     dialogController: DialogController,
 ) {
 
-    val gamesHistory = gameViewModel.getGamesHistory()
+    val context = LocalContext.current as MainActivity
+    val screenConfig = context.screenConfig
+    val mainViewModel = context.mainViewModel
+
+    val gamesHistory = mainViewModel.getGamesHistory()
 
     Column(modifier = Modifier
         .background(color = Color.White)
@@ -51,7 +57,8 @@ fun HistoryView(
 
             for (gamePgn in gamesHistory.asReversed()) {
                 PreviousGameView(modifier = Modifier.fillMaxWidth(), gamePgn) {
-                    // onclick
+                    context.gameAnalysisViewModel.pgn = gamePgn
+                    navHostController.navigate(Screen.GameAnalysis.route)
                 }
             }
         }

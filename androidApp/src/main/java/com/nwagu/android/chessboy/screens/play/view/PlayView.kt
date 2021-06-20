@@ -1,4 +1,4 @@
-package com.nwagu.android.chessboy.screens
+package com.nwagu.android.chessboy.screens.play.view
 
 import android.content.res.Configuration
 import androidx.compose.animation.AnimatedVisibility
@@ -29,7 +29,8 @@ import com.nwagu.android.chessboy.dialogs.DialogController
 import com.nwagu.android.chessboy.ui.data.LightAction
 import com.nwagu.android.chessboy.ui.data.ScreenConfig
 import com.nwagu.android.chessboy.players.BluetoothPlayer
-import com.nwagu.android.chessboy.vm.GameViewModel
+import com.nwagu.android.chessboy.screens.main.view.MainActivity
+import com.nwagu.android.chessboy.screens.play.vm.PlayViewModel
 import com.nwagu.android.chessboy.util.colorOnUserSideOfBoard
 import com.nwagu.android.chessboy.util.isBluetoothGame
 import com.nwagu.android.chessboy.util.userColor
@@ -44,17 +45,17 @@ import com.nwagu.chess.enums.opposite
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
 @Composable
-fun GameView(
-    viewModel: GameViewModel,
-    screenConfig: ScreenConfig,
+fun PlayView(
     navHostController: NavHostController,
     dialogController: DialogController
 ) {
 
-    val gameChanged by viewModel.gameUpdated.collectAsState(0)
+    val context = LocalContext.current as MainActivity
+    val screenConfig = context.screenConfig
+    val viewModel = context.playViewModel
+    val bluetoothController = BluetoothController(context)
 
-    val context = LocalContext.current
-    val bluetoothController = BluetoothController(context as MainActivity)
+    val gameChanged by viewModel.gameUpdated.collectAsState(0)
 
     Column(
         modifier = Modifier
@@ -153,7 +154,7 @@ fun GameView(
 @ExperimentalFoundationApi
 @Composable
 fun GameViewPortrait(
-    viewModel: GameViewModel,
+    viewModel: PlayViewModel,
     navHostController: NavHostController,
     dialogController: DialogController,
     gameActions: List<LightAction>
@@ -182,7 +183,7 @@ fun GameViewPortrait(
 @ExperimentalFoundationApi
 @Composable
 fun GameViewLandscape(
-    viewModel: GameViewModel,
+    viewModel: PlayViewModel,
     screenConfig: ScreenConfig,
     navHostController: NavHostController,
     dialogController: DialogController,

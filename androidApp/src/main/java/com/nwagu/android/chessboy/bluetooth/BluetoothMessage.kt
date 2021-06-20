@@ -7,10 +7,10 @@ sealed class BluetoothMessage {
 
     abstract val value: String
 
-    class SyncRequest(val position: String): BluetoothMessage() {
+    class SyncRequest(val fen: String): BluetoothMessage() {
         override val value: String
             get() {
-                return "SYNC-$position"
+                return "SYNC-$fen"
             }
     }
 

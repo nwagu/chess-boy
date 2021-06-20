@@ -11,14 +11,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.nwagu.android.chessboy.util.imageRes
-import com.nwagu.android.chessboy.vm.GameViewModel
+import com.nwagu.android.chessboy.screens.play.vm.PlayViewModel
 import com.nwagu.chess.board.ChessPiece
 import com.nwagu.chess.enums.ChessPieceColor
 
 @Composable
 fun CaptivesView(
     modifier: Modifier = Modifier,
-    viewModel: GameViewModel,
+    viewModel: PlayViewModel,
     color: ChessPieceColor
 ) {
 

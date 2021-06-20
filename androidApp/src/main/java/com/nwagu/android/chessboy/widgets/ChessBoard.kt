@@ -23,11 +23,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.nwagu.android.chessboy.dialogs.DialogController
 import com.nwagu.android.chessboy.dialogs.KEY_PROMOTION_PIECE
-import com.nwagu.android.chessboy.screens.Dialog
+import com.nwagu.android.chessboy.screens.model.Dialog
 import com.nwagu.android.chessboy.ui.AppColor
 import com.nwagu.android.chessboy.util.colorResource
 import com.nwagu.android.chessboy.util.imageRes
-import com.nwagu.android.chessboy.vm.GameViewModel
+import com.nwagu.android.chessboy.screens.play.vm.PlayViewModel
 import com.nwagu.android.chessboy.util.colorOnUserSideOfBoard
 import com.nwagu.chess.board.ChessPiece
 import com.nwagu.chess.board.isOnCheck
@@ -43,7 +43,7 @@ import java.io.Serializable
 fun ChessBoardView(
     modifier: Modifier = Modifier,
     dialogController: DialogController,
-    viewModel: GameViewModel
+    viewModel: PlayViewModel
 ) {
 
     Card(modifier = modifier,
