@@ -1,4 +1,4 @@
-package com.nwagu.android.chessboy.screens
+package com.nwagu.android.chessboy.screens.settings
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -14,13 +14,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.nwagu.android.chessboy.dialogs.DialogController
 import com.nwagu.android.chessboy.ui.data.ScreenConfig
-import com.nwagu.android.chessboy.vm.GameViewModel
 import com.nwagu.android.chessboy.widgets.ScreenTopBar
 
 @ExperimentalMaterialApi
 @Composable
 fun SettingsView(
-    screenConfig: ScreenConfig,
     navHostController: NavHostController,
     dialogController: DialogController,
 ) {

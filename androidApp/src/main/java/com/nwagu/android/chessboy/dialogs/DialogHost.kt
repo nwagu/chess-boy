@@ -7,7 +7,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import com.nwagu.android.chessboy.dialogs.DialogStateViewModel.Companion.KEY_DIALOG_VISIBLE
-import com.nwagu.android.chessboy.screens.Dialog
+import com.nwagu.android.chessboy.screens.main.view.MainActivity
+import com.nwagu.android.chessboy.screens.model.Dialog
 import com.nwagu.android.chessboy.widgets.AlertDialogWrapper
 import com.nwagu.android.chessboy.widgets.SelectPromotionPieceDialog
 import com.nwagu.chess.enums.ChessPieceType
@@ -21,7 +22,7 @@ fun DialogHost(
 
     val dialogStates by dialogController.getStates().collectAsState(hashMapOf())
 
-    val context = LocalContext.current
+    val context = LocalContext.current as MainActivity
 
     fun getVisibility(key: String): Boolean {
         return dialogStates[key]?.getBoolean(KEY_DIALOG_VISIBLE) ?: false

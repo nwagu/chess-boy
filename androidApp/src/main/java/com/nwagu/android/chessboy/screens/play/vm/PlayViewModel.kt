@@ -1,21 +1,19 @@
-package com.nwagu.android.chessboy.vm
+package com.nwagu.android.chessboy.screens.play.vm
 
 import android.app.Application
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.nwagu.android.chessboy.bluetooth.BluetoothMessage
 import com.nwagu.android.chessboy.bluetooth.parseMessage
 import com.nwagu.android.chessboy.players.*
-import com.nwagu.android.chessboy.util.SharedPrefUtils.getSavedPGNs
-import com.nwagu.android.chessboy.util.SharedPrefUtils.savePGNs
+import com.nwagu.android.chessboy.screens.common.BaseViewModel
+import com.nwagu.android.chessboy.util.initPlayers
 import com.nwagu.android.chessboy.util.isBluetoothGame
 import com.nwagu.android.chessboy.util.isUserTurn
 import com.nwagu.android.chessboy.util.userColor
 import com.nwagu.bluetoothchat.BluetoothChatService
 import com.nwagu.chess.Game
-import com.nwagu.chess.Player
 import com.nwagu.chess.board.*
 import com.nwagu.chess.convention.*
 import com.nwagu.chess.enums.ChessPieceColor
@@ -26,9 +24,8 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import java.security.InvalidParameterException
 
-class GameViewModel(application: Application): AndroidViewModel(application) {
+class PlayViewModel(application: Application): BaseViewModel(application) {
 
     lateinit var game: Game
 
@@ -40,88 +37,42 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
 
     lateinit var bluetoothChatService: BluetoothChatService
 
-    init {
-        viewModelScope.launch {
+    fun isGameInitialized() = this::game.isInitialized
 
-            val lastGamePgn = getLastGamePgn()
-
-            if (lastGamePgn.isNullOrEmpty()) {
-                game = Game(
-                    whitePlayer = User,
-                    blackPlayer = RandomMoveGenerator()
-                )
-                return@launch
-            }
-
-            val lastGameId = getHeaderValueFromPgn(PGN_HEADER_GAME_ID, lastGamePgn) ?: ""
-
-            val lastWhitePlayer =
-                getPlayerWithId(
-                    getApplication(),
-                    getHeaderValueFromPgn(PGN_HEADER_WHITE_PLAYER_ID, lastGamePgn) ?: ""
-                ).apply { if (this is UCIChessEngine) init() }
-
-            val lastBlackPlayer =
-                getPlayerWithId(
-                    getApplication(),
-                    getHeaderValueFromPgn(PGN_HEADER_BLACK_PLAYER_ID, lastGamePgn) ?: ""
-                ).apply { if (this is UCIChessEngine) init() }
-
-            game = Game(lastGameId, lastWhitePlayer, lastBlackPlayer)
-            game.importPGN(lastGamePgn)
-
-            if (game.isBluetoothGame()) {
-                recreateBluetoothChatService()
-            }
-
-            updateBoardUI()
-            getNextMove()
-        }
-    }
-
-    fun startNewGame(
-        whitePlayer: Player,
-        blackPlayer: Player
-    ) {
-
-        if (whitePlayer is BluetoothPlayer || blackPlayer is BluetoothPlayer) {
-            throw InvalidParameterException("Please use startNewBluetoothGame to start bluetooth game!")
-        }
+    fun init(game: Game) {
 
         endCurrentGame()
 
-        if (whitePlayer is UCIChessEngine) whitePlayer.init()
-        if (blackPlayer is UCIChessEngine) blackPlayer.init()
+        this.game = game
 
-        game = Game(
-            whitePlayer = whitePlayer,
-            blackPlayer = blackPlayer
-        )
+        if (game.isBluetoothGame()) {
+            attachBluetoothChatService()
+        }
+
+        game.initPlayers()
 
         updateGameUI()
         updateBoardUI()
         getNextMove()
     }
 
-    fun startNewBluetoothGame(bluetoothChatService: BluetoothChatService) {
+    fun init(game: Game, bluetoothChatService: BluetoothChatService) {
 
-        val isWhite = bluetoothChatService.isInitiator
-        val address = bluetoothChatService.partnerAddress
+        endCurrentGame()
+
+        this.game = game
 
         this.bluetoothChatService = bluetoothChatService
         this.bluetoothChatService.setListener(bluetoothChatListener)
 
-        endCurrentGame(disconnectBluetooth = false)
+        game.initPlayers()
 
-        game = Game(
-            whitePlayer = if (isWhite) User else BluetoothPlayer(address = address),
-            blackPlayer = if (isWhite) BluetoothPlayer(address = address) else User
-        )
         updateGameUI()
         updateBoardUI()
+        getNextMove()
     }
 
-    private fun recreateBluetoothChatService() {
+    private fun attachBluetoothChatService() {
         (game.userColor == ChessPieceColor.WHITE).let { userIsWhite ->
             bluetoothChatService = BluetoothChatService()
             bluetoothChatService.init(getApplication(), userIsWhite)
@@ -132,7 +83,7 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
     fun attemptReconnectToDevice(address: String) {
 
         if (!this::bluetoothChatService.isInitialized) {
-            recreateBluetoothChatService()
+            attachBluetoothChatService()
         }
 
         if (bluetoothChatService.connectionState.value != BluetoothChatService.ConnectionState.NONE)
@@ -145,7 +96,7 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
     fun listenForReconnection() {
 
         if (!this::bluetoothChatService.isInitialized) {
-            recreateBluetoothChatService()
+            attachBluetoothChatService()
         }
 
         if (bluetoothChatService.connectionState.value != BluetoothChatService.ConnectionState.NONE)
@@ -235,12 +186,12 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
         possibleMoves.value = emptyList()
     }
 
-    fun updateBoardUI() {
+    private fun updateBoardUI() {
         if (boardUpdated.value == 0) boardUpdated.value = 1 else boardUpdated.value = 0
         clearPossibleMoves()
     }
 
-    fun updateGameUI() {
+    private fun updateGameUI() {
         if (gameUpdated.value == 0) gameUpdated.value = 1 else gameUpdated.value = 0
         clearPossibleMoves()
     }
@@ -268,7 +219,7 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
-    val bluetoothChatListener: BluetoothChatService.ChatListener
+    private val bluetoothChatListener: BluetoothChatService.ChatListener
         get() = object : BluetoothChatService.ChatListener {
 
             override fun onConnecting() {
@@ -338,7 +289,7 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
                     }
                     is BluetoothMessage.SyncRequest -> {
                         showToast("Sync request")
-                        if (game.compareBoardPositionTo(_message.position)) {
+                        if (game.board.compareTo(_message.fen)) {
                             bluetoothChatService.sendMessage(BluetoothMessage.SyncOk.value)
                         }
                     }
@@ -366,36 +317,13 @@ class GameViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
-    fun saveGame() {
-        viewModelScope.launch {
-            val history = getGamesHistory()
+    fun endCurrentGame() {
 
-            while (history.size > 20) {
-                history.removeFirst()
-            }
-
-            history.removeAll(history.filter {
-                getHeaderValueFromPgn(PGN_HEADER_GAME_ID, it) == game.id
-            })
-            history.addLast(game.exportPGN())
-
-            savePGNs(getApplication(), history.toList())
+        if (!isGameInitialized()) {
+            return
         }
-    }
 
-    private fun getLastGamePgn(): String? {
-        return getGamesHistory().lastOrNull()
-    }
-
-    fun getGamesHistory(): ArrayDeque<String> {
-        return ArrayDeque(getSavedPGNs(getApplication()))
-    }
-
-    fun endCurrentGame(disconnectBluetooth: Boolean = true) {
-
-        saveGame()
-
-        if (game.isBluetoothGame() && disconnectBluetooth) {
+        if (game.isBluetoothGame()) {
             bluetoothChatService.stop()
         }
 

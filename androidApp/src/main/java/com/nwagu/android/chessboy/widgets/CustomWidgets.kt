@@ -17,8 +17,10 @@ import androidx.compose.ui.unit.sp
 import com.nwagu.android.chessboy.ui.data.LightAction
 import com.nwagu.android.chessboy.ui.data.QuickAction
 import com.nwagu.android.chessboy.players.getPlayerWithId
+import com.nwagu.android.chessboy.screens.main.view.MainActivity
 import com.nwagu.android.chessboy.ui.AppColor
 import com.nwagu.chess.Game
+import com.nwagu.chess.board.Board
 import com.nwagu.chess.convention.*
 
 @Composable
@@ -118,14 +120,11 @@ fun PreviousGameView(
     onClick: () -> Unit
 ) {
 
-    val context = LocalContext.current
+    val whitePlayer = getHeaderValueFromPgn(PGN_HEADER_WHITE_PLAYER, pgn)
+    val blackPlayer = getHeaderValueFromPgn(PGN_HEADER_BLACK_PLAYER, pgn)
 
-    val game = Game(
-        id = getHeaderValueFromPgn(PGN_HEADER_GAME_ID, pgn) ?: "",
-        whitePlayer = getPlayerWithId(context, getHeaderValueFromPgn(PGN_HEADER_WHITE_PLAYER_ID, pgn) ?: ""),
-        blackPlayer = getPlayerWithId(context, getHeaderValueFromPgn(PGN_HEADER_BLACK_PLAYER_ID, pgn) ?: "")
-    )
-    game.importPGN(pgn)
+    val board = Board()
+    board.importMovesFromPGN(pgn)
 
     Card(
         modifier = modifier.padding(8.dp),
@@ -134,17 +133,15 @@ fun PreviousGameView(
         },
         shape = RoundedCornerShape(4.dp),
         backgroundColor = Color.White,
-        elevation = 2.dp
+        elevation = 1.dp
     ) {
 
         Row(
+            modifier = Modifier.height(60.dp).padding(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            ChessBoardThumbView(modifier = Modifier
-                .padding(4.dp)
-                .width(120.dp), game = game)
             Text(
-                text = game.title,
+                text = "$whitePlayer(W) vs $blackPlayer(B)",
                 style = TextStyle(Color.Black, fontSize = 16.sp, fontWeight = FontWeight.Normal)
             )
         }

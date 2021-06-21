@@ -18,14 +18,4 @@ class Game(
         board.loadStandardStartingPosition()
     }
 
-    private fun convertBoardPositionToString(): String {
-        return board.squaresMap.map {
-            "${it.key}=${it.value}"
-        }.joinToString(",")
-    }
-
-    fun compareBoardPositionTo(position: String): Boolean {
-        return (position == convertBoardPositionToString())
-    }
-
 }

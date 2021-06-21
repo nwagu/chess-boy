@@ -1,4 +1,4 @@
-package com.nwagu.android.chessboy.screens
+package com.nwagu.android.chessboy.screens.newgame.view
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
@@ -12,14 +12,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.nwagu.android.chessboy.dialogs.DialogController
 import com.nwagu.android.chessboy.ui.data.ScreenConfig
 import com.nwagu.android.chessboy.players.MoveGenerator
 import com.nwagu.android.chessboy.players.User
-import com.nwagu.android.chessboy.vm.GameViewModel
-import com.nwagu.android.chessboy.vm.NewGameViewModel
+import com.nwagu.android.chessboy.screens.main.view.MainActivity
+import com.nwagu.android.chessboy.screens.play.vm.PlayViewModel
+import com.nwagu.android.chessboy.screens.newgame.vm.NewGameViewModel
 import com.nwagu.android.chessboy.widgets.*
 import com.nwagu.chess.enums.ChessPieceColor
 import kotlinx.coroutines.launch
@@ -28,13 +30,14 @@ import kotlinx.coroutines.launch
 @ExperimentalFoundationApi
 @Composable
 fun NewGameView(
-    gameViewModel: GameViewModel,
-    newGameViewModel: NewGameViewModel,
-    screenConfig: ScreenConfig,
     bottomSheetScaffoldState: BottomSheetScaffoldState,
     navHostController: NavHostController,
     dialogController: DialogController
 ) {
+
+    val context = LocalContext.current as MainActivity
+    val screenConfig = context.screenConfig
+    val newGameViewModel = context.newGameViewModel
 
     val coroutineScope = rememberCoroutineScope()
 
@@ -112,7 +115,7 @@ fun NewGameView(
                         null -> listOf(User, opponent).random()
                     }
                     val blackPlayer = if (whitePlayer is User) opponent else User
-                    gameViewModel.startNewGame(whitePlayer, blackPlayer)
+                    context.startNewGame(whitePlayer, blackPlayer)
 
                     newGameViewModel.selectedColor.value = null
                     newGameViewModel.selectedOpponent.value = null

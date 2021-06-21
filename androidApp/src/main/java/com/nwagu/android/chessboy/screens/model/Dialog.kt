@@ -1,4 +1,4 @@
-package com.nwagu.android.chessboy.screens
+package com.nwagu.android.chessboy.screens.model
 
 sealed class Dialog(val id: String) {
     object SelectPromotionPiece : Dialog("SelectPromotionPiece")

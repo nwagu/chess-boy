@@ -1,6 +1,7 @@
 package com.nwagu.chess.convention
 
 import com.nwagu.chess.Game
+import com.nwagu.chess.board.Board
 import com.nwagu.chess.board.move
 
 private val headerPattern = Regex("""\[.* ".*"]""")
@@ -37,13 +38,13 @@ fun Game.exportPGN(includeIds: Boolean = true): String {
     val historySan = board.getHistorySAN()
 
     historySan.forEachIndexed { index, san ->
-        val moveNumber = (index / 2) + 1
-        sb.append(san)
-        sb.append(' ')
-        if (index < historySan.size - 1 && index % 2 == 0 && index >= 2) {
-            sb.append(moveNumber)
+        val fullMovesNumber = (index / 2) + 1
+        if (index % 2 == 0) {
+            sb.append(fullMovesNumber)
             sb.append(". ")
         }
+        sb.append(san)
+        sb.append(' ')
     }
 
     return sb.toString()
@@ -62,9 +63,10 @@ fun getHeaderValueFromPgn(name: String, pgn: String): String? {
     return null
 }
 
-fun Game.importPGN(pgn: String) {
+fun Board.importMovesFromPGN(pgn: String) {
 
-    board.loadStandardStartingPosition()
+    reset()
+    loadStandardStartingPosition()
 
     val lines = pgn.split("\n")
     for (line in lines) {
@@ -81,35 +83,35 @@ fun Game.importPGN(pgn: String) {
 
             // remove all text between ( )
             var moves = line
-            var newMoves = moves.replace("\\([^\\(\\)]*\\)", "")
+            var _moves = moves.replace("\\([^\\(\\)]*\\)", "")
 
-            while (moves != newMoves) {
-                moves = newMoves
-                newMoves = moves.replace("\\([^\\(\\)]*\\)", "")
+            while (moves != _moves) {
+                moves = _moves
+                _moves = moves.replace("\\([^\\(\\)]*\\)", "")
             }
 
             // remove all text between { }
 
-            newMoves = moves.replace("\\{[^\\{\\}]*\\}", "")
+            _moves = moves.replace("\\{[^\\{\\}]*\\}", "")
 
-            while (moves != newMoves) {
-                moves = newMoves
-                newMoves = moves.replace("\\{[^\\{\\}]*\\}", "")
+            while (moves != _moves) {
+                moves = _moves
+                _moves = moves.replace("\\{[^\\{\\}]*\\}", "")
             }
 
             // remove all text between [ ]
 
-            newMoves = moves.replace("\\[[^\\[\\]]*\\]", "")
+            _moves = moves.replace("\\[[^\\[\\]]*\\]", "")
 
-            while (moves != newMoves) {
-                moves = newMoves
-                newMoves = moves.replace("\\[[^\\[\\]]*\\]", "")
+            while (moves != _moves) {
+                moves = _moves
+                _moves = moves.replace("\\[[^\\[\\]]*\\]", "")
             }
 
-            val sans = newMoves.split(" ").filter { !it.contains(".") && it.isNotBlank() }
+            val sans = _moves.split(" ").filter { !it.contains(".") && it.isNotBlank() }
 
             sans.forEach {
-                board.move(board.sanToMove(it.trim()), false)
+                move(sanToMove(it.trim()), false)
             }
 
         }

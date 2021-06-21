@@ -1,6 +1,7 @@
 package com.nwagu.android.chessboy.util
 
 import com.nwagu.android.chessboy.players.BluetoothPlayer
+import com.nwagu.android.chessboy.players.UCIChessEngine
 import com.nwagu.android.chessboy.players.User
 import com.nwagu.chess.Game
 import com.nwagu.chess.board.turn
@@ -32,3 +33,8 @@ val Game.isBluetoothOpponentTurn: Boolean
         ChessPieceColor.WHITE -> whitePlayer is BluetoothPlayer
         ChessPieceColor.BLACK -> blackPlayer is BluetoothPlayer
     }
+
+fun Game.initPlayers() {
+    (whitePlayer as? UCIChessEngine)?.init()
+    (blackPlayer as? UCIChessEngine)?.init()
+}

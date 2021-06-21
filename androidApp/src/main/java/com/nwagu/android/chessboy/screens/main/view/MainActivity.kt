@@ -1,4 +1,4 @@
-package com.nwagu.android.chessboy.screens
+package com.nwagu.android.chessboy.screens.main.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,17 +13,24 @@ import androidx.compose.material.MaterialTheme
 import com.nwagu.android.chessboy.constants.RequestCodes
 import com.nwagu.android.chessboy.dialogs.DialogHost
 import com.nwagu.android.chessboy.dialogs.rememberDialogController
+import com.nwagu.android.chessboy.screens.analysis.vm.GameAnalysisViewModel
+import com.nwagu.android.chessboy.screens.main.vm.MainViewModel
 import com.nwagu.android.chessboy.ui.data.ScreenConfig
-import com.nwagu.android.chessboy.screens.HomeView
-import com.nwagu.android.chessboy.vm.GameViewModel
+import com.nwagu.android.chessboy.screens.play.vm.PlayViewModel
 import com.nwagu.android.chessboy.vm.NewBluetoothGameViewModel
-import com.nwagu.android.chessboy.vm.NewGameViewModel
+import com.nwagu.android.chessboy.screens.newgame.vm.NewGameViewModel
+import com.nwagu.bluetoothchat.BluetoothChatService
+import com.nwagu.chess.Player
 
 class MainActivity : AppCompatActivity() {
 
-    val gameViewModel: GameViewModel by viewModels()
+    val mainViewModel: MainViewModel by viewModels()
+    val playViewModel: PlayViewModel by viewModels()
+    val gameAnalysisViewModel: GameAnalysisViewModel by viewModels()
     val newGameViewModel: NewGameViewModel by viewModels()
-    val newbluetoothGameViewModel: NewBluetoothGameViewModel by viewModels()
+    val newBluetoothGameViewModel: NewBluetoothGameViewModel by viewModels()
+
+    lateinit var screenConfig: ScreenConfig
 
     @ExperimentalMaterialApi
     @ExperimentalAnimationApi
@@ -31,7 +38,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val screenConfig = ScreenConfig(
+        screenConfig = ScreenConfig(
             resources.configuration.orientation,
             resources.configuration.screenHeightDp,
             resources.configuration.screenWidthDp
@@ -39,22 +46,41 @@ class MainActivity : AppCompatActivity() {
 
         setContent {
             MaterialTheme {
-
                 val dialogController = rememberDialogController(this)
-
-                HomeView(
-                    gameViewModel, newGameViewModel, newbluetoothGameViewModel, screenConfig, dialogController
-                )
-
+                MainView(dialogController)
                 DialogHost(dialogController)
             }
         }
 
+        resumeLastGame()
+
+    }
+
+    private fun resumeLastGame() {
+        if (!playViewModel.isGameInitialized()) {
+            val game = mainViewModel.getLastGameOrDefault()
+            playViewModel.init(game)
+        }
+    }
+
+    fun startNewGame(
+        whitePlayer: Player,
+        blackPlayer: Player
+    ) {
+        val game = mainViewModel.createNewGame(whitePlayer, blackPlayer)
+        mainViewModel.saveGame(playViewModel.game)
+        playViewModel.init(game)
+    }
+
+    fun startNewBluetoothGame(bluetoothChatService: BluetoothChatService) {
+        val game = mainViewModel.createNewBluetoothGame(bluetoothChatService)
+        mainViewModel.saveGame(playViewModel.game)
+        playViewModel.init(game, bluetoothChatService)
     }
 
     override fun onStop() {
         super.onStop()
-        gameViewModel.saveGame()
+        mainViewModel.saveGame(playViewModel.game)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

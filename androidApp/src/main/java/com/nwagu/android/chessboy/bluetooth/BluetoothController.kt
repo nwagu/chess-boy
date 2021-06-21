@@ -13,18 +13,17 @@ import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
-import com.nwagu.android.chessboy.screens.MainActivity
+import com.nwagu.android.chessboy.screens.main.view.MainActivity
 import com.nwagu.android.chessboy.constants.RequestCodes
 import com.nwagu.android.chessboy.receiver.DeviceFoundReceiver
 import com.nwagu.android.chessboy.vm.ScanState
 import timber.log.Timber
 
-
 class BluetoothController(
     private val context: Activity
 ) {
 
-    val viewModel by lazy { (context as MainActivity).newbluetoothGameViewModel }
+    val viewModel by lazy { (context as MainActivity).newBluetoothGameViewModel }
 
     val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
     val receiver: DeviceFoundReceiver by lazy { DeviceFoundReceiver(viewModel) }

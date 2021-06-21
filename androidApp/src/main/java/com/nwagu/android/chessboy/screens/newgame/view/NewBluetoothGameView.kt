@@ -1,4 +1,4 @@
-package com.nwagu.android.chessboy.screens
+package com.nwagu.android.chessboy.screens.newgame.view
 
 import android.content.Context
 import android.location.LocationManager
@@ -24,8 +24,9 @@ import com.nwagu.android.chessboy.bluetooth.BluetoothController
 import com.nwagu.android.chessboy.dialogs.DialogController
 import com.nwagu.android.chessboy.ui.data.ScreenConfig
 import com.nwagu.android.chessboy.players.BluetoothPlayer
+import com.nwagu.android.chessboy.screens.main.view.MainActivity
+import com.nwagu.android.chessboy.screens.model.Dialog
 import com.nwagu.android.chessboy.ui.AppColor
-import com.nwagu.android.chessboy.vm.GameViewModel
 import com.nwagu.android.chessboy.vm.NewBluetoothGameViewModel
 import com.nwagu.android.chessboy.vm.ScanState
 import com.nwagu.android.chessboy.widgets.*
@@ -37,19 +38,20 @@ import kotlinx.coroutines.launch
 @ExperimentalFoundationApi
 @Composable
 fun NewBluetoothGameView(
-    gameViewModel: GameViewModel,
-    newBluetoothGameViewModel: NewBluetoothGameViewModel,
-    screenConfig: ScreenConfig,
     bottomSheetScaffoldState: BottomSheetScaffoldState,
     navHostController: NavHostController,
     dialogController: DialogController,
 ) {
 
+    val context = LocalContext.current as MainActivity
+    val screenConfig = context.screenConfig
+    val newBluetoothGameViewModel = context.newBluetoothGameViewModel
+
     val coroutineScope = rememberCoroutineScope()
 
     newBluetoothGameViewModel.onConnectSuccessHandler = { bluetoothChatService ->
         coroutineScope.launch {
-            gameViewModel.startNewBluetoothGame(bluetoothChatService)
+            context.startNewBluetoothGame(bluetoothChatService)
             bottomSheetScaffoldState.bottomSheetState.expand()
             navHostController.navigateUp()
 
@@ -67,8 +69,7 @@ fun NewBluetoothGameView(
             .padding(16.dp, 8.dp)
     ) {
 
-        val context = LocalContext.current
-        val bluetoothController = BluetoothController(context as MainActivity)
+        val bluetoothController = BluetoothController(context)
 
         val selectedColor by newBluetoothGameViewModel.selectedColor.collectAsState()
         val selectedDevice by newBluetoothGameViewModel.selectedDevice.collectAsState()

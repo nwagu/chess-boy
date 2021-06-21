@@ -1,5 +1,6 @@
 package com.nwagu.chess.board
 
+import com.nwagu.chess.convention.getFen
 import com.nwagu.chess.moves.Move
 
 typealias Square = Int
@@ -16,6 +17,12 @@ class Board(
     var whiteKingPosition: Int = 0
 
     init {
+        reset()
+    }
+
+    fun reset() {
+        movesHistory.clear()
+        captives.clear()
         repeat(numberOfColumns * numberOfRows) { index ->
             squaresMap[index] = EmptySquare
         }
@@ -31,6 +38,10 @@ class Board(
 
     fun setSquareOccupant(square: Square, piece: SquareOccupant) {
         squaresMap[square] = piece
+    }
+
+    fun compareTo(fen: String): Boolean {
+        return (fen == getFen())
     }
 
 }

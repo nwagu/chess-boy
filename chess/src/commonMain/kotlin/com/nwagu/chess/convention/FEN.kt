@@ -25,6 +25,8 @@ fun Board.loadStandardStartingPosition() {
 * */
 fun Board.loadPositionFromFen(fen: String) {
 
+    reset()
+
     val pieceArrangement = fen.takeWhile { it != ' ' }
 
     val rowPositions = pieceArrangement.split("/")
