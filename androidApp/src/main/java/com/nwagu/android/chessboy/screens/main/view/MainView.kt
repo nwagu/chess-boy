@@ -13,28 +13,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.nwagu.android.chessboy.R
 import com.nwagu.android.chessboy.dialogs.DialogController
 import com.nwagu.android.chessboy.screens.history.view.HistoryView
-import com.nwagu.android.chessboy.screens.SettingsView
+import com.nwagu.android.chessboy.screens.settings.SettingsView
 import com.nwagu.android.chessboy.screens.analysis.view.GameAnalysisView
-import com.nwagu.android.chessboy.screens.main.vm.MainViewModel
 import com.nwagu.android.chessboy.screens.model.Screen
 import com.nwagu.android.chessboy.screens.newgame.view.NewBluetoothGameView
 import com.nwagu.android.chessboy.screens.newgame.view.NewGameView
 import com.nwagu.android.chessboy.screens.play.view.PlayView
 import com.nwagu.android.chessboy.ui.data.QuickAction
-import com.nwagu.android.chessboy.ui.data.ScreenConfig
 import com.nwagu.android.chessboy.util.isBluetoothGame
 import com.nwagu.android.chessboy.widgets.Header
-import com.nwagu.android.chessboy.widgets.PreviousGameView
 import com.nwagu.android.chessboy.widgets.QuickActionView
 import com.nwagu.android.chessboy.widgets.SimpleFlowRow
 import kotlinx.coroutines.launch
@@ -44,11 +39,6 @@ import kotlinx.coroutines.launch
 @ExperimentalFoundationApi
 @Composable
 fun MainView(dialogController: DialogController) {
-
-    val context = LocalContext.current as MainActivity
-    val screenConfig = context.screenConfig
-    val mainViewModel = context.mainViewModel
-    val playViewModel = context.playViewModel
 
     val navHostController = rememberNavController()
 
@@ -79,76 +69,7 @@ fun MainView(dialogController: DialogController) {
 
             NavHost(navHostController, startDestination = Screen.Home.route) {
                 composable(Screen.Home.route) {
-
-                    Column(
-                        modifier = Modifier
-                            .background(color = Color.White)
-                            .padding(16.dp)
-                            .fillMaxHeight()
-                            .verticalScroll(rememberScrollState())
-                    ) {
-
-                        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                            Image(
-                                painter = painterResource(R.drawable.logo),
-                                modifier = Modifier
-                                    .width(100.dp),
-                                contentDescription = "Chess Boy Logo",
-                                contentScale = ContentScale.Fit
-                            )
-                        }
-
-                        Header(Modifier.padding(0.dp, 16.dp),"Quick Actions")
-
-                        val quickActions = listOf(
-                            QuickAction("Continue current game", R.drawable.img_white_king) {
-                                coroutineScope.launch {
-                                    bottomSheetScaffoldState.bottomSheetState.expand()
-                                }
-                            },
-                            QuickAction("New game", R.drawable.img_white_king) {
-                                navHostController.navigate(Screen.NewGame.route)
-                            },
-                            QuickAction("New bluetooth game", R.drawable.img_white_king) {
-                                if (playViewModel.game.isBluetoothGame())
-                                    playViewModel.endCurrentGame()
-                                navHostController.navigate(Screen.NewBluetoothGame.route)
-                            }
-                        )
-
-                        SimpleFlowRow {
-                            repeat(quickActions.size) {
-                                QuickActionView(quickActions[it])
-                            }
-                        }
-
-                        Row(
-                            verticalAlignment = Alignment.Bottom
-                        ) {
-                            Header(Modifier.padding(0.dp, 16.dp).weight(1f), "Most recent games")
-                            Text(
-                                modifier = Modifier
-                                    .clickable(onClick = {
-                                        navHostController.navigate(Screen.History.route)
-                                    })
-                                    .padding(16.dp),
-                                text = "View all",
-                                style = TextStyle(color = Color.Blue, fontSize = 15.sp, fontWeight = FontWeight.Bold)
-                            )
-                        }
-
-                        val mostRecentGames = mainViewModel.getGamesHistory().takeLast(3)
-
-                        Column {
-                            for (gamePgn in mostRecentGames.asReversed()) {
-                                PreviousGameView(modifier = Modifier.fillMaxWidth(), gamePgn) {
-                                    context.gameAnalysisViewModel.pgn = gamePgn
-                                    navHostController.navigate(Screen.GameAnalysis.route)
-                                }
-                            }
-                        }
-
-                    }
+                    HomeView(bottomSheetScaffoldState, navHostController)
                 }
                 composable(Screen.NewGame.route) {
                     NewGameView(bottomSheetScaffoldState, navHostController, dialogController)
@@ -163,7 +84,7 @@ fun MainView(dialogController: DialogController) {
                     HistoryView(navHostController, dialogController)
                 }
                 composable(Screen.Settings.route) {
-                    SettingsView(screenConfig, navHostController, dialogController)
+                    SettingsView(navHostController, dialogController)
                 }
             }
 
@@ -178,5 +99,76 @@ fun MainView(dialogController: DialogController) {
         }
     }
 
+}
+
+@ExperimentalMaterialApi
+@Composable
+fun HomeView(
+    bottomSheetScaffoldState: BottomSheetScaffoldState,
+    navHostController: NavHostController
+) {
+
+    val context = LocalContext.current as MainActivity
+    val playViewModel = context.playViewModel
+
+    val coroutineScope = rememberCoroutineScope()
+
+    Column(
+        modifier = Modifier
+            .background(color = Color.White)
+            .padding(16.dp)
+            .fillMaxHeight()
+            .verticalScroll(rememberScrollState())
+    ) {
+
+        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+            Image(
+                painter = painterResource(R.drawable.logo),
+                modifier = Modifier
+                    .width(100.dp),
+                contentDescription = "Chess Boy Logo",
+                contentScale = ContentScale.Fit
+            )
+        }
+
+        Header(Modifier.padding(0.dp, 16.dp),"Play")
+
+        val playActions = listOf(
+            QuickAction("Continue current game", R.drawable.img_white_king) {
+                coroutineScope.launch {
+                    bottomSheetScaffoldState.bottomSheetState.expand()
+                }
+            },
+            QuickAction("New game", R.drawable.img_white_king) {
+                navHostController.navigate(Screen.NewGame.route)
+            },
+            QuickAction("New bluetooth game", R.drawable.img_white_king) {
+                if (playViewModel.game.isBluetoothGame())
+                    playViewModel.endCurrentGame()
+                navHostController.navigate(Screen.NewBluetoothGame.route)
+            }
+        )
+
+        SimpleFlowRow {
+            repeat(playActions.size) {
+                QuickActionView(playActions[it])
+            }
+        }
+
+        Header(Modifier.padding(0.dp, 16.dp),"History")
+
+        val historyActions = listOf(
+            QuickAction("Most recent games", R.drawable.img_white_king) {
+                navHostController.navigate(Screen.History.route)
+            }
+        )
+
+        SimpleFlowRow {
+            repeat(historyActions.size) {
+                QuickActionView(historyActions[it])
+            }
+        }
+
+    }
 }
 
