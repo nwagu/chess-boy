@@ -139,7 +139,7 @@ fun HomeView(
                     bottomSheetScaffoldState.bottomSheetState.expand()
                 }
             },
-            QuickAction("New game", R.drawable.img_white_king) {
+            QuickAction("New game with computer", R.drawable.img_white_king) {
                 navHostController.navigate(Screen.NewGame.route)
             },
             QuickAction("New bluetooth game", R.drawable.img_white_king) {
@@ -158,7 +158,7 @@ fun HomeView(
         Header(Modifier.padding(0.dp, 16.dp),"History")
 
         val historyActions = listOf(
-            QuickAction("Most recent games", R.drawable.img_white_king) {
+            QuickAction("Your recent games", R.drawable.img_white_king) {
                 navHostController.navigate(Screen.History.route)
             }
         )
