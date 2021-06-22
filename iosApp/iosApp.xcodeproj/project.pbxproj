@@ -9,8 +9,7 @@
 /* Begin PBXBuildFile section */
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 		B3412FE6267F0B3E00AE7470 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3412FE5267F0B3E00AE7470 /* Assets.xcassets */; };
-		B3F48247267EE7A200002DDA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F48246267EE7A200002DDA /* AppDelegate.swift */; };
-		B3F48249267EE7BA00002DDA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F48248267EE7BA00002DDA /* SceneDelegate.swift */; };
+		B3D4E19E2681EA6B002BB5E2 /* ChessBoy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D4E19D2681EA6B002BB5E2 /* ChessBoy.swift */; };
 		F27E8B25D22AA9AFAD19416E /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F42204A97754A79718749B /* Pods_iosApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -22,8 +21,7 @@
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B3412FE5267F0B3E00AE7470 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = iosApp/Assets.xcassets; sourceTree = SOURCE_ROOT; };
-		B3F48246267EE7A200002DDA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B3F48248267EE7BA00002DDA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		B3D4E19D2681EA6B002BB5E2 /* ChessBoy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBoy.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,11 +57,10 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
-				B3F48246267EE7A200002DDA /* AppDelegate.swift */,
 				7555FF82242A565900829871 /* ContentView.swift */,
 				7555FF8C242A565B00829871 /* Info.plist */,
-				B3F48248267EE7BA00002DDA /* SceneDelegate.swift */,
 				B3412FE5267F0B3E00AE7470 /* Assets.xcassets */,
+				B3D4E19D2681EA6B002BB5E2 /* ChessBoy.swift */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -180,9 +177,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3F48247267EE7A200002DDA /* AppDelegate.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
-				B3F48249267EE7BA00002DDA /* SceneDelegate.swift in Sources */,
+				B3D4E19E2681EA6B002BB5E2 /* ChessBoy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,7 +311,7 @@
 				ENABLE_PREVIEWS = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = iosApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -337,7 +333,7 @@
 				ENABLE_PREVIEWS = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = iosApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
