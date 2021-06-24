@@ -1,7 +1,11 @@
 package com.nwagu.android.chessboy.screens.newgame.view
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.BottomSheetScaffoldState
@@ -16,16 +20,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.nwagu.android.chessboy.dialogs.DialogController
-import com.nwagu.android.chessboy.ui.data.ScreenConfig
 import com.nwagu.android.chessboy.players.MoveGenerator
 import com.nwagu.android.chessboy.players.User
 import com.nwagu.android.chessboy.screens.main.view.MainActivity
-import com.nwagu.android.chessboy.screens.play.vm.PlayViewModel
-import com.nwagu.android.chessboy.screens.newgame.vm.NewGameViewModel
 import com.nwagu.android.chessboy.widgets.*
 import com.nwagu.chess.enums.ChessPieceColor
 import kotlinx.coroutines.launch
 
+@ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @Composable

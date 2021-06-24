@@ -3,6 +3,7 @@ package com.nwagu.android.chessboy.screens.newgame.view
 import android.content.Context
 import android.location.LocationManager
 import android.os.Build
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -22,18 +23,17 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.nwagu.android.chessboy.bluetooth.BluetoothController
 import com.nwagu.android.chessboy.dialogs.DialogController
-import com.nwagu.android.chessboy.ui.data.ScreenConfig
 import com.nwagu.android.chessboy.players.BluetoothPlayer
 import com.nwagu.android.chessboy.screens.main.view.MainActivity
 import com.nwagu.android.chessboy.screens.model.Dialog
 import com.nwagu.android.chessboy.ui.AppColor
-import com.nwagu.android.chessboy.vm.NewBluetoothGameViewModel
 import com.nwagu.android.chessboy.vm.ScanState
 import com.nwagu.android.chessboy.widgets.*
 import com.nwagu.bluetoothchat.BluetoothChatService
 import com.nwagu.chess.enums.ChessPieceColor
 import kotlinx.coroutines.launch
 
+@ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @Composable

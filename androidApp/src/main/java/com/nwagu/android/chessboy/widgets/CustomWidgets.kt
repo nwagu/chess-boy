@@ -1,6 +1,7 @@
 package com.nwagu.android.chessboy.widgets
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -59,7 +60,8 @@ fun QuickActionView(
         },
         shape = RoundedCornerShape(8.dp),
         backgroundColor = Color.White,
-        elevation = 2.dp
+        border = BorderStroke(1.dp, Color.LightGray),
+        elevation = 0.dp
     ) {
 
         Box(
