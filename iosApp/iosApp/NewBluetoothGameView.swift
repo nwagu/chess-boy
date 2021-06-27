@@ -6,4 +6,10 @@
 //  Copyright © 2021 orgName. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
+
+struct NewBluetoothGameView: View {
+    var body: some View {
+        Text("New Bluetooth Game")
+    }
+}

@@ -21,6 +21,6 @@ fun Board.getBishopMovesFrom(source: Square): List<Move> {
 
 fun Board.canBishopMoveFrom(source: Square, destination: Square): Boolean {
 
-    // A bishop can go to cells that are on the same diagonal
+    // A bishop can go to squares that are on the same diagonal
     return destination != source && areSquaresClearOnSameDiagonal(destination, source)
 }

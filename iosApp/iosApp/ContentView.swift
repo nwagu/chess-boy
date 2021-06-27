@@ -2,41 +2,57 @@ import SwiftUI
 import chess
 
 struct ContentView: View {
+    
+    @State private var isShowingNewGameView = false
+    @State private var isShowingNewBluetoothGameView = false
+    @State private var isShowingHistoryView = false
+    
 	var body: some View {
-        VStack(alignment: .leading) {
-            
-            HStack {
-                Image("logo")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 100)
+        NavigationView {
+            VStack(alignment: .leading) {
+                
+                NavigationLink(destination: NewGameView(), isActive: $isShowingNewGameView) { EmptyView() }
+                NavigationLink(destination: NewBluetoothGameView(), isActive: $isShowingNewBluetoothGameView) { EmptyView() }
+                NavigationLink(destination: HistoryView(), isActive: $isShowingHistoryView) { EmptyView() }
+                    
+                Text("Play")
+                    .font(.headline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.orange)
+                
+                let playActions = [
+                    QuickAction(displayName: "Continue current game", action: { isShowingHistoryView = true }),
+                    QuickAction(displayName: "New game", action: { isShowingNewGameView = true }),
+                    QuickAction(displayName: "New bluetooth game", action: { isShowingNewBluetoothGameView = true })
+                ]
+                
+                FlowRow(views: playActions)
+                
+                Text("History")
+                    .font(.headline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.orange)
+                
+                let historyActions = [
+                    QuickAction(displayName:"Recent games", action: {isShowingHistoryView = true})
+                ]
+                
+                FlowRow(views: historyActions)
+                
+                Spacer()
             }
             .frame(
                   minWidth: 0,
                   maxWidth: .infinity,
-                  alignment: .center)
-                
-            Text("Play")
-                .font(.headline)
-                .fontWeight(.semibold)
-                .foregroundColor(.orange)
-            
-            Text("History")
-                .font(.headline)
-                .fontWeight(.semibold)
-                .foregroundColor(.orange)
-            
-            Spacer()
+                  minHeight: 0,
+                  maxHeight: .infinity,
+                  alignment: .topLeading
+                )
+            .padding()
+            .navigationBarTitle(Text("Chess Boy"), displayMode: .inline)
         }
-        .frame(
-              minWidth: 0,
-              maxWidth: .infinity,
-              minHeight: 0,
-              maxHeight: .infinity,
-              alignment: .topLeading
-            )
-        .padding()
-	}
+
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {

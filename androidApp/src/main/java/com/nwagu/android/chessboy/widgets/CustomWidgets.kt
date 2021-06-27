@@ -10,19 +10,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.nwagu.android.chessboy.ui.AppColor
 import com.nwagu.android.chessboy.ui.data.LightAction
 import com.nwagu.android.chessboy.ui.data.QuickAction
-import com.nwagu.android.chessboy.players.getPlayerWithId
-import com.nwagu.android.chessboy.screens.main.view.MainActivity
-import com.nwagu.android.chessboy.ui.AppColor
-import com.nwagu.chess.Game
 import com.nwagu.chess.board.Board
-import com.nwagu.chess.convention.*
+import com.nwagu.chess.convention.PGN_HEADER_BLACK_PLAYER
+import com.nwagu.chess.convention.PGN_HEADER_WHITE_PLAYER
+import com.nwagu.chess.convention.getHeaderValueFromPgn
+import com.nwagu.chess.convention.importMovesFromPGN
 
 @Composable
 fun Header(modifier: Modifier = Modifier, text: String) {
