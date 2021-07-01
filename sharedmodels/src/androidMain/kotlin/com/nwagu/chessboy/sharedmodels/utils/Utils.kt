@@ -21,7 +21,7 @@ actual fun ChessPiece.imageRes(): ImageRes {
 /*@ColorRes*/
 actual fun SquareColor.colorResource(): ColorRes {
     return when (this) {
-        SquareColor.WHITE -> android.R.color.darker_gray
-        SquareColor.BLACK -> android.R.color.holo_red_dark
+        SquareColor.WHITE -> R.color.lightSquare
+        SquareColor.BLACK -> R.color.darkSquare
     }
 }
