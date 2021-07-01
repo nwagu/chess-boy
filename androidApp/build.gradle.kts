@@ -39,8 +39,9 @@ android {
 }
 
 dependencies {
-    implementation(project(":bluetoothchat"))
     implementation(project(":chess"))
+    implementation(project(":bluetoothchat"))
+    implementation(project(":sharedmodels"))
     implementation(project(":jwtc"))
     implementation(project(":stockfish"))
     implementation(project(":igel"))

@@ -77,20 +77,10 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
-				7555FF82242A565900829871 /* ContentView.swift */,
+				B335ECEA268C9D28006BDB70 /* View */,
 				7555FF8C242A565B00829871 /* Info.plist */,
 				B3412FE5267F0B3E00AE7470 /* Assets.xcassets */,
 				B3D4E19D2681EA6B002BB5E2 /* ChessBoy.swift */,
-				B3F082BB2687D58C00038199 /* GameView.swift */,
-				B3F082BD2687D5A700038199 /* HomeView.swift */,
-				B3F082C72688544800038199 /* QuickActionView.swift */,
-				B3F082BF2687D5C100038199 /* HistoryView.swift */,
-				B3F082C12687D5D800038199 /* NewGameView.swift */,
-				B3F082C32687D5E800038199 /* NewBluetoothGameView.swift */,
-				B3F082C92688634900038199 /* QuickAction.swift */,
-				B3F082CB2688910A00038199 /* FlowRow.swift */,
-				B3F082CD2688A07200038199 /* PlayView.swift */,
-				B3F082CF2688A23200038199 /* ChessBoardView.swift */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -102,6 +92,40 @@
 				2F73FB75F585DC0BEAFB1B26 /* Pods-iosApp.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		B335ECEA268C9D28006BDB70 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B335ECEC268C9DBB006BDB70 /* Model */,
+				B335ECEB268C9D59006BDB70 /* Basic */,
+				B3F082BB2687D58C00038199 /* GameView.swift */,
+				7555FF82242A565900829871 /* ContentView.swift */,
+				B3F082CD2688A07200038199 /* PlayView.swift */,
+				B3F082BD2687D5A700038199 /* HomeView.swift */,
+				B3F082C12687D5D800038199 /* NewGameView.swift */,
+				B3F082C32687D5E800038199 /* NewBluetoothGameView.swift */,
+				B3F082BF2687D5C100038199 /* HistoryView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B335ECEB268C9D59006BDB70 /* Basic */ = {
+			isa = PBXGroup;
+			children = (
+				B3F082CF2688A23200038199 /* ChessBoardView.swift */,
+				B3F082CB2688910A00038199 /* FlowRow.swift */,
+				B3F082C72688544800038199 /* QuickActionView.swift */,
+			);
+			path = Basic;
+			sourceTree = "<group>";
+		};
+		B335ECEC268C9DBB006BDB70 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B3F082C92688634900038199 /* QuickAction.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		C31EA3CF5EE84EACFDCC6B59 /* Frameworks */ = {

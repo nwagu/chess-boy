@@ -20,8 +20,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.nwagu.android.chessboy.dialogs.DialogController
-import com.nwagu.android.chessboy.players.MoveGenerator
-import com.nwagu.android.chessboy.players.User
+import com.nwagu.chessboy.sharedmodels.players.*
 import com.nwagu.android.chessboy.screens.main.view.MainActivity
 import com.nwagu.android.chessboy.widgets.*
 import com.nwagu.chess.enums.ChessPieceColor

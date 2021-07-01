@@ -23,11 +23,11 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.nwagu.android.chessboy.bluetooth.BluetoothController
 import com.nwagu.android.chessboy.dialogs.DialogController
-import com.nwagu.android.chessboy.players.BluetoothPlayer
+import com.nwagu.chessboy.sharedmodels.players.BluetoothPlayer
 import com.nwagu.android.chessboy.screens.main.view.MainActivity
 import com.nwagu.android.chessboy.screens.model.Dialog
 import com.nwagu.android.chessboy.ui.AppColor
-import com.nwagu.android.chessboy.vm.ScanState
+import com.nwagu.android.chessboy.screens.newgame.vm.ScanState
 import com.nwagu.android.chessboy.widgets.*
 import com.nwagu.bluetoothchat.BluetoothChatService
 import com.nwagu.chess.enums.ChessPieceColor

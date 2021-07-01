@@ -19,22 +19,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.nwagu.android.chessboy.dialogs.DialogController
 import com.nwagu.android.chessboy.dialogs.KEY_PROMOTION_PIECE
 import com.nwagu.android.chessboy.screens.model.Dialog
 import com.nwagu.android.chessboy.ui.AppColor
-import com.nwagu.android.chessboy.util.colorResource
-import com.nwagu.android.chessboy.util.imageRes
 import com.nwagu.android.chessboy.screens.play.vm.PlayViewModel
-import com.nwagu.android.chessboy.util.colorOnUserSideOfBoard
 import com.nwagu.chess.board.ChessPiece
 import com.nwagu.chess.board.isOnCheck
 import com.nwagu.chess.board.squareColor
 import com.nwagu.chess.enums.ChessPieceColor
 import com.nwagu.chess.enums.ChessPieceType
 import com.nwagu.chess.moves.Promotion
+import com.nwagu.chessboy.sharedmodels.utils.colorOnUserSideOfBoard
+import com.nwagu.chessboy.sharedmodels.utils.colorResource
+import com.nwagu.chessboy.sharedmodels.utils.imageRes
 import java.io.Serializable
 
 @ExperimentalAnimationApi
@@ -77,7 +78,7 @@ fun ChessBoardView(
 
                 Box(modifier = Modifier
                     .fillMaxSize()
-                    .background(squareColor)
+                    .background(colorResource(squareColor))
                     .aspectRatio(1.0f)
                     .clickable(
                         onClick = {

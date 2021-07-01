@@ -17,11 +17,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.nwagu.android.chessboy.players.GUIPlayer
 import com.nwagu.android.chessboy.screens.play.vm.PlayViewModel
 import com.nwagu.chess.board.isStaleMate
 import com.nwagu.chess.board.turn
 import com.nwagu.chess.enums.ChessPieceColor
+import com.nwagu.chessboy.sharedmodels.players.GUIPlayer
 
 @ExperimentalAnimationApi
 @Composable

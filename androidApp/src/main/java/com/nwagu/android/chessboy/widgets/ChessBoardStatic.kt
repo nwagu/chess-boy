@@ -13,14 +13,15 @@ import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import com.nwagu.android.chessboy.ui.AppColor
-import com.nwagu.android.chessboy.util.colorResource
 import com.nwagu.chess.board.Board
 import com.nwagu.chess.board.ChessPiece
 import com.nwagu.chess.board.isOnCheck
 import com.nwagu.chess.board.squareColor
 import com.nwagu.chess.enums.ChessPieceColor
+import com.nwagu.chessboy.sharedmodels.utils.colorResource
 
 @ExperimentalAnimationApi
 @ExperimentalFoundationApi
@@ -49,7 +50,7 @@ fun ChessBoardStatic(
 
             Box(modifier = Modifier
                 .fillMaxSize()
-                .background(squareColor)
+                .background(colorResource(squareColor))
                 .aspectRatio(1.0f)
             ) {
                 board.squaresMap[square]?.let { occupant ->

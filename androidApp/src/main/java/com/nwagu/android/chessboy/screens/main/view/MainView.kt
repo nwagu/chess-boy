@@ -28,10 +28,10 @@ import com.nwagu.android.chessboy.screens.newgame.view.NewBluetoothGameView
 import com.nwagu.android.chessboy.screens.newgame.view.NewGameView
 import com.nwagu.android.chessboy.screens.play.view.PlayView
 import com.nwagu.android.chessboy.ui.data.QuickAction
-import com.nwagu.android.chessboy.util.isBluetoothGame
 import com.nwagu.android.chessboy.widgets.Header
 import com.nwagu.android.chessboy.widgets.QuickActionView
 import com.nwagu.android.chessboy.widgets.SimpleFlowRow
+import com.nwagu.chessboy.sharedmodels.utils.isBluetoothGame
 import kotlinx.coroutines.launch
 
 @ExperimentalMaterialApi

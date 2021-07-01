@@ -26,20 +26,20 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.nwagu.android.chessboy.bluetooth.BluetoothController
 import com.nwagu.android.chessboy.dialogs.DialogController
-import com.nwagu.android.chessboy.ui.data.LightAction
-import com.nwagu.android.chessboy.ui.data.ScreenConfig
-import com.nwagu.android.chessboy.players.BluetoothPlayer
 import com.nwagu.android.chessboy.screens.main.view.MainActivity
 import com.nwagu.android.chessboy.screens.play.vm.PlayViewModel
-import com.nwagu.android.chessboy.util.colorOnUserSideOfBoard
-import com.nwagu.android.chessboy.util.isBluetoothGame
-import com.nwagu.android.chessboy.util.userColor
+import com.nwagu.android.chessboy.ui.data.LightAction
+import com.nwagu.android.chessboy.ui.data.ScreenConfig
 import com.nwagu.android.chessboy.widgets.ChessBoardView
 import com.nwagu.android.chessboy.widgets.LightActionView
 import com.nwagu.android.chessboy.widgets.PlayerDisplay
 import com.nwagu.bluetoothchat.BluetoothChatService.ConnectionState.*
 import com.nwagu.chess.enums.ChessPieceColor
 import com.nwagu.chess.enums.opposite
+import com.nwagu.chessboy.sharedmodels.players.BluetoothPlayer
+import com.nwagu.chessboy.sharedmodels.utils.colorOnUserSideOfBoard
+import com.nwagu.chessboy.sharedmodels.utils.isBluetoothGame
+import com.nwagu.chessboy.sharedmodels.utils.userColor
 
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi

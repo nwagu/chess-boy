@@ -1,12 +1,11 @@
-package com.nwagu.android.chessboy.vm
+package com.nwagu.android.chessboy.screens.newgame.vm
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import com.nwagu.android.chessboy.ui.data.BluetoothDevice
-import com.nwagu.android.chessboy.players.BluetoothPlayer
 import com.nwagu.android.chessboy.screens.common.BaseViewModel
 import com.nwagu.bluetoothchat.BluetoothChatService
 import com.nwagu.chess.enums.ChessPieceColor
+import com.nwagu.chessboy.sharedmodels.players.BluetoothPlayer
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class NewBluetoothGameViewModel(application: Application): BaseViewModel(application) {

@@ -19,12 +19,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.nwagu.android.chessboy.players.GUIPlayer
-import com.nwagu.android.chessboy.players.UCIChessEngine
 import com.nwagu.android.chessboy.ui.AppColor
+import com.nwagu.chessboy.sharedmodels.players.SelectablePlayer
+import com.nwagu.chessboy.sharedmodels.players.UCIChessEngine
 import kotlin.math.roundToInt
-
-abstract class SelectablePlayer: GUIPlayer()
 
 @ExperimentalAnimationApi
 @ExperimentalMaterialApi
