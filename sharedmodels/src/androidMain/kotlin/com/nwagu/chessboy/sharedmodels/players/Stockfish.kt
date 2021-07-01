@@ -139,7 +139,7 @@ actual class Stockfish(val context: Context) : UCIChessEngine() {
                         .removePrefix("bestmove ")
                         .trimStart()
                         .takeWhile { it != ' ' && it != '\n' }
-                    if (uciMovePattern.matcher(move).matches()) {
+                    if (uciMovePattern.matches(move)) {
                         Kermit().i { move }
                         chessEngineMove.value = move
                     }

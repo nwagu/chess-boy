@@ -3,7 +3,7 @@ package com.nwagu.chessboy.sharedmodels.players
 import android.content.Context
 import com.nwagu.chess.Player
 
-actual fun getPlayerWithId(context: Context, id: String): Player {
+fun getPlayerWithId(context: Context, id: String): Player {
     return when {
         id == PlayersRegister.USER -> User
         id == PlayersRegister.RANDOM -> RandomMoveGenerator()
