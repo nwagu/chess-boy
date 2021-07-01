@@ -5,7 +5,6 @@ import com.nwagu.chess.Player
 
 object PlayersRegister {
     const val USER = "User"
-    const val GRANDPA = "GRANDPA"
     const val RANDOM = "RANDOM"
     const val JWTC = "JWTC"
     const val BLUETOOTH = "BLUETOOTH"
