@@ -13,16 +13,15 @@ import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
-import com.nwagu.android.chessboy.players.User
 import com.nwagu.android.chessboy.ui.AppColor
-import com.nwagu.android.chessboy.util.colorResource
-import com.nwagu.chess.Game
 import com.nwagu.chess.board.Board
 import com.nwagu.chess.board.ChessPiece
 import com.nwagu.chess.board.isOnCheck
 import com.nwagu.chess.board.squareColor
 import com.nwagu.chess.enums.ChessPieceColor
+import com.nwagu.chessboy.sharedmodels.utils.colorResource
 
 @ExperimentalAnimationApi
 @ExperimentalFoundationApi
@@ -45,21 +44,21 @@ fun ChessBoardStatic(
             modifier = Modifier.padding(0.dp),
             numberOfColumns = board.numberOfColumns,
             items = List(board.squaresMap.count()) { it }
-        ) { cellPosition ->
+        ) { square ->
 
-            val cellColor = board.squareColor(cellPosition).colorResource()
+            val squareColor = board.squareColor(square).colorResource()
 
             Box(modifier = Modifier
                 .fillMaxSize()
-                .background(cellColor)
+                .background(colorResource(squareColor))
                 .aspectRatio(1.0f)
             ) {
-                board.squaresMap[cellPosition]?.let { occupant ->
+                board.squaresMap[square]?.let { occupant ->
                     if (occupant is ChessPiece)
                         ChessPieceView(piece = occupant)
                 }
 
-                if (cellPosition == lastMove?.source) {
+                if (square == lastMove?.source) {
                     val color = Color.Cyan
                     Box(
                         Modifier
@@ -68,7 +67,7 @@ fun ChessBoardStatic(
                     )
                 }
 
-                if (cellPosition == lastMove?.destination) {
+                if (square == lastMove?.destination) {
                     Box(
                         Modifier
                             .fillMaxSize()
@@ -76,10 +75,10 @@ fun ChessBoardStatic(
                     )
                 }
 
-                if ((cellPosition == board.blackKingPosition && board.isOnCheck(
+                if ((square == board.blackKingPosition && board.isOnCheck(
                         ChessPieceColor.BLACK
                     )) ||
-                    (cellPosition == board.whiteKingPosition && board.isOnCheck(
+                    (square == board.whiteKingPosition && board.isOnCheck(
                         ChessPieceColor.WHITE
                     ))
                 ) {

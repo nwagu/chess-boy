@@ -1,5 +1,6 @@
 package com.nwagu.android.chessboy.widgets
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.padding
@@ -7,7 +8,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.RadioButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -36,18 +36,11 @@ fun RadioCard(
             onClick()
         },
         shape = RoundedCornerShape(8.dp),
-        backgroundColor = if (isSelected) AppColor.PrimaryLight else Color.White,
-        elevation = 2.dp
+        backgroundColor = if (isSelected) AppColor.PrimaryLight else Color.Transparent,
+        border = BorderStroke(1.dp, if (isSelected) AppColor.Primary else Color.LightGray),
+        elevation = 0.dp
     ) {
         Box {
-            RadioButton(
-                modifier = Modifier.align(Alignment.TopEnd),
-                selected = isSelected,
-                enabled = enabled,
-                onClick = {
-                    onClick()
-                }
-            )
             Text(
                 modifier = Modifier.align(Alignment.Center),
                 text = text,

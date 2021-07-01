@@ -54,14 +54,14 @@ fun Board.areSquaresClearOnSameDiagonal(a: Square, b: Square): Boolean {
 
 fun Board.squaresBetweenSquaresOnRow(a: Square, b: Square): IntArray {
     if (!areSquaresOnSameRow(a, b))
-        throw IllegalArgumentException("The two cells must be in the same row!")
+        throw IllegalArgumentException("The two squares must be in the same row!")
 
     return (minOf(a, b) + 1 until maxOf(a, b)).toList().toIntArray()
 }
 
 fun Board.squaresBetweenSquaresOnColumn(a: Square, b: Square): IntArray {
     if (!areSquaresOnSameColumn(a, b))
-        throw IllegalArgumentException("The two cells must be in the same column!")
+        throw IllegalArgumentException("The two squares must be in the same column!")
 
     return ((minOf(row(a), row(b)) + 1) until maxOf(row(a), row(b))).toList().map { row ->
         square(row, column(a))
@@ -83,7 +83,7 @@ fun Board.squaresBetweenSquaresOnDiagonal(a: Square, b: Square): IntArray {
                 (row * numberOfColumns) + column
             }.toIntArray()
         }
-        else -> throw IllegalArgumentException("The two cells must be in the same diagonal!")
+        else -> throw IllegalArgumentException("The two squares must be in the same diagonal!")
     }
 
 }

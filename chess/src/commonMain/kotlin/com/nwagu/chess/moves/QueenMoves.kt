@@ -19,7 +19,7 @@ fun Board.getQueenMovesFrom(source: Square): List<Move> {
 
 fun Board.canQueenMoveFrom(source: Square, destination: Square): Boolean {
 
-    // A queen can go to cells that are on the same row, column or diagonal
+    // A queen can go to squares that are on the same row, column or diagonal
     return destination != source &&
             (areSquaresClearOnSameRow(source, destination) ||
                     areSquaresClearOnSameColumn(source, destination) ||

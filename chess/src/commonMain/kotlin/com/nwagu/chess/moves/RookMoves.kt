@@ -18,7 +18,7 @@ fun Board.getRookMovesFrom(source: Square): List<Move> {
 
 fun Board.canRookMoveFrom(source: Square, destination: Square): Boolean {
 
-    // A rook can go to cells that are on the same row or column
+    // A rook can go to squares that are on the same row or column
     return destination != source &&
             (areSquaresClearOnSameRow(destination, source) || areSquaresClearOnSameColumn(destination, source))
 }

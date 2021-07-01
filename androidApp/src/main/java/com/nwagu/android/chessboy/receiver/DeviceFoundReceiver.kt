@@ -5,7 +5,7 @@ import android.bluetooth.BluetoothDevice
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.nwagu.android.chessboy.vm.NewBluetoothGameViewModel
+import com.nwagu.android.chessboy.screens.newgame.vm.NewBluetoothGameViewModel
 
 class DeviceFoundReceiver(
     private val viewModelNew: NewBluetoothGameViewModel

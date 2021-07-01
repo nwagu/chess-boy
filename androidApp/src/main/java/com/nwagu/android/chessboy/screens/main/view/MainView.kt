@@ -28,10 +28,10 @@ import com.nwagu.android.chessboy.screens.newgame.view.NewBluetoothGameView
 import com.nwagu.android.chessboy.screens.newgame.view.NewGameView
 import com.nwagu.android.chessboy.screens.play.view.PlayView
 import com.nwagu.android.chessboy.ui.data.QuickAction
-import com.nwagu.android.chessboy.util.isBluetoothGame
 import com.nwagu.android.chessboy.widgets.Header
 import com.nwagu.android.chessboy.widgets.QuickActionView
 import com.nwagu.android.chessboy.widgets.SimpleFlowRow
+import com.nwagu.chessboy.sharedmodels.utils.isBluetoothGame
 import kotlinx.coroutines.launch
 
 @ExperimentalMaterialApi
@@ -134,15 +134,15 @@ fun HomeView(
         Header(Modifier.padding(0.dp, 16.dp),"Play")
 
         val playActions = listOf(
-            QuickAction("Continue current game", R.drawable.img_white_king) {
+            QuickAction("Continue current game") {
                 coroutineScope.launch {
                     bottomSheetScaffoldState.bottomSheetState.expand()
                 }
             },
-            QuickAction("New game with computer", R.drawable.img_white_king) {
+            QuickAction("New game with computer") {
                 navHostController.navigate(Screen.NewGame.route)
             },
-            QuickAction("New bluetooth game", R.drawable.img_white_king) {
+            QuickAction("New bluetooth game") {
                 if (playViewModel.game.isBluetoothGame())
                     playViewModel.endCurrentGame()
                 navHostController.navigate(Screen.NewBluetoothGame.route)
@@ -158,7 +158,7 @@ fun HomeView(
         Header(Modifier.padding(0.dp, 16.dp),"History")
 
         val historyActions = listOf(
-            QuickAction("Your recent games", R.drawable.img_white_king) {
+            QuickAction("Your recent games") {
                 navHostController.navigate(Screen.History.route)
             }
         )

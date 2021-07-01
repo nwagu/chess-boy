@@ -1,8 +1,16 @@
 package com.nwagu.android.chessboy.widgets
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Slider
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -11,14 +19,12 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.nwagu.android.chessboy.players.GUIPlayer
-import com.nwagu.android.chessboy.players.UCIChessEngine
 import com.nwagu.android.chessboy.ui.AppColor
-import com.nwagu.chess.Player
+import com.nwagu.chessboy.sharedmodels.players.SelectablePlayer
+import com.nwagu.chessboy.sharedmodels.players.UCIChessEngine
 import kotlin.math.roundToInt
 
-abstract class SelectablePlayer: GUIPlayer()
-
+@ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @Composable
 fun OpponentSelect(
@@ -44,6 +50,7 @@ fun OpponentSelect(
 
 }
 
+@ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @Composable
 fun PlayerSelect(
@@ -59,6 +66,7 @@ fun PlayerSelect(
         },
         shape = RoundedCornerShape(4.dp),
         backgroundColor = if (isSelected) AppColor.PrimaryLight else Color.Transparent,
+        border = BorderStroke(1.dp, if (isSelected) AppColor.Primary else Color.Transparent),
         elevation = 0.dp
     ) {
         Column(
@@ -73,22 +81,18 @@ fun PlayerSelect(
                     .height(60.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-
                 Text(
                     modifier = Modifier.weight(1f),
                     text = player.name,
                 )
-                RadioButton(
-                    selected = isSelected,
-                    onClick = {
-                        onSelect(player)
-                    }
-                )
-
             }
 
             // advanced settings space
-            if (isSelected) {
+            AnimatedVisibility(
+                visible = isSelected,
+                enter = expandVertically(),
+                exit = shrinkVertically()
+            ) {
                 Box {
                     Column {
                         if (player is UCIChessEngine) {

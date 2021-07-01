@@ -18,6 +18,7 @@
             <option value="$PROJECT_DIR$/ethereal" />
             <option value="$PROJECT_DIR$/igel" />
             <option value="$PROJECT_DIR$/jwtc" />
+            <option value="$PROJECT_DIR$/sharedmodels" />
             <option value="$PROJECT_DIR$/stockfish" />
           </set>
         </option>
