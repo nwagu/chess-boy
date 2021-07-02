@@ -25,3 +25,5 @@ actual fun SquareColor.colorResource(): ColorRes {
         SquareColor.BLACK -> R.color.darkSquare
     }
 }
+
+actual fun getDefaultPlayerAvatar(): ImageRes = R.drawable.img_avatar_default

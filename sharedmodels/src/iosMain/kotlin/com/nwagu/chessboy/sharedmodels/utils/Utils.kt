@@ -24,3 +24,5 @@ actual fun SquareColor.colorResource(): ColorRes {
         SquareColor.BLACK -> "black"
     }
 }
+
+actual fun getDefaultPlayerAvatar(): ImageRes = "img_avatar_default"

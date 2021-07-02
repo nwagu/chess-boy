@@ -3,6 +3,7 @@ package com.nwagu.android.chessboy.screens.play.vm
 import android.app.Application
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.viewModelScope
 import com.nwagu.android.chessboy.screens.common.BaseViewModel
 import com.nwagu.bluetoothchat.BluetoothChatService
 import com.nwagu.chess.Game
@@ -19,7 +20,6 @@ import com.nwagu.chessboy.sharedmodels.utils.initPlayers
 import com.nwagu.chessboy.sharedmodels.utils.isBluetoothGame
 import com.nwagu.chessboy.sharedmodels.utils.isUserTurn
 import com.nwagu.chessboy.sharedmodels.utils.userColor
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -196,7 +196,7 @@ class PlayViewModel(application: Application): BaseViewModel(application) {
     }
 
     fun getNextMove() {
-        GlobalScope.launch {
+        viewModelScope.launch {
 
             delay(100)
 
@@ -253,7 +253,7 @@ class PlayViewModel(application: Application): BaseViewModel(application) {
                 val _message = parseMessage(message)
                 when (_message) {
                     is BluetoothMessage.MoveMessage -> {
-                        GlobalScope.launch {
+                        viewModelScope.launch {
                             delay(200)
                             if (makeMove(_message.move)) {
                                 delay(200)

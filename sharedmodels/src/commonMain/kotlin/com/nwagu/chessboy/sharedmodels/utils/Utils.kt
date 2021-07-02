@@ -5,3 +5,4 @@ import com.nwagu.chess.enums.SquareColor
 
 expect fun ChessPiece.imageRes(): ImageRes
 expect fun SquareColor.colorResource(): ColorRes
+expect fun getDefaultPlayerAvatar(): ImageRes
