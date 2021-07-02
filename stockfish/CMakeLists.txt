@@ -10,32 +10,32 @@ add_library( # Specifies the name of the library.
         # Sets the library as a shared library.
         SHARED
         # Provides a relative path to your source file(s).
-        src/main/cpp/benchmark.cpp
-        src/main/cpp/bitbase.cpp
-        src/main/cpp/bitboard.cpp
-        src/main/cpp/endgame.cpp
-        src/main/cpp/evaluate.cpp
-        src/main/cpp/stockfish-lib.cpp
-        src/main/cpp/material.cpp
-        src/main/cpp/misc.cpp
-        src/main/cpp/movegen.cpp
-        src/main/cpp/movepick.cpp
-        src/main/cpp/pawns.cpp
-        src/main/cpp/position.cpp
-        src/main/cpp/psqt.cpp
-        src/main/cpp/search.cpp
-        src/main/cpp/thread.cpp
-        src/main/cpp/timeman.cpp
-        src/main/cpp/tt.cpp
-        src/main/cpp/uci.cpp
-        src/main/cpp/ucioption.cpp
-        src/main/cpp/syzygy/tbprobe.cpp
+        src/commonMain/cpp/benchmark.cpp
+        src/commonMain/cpp/bitbase.cpp
+        src/commonMain/cpp/bitboard.cpp
+        src/commonMain/cpp/endgame.cpp
+        src/commonMain/cpp/evaluate.cpp
+        src/commonMain/cpp/stockfish-lib.cpp
+        src/commonMain/cpp/material.cpp
+        src/commonMain/cpp/misc.cpp
+        src/commonMain/cpp/movegen.cpp
+        src/commonMain/cpp/movepick.cpp
+        src/commonMain/cpp/pawns.cpp
+        src/commonMain/cpp/position.cpp
+        src/commonMain/cpp/psqt.cpp
+        src/commonMain/cpp/search.cpp
+        src/commonMain/cpp/thread.cpp
+        src/commonMain/cpp/timeman.cpp
+        src/commonMain/cpp/tt.cpp
+        src/commonMain/cpp/uci.cpp
+        src/commonMain/cpp/ucioption.cpp
+        src/commonMain/cpp/syzygy/tbprobe.cpp
         )
 
 # Specifies a path to native header files.
 include_directories(
-        src/main/cpp/
-        src/main/cpp/syzygy
+        src/commonMain/cpp/
+        src/commonMain/cpp/syzygy
 )
 
 target_link_libraries(stockfish log)

@@ -6,6 +6,9 @@ import com.nwagu.chess.enums.ChessPieceType
 import com.nwagu.chess.enums.SquareColor
 import com.nwagu.chessboy.sharedmodels.R
 
+actual typealias ImageRes = /*@DrawableRes*/ Int
+actual typealias ColorRes = /*@ColorRes*/ Int
+
 /*@DrawableRes*/
 actual fun ChessPiece.imageRes(): ImageRes {
     return when (chessPieceType) {
@@ -25,3 +28,5 @@ actual fun SquareColor.colorResource(): ColorRes {
         SquareColor.BLACK -> R.color.darkSquare
     }
 }
+
+actual fun getDefaultPlayerAvatar(): ImageRes = R.drawable.img_avatar_default

@@ -23,18 +23,14 @@ kotlin {
         summary = "Some description for the Shared Module"
         homepage = "Link to the Shared Module homepage"
         ios.deploymentTarget = "14.1"
-        frameworkName = "sharedmodels"
+        frameworkName = "jwtc"
         podfile = project.file("../iosApp/Podfile")
     }
-    
+
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
-                implementation(project(":bluetoothchat"))
-                implementation(project(":chess"))
-                api("co.touchlab:kermit:0.1.9") // for logging
-                implementation(project(":jwtc"))
+                //
             }
         }
         val commonTest by getting {
@@ -45,8 +41,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation(project(":stockfish"))
-                implementation(project(":igel"))
+                //
             }
         }
         val androidTest by getting {
@@ -62,9 +57,24 @@ kotlin {
 
 android {
     compileSdk = 30
+    ndkVersion = "21.0.6113669"
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
         minSdk = 16
         targetSdk = 30
+        externalNativeBuild {
+            cmake {
+                arguments += listOf("-DANDROID_ARM_NEON=TRUE", "-DANDROID_CPP_FEATURES=rtti exceptions")
+            }
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path = file("CMakeLists.txt")
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 }

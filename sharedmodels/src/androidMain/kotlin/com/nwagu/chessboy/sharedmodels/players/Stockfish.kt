@@ -12,8 +12,9 @@ import com.nwagu.chess.convention.convertChessEngineMoveToMove
 import com.nwagu.chess.convention.getFen
 import com.nwagu.chess.moves.Move
 import com.nwagu.chessboy.sharedmodels.R
+import com.nwagu.chessboy.sharedmodels.utils.ImageRes
 import com.nwagu.stockfish.StockfishService
-import com.nwagu.stockfish.StockfishService.MSG_KEY
+import com.nwagu.stockfish.StockfishService.Companion.MSG_KEY
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,6 +29,7 @@ actual class Stockfish(val context: Context) : UCIChessEngine() {
         }
 
     override val name = "Stockfish"
+    override var avatar: ImageRes = R.drawable.img_avatar_stockfish
     override val minLevel = 1
     override val maxLevel = 10
     override var level: Int = 5

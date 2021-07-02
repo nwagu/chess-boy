@@ -23,18 +23,14 @@ kotlin {
         summary = "Some description for the Shared Module"
         homepage = "Link to the Shared Module homepage"
         ios.deploymentTarget = "14.1"
-        frameworkName = "sharedmodels"
+        frameworkName = "stockfish"
         podfile = project.file("../iosApp/Podfile")
     }
-    
+
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
-                implementation(project(":bluetoothchat"))
-                implementation(project(":chess"))
-                api("co.touchlab:kermit:0.1.9") // for logging
-                implementation(project(":jwtc"))
+                //
             }
         }
         val commonTest by getting {
@@ -45,8 +41,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation(project(":stockfish"))
-                implementation(project(":igel"))
+                //
             }
         }
         val androidTest by getting {
@@ -62,9 +57,30 @@ kotlin {
 
 android {
     compileSdk = 30
+    ndkVersion = "21.0.6113669"
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
         minSdk = 16
         targetSdk = 30
+        externalNativeBuild {
+            cmake {
+                abiFilters += listOf("x86", "x86_64", "armeabi-v7a", "arm64-v8a")
+                arguments += listOf("-DANDROID_TOOLCHAIN=clang", "-DANDROID_STL=c++_static")
+                cppFlags += listOf("-std=c++11 -frtti -fexceptions -DNDEBUG")
+            }
+        }
     }
+    externalNativeBuild {
+        cmake {
+            path = file("CMakeLists.txt")
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+}
+
+project.afterEvaluate {
+    tasks["javaPreCompileDebug"].dependsOn(tasks["externalNativeBuildDebug"])
 }

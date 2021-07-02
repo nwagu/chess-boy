@@ -2,7 +2,6 @@ plugins {
     id("com.android.application")
     kotlin("android")
     id("kotlin-parcelize")
-    id("kotlin-android")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
 }
@@ -42,9 +41,6 @@ dependencies {
     implementation(project(":chess"))
     implementation(project(":bluetoothchat"))
     implementation(project(":sharedmodels"))
-    implementation(project(":jwtc"))
-    implementation(project(":stockfish"))
-    implementation(project(":igel"))
 
     implementation("com.google.android.material:material:1.3.0")
     implementation("androidx.appcompat:appcompat:1.3.0")
