@@ -13,14 +13,9 @@ object Pos {
     // used to initialize values, no speed needed
 	@JvmStatic
 	fun fromString(s: String): Int {
-        //if(s.length() != 2)
-        //	co.pl("Cannot create Pos from: " + s);
         val c = s[0]
-        //if(c < 'a' || c > 'h')	
-        //	co.pl("Cannot create Pos from: " + c);
-        val col: Int
         val row = s.substring(1).toInt()
-        col = c.toInt() - 'a'.toInt()
+        val col = c.code - 'a'.code
         return (8 - row) * 8 + col
     }
 
@@ -46,7 +41,7 @@ object Pos {
     // returns string representation of the value; ie "d5"
     // @val positional value [0-63] - no check on valid range
     fun toString(`val`: Int): String {
-        return "" + (col(`val`) + 'a'.toInt()).toChar() + "" + (8 - row(`val`))
+        return "" + (col(`val`) + 'a'.code).toChar() + "" + (8 - row(`val`))
     }
 
     // returns string representation of the row of val - human represented so from bottom to top ["1"-"8"]
@@ -56,6 +51,6 @@ object Pos {
 
     // returns string representation of the column. ["a"-"h"]
     fun colToString(`val`: Int): String {
-        return "" + (col(`val`) + 'a'.toInt()).toChar()
+        return "" + (col(`val`) + 'a'.code).toChar()
     }
 }
