@@ -7,6 +7,9 @@ import com.nwagu.chess.enums.SquareColor
 import com.nwagu.chessboy.sharedmodels.utils.ColorRes
 import com.nwagu.chessboy.sharedmodels.utils.ImageRes
 
+actual typealias ImageRes = String
+actual typealias ColorRes = String
+
 actual fun ChessPiece.imageRes(): ImageRes {
     return when (chessPieceType) {
         ChessPieceType.QUEEN -> if (chessPieceColor == ChessPieceColor.WHITE) "img_white_queen" else "img_black_queen"
