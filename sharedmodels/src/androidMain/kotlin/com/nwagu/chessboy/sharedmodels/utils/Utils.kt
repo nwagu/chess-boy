@@ -30,3 +30,5 @@ actual fun SquareColor.colorResource(): ColorRes {
 }
 
 actual fun getDefaultPlayerAvatar(): ImageRes = R.drawable.img_avatar_default
+actual fun getBluetoothPlayerAvatar(): ImageRes = R.drawable.img_avatar_default
+actual fun getRandomMoveGeneratorAvatar(): ImageRes = R.drawable.img_avatar_random

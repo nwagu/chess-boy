@@ -1,4 +1,4 @@
-package com.nwagu.android.chessboy.screens.model
+package com.nwagu.android.chessboy.screens.navigation
 
 sealed class Screen(val route: String) {
     object Home : Screen("Home")

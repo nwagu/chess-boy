@@ -12,15 +12,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.nwagu.android.chessboy.dialogs.DialogController
-import com.nwagu.android.chessboy.ui.data.ScreenConfig
 import com.nwagu.android.chessboy.widgets.ScreenTopBar
 
 @ExperimentalMaterialApi
 @Composable
 fun SettingsView(
-    navHostController: NavHostController,
-    dialogController: DialogController,
+    navHostController: NavHostController
 ) {
 
     Column(modifier = Modifier

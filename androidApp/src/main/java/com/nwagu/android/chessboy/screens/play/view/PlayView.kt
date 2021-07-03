@@ -25,7 +25,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.nwagu.android.chessboy.bluetooth.BluetoothController
-import com.nwagu.android.chessboy.dialogs.DialogController
 import com.nwagu.android.chessboy.screens.main.view.MainActivity
 import com.nwagu.android.chessboy.screens.play.vm.PlayViewModel
 import com.nwagu.android.chessboy.ui.data.LightAction
@@ -46,8 +45,7 @@ import com.nwagu.chessboy.sharedmodels.utils.userColor
 @ExperimentalAnimationApi
 @Composable
 fun PlayView(
-    navHostController: NavHostController,
-    dialogController: DialogController
+    navHostController: NavHostController
 ) {
 
     val context = LocalContext.current as MainActivity
@@ -142,9 +140,9 @@ fun PlayView(
         }
 
         if (!isLandscape)
-            PlayViewPortrait(viewModel, navHostController, dialogController, gameActions)
+            PlayViewPortrait(viewModel, navHostController, gameActions)
         else
-            PlayViewLandscape(viewModel, screenConfig, navHostController, dialogController, gameActions)
+            PlayViewLandscape(viewModel, screenConfig, navHostController, gameActions)
     }
 
 }
@@ -156,7 +154,6 @@ fun PlayView(
 fun PlayViewPortrait(
     viewModel: PlayViewModel,
     navHostController: NavHostController,
-    dialogController: DialogController,
     gameActions: List<LightAction>
 ) {
 
@@ -166,7 +163,7 @@ fun PlayViewPortrait(
     ) {
         PlayerDisplay(modifier = Modifier, viewModel, viewModel.game.colorOnUserSideOfBoard.opposite())
         // CaptivesView(modifier = Modifier.fillMaxWidth(), viewModel, viewModel.game.colorOnUserSideOfBoard)
-        ChessBoardView(modifier = Modifier.fillMaxWidth(), dialogController, viewModel)
+        ChessBoardView(modifier = Modifier.fillMaxWidth(), navHostController, viewModel)
         // CaptivesView(modifier = Modifier.fillMaxWidth(), viewModel, viewModel.game.colorOnUserSideOfBoard.opposite())
         PlayerDisplay(modifier = Modifier, viewModel, viewModel.game.colorOnUserSideOfBoard)
         Row(modifier = Modifier
@@ -186,7 +183,6 @@ fun PlayViewLandscape(
     viewModel: PlayViewModel,
     screenConfig: ScreenConfig,
     navHostController: NavHostController,
-    dialogController: DialogController,
     gameActions: List<LightAction>
 ) {
 
@@ -223,7 +219,7 @@ fun PlayViewLandscape(
         ) {
             ChessBoardView(
                 modifier = Modifier.width((screenConfig.screenWidthDp - 64).dp),
-                dialogController,
+                navHostController,
                 viewModel
             )
         }

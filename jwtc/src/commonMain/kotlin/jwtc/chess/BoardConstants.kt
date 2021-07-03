@@ -6,7 +6,7 @@ object BoardConstants {
 	const val CHECK = 2
 	const val INVALID = 3 // only occurs when king can be hit or when invalid number of pieces is on the board (more than one king). can be used when setting up a new position
 	const val DRAW_MATERIAL = 4 // no one can win (ie KING against KING)
-	const val DRAW_50 = 5 // after 25 full moves no hit or pawnmove occured
+	const val DRAW_50 = 5 // after 25 full moves no hit or pawn move occurred
 	const val MATE = 6
 	const val STALEMATE = 7
 	const val DRAW_REPEAT = 8 // draw by repetition (3 times same board position)
@@ -49,25 +49,25 @@ object BoardConstants {
 	
 	// instead of calling a method row(pos), position is index on array for the rows
 	val ROW = arrayOf(
-			0, 0, 0, 0, 0, 0, 0, 0,
-			 1, 1, 1, 1, 1, 1, 1, 1, 
-			 2, 2, 2, 2, 2, 2, 2, 2,
-			 3, 3, 3, 3, 3, 3, 3, 3, 
-			 4, 4, 4, 4, 4, 4, 4, 4, 
-			 5, 5, 5, 5, 5, 5, 5, 5, 
-			 6, 6, 6, 6, 6, 6, 6, 6, 
-			 7, 7, 7, 7, 7, 7, 7, 7)
+		0, 0, 0, 0, 0, 0, 0, 0,
+		1, 1, 1, 1, 1, 1, 1, 1,
+		2, 2, 2, 2, 2, 2, 2, 2,
+		3, 3, 3, 3, 3, 3, 3, 3,
+		4, 4, 4, 4, 4, 4, 4, 4,
+		5, 5, 5, 5, 5, 5, 5, 5,
+		6, 6, 6, 6, 6, 6, 6, 6,
+		7, 7, 7, 7, 7, 7, 7, 7)
 
 	// as with ROW, but for column
 	val COL = arrayOf(
-			0, 1, 2, 3, 4, 5, 6, 7,
-		 0, 1, 2, 3, 4, 5, 6, 7,
-		 0, 1, 2, 3, 4, 5, 6, 7,
-		 0, 1, 2, 3, 4, 5, 6, 7,
-		 0, 1, 2, 3, 4, 5, 6, 7,
-		 0, 1, 2, 3, 4, 5, 6, 7,
-		 0, 1, 2, 3, 4, 5, 6, 7,
-		 0, 1, 2, 3, 4, 5, 6, 7)
+		0, 1, 2, 3, 4, 5, 6, 7,
+		0, 1, 2, 3, 4, 5, 6, 7,
+		0, 1, 2, 3, 4, 5, 6, 7,
+		0, 1, 2, 3, 4, 5, 6, 7,
+		0, 1, 2, 3, 4, 5, 6, 7,
+		0, 1, 2, 3, 4, 5, 6, 7,
+		0, 1, 2, 3, 4, 5, 6, 7,
+		0, 1, 2, 3, 4, 5, 6, 7)
 
 	// the row or rank seen from the oposite colors is mirrored, so also convenient use from an array
 	// first index color, second index position
