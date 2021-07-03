@@ -1,6 +1,6 @@
 package com.nwagu.chessboy.sharedmodels.players
 
-import com.nwagu.chess.Player
+import com.nwagu.chess.model.Player
 
 fun getPlayerWithId(id: String): Player {
     return when {

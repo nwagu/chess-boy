@@ -1,9 +1,9 @@
 package com.nwagu.chessboy.sharedmodels.utils
 
-import com.nwagu.chess.board.ChessPiece
-import com.nwagu.chess.enums.ChessPieceColor
-import com.nwagu.chess.enums.ChessPieceType
-import com.nwagu.chess.enums.SquareColor
+import com.nwagu.chess.model.ChessPiece
+import com.nwagu.chess.model.ChessPieceColor
+import com.nwagu.chess.model.ChessPieceType
+import com.nwagu.chess.model.SquareColor
 import com.nwagu.chessboy.sharedmodels.R
 
 actual typealias ImageRes = /*@DrawableRes*/ Int

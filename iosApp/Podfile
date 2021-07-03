@@ -1,7 +1,7 @@
 target 'iosApp' do
   use_frameworks!
   platform :ios, '14.1'
-  pod 'chess', :path => '../chess'
-  pod 'bluetoothchat', :path => '../bluetoothchat'
+#  pod 'chess', :path => '../chess'
+#  pod 'bluetoothchat', :path => '../bluetoothchat'
   pod 'sharedmodels', :path => '../sharedmodels'
 end

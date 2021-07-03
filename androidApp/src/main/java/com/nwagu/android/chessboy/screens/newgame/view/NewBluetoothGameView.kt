@@ -29,7 +29,7 @@ import com.nwagu.android.chessboy.ui.AppColor
 import com.nwagu.android.chessboy.screens.newgame.vm.ScanState
 import com.nwagu.android.chessboy.widgets.*
 import com.nwagu.bluetoothchat.BluetoothChatService
-import com.nwagu.chess.enums.ChessPieceColor
+import com.nwagu.chess.model.ChessPieceColor
 import kotlinx.coroutines.launch
 
 @ExperimentalAnimationApi

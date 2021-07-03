@@ -18,7 +18,7 @@ import com.nwagu.android.chessboy.screens.newgame.vm.NewGameViewModel
 import com.nwagu.android.chessboy.screens.play.vm.PlayViewModel
 import com.nwagu.android.chessboy.ui.data.ScreenConfig
 import com.nwagu.bluetoothchat.BluetoothChatService
-import com.nwagu.chess.Player
+import com.nwagu.chess.model.Player
 
 class MainActivity : AppCompatActivity() {
 

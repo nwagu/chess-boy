@@ -8,7 +8,7 @@
   },
   "authors": "",
   "license": "",
-  "summary": "Some description for the Shared Module",
+  "summary": "Chess game referee: Defines models and rules used to coordinate gameplay",
   "static_framework": true,
   "vendored_frameworks": "build/cocoapods/framework/chess.framework",
   "libraries": "c++",

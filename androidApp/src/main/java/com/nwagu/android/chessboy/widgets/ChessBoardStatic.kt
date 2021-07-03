@@ -16,11 +16,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import com.nwagu.android.chessboy.ui.AppColor
-import com.nwagu.chess.board.Board
-import com.nwagu.chess.board.ChessPiece
-import com.nwagu.chess.board.isOnCheck
-import com.nwagu.chess.board.squareColor
-import com.nwagu.chess.enums.ChessPieceColor
+import com.nwagu.chess.model.Board
+import com.nwagu.chess.model.ChessPiece
+import com.nwagu.chess.gamelogic.isOnCheck
+import com.nwagu.chess.gamelogic.squareColor
+import com.nwagu.chess.model.ChessPieceColor
 import com.nwagu.chessboy.sharedmodels.utils.colorResource
 
 @ExperimentalAnimationApi

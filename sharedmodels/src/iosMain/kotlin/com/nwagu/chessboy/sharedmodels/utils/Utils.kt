@@ -1,14 +1,16 @@
 package com.nwagu.chessboy.sharedmodels.utils
 
-import com.nwagu.chess.board.ChessPiece
-import com.nwagu.chess.enums.ChessPieceColor
-import com.nwagu.chess.enums.ChessPieceType
-import com.nwagu.chess.enums.SquareColor
-import com.nwagu.chessboy.sharedmodels.utils.ColorRes
-import com.nwagu.chessboy.sharedmodels.utils.ImageRes
+import com.nwagu.chess.model.ChessPiece
+import com.nwagu.chess.model.ChessPieceColor
+import com.nwagu.chess.model.ChessPieceType
+import com.nwagu.chess.model.SquareColor
 
 actual typealias ImageRes = String
 actual typealias ColorRes = String
+
+fun getChessPieceImage(piece: ChessPiece): ImageRes {
+    return piece.imageRes()
+}
 
 actual fun ChessPiece.imageRes(): ImageRes {
     return when (chessPieceType) {

@@ -1,7 +1,7 @@
 package com.nwagu.chessboy.sharedmodels.utils
 
-import com.nwagu.chess.board.ChessPiece
-import com.nwagu.chess.enums.SquareColor
+import com.nwagu.chess.model.ChessPiece
+import com.nwagu.chess.model.SquareColor
 
 expect class ImageRes
 expect class ColorRes

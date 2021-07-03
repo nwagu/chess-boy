@@ -1,8 +1,8 @@
 package com.nwagu.chessboy.sharedmodels.utils
 
-import com.nwagu.chess.Game
-import com.nwagu.chess.board.turn
-import com.nwagu.chess.enums.ChessPieceColor
+import com.nwagu.chess.model.Game
+import com.nwagu.chess.gamelogic.turn
+import com.nwagu.chess.model.ChessPieceColor
 import com.nwagu.chessboy.sharedmodels.players.BluetoothPlayer
 import com.nwagu.chessboy.sharedmodels.players.UCIChessEngine
 import com.nwagu.chessboy.sharedmodels.players.User

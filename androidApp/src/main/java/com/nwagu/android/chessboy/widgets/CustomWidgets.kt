@@ -17,11 +17,11 @@ import androidx.compose.ui.unit.sp
 import com.nwagu.android.chessboy.ui.AppColor
 import com.nwagu.android.chessboy.ui.data.LightAction
 import com.nwagu.android.chessboy.ui.data.QuickAction
-import com.nwagu.chess.board.Board
-import com.nwagu.chess.convention.PGN_HEADER_BLACK_PLAYER
-import com.nwagu.chess.convention.PGN_HEADER_WHITE_PLAYER
-import com.nwagu.chess.convention.getHeaderValueFromPgn
-import com.nwagu.chess.convention.importMovesFromPGN
+import com.nwagu.chess.model.Board
+import com.nwagu.chess.representation.PGN_HEADER_BLACK_PLAYER
+import com.nwagu.chess.representation.PGN_HEADER_WHITE_PLAYER
+import com.nwagu.chess.representation.getHeaderValueFromPgn
+import com.nwagu.chess.representation.importMovesFromPGN
 
 @Composable
 fun Header(modifier: Modifier = Modifier, text: String) {

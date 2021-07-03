@@ -22,7 +22,7 @@ import androidx.navigation.NavHostController
 import com.nwagu.chessboy.sharedmodels.players.*
 import com.nwagu.android.chessboy.screens.main.view.MainActivity
 import com.nwagu.android.chessboy.widgets.*
-import com.nwagu.chess.enums.ChessPieceColor
+import com.nwagu.chess.model.ChessPieceColor
 import kotlinx.coroutines.launch
 
 @ExperimentalAnimationApi

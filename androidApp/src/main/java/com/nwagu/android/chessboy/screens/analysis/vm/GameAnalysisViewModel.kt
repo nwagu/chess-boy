@@ -2,10 +2,10 @@ package com.nwagu.android.chessboy.screens.analysis.vm
 
 import android.app.Application
 import com.nwagu.android.chessboy.screens.common.BaseViewModel
-import com.nwagu.chess.Game
-import com.nwagu.chess.board.move
-import com.nwagu.chess.board.undoMove
-import com.nwagu.chess.convention.sanToMove
+import com.nwagu.chess.model.Game
+import com.nwagu.chess.gamelogic.move
+import com.nwagu.chess.gamelogic.undoMove
+import com.nwagu.chess.representation.sanToMove
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class GameAnalysisViewModel(application: Application): BaseViewModel(application) {

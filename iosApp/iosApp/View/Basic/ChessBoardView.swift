@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import chess
+import sharedmodels
 
 struct ChessBoardView: View {
     var board: Board
@@ -30,7 +30,7 @@ struct ChessBoardView: View {
                                 Rectangle().fill(Color.red)
                                 
                                 if (occupant as? ChessPiece) != nil {
-                                    getImageForChessPiece(piece: occupant as! ChessPiece)
+                                    Image(UtilsKt.getChessPieceImage(piece: occupant as! ChessPiece))
                                 }
                             }
                         }
@@ -39,41 +39,6 @@ struct ChessBoardView: View {
             }
         }
     }
-}
-
-func getImageForChessPiece(piece: ChessPiece) -> Image {
-    if piece.chessPieceColor == ChessPieceColor.white {
-        switch piece.chessPieceType {
-            case ChessPieceType.queen:
-                return Image("img_white_queen")
-            case ChessPieceType.king:
-                return Image("img_white_king")
-            case ChessPieceType.knight:
-                return Image("img_white_knight")
-            case ChessPieceType.bishop:
-                return Image("img_white_bishop")
-            case ChessPieceType.rook:
-                return Image("img_white_rook")
-            default:
-                return Image("img_white_pawn")
-        }
-    } else {
-        switch piece.chessPieceType {
-            case ChessPieceType.queen:
-                return Image("img_black_queen")
-            case ChessPieceType.king:
-                return Image("img_black_king")
-            case ChessPieceType.knight:
-                return Image("img_black_knight")
-            case ChessPieceType.bishop:
-                return Image("img_black_bishop")
-            case ChessPieceType.rook:
-                return Image("img_black_rook")
-            default:
-                return Image("img_black_pawn")
-        }
-    }
-
 }
 
 struct ChessBoard_Previews: PreviewProvider {

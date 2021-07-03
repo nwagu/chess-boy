@@ -25,11 +25,11 @@ import androidx.navigation.NavHostController
 import com.nwagu.android.chessboy.screens.navigation.Dialog
 import com.nwagu.android.chessboy.screens.play.vm.PlayViewModel
 import com.nwagu.android.chessboy.ui.AppColor
-import com.nwagu.chess.board.ChessPiece
-import com.nwagu.chess.board.isOnCheck
-import com.nwagu.chess.board.squareColor
-import com.nwagu.chess.enums.ChessPieceColor
-import com.nwagu.chess.moves.Promotion
+import com.nwagu.chess.model.ChessPiece
+import com.nwagu.chess.gamelogic.isOnCheck
+import com.nwagu.chess.gamelogic.squareColor
+import com.nwagu.chess.model.ChessPieceColor
+import com.nwagu.chess.model.Promotion
 import com.nwagu.chessboy.sharedmodels.utils.colorOnUserSideOfBoard
 import com.nwagu.chessboy.sharedmodels.utils.colorResource
 import com.nwagu.chessboy.sharedmodels.utils.imageRes

@@ -1,26 +1,16 @@
 PODS:
-  - bluetoothchat (1.0)
-  - chess (1.0)
   - sharedmodels (1.0)
 
 DEPENDENCIES:
-  - bluetoothchat (from `../bluetoothchat`)
-  - chess (from `../chess`)
   - sharedmodels (from `../sharedmodels`)
 
 EXTERNAL SOURCES:
-  bluetoothchat:
-    :path: "../bluetoothchat"
-  chess:
-    :path: "../chess"
   sharedmodels:
     :path: "../sharedmodels"
 
 SPEC CHECKSUMS:
-  bluetoothchat: 1dfc75361df91857ee7e3ec5d45866bebf7061c3
-  chess: 129ef01ba010d0f080bede28a0bb9b64d580d052
   sharedmodels: 6f3981e4f391a179546d3e044c7dbe88e88b786b
 
-PODFILE CHECKSUM: 15a08e85a6e00dad1722cdab189143974b41f9f9
+PODFILE CHECKSUM: 50d494e7034190a1a6868e02d19d8569f316b102
 
 COCOAPODS: 1.9.3

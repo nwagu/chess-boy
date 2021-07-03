@@ -33,8 +33,8 @@ import com.nwagu.android.chessboy.widgets.ChessBoardView
 import com.nwagu.android.chessboy.widgets.LightActionView
 import com.nwagu.android.chessboy.widgets.PlayerDisplay
 import com.nwagu.bluetoothchat.BluetoothChatService.ConnectionState.*
-import com.nwagu.chess.enums.ChessPieceColor
-import com.nwagu.chess.enums.opposite
+import com.nwagu.chess.model.ChessPieceColor
+import com.nwagu.chess.model.opposite
 import com.nwagu.chessboy.sharedmodels.players.BluetoothPlayer
 import com.nwagu.chessboy.sharedmodels.utils.colorOnUserSideOfBoard
 import com.nwagu.chessboy.sharedmodels.utils.isBluetoothGame

@@ -7,10 +7,10 @@ import android.content.ServiceConnection
 import android.os.*
 import android.widget.Toast
 import co.touchlab.kermit.Kermit
-import com.nwagu.chess.board.Board
-import com.nwagu.chess.convention.convertChessEngineMoveToMove
-import com.nwagu.chess.convention.getFen
-import com.nwagu.chess.moves.Move
+import com.nwagu.chess.model.Board
+import com.nwagu.chess.representation.parseUciEngineMove
+import com.nwagu.chess.representation.getFen
+import com.nwagu.chess.model.Move
 import com.nwagu.chessboy.sharedmodels.R
 import com.nwagu.chessboy.sharedmodels.utils.ImageRes
 import com.nwagu.stockfish.StockfishService
@@ -73,7 +73,7 @@ actual class Stockfish(val context: Context) : UCIChessEngine() {
 
         chessEngineMove.value = ""
 
-        return board.convertChessEngineMoveToMove(move)
+        return board.parseUciEngineMove(move)
 
     }
 

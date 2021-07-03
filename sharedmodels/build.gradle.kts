@@ -31,10 +31,11 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
-                implementation(project(":bluetoothchat"))
-                implementation(project(":chess"))
-                api("co.touchlab:kermit:0.1.9") // for logging
+                api(project(":bluetoothchat"))
+                api(project(":chess"))
                 implementation(project(":jwtc"))
+                implementation(project(":stockfish"))
+                api("co.touchlab:kermit:0.1.9") // for logging
             }
         }
         val commonTest by getting {

@@ -12,7 +12,7 @@ struct QuickActionView: View, Hashable {
     let text: String
 
     var body: some View {
-        ZStack {
+        ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)) {
             RoundedRectangle(cornerRadius: 8, style: .continuous)
                 .stroke(Color.gray, lineWidth: 1)
 
@@ -22,7 +22,7 @@ struct QuickActionView: View, Hashable {
                     .foregroundColor(.black)
             }
             .padding(8)
-            .multilineTextAlignment(.center)
+            .multilineTextAlignment(.leading)
         }
     }
 }

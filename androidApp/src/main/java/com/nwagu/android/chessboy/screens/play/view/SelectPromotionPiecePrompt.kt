@@ -19,8 +19,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.nwagu.android.chessboy.R
 import com.nwagu.android.chessboy.util.Utils
-import com.nwagu.chess.enums.ChessPieceType
-import com.nwagu.chess.moves.Promotion
+import com.nwagu.chess.model.ChessPieceType
+import com.nwagu.chess.model.Promotion
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 

@@ -1,5 +1,5 @@
 import SwiftUI
-import chess
+import sharedmodels
 
 struct ContentView: View {
     

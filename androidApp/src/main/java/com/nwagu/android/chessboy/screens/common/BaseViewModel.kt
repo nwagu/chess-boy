@@ -2,8 +2,8 @@ package com.nwagu.android.chessboy.screens.common
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import com.nwagu.chess.Game
-import com.nwagu.chess.convention.*
+import com.nwagu.chess.model.Game
+import com.nwagu.chess.representation.*
 import com.nwagu.chessboy.sharedmodels.players.getPlayerWithId
 
 abstract class BaseViewModel(application: Application): AndroidViewModel(application) {
