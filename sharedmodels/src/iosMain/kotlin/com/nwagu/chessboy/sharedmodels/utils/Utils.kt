@@ -29,3 +29,5 @@ actual fun SquareColor.colorResource(): ColorRes {
 }
 
 actual fun getDefaultPlayerAvatar(): ImageRes = "img_avatar_default"
+actual fun getBluetoothPlayerAvatar(): ImageRes = "img_avatar_default"
+actual fun getRandomMoveGeneratorAvatar(): ImageRes = "img_avatar_random"

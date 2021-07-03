@@ -16,12 +16,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.nwagu.android.chessboy.dialogs.DialogController
 import com.nwagu.android.chessboy.screens.main.view.MainActivity
-import com.nwagu.android.chessboy.screens.main.vm.MainViewModel
-import com.nwagu.android.chessboy.screens.model.Screen
-import com.nwagu.android.chessboy.ui.data.ScreenConfig
-import com.nwagu.android.chessboy.screens.play.vm.PlayViewModel
+import com.nwagu.android.chessboy.screens.navigation.Screen
 import com.nwagu.android.chessboy.widgets.PreviousGameView
 import com.nwagu.android.chessboy.widgets.ScreenTopBar
 
@@ -30,8 +26,7 @@ import com.nwagu.android.chessboy.widgets.ScreenTopBar
 @ExperimentalFoundationApi
 @Composable
 fun HistoryView(
-    navHostController: NavHostController,
-    dialogController: DialogController,
+    navHostController: NavHostController
 ) {
 
     val context = LocalContext.current as MainActivity

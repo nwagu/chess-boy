@@ -11,14 +11,12 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import com.nwagu.android.chessboy.constants.RequestCodes
-import com.nwagu.android.chessboy.dialogs.DialogHost
-import com.nwagu.android.chessboy.dialogs.rememberDialogController
 import com.nwagu.android.chessboy.screens.analysis.vm.GameAnalysisViewModel
 import com.nwagu.android.chessboy.screens.main.vm.MainViewModel
-import com.nwagu.android.chessboy.ui.data.ScreenConfig
-import com.nwagu.android.chessboy.screens.play.vm.PlayViewModel
 import com.nwagu.android.chessboy.screens.newgame.vm.NewBluetoothGameViewModel
 import com.nwagu.android.chessboy.screens.newgame.vm.NewGameViewModel
+import com.nwagu.android.chessboy.screens.play.vm.PlayViewModel
+import com.nwagu.android.chessboy.ui.data.ScreenConfig
 import com.nwagu.bluetoothchat.BluetoothChatService
 import com.nwagu.chess.Player
 
@@ -38,22 +36,22 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        initScreenConfig()
+
+        setContent {
+            MaterialTheme { MainView() }
+        }
+
+        resumeLastGame()
+
+    }
+
+    private fun initScreenConfig() {
         screenConfig = ScreenConfig(
             resources.configuration.orientation,
             resources.configuration.screenHeightDp,
             resources.configuration.screenWidthDp
         )
-
-        setContent {
-            MaterialTheme {
-                val dialogController = rememberDialogController(this)
-                MainView(dialogController)
-                DialogHost(dialogController)
-            }
-        }
-
-        resumeLastGame()
-
     }
 
     private fun resumeLastGame() {

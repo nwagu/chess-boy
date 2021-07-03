@@ -9,3 +9,5 @@ expect class ColorRes
 expect fun ChessPiece.imageRes(): ImageRes
 expect fun SquareColor.colorResource(): ColorRes
 expect fun getDefaultPlayerAvatar(): ImageRes
+expect fun getBluetoothPlayerAvatar(): ImageRes
+expect fun getRandomMoveGeneratorAvatar(): ImageRes

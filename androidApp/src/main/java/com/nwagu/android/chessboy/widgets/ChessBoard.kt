@@ -1,6 +1,5 @@
 package com.nwagu.android.chessboy.widgets
 
-import android.os.Bundle
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.fadeIn
@@ -22,28 +21,27 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.nwagu.android.chessboy.dialogs.DialogController
-import com.nwagu.android.chessboy.dialogs.KEY_PROMOTION_PIECE
-import com.nwagu.android.chessboy.screens.model.Dialog
-import com.nwagu.android.chessboy.ui.AppColor
+import androidx.navigation.NavHostController
+import com.nwagu.android.chessboy.screens.navigation.Dialog
 import com.nwagu.android.chessboy.screens.play.vm.PlayViewModel
+import com.nwagu.android.chessboy.ui.AppColor
 import com.nwagu.chess.board.ChessPiece
 import com.nwagu.chess.board.isOnCheck
 import com.nwagu.chess.board.squareColor
 import com.nwagu.chess.enums.ChessPieceColor
-import com.nwagu.chess.enums.ChessPieceType
 import com.nwagu.chess.moves.Promotion
 import com.nwagu.chessboy.sharedmodels.utils.colorOnUserSideOfBoard
 import com.nwagu.chessboy.sharedmodels.utils.colorResource
 import com.nwagu.chessboy.sharedmodels.utils.imageRes
-import java.io.Serializable
+import kotlinx.serialization.*
+import kotlinx.serialization.json.*
 
 @ExperimentalAnimationApi
 @ExperimentalFoundationApi
 @Composable
 fun ChessBoardView(
     modifier: Modifier = Modifier,
-    dialogController: DialogController,
+    navHostController: NavHostController,
     viewModel: PlayViewModel
 ) {
 
@@ -82,22 +80,12 @@ fun ChessBoardView(
                     .aspectRatio(1.0f)
                     .clickable(
                         onClick = {
-
                             val move = viewModel.squareClicked(square)
 
-                            // Handle promotion piece selection
                             if (move is Promotion) {
-                                dialogController.showDialog(
-                                    Dialog.SelectPromotionPiece.id,
-                                    Bundle().apply {
-                                        putSerializable(
-                                            KEY_PROMOTION_PIECE,
-                                            { selectedType: ChessPieceType ->
-                                                move.promotionType = selectedType
-                                                viewModel.makeUserMove(move)
-                                            } as Serializable)
-                                    }
-                                )
+                                // Handle promotion piece selection
+                                val moveJson = Json.encodeToString(move)
+                                navHostController.navigate(Dialog.SelectPromotionPiece.route + "/$moveJson")
                             }
                         }
                     )

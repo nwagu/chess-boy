@@ -22,10 +22,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.nwagu.android.chessboy.bluetooth.BluetoothController
-import com.nwagu.android.chessboy.dialogs.DialogController
 import com.nwagu.chessboy.sharedmodels.players.BluetoothPlayer
 import com.nwagu.android.chessboy.screens.main.view.MainActivity
-import com.nwagu.android.chessboy.screens.model.Dialog
+import com.nwagu.android.chessboy.screens.navigation.Dialog
 import com.nwagu.android.chessboy.ui.AppColor
 import com.nwagu.android.chessboy.screens.newgame.vm.ScanState
 import com.nwagu.android.chessboy.widgets.*
@@ -39,8 +38,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun NewBluetoothGameView(
     bottomSheetScaffoldState: BottomSheetScaffoldState,
-    navHostController: NavHostController,
-    dialogController: DialogController,
+    navHostController: NavHostController
 ) {
 
     val context = LocalContext.current as MainActivity
@@ -138,7 +136,7 @@ fun NewBluetoothGameView(
                                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q &&
                                                 !(context.getSystemService(Context.LOCATION_SERVICE) as LocationManager).isLocationEnabled
                                             ) {
-                                                dialogController.showDialog(Dialog.EnableLocationDialog.id)
+                                                navHostController.navigate(Dialog.EnableLocation.route)
                                             } else {
                                                 bluetoothController.startDiscovery()
                                             }

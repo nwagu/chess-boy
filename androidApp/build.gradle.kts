@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
-    id("kotlin-parcelize")
+    kotlin("plugin.serialization") version "1.5.0"
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
 }
@@ -48,6 +48,8 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.3.0-beta01")
     implementation("androidx.fragment:fragment-ktx:1.3.4")
 
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.1")
+
     implementation("androidx.compose.runtime:runtime:${Versions.compose_version}")
     implementation("androidx.compose.runtime:runtime-livedata:${Versions.compose_version}")
     implementation("androidx.compose.ui:ui-tooling:${Versions.compose_version}")
@@ -55,7 +57,7 @@ dependencies {
     implementation("androidx.compose.foundation:foundation-layout:${Versions.compose_version}")
     implementation("androidx.compose.material:material:${Versions.compose_version}")
     implementation("androidx.compose.animation:animation:${Versions.compose_version}")
-    implementation("androidx.navigation:navigation-compose:2.4.0-alpha02")
+    implementation("androidx.navigation:navigation-compose:2.4.0-alpha04")
 
     implementation(platform("com.google.firebase:firebase-bom:28.0.1"))
     implementation("com.google.firebase:firebase-analytics-ktx")
