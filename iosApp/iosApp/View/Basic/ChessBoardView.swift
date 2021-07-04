@@ -13,11 +13,11 @@ struct ChessBoardView: View {
     var board: Board
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             
             ForEach(0..<Int(board.numberOfRows)) { row in
                 
-                HStack {
+                HStack(spacing: 0) {
                     
                     ForEach(0..<Int(board.numberOfColumns)) { column in
                         
@@ -27,7 +27,8 @@ struct ChessBoardView: View {
                         
                         Button(action: {}) {
                             ZStack {
-                                Rectangle().fill(Color(squareColor))
+                                Rectangle()
+                                    .fill(Color(squareColor))
                                 
                                 if (occupant as? ChessPiece) != nil {
                                     Image((occupant as! ChessPiece).imageRes())
@@ -35,6 +36,8 @@ struct ChessBoardView: View {
                             }
                         }
                     }
+                    .frame(maxWidth: .infinity)
+                    .aspectRatio(1, contentMode: .fit)
                 }
             }
         }
