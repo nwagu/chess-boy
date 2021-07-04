@@ -1,7 +1,7 @@
 package com.nwagu.chessboy.sharedmodels.players
 
 import android.content.Context
-import com.nwagu.chess.Player
+import com.nwagu.chess.model.Player
 
 fun getPlayerWithId(context: Context, id: String): Player {
     return when {

@@ -17,7 +17,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.nwagu.android.chessboy.screens.main.view.MainActivity
-import com.nwagu.android.chessboy.ui.data.LightAction
+import com.nwagu.android.chessboy.model.LightAction
 import com.nwagu.android.chessboy.widgets.*
 
 @ExperimentalFoundationApi

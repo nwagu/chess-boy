@@ -21,7 +21,7 @@ kotlin {
     iosTarget("ios") {}
 
     cocoapods {
-        summary = "Some description for the Shared Module"
+        summary = "Chess game referee: Defines models and rules used to coordinate gameplay"
         homepage = "Link to the Shared Module homepage"
         ios.deploymentTarget = "14.1"
         frameworkName = "chess"
@@ -43,12 +43,7 @@ kotlin {
             }
         }
         val androidMain by getting
-        val androidTest by getting {
-            dependencies {
-                implementation(kotlin("test-junit"))
-                implementation("junit:junit:4.13.2")
-            }
-        }
+        val androidTest by getting
         val iosMain by getting
         val iosTest by getting
     }

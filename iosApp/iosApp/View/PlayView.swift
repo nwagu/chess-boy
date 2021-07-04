@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import chess
+import sharedmodels
 
 struct PlayView: View {
     // var game: Game

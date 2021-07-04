@@ -1,7 +1,6 @@
 package com.nwagu.chessboy.sharedmodels.bluetooth
 
-import com.nwagu.chess.enums.ChessPieceType
-import com.nwagu.chess.moves.*
+import com.nwagu.chess.model.*
 
 sealed class BluetoothMessage {
 

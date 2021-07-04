@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.nwagu.android.chessboy.R
 import com.nwagu.android.chessboy.screens.navigation.Screen
-import com.nwagu.android.chessboy.ui.data.QuickAction
+import com.nwagu.android.chessboy.model.QuickAction
 import com.nwagu.android.chessboy.widgets.Header
 import com.nwagu.android.chessboy.widgets.QuickActionView
 import com.nwagu.android.chessboy.widgets.SimpleFlowRow

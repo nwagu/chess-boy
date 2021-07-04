@@ -17,7 +17,15 @@ kotlin {
         else
             ::iosX64
 
-    iosTarget("ios") {}
+    iosTarget("ios") {
+        binaries
+            .filterIsInstance<org.jetbrains.kotlin.gradle.plugin.mpp.Framework>()
+            .forEach {
+                it.transitiveExport = true
+                it.export(project(":chess"))
+                it.export(project(":bluetoothchat"))
+            }
+    }
 
     cocoapods {
         summary = "Some description for the Shared Module"
@@ -31,10 +39,11 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
-                implementation(project(":bluetoothchat"))
-                implementation(project(":chess"))
-                api("co.touchlab:kermit:0.1.9") // for logging
+                api(project(":bluetoothchat"))
+                api(project(":chess"))
                 implementation(project(":jwtc"))
+                implementation(project(":stockfish"))
+                api("co.touchlab:kermit:0.1.9") // for logging
             }
         }
         val commonTest by getting {

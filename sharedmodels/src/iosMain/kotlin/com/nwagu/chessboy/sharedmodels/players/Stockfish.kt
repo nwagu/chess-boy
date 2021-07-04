@@ -1,7 +1,7 @@
 package com.nwagu.chessboy.sharedmodels.players
 
-import com.nwagu.chess.board.Board
-import com.nwagu.chess.moves.Move
+import com.nwagu.chess.model.Board
+import com.nwagu.chess.model.Move
 import kotlinx.coroutines.flow.MutableStateFlow
 
 actual class Stockfish : UCIChessEngine() {

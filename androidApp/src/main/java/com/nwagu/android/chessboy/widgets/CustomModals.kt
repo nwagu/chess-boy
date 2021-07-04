@@ -6,10 +6,11 @@ import androidx.compose.material.AlertDialog
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.nwagu.android.chessboy.ui.AppColor
+import com.nwagu.chessboy.sharedmodels.resources.getPrimaryColorDark
 
 @Composable
 fun AlertDialogWrapper(
@@ -42,7 +43,7 @@ fun AlertDialogWrapper(
                         }
                     ),
                 text = confirmMessage,
-                style = TextStyle(color = AppColor.PrimaryDark, fontWeight = FontWeight.Bold))
+                style = TextStyle(color = Color(getPrimaryColorDark()), fontWeight = FontWeight.Bold))
         },
         dismissButton = {
             Text(
@@ -55,7 +56,7 @@ fun AlertDialogWrapper(
                         }
                     ),
                 text = dismissMessage,
-                style = TextStyle(color = AppColor.PrimaryDark, fontWeight = FontWeight.Bold))
+                style = TextStyle(color = Color(getPrimaryColorDark()), fontWeight = FontWeight.Bold))
         }
     )
 }

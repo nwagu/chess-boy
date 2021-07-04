@@ -26,7 +26,7 @@ struct FlowRow: View {
                 
                 Button(action: platform.action) {
                     QuickActionView(text: platform.displayName)
-                        .frame(width: 120, height: 120, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        .frame(width: 120, height: 120, alignment: .center)
                         .aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
                 }
                     .padding([.horizontal, .vertical], 8)

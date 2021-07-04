@@ -7,16 +7,6 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		22081E9D935B8B44104F76D8F334DC0A /* chess */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = D947DB4CDDCE87ACED741B09CEF48A21 /* Build configuration list for PBXAggregateTarget "chess" */;
-			buildPhases = (
-				6FC6F4E99A0AAFFCFB7A16426E0912E1 /* [CP-User] Build chess */,
-			);
-			dependencies = (
-			);
-			name = chess;
-		};
 		A8DC35C3043992B8EEE1DBC8D2B150CA /* sharedmodels */ = {
 			isa = PBXAggregateTarget;
 			buildConfigurationList = F5E8D9820DABFF301628DB7BCDACAF86 /* Build configuration list for PBXAggregateTarget "sharedmodels" */;
@@ -27,111 +17,60 @@
 			);
 			name = sharedmodels;
 		};
-		DE364396658E1D64002D025C0F084F9A /* bluetoothchat */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = CCAA7798257DB9E73C91776D94866222 /* Build configuration list for PBXAggregateTarget "bluetoothchat" */;
-			buildPhases = (
-				CE503BB2F276BDB66D21FD75676E78EF /* [CP-User] Build bluetoothchat */,
-			);
-			dependencies = (
-			);
-			name = bluetoothchat;
-		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		65BC4255486EFAA8A7BFD51E235388AA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
-		761D6F44873EB271A28A9B21FB2C538B /* Pods-iosApp-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DE4C0106600A5B6D599285368F3270 /* Pods-iosApp-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E600B7C46361F7747B8D4D2B8686FCC8 /* Pods-iosApp-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2475209BEE7612101900020629C625 /* Pods-iosApp-dummy.m */; };
+		62291B496A71A932157CBE9EE4D369EA /* Pods-iosApp-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 42DE4C0106600A5B6D599285368F3270 /* Pods-iosApp-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8584A49CE4FD2B5E744F975F682157B7 /* Pods-iosApp-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2475209BEE7612101900020629C625 /* Pods-iosApp-dummy.m */; };
+		CD4D467E087085D8537AC40FB25967D9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		07EB371BA8009E7B66D142AD951E8ADA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DE364396658E1D64002D025C0F084F9A;
-			remoteInfo = bluetoothchat;
-		};
-		17830280FF25DB7227C4270BE6404AB5 /* PBXContainerItemProxy */ = {
+		A25A819808F3ACEE3085A6E3AF7EB7AA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = A8DC35C3043992B8EEE1DBC8D2B150CA;
 			remoteInfo = sharedmodels;
 		};
-		EC2C17A27338578493C2ADCC9011FC45 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 22081E9D935B8B44104F76D8F334DC0A;
-			remoteInfo = chess;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0011AEE22E8296B3D9E0B0B2CDCAB2EE /* Pods-iosApp-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iosApp-acknowledgements.plist"; sourceTree = "<group>"; };
-		1124BDB30738D846934B2173838D4D84 /* bluetoothchat.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = bluetoothchat.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		14E1E78F71D718686C26FD0ECC997E0E /* chess.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = chess.release.xcconfig; sourceTree = "<group>"; };
+		1147CA4380B5D7AA16A8C70DF1ED34BC /* sharedmodels.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = sharedmodels.framework; path = build/cocoapods/framework/sharedmodels.framework; sourceTree = "<group>"; };
 		1A2FB55B5C37861BC78ECD1420D818C3 /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
-		20B149F30840BF6C904C87B315B4669F /* bluetoothchat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = bluetoothchat.release.xcconfig; sourceTree = "<group>"; };
-		3846EECADD455933D430BB427D06AD4F /* bluetoothchat.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = bluetoothchat.framework; path = build/cocoapods/framework/bluetoothchat.framework; sourceTree = "<group>"; };
+		3678F5D866387528F76449AC81EA65CD /* sharedmodels.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = sharedmodels.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		3A2475209BEE7612101900020629C625 /* Pods-iosApp-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-iosApp-dummy.m"; sourceTree = "<group>"; };
 		42DE4C0106600A5B6D599285368F3270 /* Pods-iosApp-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-iosApp-umbrella.h"; sourceTree = "<group>"; };
-		4331F4C243E5EB9EE0A147E449575FC3 /* chess.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = chess.framework; path = build/cocoapods/framework/chess.framework; sourceTree = "<group>"; };
 		482384ADFE4EF692B16FACB8C2021970 /* Pods-iosApp.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-iosApp.modulemap"; sourceTree = "<group>"; };
-		499CF3A52185A1A5069473342A20140E /* chess.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = chess.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		73C991F93FBB80338A120BF12F955FDE /* sharedmodels.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = sharedmodels.release.xcconfig; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A43877303056397968EC90C7AAFE17E8 /* Pods-iosApp-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-iosApp-acknowledgements.markdown"; sourceTree = "<group>"; };
 		A79C2AA5C063914B2D1BD80187FDF6DE /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
-		AE0106BB2621F3F859BF90BCF36E9C94 /* bluetoothchat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = bluetoothchat.debug.xcconfig; sourceTree = "<group>"; };
 		B097DD7534E741D5C41838011D755842 /* Pods_iosApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_iosApp.framework; path = "Pods-iosApp.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B5D40C9DF5E6AD18477A50A66D4E5DE2 /* sharedmodels.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = sharedmodels.debug.xcconfig; sourceTree = "<group>"; };
+		B75AFF36FAC2C9658C133D707D2827D3 /* sharedmodels.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = sharedmodels.debug.xcconfig; sourceTree = "<group>"; };
 		BCAED803D074E2E9C3B1327F049C8C2A /* Pods-iosApp-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iosApp-Info.plist"; sourceTree = "<group>"; };
-		CB77CFB57AD732417B224E89632A8DFF /* sharedmodels.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = sharedmodels.framework; path = build/cocoapods/framework/sharedmodels.framework; sourceTree = "<group>"; };
-		DAD3D33554F38436F85AC9FFA336FCFE /* sharedmodels.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = sharedmodels.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		DF26160721A5652F68893F04B626BF25 /* chess.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = chess.debug.xcconfig; sourceTree = "<group>"; };
+		D25A07E254CEE13290AACBA8AAE2272E /* sharedmodels.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = sharedmodels.release.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		900C1761983CAF5D19D7483CE7CC4F65 /* Frameworks */ = {
+		35FF12582289439A0A2FF3E2B1AC2846 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				65BC4255486EFAA8A7BFD51E235388AA /* Foundation.framework in Frameworks */,
+				CD4D467E087085D8537AC40FB25967D9 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0161BD9E299AF248D0EC6701812E76B2 /* Pod */ = {
+		2BF5BB301551A8E4724699ABC31A272F /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				499CF3A52185A1A5069473342A20140E /* chess.podspec */,
+				9589EB946E92BDF4C30166574A8EAC41 /* sharedmodels */,
 			);
-			name = Pod;
-			sourceTree = "<group>";
-		};
-		0E000067BB21CB45986DD6EF602AF4F0 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				3846EECADD455933D430BB427D06AD4F /* bluetoothchat.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		163904D288BF479181444E4C227FE6FD /* chess */ = {
-			isa = PBXGroup;
-			children = (
-				D913BB22DDFC3283E74096E995778DEF /* Frameworks */,
-				0161BD9E299AF248D0EC6701812E76B2 /* Pod */,
-				E06F8B2090FEFFC3E41F4BD8D1BE36F1 /* Support Files */,
-			);
-			name = chess;
-			path = ../../chess;
+			name = "Development Pods";
 			sourceTree = "<group>";
 		};
 		310087C345B86EEF25A054485E0BB5CB /* Pods-iosApp */ = {
@@ -150,33 +89,12 @@
 			path = "Target Support Files/Pods-iosApp";
 			sourceTree = "<group>";
 		};
-		32E803038564D1E0BC3FA0954BC03343 /* Support Files */ = {
+		31CBD6272B9A88516B040AC3A34B0479 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B5D40C9DF5E6AD18477A50A66D4E5DE2 /* sharedmodels.debug.xcconfig */,
-				73C991F93FBB80338A120BF12F955FDE /* sharedmodels.release.xcconfig */,
+				1147CA4380B5D7AA16A8C70DF1ED34BC /* sharedmodels.framework */,
 			);
-			name = "Support Files";
-			path = "../iosApp/Pods/Target Support Files/sharedmodels";
-			sourceTree = "<group>";
-		};
-		37505180DDEF31D3D5CEC6ABB8CCD204 /* Pod */ = {
-			isa = PBXGroup;
-			children = (
-				1124BDB30738D846934B2173838D4D84 /* bluetoothchat.podspec */,
-			);
-			name = Pod;
-			sourceTree = "<group>";
-		};
-		3E912C3DF57E6E13138B75D53DF1F1E3 /* bluetoothchat */ = {
-			isa = PBXGroup;
-			children = (
-				0E000067BB21CB45986DD6EF602AF4F0 /* Frameworks */,
-				37505180DDEF31D3D5CEC6ABB8CCD204 /* Pod */,
-				9220E3D9AF2930670C2490FCD4E18626 /* Support Files */,
-			);
-			name = bluetoothchat;
-			path = ../../bluetoothchat;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		3FE6C4172A7EA3C0BDE73E5A54AE7875 /* Products */ = {
@@ -187,23 +105,12 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		4C501A6AC5248D373271461663AB4123 /* sharedmodels */ = {
+		5512B91815A7E3A13D81B432C69F404C /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				56E5E144F90CF2F8A2E60C484ABEEB81 /* Frameworks */,
-				8663FB43F7FF136293244FA0188B5125 /* Pod */,
-				32E803038564D1E0BC3FA0954BC03343 /* Support Files */,
+				3678F5D866387528F76449AC81EA65CD /* sharedmodels.podspec */,
 			);
-			name = sharedmodels;
-			path = ../../sharedmodels;
-			sourceTree = "<group>";
-		};
-		56E5E144F90CF2F8A2E60C484ABEEB81 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				CB77CFB57AD732417B224E89632A8DFF /* sharedmodels.framework */,
-			);
-			name = Frameworks;
+			name = Pod;
 			sourceTree = "<group>";
 		};
 		578452D2E740E91742655AC8F1636D1F /* iOS */ = {
@@ -214,22 +121,25 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		8663FB43F7FF136293244FA0188B5125 /* Pod */ = {
+		9589EB946E92BDF4C30166574A8EAC41 /* sharedmodels */ = {
 			isa = PBXGroup;
 			children = (
-				DAD3D33554F38436F85AC9FFA336FCFE /* sharedmodels.podspec */,
+				31CBD6272B9A88516B040AC3A34B0479 /* Frameworks */,
+				5512B91815A7E3A13D81B432C69F404C /* Pod */,
+				C8B921A2D156EBB7809F0693E1DC6934 /* Support Files */,
 			);
-			name = Pod;
+			name = sharedmodels;
+			path = ../../sharedmodels;
 			sourceTree = "<group>";
 		};
-		9220E3D9AF2930670C2490FCD4E18626 /* Support Files */ = {
+		C8B921A2D156EBB7809F0693E1DC6934 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				AE0106BB2621F3F859BF90BCF36E9C94 /* bluetoothchat.debug.xcconfig */,
-				20B149F30840BF6C904C87B315B4669F /* bluetoothchat.release.xcconfig */,
+				B75AFF36FAC2C9658C133D707D2827D3 /* sharedmodels.debug.xcconfig */,
+				D25A07E254CEE13290AACBA8AAE2272E /* sharedmodels.release.xcconfig */,
 			);
 			name = "Support Files";
-			path = "../iosApp/Pods/Target Support Files/bluetoothchat";
+			path = "../iosApp/Pods/Target Support Files/sharedmodels";
 			sourceTree = "<group>";
 		};
 		C9F6DDEE5D76F65BB478A349731F54F4 /* Targets Support Files */ = {
@@ -244,7 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
-				FCD17B13D6546EC76FCEAD8BE6B2A129 /* Development Pods */,
+				2BF5BB301551A8E4724699ABC31A272F /* Development Pods */,
 				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
 				3FE6C4172A7EA3C0BDE73E5A54AE7875 /* Products */,
 				C9F6DDEE5D76F65BB478A349731F54F4 /* Targets Support Files */,
@@ -259,42 +169,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D913BB22DDFC3283E74096E995778DEF /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				4331F4C243E5EB9EE0A147E449575FC3 /* chess.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		E06F8B2090FEFFC3E41F4BD8D1BE36F1 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				DF26160721A5652F68893F04B626BF25 /* chess.debug.xcconfig */,
-				14E1E78F71D718686C26FD0ECC997E0E /* chess.release.xcconfig */,
-			);
-			name = "Support Files";
-			path = "../iosApp/Pods/Target Support Files/chess";
-			sourceTree = "<group>";
-		};
-		FCD17B13D6546EC76FCEAD8BE6B2A129 /* Development Pods */ = {
-			isa = PBXGroup;
-			children = (
-				3E912C3DF57E6E13138B75D53DF1F1E3 /* bluetoothchat */,
-				163904D288BF479181444E4C227FE6FD /* chess */,
-				4C501A6AC5248D373271461663AB4123 /* sharedmodels */,
-			);
-			name = "Development Pods";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		EAA6D16B83A72689F12602C342176799 /* Headers */ = {
+		9C53822BF586A2D18AD3EF6067BAEB22 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				761D6F44873EB271A28A9B21FB2C538B /* Pods-iosApp-umbrella.h in Headers */,
+				62291B496A71A932157CBE9EE4D369EA /* Pods-iosApp-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,19 +185,17 @@
 /* Begin PBXNativeTarget section */
 		ED39C638569286489CD697A6C8964146 /* Pods-iosApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1673DAF1DB11754D1466DC36316440D7 /* Build configuration list for PBXNativeTarget "Pods-iosApp" */;
+			buildConfigurationList = C84C437DDC39FD15AB5B389A938B3B93 /* Build configuration list for PBXNativeTarget "Pods-iosApp" */;
 			buildPhases = (
-				EAA6D16B83A72689F12602C342176799 /* Headers */,
-				EEF8EE13004DFFAEFC46F13DD9F31E67 /* Sources */,
-				900C1761983CAF5D19D7483CE7CC4F65 /* Frameworks */,
-				CA40051E62A024588E3BB24D267977D1 /* Resources */,
+				9C53822BF586A2D18AD3EF6067BAEB22 /* Headers */,
+				FFC6A7D77FFC79304C25C1536CDD200B /* Sources */,
+				35FF12582289439A0A2FF3E2B1AC2846 /* Frameworks */,
+				C4B67380C06058ACFDE3429E538A0AD2 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				E02EA47088594F6F193E62120B0033AE /* PBXTargetDependency */,
-				A8E4BDDBB6E2993B73F8F148B3912637 /* PBXTargetDependency */,
-				4989078AA4D92B6F3C9A15A4213B9EFA /* PBXTargetDependency */,
+				83C0F114E1682AA6A85351342799500F /* PBXTargetDependency */,
 			);
 			name = "Pods-iosApp";
 			productName = "Pods-iosApp";
@@ -344,8 +224,6 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DE364396658E1D64002D025C0F084F9A /* bluetoothchat */,
-				22081E9D935B8B44104F76D8F334DC0A /* chess */,
 				ED39C638569286489CD697A6C8964146 /* Pods-iosApp */,
 				A8DC35C3043992B8EEE1DBC8D2B150CA /* sharedmodels */,
 			);
@@ -353,7 +231,7 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		CA40051E62A024588E3BB24D267977D1 /* Resources */ = {
+		C4B67380C06058ACFDE3429E538A0AD2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -363,16 +241,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6FC6F4E99A0AAFFCFB7A16426E0912E1 /* [CP-User] Build chess */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			name = "[CP-User] Build chess";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "                set -ev\n                REPO_ROOT=\"$PODS_TARGET_SRCROOT\"\n                \"$REPO_ROOT/../gradlew\" -p \"$REPO_ROOT\" :chess:syncFramework                     -Pkotlin.native.cocoapods.target=$KOTLIN_TARGET                     -Pkotlin.native.cocoapods.configuration=$CONFIGURATION                     -Pkotlin.native.cocoapods.cflags=\"$OTHER_CFLAGS\"                     -Pkotlin.native.cocoapods.paths.headers=\"$HEADER_SEARCH_PATHS\"                     -Pkotlin.native.cocoapods.paths.frameworks=\"$FRAMEWORK_SEARCH_PATHS\"\n";
-		};
 		82395485E0B812245B35EAFFD82F67C7 /* [CP-User] Build sharedmodels */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -383,69 +251,29 @@
 			shellPath = /bin/sh;
 			shellScript = "                set -ev\n                REPO_ROOT=\"$PODS_TARGET_SRCROOT\"\n                \"$REPO_ROOT/../gradlew\" -p \"$REPO_ROOT\" :sharedmodels:syncFramework                     -Pkotlin.native.cocoapods.target=$KOTLIN_TARGET                     -Pkotlin.native.cocoapods.configuration=$CONFIGURATION                     -Pkotlin.native.cocoapods.cflags=\"$OTHER_CFLAGS\"                     -Pkotlin.native.cocoapods.paths.headers=\"$HEADER_SEARCH_PATHS\"                     -Pkotlin.native.cocoapods.paths.frameworks=\"$FRAMEWORK_SEARCH_PATHS\"\n";
 		};
-		CE503BB2F276BDB66D21FD75676E78EF /* [CP-User] Build bluetoothchat */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			name = "[CP-User] Build bluetoothchat";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "                set -ev\n                REPO_ROOT=\"$PODS_TARGET_SRCROOT\"\n                \"$REPO_ROOT/../gradlew\" -p \"$REPO_ROOT\" :bluetoothchat:syncFramework                     -Pkotlin.native.cocoapods.target=$KOTLIN_TARGET                     -Pkotlin.native.cocoapods.configuration=$CONFIGURATION                     -Pkotlin.native.cocoapods.cflags=\"$OTHER_CFLAGS\"                     -Pkotlin.native.cocoapods.paths.headers=\"$HEADER_SEARCH_PATHS\"                     -Pkotlin.native.cocoapods.paths.frameworks=\"$FRAMEWORK_SEARCH_PATHS\"\n";
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		EEF8EE13004DFFAEFC46F13DD9F31E67 /* Sources */ = {
+		FFC6A7D77FFC79304C25C1536CDD200B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E600B7C46361F7747B8D4D2B8686FCC8 /* Pods-iosApp-dummy.m in Sources */,
+				8584A49CE4FD2B5E744F975F682157B7 /* Pods-iosApp-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		4989078AA4D92B6F3C9A15A4213B9EFA /* PBXTargetDependency */ = {
+		83C0F114E1682AA6A85351342799500F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = sharedmodels;
 			target = A8DC35C3043992B8EEE1DBC8D2B150CA /* sharedmodels */;
-			targetProxy = 17830280FF25DB7227C4270BE6404AB5 /* PBXContainerItemProxy */;
-		};
-		A8E4BDDBB6E2993B73F8F148B3912637 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = chess;
-			target = 22081E9D935B8B44104F76D8F334DC0A /* chess */;
-			targetProxy = EC2C17A27338578493C2ADCC9011FC45 /* PBXContainerItemProxy */;
-		};
-		E02EA47088594F6F193E62120B0033AE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = bluetoothchat;
-			target = DE364396658E1D64002D025C0F084F9A /* bluetoothchat */;
-			targetProxy = 07EB371BA8009E7B66D142AD951E8ADA /* PBXContainerItemProxy */;
+			targetProxy = A25A819808F3ACEE3085A6E3AF7EB7AA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		236703895FE76C99BF15059D9905F826 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 14E1E78F71D718686C26FD0ECC997E0E /* chess.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
 		3C87802ED624276931A55423E7ED3281 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -511,59 +339,7 @@
 			};
 			name = Debug;
 		};
-		4EE0941661C59E6803598E2394B8A16A /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 20B149F30840BF6C904C87B315B4669F /* bluetoothchat.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		660EAB801A82432DFE298308859FA31C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B5D40C9DF5E6AD18477A50A66D4E5DE2 /* sharedmodels.debug.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		779FE2A04D8C3A9AB76595832B6C634B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = AE0106BB2621F3F859BF90BCF36E9C94 /* bluetoothchat.debug.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		86C45FBB7712820D530FC4959B8DDE5D /* Debug */ = {
+		63886D8575BA3B91AF3921C065555931 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A79C2AA5C063914B2D1BD80187FDF6DE /* Pods-iosApp.debug.xcconfig */;
 			buildSettings = {
@@ -600,27 +376,9 @@
 			};
 			name = Debug;
 		};
-		AA5DD8C0BAD29EB542258031D620BD97 /* Release */ = {
+		660EAB801A82432DFE298308859FA31C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 73C991F93FBB80338A120BF12F955FDE /* sharedmodels.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		D95B8A2DE794870151F90B45FADAB109 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DF26160721A5652F68893F04B626BF25 /* chess.debug.xcconfig */;
+			baseConfigurationReference = B75AFF36FAC2C9658C133D707D2827D3 /* sharedmodels.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -635,7 +393,7 @@
 			};
 			name = Debug;
 		};
-		E10ABCEF300C30D3789E4EC552F6BC92 /* Release */ = {
+		7CC1DB797129C11C4A6D8B1D02BFF4A7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1A2FB55B5C37861BC78ECD1420D818C3 /* Pods-iosApp.release.xcconfig */;
 			buildSettings = {
@@ -670,6 +428,24 @@
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		AA5DD8C0BAD29EB542258031D620BD97 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D25A07E254CEE13290AACBA8AAE2272E /* sharedmodels.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -737,15 +513,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1673DAF1DB11754D1466DC36316440D7 /* Build configuration list for PBXNativeTarget "Pods-iosApp" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				86C45FBB7712820D530FC4959B8DDE5D /* Debug */,
-				E10ABCEF300C30D3789E4EC552F6BC92 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -755,20 +522,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CCAA7798257DB9E73C91776D94866222 /* Build configuration list for PBXAggregateTarget "bluetoothchat" */ = {
+		C84C437DDC39FD15AB5B389A938B3B93 /* Build configuration list for PBXNativeTarget "Pods-iosApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				779FE2A04D8C3A9AB76595832B6C634B /* Debug */,
-				4EE0941661C59E6803598E2394B8A16A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D947DB4CDDCE87ACED741B09CEF48A21 /* Build configuration list for PBXAggregateTarget "chess" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D95B8A2DE794870151F90B45FADAB109 /* Debug */,
-				236703895FE76C99BF15059D9905F826 /* Release */,
+				63886D8575BA3B91AF3921C065555931 /* Debug */,
+				7CC1DB797129C11C4A6D8B1D02BFF4A7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

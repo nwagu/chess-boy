@@ -14,14 +14,15 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.nwagu.android.chessboy.ui.AppColor
-import com.nwagu.android.chessboy.ui.data.LightAction
-import com.nwagu.android.chessboy.ui.data.QuickAction
-import com.nwagu.chess.board.Board
-import com.nwagu.chess.convention.PGN_HEADER_BLACK_PLAYER
-import com.nwagu.chess.convention.PGN_HEADER_WHITE_PLAYER
-import com.nwagu.chess.convention.getHeaderValueFromPgn
-import com.nwagu.chess.convention.importMovesFromPGN
+import com.nwagu.android.chessboy.model.LightAction
+import com.nwagu.android.chessboy.model.QuickAction
+import com.nwagu.chess.model.Board
+import com.nwagu.chess.representation.PGN_HEADER_BLACK_PLAYER
+import com.nwagu.chess.representation.PGN_HEADER_WHITE_PLAYER
+import com.nwagu.chess.representation.getHeaderValueFromPgn
+import com.nwagu.chess.representation.importMovesFromPGN
+import com.nwagu.chessboy.sharedmodels.resources.getPrimaryColor
+import com.nwagu.chessboy.sharedmodels.resources.getScreenBackgroundColor
 
 @Composable
 fun Header(modifier: Modifier = Modifier, text: String) {
@@ -29,7 +30,7 @@ fun Header(modifier: Modifier = Modifier, text: String) {
         modifier = modifier,
         text = text,
         fontSize = 20.sp,
-        style = TextStyle(AppColor.Primary, fontWeight = FontWeight.Bold)
+        style = TextStyle(Color(getPrimaryColor()), fontWeight = FontWeight.Bold)
     )
 }
 
@@ -81,7 +82,7 @@ fun LightActionView(lightAction: LightAction) {
         onClick = {
             lightAction.action()
         },
-        colors = ButtonDefaults.buttonColors(backgroundColor = AppColor.activityBackground),
+        colors = ButtonDefaults.buttonColors(backgroundColor = Color(getScreenBackgroundColor())),
         content = {
             Text(
                 modifier = Modifier,
@@ -101,7 +102,7 @@ fun SubmitButton(
     Button(
         modifier = modifier,
         onClick = { onClick() },
-        colors = ButtonDefaults.buttonColors(backgroundColor = AppColor.Primary)
+        colors = ButtonDefaults.buttonColors(backgroundColor = Color(getPrimaryColor()))
     ) {
         Text(
             modifier = Modifier.padding(8.dp),
