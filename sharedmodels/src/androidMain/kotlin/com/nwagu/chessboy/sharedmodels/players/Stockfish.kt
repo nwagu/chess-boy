@@ -12,7 +12,7 @@ import com.nwagu.chess.representation.parseUciEngineMove
 import com.nwagu.chess.representation.getFen
 import com.nwagu.chess.model.Move
 import com.nwagu.chessboy.sharedmodels.R
-import com.nwagu.chessboy.sharedmodels.utils.ImageRes
+import com.nwagu.chessboy.sharedmodels.resources.ImageRes
 import com.nwagu.stockfish.StockfishService
 import com.nwagu.stockfish.StockfishService.Companion.MSG_KEY
 import kotlinx.coroutines.GlobalScope

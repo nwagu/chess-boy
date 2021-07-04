@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import com.nwagu.android.chessboy.screens.play.vm.PlayViewModel
 import com.nwagu.chess.model.ChessPiece
 import com.nwagu.chess.model.ChessPieceColor
-import com.nwagu.chessboy.sharedmodels.utils.imageRes
+import com.nwagu.chessboy.sharedmodels.resources.imageRes
 
 @Composable
 fun CaptivesView(

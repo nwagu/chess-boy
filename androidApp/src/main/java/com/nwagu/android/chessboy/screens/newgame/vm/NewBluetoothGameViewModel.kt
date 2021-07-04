@@ -1,7 +1,7 @@
 package com.nwagu.android.chessboy.screens.newgame.vm
 
 import android.app.Application
-import com.nwagu.android.chessboy.ui.data.BluetoothDevice
+import com.nwagu.android.chessboy.model.BluetoothDevice
 import com.nwagu.android.chessboy.screens.common.BaseViewModel
 import com.nwagu.bluetoothchat.BluetoothChatService
 import com.nwagu.chess.model.ChessPieceColor

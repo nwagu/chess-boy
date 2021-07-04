@@ -3,7 +3,7 @@ package com.nwagu.chessboy.sharedmodels.players
 import com.nwagu.chess.representation.getFen
 import com.nwagu.chess.model.*
 import com.nwagu.chessboy.sharedmodels.R
-import com.nwagu.chessboy.sharedmodels.utils.ImageRes
+import com.nwagu.chessboy.sharedmodels.resources.ImageRes
 import jwtc.chess.BoardConstants
 import jwtc.chess.JNI
 import jwtc.chess.Move.getFrom

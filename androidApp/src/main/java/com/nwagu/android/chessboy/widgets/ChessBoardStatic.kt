@@ -15,13 +15,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
-import com.nwagu.android.chessboy.ui.AppColor
 import com.nwagu.chess.model.Board
 import com.nwagu.chess.model.ChessPiece
 import com.nwagu.chess.gamelogic.isOnCheck
 import com.nwagu.chess.gamelogic.squareColor
 import com.nwagu.chess.model.ChessPieceColor
-import com.nwagu.chessboy.sharedmodels.utils.colorResource
+import com.nwagu.chessboy.sharedmodels.resources.colorResource
+import com.nwagu.chessboy.sharedmodels.resources.getBoardBackgroundColor
 
 @ExperimentalAnimationApi
 @ExperimentalFoundationApi
@@ -34,7 +34,7 @@ fun ChessBoardStatic(
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(2.dp),
-        backgroundColor = AppColor.boardBackground,
+        backgroundColor = Color(getBoardBackgroundColor()),
         elevation = 0.dp
     ) {
 

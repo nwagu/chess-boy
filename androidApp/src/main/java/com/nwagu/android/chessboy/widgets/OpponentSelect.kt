@@ -19,9 +19,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.nwagu.android.chessboy.ui.AppColor
 import com.nwagu.chessboy.sharedmodels.players.SelectablePlayer
 import com.nwagu.chessboy.sharedmodels.players.UCIChessEngine
+import com.nwagu.chessboy.sharedmodels.resources.getPrimaryColor
+import com.nwagu.chessboy.sharedmodels.resources.getPrimaryColorLight
 import kotlin.math.roundToInt
 
 @ExperimentalAnimationApi
@@ -65,8 +66,8 @@ fun PlayerSelect(
             onSelect(player)
         },
         shape = RoundedCornerShape(4.dp),
-        backgroundColor = if (isSelected) AppColor.PrimaryLight else Color.Transparent,
-        border = BorderStroke(1.dp, if (isSelected) AppColor.Primary else Color.Transparent),
+        backgroundColor = if (isSelected) Color(getPrimaryColorLight()) else Color.Transparent,
+        border = BorderStroke(1.dp, if (isSelected) Color(getPrimaryColor()) else Color.Transparent),
         elevation = 0.dp
     ) {
         Column(

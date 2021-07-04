@@ -5,8 +5,8 @@ import com.nwagu.chess.gamelogic.squaresWithPiecesColored
 import com.nwagu.chess.gamelogic.turn
 import com.nwagu.chess.model.Move
 import com.nwagu.chess.gamelogic.moves.getPossibleMovesFrom
-import com.nwagu.chessboy.sharedmodels.utils.ImageRes
-import com.nwagu.chessboy.sharedmodels.utils.getRandomMoveGeneratorAvatar
+import com.nwagu.chessboy.sharedmodels.resources.ImageRes
+import com.nwagu.chessboy.sharedmodels.resources.getRandomMoveGeneratorAvatar
 
 class RandomMoveGenerator : MoveGenerator() {
 

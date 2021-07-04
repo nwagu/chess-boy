@@ -16,7 +16,7 @@ import com.nwagu.android.chessboy.screens.main.vm.MainViewModel
 import com.nwagu.android.chessboy.screens.newgame.vm.NewBluetoothGameViewModel
 import com.nwagu.android.chessboy.screens.newgame.vm.NewGameViewModel
 import com.nwagu.android.chessboy.screens.play.vm.PlayViewModel
-import com.nwagu.android.chessboy.ui.data.ScreenConfig
+import com.nwagu.android.chessboy.model.ScreenConfig
 import com.nwagu.bluetoothchat.BluetoothChatService
 import com.nwagu.chess.model.Player
 

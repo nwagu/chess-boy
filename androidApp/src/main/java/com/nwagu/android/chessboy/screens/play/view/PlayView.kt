@@ -27,8 +27,8 @@ import androidx.navigation.NavHostController
 import com.nwagu.android.chessboy.bluetooth.BluetoothController
 import com.nwagu.android.chessboy.screens.main.view.MainActivity
 import com.nwagu.android.chessboy.screens.play.vm.PlayViewModel
-import com.nwagu.android.chessboy.ui.data.LightAction
-import com.nwagu.android.chessboy.ui.data.ScreenConfig
+import com.nwagu.android.chessboy.model.LightAction
+import com.nwagu.android.chessboy.model.ScreenConfig
 import com.nwagu.android.chessboy.widgets.ChessBoardView
 import com.nwagu.android.chessboy.widgets.LightActionView
 import com.nwagu.android.chessboy.widgets.PlayerDisplay

@@ -1,7 +1,7 @@
 package com.nwagu.chessboy.sharedmodels.players
 
-import com.nwagu.chessboy.sharedmodels.utils.ImageRes
-import com.nwagu.chessboy.sharedmodels.utils.getBluetoothPlayerAvatar
+import com.nwagu.chessboy.sharedmodels.resources.ImageRes
+import com.nwagu.chessboy.sharedmodels.resources.getBluetoothPlayerAvatar
 
 data class BluetoothPlayer(
     override val name: String = "Bluetooth Opponent",

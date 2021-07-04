@@ -24,15 +24,15 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.nwagu.android.chessboy.screens.navigation.Dialog
 import com.nwagu.android.chessboy.screens.play.vm.PlayViewModel
-import com.nwagu.android.chessboy.ui.AppColor
 import com.nwagu.chess.model.ChessPiece
 import com.nwagu.chess.gamelogic.isOnCheck
 import com.nwagu.chess.gamelogic.squareColor
 import com.nwagu.chess.model.ChessPieceColor
 import com.nwagu.chess.model.Promotion
+import com.nwagu.chessboy.sharedmodels.resources.colorResource
+import com.nwagu.chessboy.sharedmodels.resources.getBoardBackgroundColor
+import com.nwagu.chessboy.sharedmodels.resources.imageRes
 import com.nwagu.chessboy.sharedmodels.utils.colorOnUserSideOfBoard
-import com.nwagu.chessboy.sharedmodels.utils.colorResource
-import com.nwagu.chessboy.sharedmodels.utils.imageRes
 import kotlinx.serialization.*
 import kotlinx.serialization.json.*
 
@@ -47,7 +47,7 @@ fun ChessBoardView(
 
     Card(modifier = modifier,
         shape = RoundedCornerShape(2.dp),
-        backgroundColor = AppColor.boardBackground,
+        backgroundColor = Color(getBoardBackgroundColor()),
         elevation = 0.dp
     ) {
 

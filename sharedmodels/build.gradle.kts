@@ -17,7 +17,15 @@ kotlin {
         else
             ::iosX64
 
-    iosTarget("ios") {}
+    iosTarget("ios") {
+        binaries
+            .filterIsInstance<org.jetbrains.kotlin.gradle.plugin.mpp.Framework>()
+            .forEach {
+                it.transitiveExport = true
+                it.export(project(":chess"))
+                it.export(project(":bluetoothchat"))
+            }
+    }
 
     cocoapods {
         summary = "Some description for the Shared Module"

@@ -22,15 +22,15 @@ struct ChessBoardView: View {
                     ForEach(0..<Int(board.numberOfColumns)) { column in
                         
                         let square = board.square(row: Int32(row), column: Int32(column))
-                        
+                        let squareColor = board.squareColor(square: square).colorResource()
                         let occupant = board.squaresMap[square]
                         
                         Button(action: {}) {
                             ZStack {
-                                Rectangle().fill(Color.red)
+                                Rectangle().fill(Color(squareColor))
                                 
                                 if (occupant as? ChessPiece) != nil {
-                                    Image(UtilsKt.getChessPieceImage(piece: occupant as! ChessPiece))
+                                    Image((occupant as! ChessPiece).imageRes())
                                 }
                             }
                         }

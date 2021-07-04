@@ -15,6 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
@@ -25,11 +26,11 @@ import com.nwagu.android.chessboy.bluetooth.BluetoothController
 import com.nwagu.chessboy.sharedmodels.players.BluetoothPlayer
 import com.nwagu.android.chessboy.screens.main.view.MainActivity
 import com.nwagu.android.chessboy.screens.navigation.Dialog
-import com.nwagu.android.chessboy.ui.AppColor
 import com.nwagu.android.chessboy.screens.newgame.vm.ScanState
 import com.nwagu.android.chessboy.widgets.*
 import com.nwagu.bluetoothchat.BluetoothChatService
 import com.nwagu.chess.model.ChessPieceColor
+import com.nwagu.chessboy.sharedmodels.resources.getPrimaryColor
 import kotlinx.coroutines.launch
 
 @ExperimentalAnimationApi
@@ -146,7 +147,7 @@ fun NewBluetoothGameView(
                                         }
                                     }
                                 },
-                                colors = ButtonDefaults.buttonColors(backgroundColor = AppColor.Primary)
+                                colors = ButtonDefaults.buttonColors(backgroundColor = Color(getPrimaryColor()))
                             ) {
                                 Text(
                                     text = when (scanState) {
@@ -211,7 +212,7 @@ fun NewBluetoothGameView(
                                         else -> {}
                                     }
                                 },
-                                colors = ButtonDefaults.buttonColors(backgroundColor = AppColor.Primary)
+                                colors = ButtonDefaults.buttonColors(backgroundColor = Color(getPrimaryColor()))
                             ) {
                                 Text(
                                     text = when (connectionState) {

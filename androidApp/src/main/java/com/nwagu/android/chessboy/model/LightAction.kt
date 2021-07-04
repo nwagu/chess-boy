@@ -1,4 +1,4 @@
-package com.nwagu.android.chessboy.ui.data
+package com.nwagu.android.chessboy.model
 
 data class LightAction(
     val displayName: String,

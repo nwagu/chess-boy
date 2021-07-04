@@ -1,6 +1,5 @@
 package com.nwagu.chessboy.sharedmodels.players
 
-import com.nwagu.chessboy.sharedmodels.players.MoveGenerator
 import kotlinx.coroutines.flow.MutableStateFlow
 
 abstract class UCIChessEngine: MoveGenerator() {

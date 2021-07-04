@@ -1,15 +1,12 @@
-package com.nwagu.chessboy.sharedmodels.utils
+package com.nwagu.chessboy.sharedmodels.resources
 
 import com.nwagu.chess.model.ChessPiece
 import com.nwagu.chess.model.ChessPieceColor
 import com.nwagu.chess.model.ChessPieceType
-import com.nwagu.chess.model.SquareColor
 import com.nwagu.chessboy.sharedmodels.R
 
-actual typealias ImageRes = /*@DrawableRes*/ Int
-actual typealias ColorRes = /*@ColorRes*/ Int
+actual typealias ImageRes = Int
 
-/*@DrawableRes*/
 actual fun ChessPiece.imageRes(): ImageRes {
     return when (chessPieceType) {
         ChessPieceType.QUEEN -> if (chessPieceColor == ChessPieceColor.WHITE) R.drawable.img_white_queen else R.drawable.img_black_queen
@@ -20,15 +17,6 @@ actual fun ChessPiece.imageRes(): ImageRes {
         ChessPieceType.PAWN -> if (chessPieceColor == ChessPieceColor.WHITE) R.drawable.img_white_pawn else R.drawable.img_black_pawn
     }
 }
-
-/*@ColorRes*/
-actual fun SquareColor.colorResource(): ColorRes {
-    return when (this) {
-        SquareColor.WHITE -> R.color.lightSquare
-        SquareColor.BLACK -> R.color.darkSquare
-    }
-}
-
 actual fun getDefaultPlayerAvatar(): ImageRes = R.drawable.img_avatar_default
 actual fun getBluetoothPlayerAvatar(): ImageRes = R.drawable.img_avatar_default
 actual fun getRandomMoveGeneratorAvatar(): ImageRes = R.drawable.img_avatar_random
