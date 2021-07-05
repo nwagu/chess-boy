@@ -13,7 +13,7 @@ struct PlayerDisplay: View {
     
     var body: some View {
         HStack {
-            Image("img_avatar_jwtc")
+            Image("img_avatar_default")
                 .resizable()
                 .frame(width: 25, height: 25)
                 .aspectRatio(contentMode: .fit)

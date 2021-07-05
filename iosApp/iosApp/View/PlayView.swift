@@ -10,19 +10,22 @@ import SwiftUI
 import sharedmodels
 
 struct PlayView: View {
-    // var game: Game
-    
     
     var body: some View {
-        VStack {
-            
-            PlayerDisplay()
-            
-            ChessBoardView(board: Board(numberOfRows: 8, numberOfColumns: 8).apply(block: {board in
-                board.loadStandardStartingPosition()
-            }))
-            
-            PlayerDisplay()
+        ScrollView {
+            VStack(alignment: .leading, spacing: 0) {
+                
+                PlayerDisplay()
+                    .padding(16)
+                
+                ChessBoardView(board: Board(numberOfRows: 8, numberOfColumns: 8).apply(block: {board in
+                    board.loadStandardStartingPosition()
+                }))
+                
+                PlayerDisplay()
+                    .padding(16)
+            }
+            Spacer()
         }
     }
 }

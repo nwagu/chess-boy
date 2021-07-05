@@ -8,59 +8,60 @@ struct ContentView: View {
     @State private var isShowingNewBluetoothGameView = false
     @State private var isShowingHistoryView = false
     
-	var body: some View {
+    var body: some View {
         NavigationView {
-            VStack(alignment: .leading) {
-                
-                NavigationLink(destination: PlayView(), isActive: $isShowingPlayView) { EmptyView() }
-                NavigationLink(destination: NewGameView(), isActive: $isShowingNewGameView) { EmptyView() }
-                NavigationLink(destination: NewBluetoothGameView(), isActive: $isShowingNewBluetoothGameView) { EmptyView() }
-                NavigationLink(destination: HistoryView(), isActive: $isShowingHistoryView) { EmptyView() }
+//            ScrollView {
+                VStack(alignment: .leading) {
                     
-                Text("Play")
-                    .font(.headline)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.orange)
-                
-                let playActions = [
-                    QuickAction(displayName: "Continue current game", action: { isShowingPlayView = true }),
-                    QuickAction(displayName: "New game", action: { isShowingNewGameView = true }),
-                    QuickAction(displayName: "New bluetooth game", action: { isShowingNewBluetoothGameView = true })
-                ]
-                
-                FlowRow(views: playActions)
-                
-                Text("History")
-                    .font(.headline)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.orange)
-                
-                let historyActions = [
-                    QuickAction(displayName:"Recent games", action: {isShowingHistoryView = true})
-                ]
-                
-                FlowRow(views: historyActions)
-                
-                Spacer()
-            }
-            .frame(
-                  minWidth: 0,
-                  maxWidth: .infinity,
-                  minHeight: 0,
-                  maxHeight: .infinity,
-                  alignment: .topLeading
+                    NavigationLink(destination: PlayView(), isActive: $isShowingPlayView) { EmptyView() }
+                    NavigationLink(destination: NewGameView(), isActive: $isShowingNewGameView) { EmptyView() }
+                    NavigationLink(destination: NewBluetoothGameView(), isActive: $isShowingNewBluetoothGameView) { EmptyView() }
+                    NavigationLink(destination: HistoryView(), isActive: $isShowingHistoryView) { EmptyView() }
+                    
+                    Text("Play")
+                        .font(.headline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.orange)
+                    
+                    let playActions = [
+                        QuickAction(displayName: "Continue current game", action: { isShowingPlayView = true }),
+                        QuickAction(displayName: "New game", action: { isShowingNewGameView = true }),
+                        QuickAction(displayName: "New bluetooth game", action: { isShowingNewBluetoothGameView = true })
+                    ]
+                    
+                    FlowRow(views: playActions)
+                    
+                    Text("History")
+                        .font(.headline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.orange)
+                    
+                    let historyActions = [
+                        QuickAction(displayName:"Recent games", action: {isShowingHistoryView = true})
+                    ]
+                    
+                    FlowRow(views: historyActions)
+                    
+                    Spacer()
+                }
+                .frame(
+                    minWidth: 0,
+                    maxWidth: .infinity,
+                    minHeight: 0,
+                    maxHeight: .infinity,
+                    alignment: .topLeading
                 )
-            .padding()
-            .navigationBarTitle(Text("Chess Boy"), displayMode: .inline)
+                .padding()
+                .navigationBarTitle(Text("Chess Boy"), displayMode: .inline)
+//            }
         }
-
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
-	static var previews: some View {
+    static var previews: some View {
         ContentView()
-	}
+    }
 }
 
 protocol ScopeFunc {}

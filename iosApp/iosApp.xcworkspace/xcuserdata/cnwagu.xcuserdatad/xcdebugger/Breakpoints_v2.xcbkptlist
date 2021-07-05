@@ -3,4 +3,54 @@
    uuid = "A50312B9-2B84-43AA-940D-2C8470C36CCB"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F9855471-CE28-49D5-A5E4-D71F2C535C5D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "iosApp/View/ContentView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "14"
+            endingLineNumber = "14"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "F9855471-CE28-49D5-A5E4-D71F2C535C5D - 49e413404a47894c"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, Chess_Boy.PlayView&gt;, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, Chess_Boy.NewGameView&gt;, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, Chess_Boy.NewBluetoothGameView&gt;, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, Chess_Boy.HistoryView&gt;, SwiftUI.Text, Chess_Boy.FlowRow, SwiftUI.Text, Chess_Boy.FlowRow, SwiftUI.Spacer)&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.navigationBarTitle(_: SwiftUI.Text, displayMode: SwiftUI.NavigationBarItem.TitleDisplayMode) -&gt; some&gt;&gt;.0 in Chess_Boy.ContentView.body.getter : some"
+                  moduleName = "Chess Boy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cnwagu/AndroidStudioProjects/ChessBoy/iosApp/iosApp/View/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "587">
+               </Location>
+               <Location
+                  uuid = "F9855471-CE28-49D5-A5E4-D71F2C535C5D - 4d75afaeaaf90a49"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; SwiftUI.EmptyView in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, Chess_Boy.PlayView&gt;, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, Chess_Boy.NewGameView&gt;, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, Chess_Boy.NewBluetoothGameView&gt;, SwiftUI.NavigationLink&lt;SwiftUI.EmptyView, Chess_Boy.HistoryView&gt;, SwiftUI.Text, Chess_Boy.FlowRow, SwiftUI.Text, Chess_Boy.FlowRow, SwiftUI.Spacer)&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.navigationBarTitle(_: SwiftUI.Text, displayMode: SwiftUI.NavigationBarItem.TitleDisplayMode) -&gt; some&gt;&gt;.0 in Chess_Boy.ContentView.body.getter : some"
+                  moduleName = "Chess Boy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cnwagu/AndroidStudioProjects/ChessBoy/iosApp/iosApp/View/ContentView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "4">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
