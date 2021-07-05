@@ -19,6 +19,7 @@
 		B3F082CC2688910A00038199 /* FlowRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F082CB2688910A00038199 /* FlowRow.swift */; };
 		B3F082CE2688A07200038199 /* PlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F082CD2688A07200038199 /* PlayView.swift */; };
 		B3F082D02688A23200038199 /* ChessBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F082CF2688A23200038199 /* ChessBoardView.swift */; };
+		B3F305FB269326DF00D6DDAD /* PlayerDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F305FA269326DF00D6DDAD /* PlayerDisplay.swift */; };
 		F27E8B25D22AA9AFAD19416E /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F42204A97754A79718749B /* Pods_iosApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +41,7 @@
 		B3F082CB2688910A00038199 /* FlowRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowRow.swift; sourceTree = "<group>"; };
 		B3F082CD2688A07200038199 /* PlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayView.swift; sourceTree = "<group>"; };
 		B3F082CF2688A23200038199 /* ChessBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBoardView.swift; sourceTree = "<group>"; };
+		B3F305FA269326DF00D6DDAD /* PlayerDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDisplay.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 				B3F082CF2688A23200038199 /* ChessBoardView.swift */,
 				B3F082CB2688910A00038199 /* FlowRow.swift */,
 				B3F082C72688544800038199 /* QuickActionView.swift */,
+				B3F305FA269326DF00D6DDAD /* PlayerDisplay.swift */,
 			);
 			path = Basic;
 			sourceTree = "<group>";
@@ -229,6 +232,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3F082CC2688910A00038199 /* FlowRow.swift in Sources */,
+				B3F305FB269326DF00D6DDAD /* PlayerDisplay.swift in Sources */,
 				B3F082D02688A23200038199 /* ChessBoardView.swift in Sources */,
 				B3F082C42687D5E800038199 /* NewBluetoothGameView.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,

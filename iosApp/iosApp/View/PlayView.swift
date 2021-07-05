@@ -15,13 +15,14 @@ struct PlayView: View {
     
     var body: some View {
         VStack {
-            Text("Hello, World!")
+            
+            PlayerDisplay()
             
             ChessBoardView(board: Board(numberOfRows: 8, numberOfColumns: 8).apply(block: {board in
                 board.loadStandardStartingPosition()
             }))
             
-            Text("Hello, World!")
+            PlayerDisplay()
         }
     }
 }
