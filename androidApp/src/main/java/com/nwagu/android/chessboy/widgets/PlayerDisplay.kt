@@ -18,7 +18,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.nwagu.android.chessboy.screens.play.vm.PlayViewModel
-import com.nwagu.chess.gamelogic.isStaleMate
 import com.nwagu.chess.gamelogic.turn
 import com.nwagu.chess.model.ChessPieceColor
 import com.nwagu.chessboy.sharedmodels.players.GUIPlayer

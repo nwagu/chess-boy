@@ -15,6 +15,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -66,8 +67,8 @@ fun PlayerSelect(
             onSelect(player)
         },
         shape = RoundedCornerShape(4.dp),
-        backgroundColor = if (isSelected) Color(getPrimaryColorLight()) else Color.Transparent,
-        border = BorderStroke(1.dp, if (isSelected) Color(getPrimaryColor()) else Color.Transparent),
+        backgroundColor = if (isSelected) colorResource(getPrimaryColorLight()) else Color.Transparent,
+        border = BorderStroke(1.dp, if (isSelected) colorResource(getPrimaryColor()) else Color.Transparent),
         elevation = 0.dp
     ) {
         Column(

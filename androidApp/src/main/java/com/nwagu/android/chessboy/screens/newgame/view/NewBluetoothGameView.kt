@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
@@ -147,7 +148,7 @@ fun NewBluetoothGameView(
                                         }
                                     }
                                 },
-                                colors = ButtonDefaults.buttonColors(backgroundColor = Color(getPrimaryColor()))
+                                colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(getPrimaryColor()))
                             ) {
                                 Text(
                                     text = when (scanState) {
@@ -212,7 +213,7 @@ fun NewBluetoothGameView(
                                         else -> {}
                                     }
                                 },
-                                colors = ButtonDefaults.buttonColors(backgroundColor = Color(getPrimaryColor()))
+                                colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(getPrimaryColor()))
                             ) {
                                 Text(
                                     text = when (connectionState) {
