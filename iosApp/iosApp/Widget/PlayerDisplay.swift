@@ -15,8 +15,8 @@ struct PlayerDisplay: View {
         HStack {
             Image("img_avatar_default")
                 .resizable()
-                .frame(width: 25, height: 25)
                 .aspectRatio(contentMode: .fit)
+                .frame(width: 25, height: 25)
             Text("Check")
         }
     }

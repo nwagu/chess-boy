@@ -7,10 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
+		7555FF83242A565900829871 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* HomeView.swift */; };
 		B3412FE6267F0B3E00AE7470 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3412FE5267F0B3E00AE7470 /* Assets.xcassets */; };
+		B3B0496A2695654600CBA1D0 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B049692695654600CBA1D0 /* MainView.swift */; };
+		B3B0497426956A1300CBA1D0 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B0497326956A1300CBA1D0 /* ViewRouter.swift */; };
+		B3B0497626956A2400CBA1D0 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B0497526956A2400CBA1D0 /* Screen.swift */; };
+		B3B0497826956B8800CBA1D0 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B0497726956B8800CBA1D0 /* SettingsView.swift */; };
+		B3B0497D269587FA00CBA1D0 /* TopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B0497C269587FA00CBA1D0 /* TopBar.swift */; };
 		B3D4E19E2681EA6B002BB5E2 /* ChessBoy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D4E19D2681EA6B002BB5E2 /* ChessBoy.swift */; };
-		B3F082BE2687D5A700038199 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F082BD2687D5A700038199 /* HomeView.swift */; };
 		B3F082C02687D5C100038199 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F082BF2687D5C100038199 /* HistoryView.swift */; };
 		B3F082C22687D5D800038199 /* NewGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F082C12687D5D800038199 /* NewGameView.swift */; };
 		B3F082C42687D5E800038199 /* NewBluetoothGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F082C32687D5E800038199 /* NewBluetoothGameView.swift */; };
@@ -28,11 +32,15 @@
 		2F73FB75F585DC0BEAFB1B26 /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosApp.release.xcconfig"; path = "Target Support Files/Pods-iosApp/Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
 		62F42204A97754A79718749B /* Pods_iosApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF7B242A565900829871 /* Chess Boy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chess Boy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		7555FF82242A565900829871 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B3412FE5267F0B3E00AE7470 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = iosApp/Assets.xcassets; sourceTree = SOURCE_ROOT; };
+		B3B049692695654600CBA1D0 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		B3B0497326956A1300CBA1D0 /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
+		B3B0497526956A2400CBA1D0 /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
+		B3B0497726956B8800CBA1D0 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		B3B0497C269587FA00CBA1D0 /* TopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBar.swift; sourceTree = "<group>"; };
 		B3D4E19D2681EA6B002BB5E2 /* ChessBoy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBoy.swift; sourceTree = "<group>"; };
-		B3F082BD2687D5A700038199 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		B3F082BF2687D5C100038199 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		B3F082C12687D5D800038199 /* NewGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameView.swift; sourceTree = "<group>"; };
 		B3F082C32687D5E800038199 /* NewBluetoothGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBluetoothGameView.swift; sourceTree = "<group>"; };
@@ -77,7 +85,9 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
-				B335ECEA268C9D28006BDB70 /* View */,
+				B335ECEB268C9D59006BDB70 /* Widget */,
+				B335ECEC268C9DBB006BDB70 /* Model */,
+				B3B049672695652500CBA1D0 /* Screens */,
 				7555FF8C242A565B00829871 /* Info.plist */,
 				B3412FE5267F0B3E00AE7470 /* Assets.xcassets */,
 				B3D4E19D2681EA6B002BB5E2 /* ChessBoy.swift */,
@@ -94,30 +104,16 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		B335ECEA268C9D28006BDB70 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				B335ECEC268C9DBB006BDB70 /* Model */,
-				B335ECEB268C9D59006BDB70 /* Basic */,
-				7555FF82242A565900829871 /* ContentView.swift */,
-				B3F082CD2688A07200038199 /* PlayView.swift */,
-				B3F082BD2687D5A700038199 /* HomeView.swift */,
-				B3F082C12687D5D800038199 /* NewGameView.swift */,
-				B3F082C32687D5E800038199 /* NewBluetoothGameView.swift */,
-				B3F082BF2687D5C100038199 /* HistoryView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		B335ECEB268C9D59006BDB70 /* Basic */ = {
+		B335ECEB268C9D59006BDB70 /* Widget */ = {
 			isa = PBXGroup;
 			children = (
 				B3F082CF2688A23200038199 /* ChessBoardView.swift */,
 				B3F082CB2688910A00038199 /* FlowRow.swift */,
 				B3F082C72688544800038199 /* QuickActionView.swift */,
 				B3F305FA269326DF00D6DDAD /* PlayerDisplay.swift */,
+				B3B0497C269587FA00CBA1D0 /* TopBar.swift */,
 			);
-			path = Basic;
+			path = Widget;
 			sourceTree = "<group>";
 		};
 		B335ECEC268C9DBB006BDB70 /* Model */ = {
@@ -126,6 +122,86 @@
 				B3F082C92688634900038199 /* QuickAction.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		B3B049672695652500CBA1D0 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				B3B0497E2695930300CBA1D0 /* Analysis */,
+				B3B0497926956C8F00CBA1D0 /* Common */,
+				B3B04972269569FC00CBA1D0 /* Navigation */,
+				B3B0496E2695657400CBA1D0 /* Play */,
+				B3B0496D2695656C00CBA1D0 /* NewGame */,
+				B3B0496C2695655A00CBA1D0 /* History */,
+				B3B0496B2695654F00CBA1D0 /* Settings */,
+				B3B049682695653300CBA1D0 /* Main */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		B3B049682695653300CBA1D0 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				7555FF82242A565900829871 /* HomeView.swift */,
+				B3B049692695654600CBA1D0 /* MainView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		B3B0496B2695654F00CBA1D0 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				B3B0497726956B8800CBA1D0 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		B3B0496C2695655A00CBA1D0 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				B3F082BF2687D5C100038199 /* HistoryView.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		B3B0496D2695656C00CBA1D0 /* NewGame */ = {
+			isa = PBXGroup;
+			children = (
+				B3F082C32687D5E800038199 /* NewBluetoothGameView.swift */,
+				B3F082C12687D5D800038199 /* NewGameView.swift */,
+			);
+			path = NewGame;
+			sourceTree = "<group>";
+		};
+		B3B0496E2695657400CBA1D0 /* Play */ = {
+			isa = PBXGroup;
+			children = (
+				B3F082CD2688A07200038199 /* PlayView.swift */,
+			);
+			path = Play;
+			sourceTree = "<group>";
+		};
+		B3B04972269569FC00CBA1D0 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				B3B0497326956A1300CBA1D0 /* ViewRouter.swift */,
+				B3B0497526956A2400CBA1D0 /* Screen.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		B3B0497926956C8F00CBA1D0 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		B3B0497E2695930300CBA1D0 /* Analysis */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Analysis;
 			sourceTree = "<group>";
 		};
 		C31EA3CF5EE84EACFDCC6B59 /* Frameworks */ = {
@@ -231,18 +307,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3B0497826956B8800CBA1D0 /* SettingsView.swift in Sources */,
 				B3F082CC2688910A00038199 /* FlowRow.swift in Sources */,
+				B3B0496A2695654600CBA1D0 /* MainView.swift in Sources */,
 				B3F305FB269326DF00D6DDAD /* PlayerDisplay.swift in Sources */,
+				B3B0497426956A1300CBA1D0 /* ViewRouter.swift in Sources */,
 				B3F082D02688A23200038199 /* ChessBoardView.swift in Sources */,
 				B3F082C42687D5E800038199 /* NewBluetoothGameView.swift in Sources */,
-				7555FF83242A565900829871 /* ContentView.swift in Sources */,
+				7555FF83242A565900829871 /* HomeView.swift in Sources */,
+				B3B0497626956A2400CBA1D0 /* Screen.swift in Sources */,
 				B3F082CA2688634900038199 /* QuickAction.swift in Sources */,
-				B3F082BE2687D5A700038199 /* HomeView.swift in Sources */,
 				B3F082C02687D5C100038199 /* HistoryView.swift in Sources */,
 				B3D4E19E2681EA6B002BB5E2 /* ChessBoy.swift in Sources */,
 				B3F082C82688544800038199 /* QuickActionView.swift in Sources */,
 				B3F082C22687D5D800038199 /* NewGameView.swift in Sources */,
 				B3F082CE2688A07200038199 /* PlayView.swift in Sources */,
+				B3B0497D269587FA00CBA1D0 /* TopBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
