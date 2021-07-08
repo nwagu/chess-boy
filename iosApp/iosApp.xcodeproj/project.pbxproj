@@ -15,6 +15,8 @@
 		B3B0497826956B8800CBA1D0 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B0497726956B8800CBA1D0 /* SettingsView.swift */; };
 		B3B0497D269587FA00CBA1D0 /* TopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B0497C269587FA00CBA1D0 /* TopBar.swift */; };
 		B3D4E19E2681EA6B002BB5E2 /* ChessBoy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D4E19D2681EA6B002BB5E2 /* ChessBoy.swift */; };
+		B3DB685E2696953900EDB094 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DB685D2696953900EDB094 /* Stack.swift */; };
+		B3DB68602696957B00EDB094 /* ScopeFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DB685F2696957B00EDB094 /* ScopeFunc.swift */; };
 		B3F082C02687D5C100038199 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F082BF2687D5C100038199 /* HistoryView.swift */; };
 		B3F082C22687D5D800038199 /* NewGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F082C12687D5D800038199 /* NewGameView.swift */; };
 		B3F082C42687D5E800038199 /* NewBluetoothGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F082C32687D5E800038199 /* NewBluetoothGameView.swift */; };
@@ -41,6 +43,8 @@
 		B3B0497726956B8800CBA1D0 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B3B0497C269587FA00CBA1D0 /* TopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBar.swift; sourceTree = "<group>"; };
 		B3D4E19D2681EA6B002BB5E2 /* ChessBoy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBoy.swift; sourceTree = "<group>"; };
+		B3DB685D2696953900EDB094 /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
+		B3DB685F2696957B00EDB094 /* ScopeFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScopeFunc.swift; sourceTree = "<group>"; };
 		B3F082BF2687D5C100038199 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		B3F082C12687D5D800038199 /* NewGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameView.swift; sourceTree = "<group>"; };
 		B3F082C32687D5E800038199 /* NewBluetoothGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBluetoothGameView.swift; sourceTree = "<group>"; };
@@ -85,6 +89,7 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
+				B3DB685C2696952900EDB094 /* Util */,
 				B3B0497F2695C7A400CBA1D0 /* Resources */,
 				B335ECEB268C9D59006BDB70 /* Widget */,
 				B335ECEC268C9DBB006BDB70 /* Model */,
@@ -212,6 +217,15 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		B3DB685C2696952900EDB094 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				B3DB685D2696953900EDB094 /* Stack.swift */,
+				B3DB685F2696957B00EDB094 /* ScopeFunc.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
 		C31EA3CF5EE84EACFDCC6B59 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -315,9 +329,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3DB68602696957B00EDB094 /* ScopeFunc.swift in Sources */,
 				B3B0497826956B8800CBA1D0 /* SettingsView.swift in Sources */,
 				B3F082CC2688910A00038199 /* FlowRow.swift in Sources */,
 				B3B0496A2695654600CBA1D0 /* MainView.swift in Sources */,
+				B3DB685E2696953900EDB094 /* Stack.swift in Sources */,
 				B3F305FB269326DF00D6DDAD /* PlayerDisplay.swift in Sources */,
 				B3B0497426956A1300CBA1D0 /* ViewRouter.swift in Sources */,
 				B3F082D02688A23200038199 /* ChessBoardView.swift in Sources */,

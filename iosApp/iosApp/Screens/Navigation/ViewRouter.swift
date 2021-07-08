@@ -10,15 +10,21 @@ import SwiftUI
 
 class ViewRouter: ObservableObject {
     
-    @Published var currentScreen: Screen = .home
+    @Published var currentScreen: Screen
     
-//    let backStack = Stack
+    var backStack: Stack<Screen> = Stack()
+    
+    init() {
+        currentScreen = .home
+        backStack.push(currentScreen)
+    }
     
     func navigateUp() {
-        currentScreen = .home
+        currentScreen = backStack.pop() ?? currentScreen
     }
     
     func navigate(screen: Screen) {
+        backStack.push(currentScreen)
         currentScreen = screen
     }
     
