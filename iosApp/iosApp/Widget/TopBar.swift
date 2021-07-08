@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct TopBar: View {
-    @StateObject var viewRouter: ViewRouter
+    @EnvironmentObject var viewRouter: ViewRouter
     var title: String
     
     var body: some View {
@@ -28,6 +28,6 @@ struct TopBar: View {
 
 struct TopBar_Previews: PreviewProvider {
     static var previews: some View {
-        TopBar(viewRouter: ViewRouter(), title: "Back")
+        TopBar(title: "Back").environmentObject(ViewRouter())
     }
 }

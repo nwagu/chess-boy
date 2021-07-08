@@ -10,11 +10,11 @@ import SwiftUI
 import sharedmodels
 
 struct PlayView: View {
-    @StateObject var viewRouter: ViewRouter
+    @EnvironmentObject var viewRouter: ViewRouter
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            TopBar(viewRouter: viewRouter, title: "Active game")
+            TopBar(title: "Active game")
             ScrollView {
                 VStack(alignment: .leading, spacing: 0) {
                     
@@ -44,6 +44,6 @@ struct PlayView: View {
 
 struct PlayView_Previews: PreviewProvider {
     static var previews: some View {
-        PlayView(viewRouter: ViewRouter())
+        PlayView().environmentObject(ViewRouter())
     }
 }

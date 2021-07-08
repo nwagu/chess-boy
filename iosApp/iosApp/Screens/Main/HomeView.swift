@@ -2,7 +2,7 @@ import SwiftUI
 import sharedmodels
 
 struct HomeView: View {
-    @StateObject var viewRouter: ViewRouter    
+    @EnvironmentObject var viewRouter: ViewRouter
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -21,9 +21,18 @@ struct HomeView: View {
                 .foregroundColor(.orange)
             
             let playActions = [
-                QuickAction(displayName: "Continue current game", action: { viewRouter.navigate(screen: .play) }),
-                QuickAction(displayName: "New game", action: { viewRouter.navigate(screen: .newGame) }),
-                QuickAction(displayName: "New bluetooth game", action: { viewRouter.navigate(screen: .newBluetoothGame) })
+                QuickAction(
+                    displayName: "Continue current game",
+                    action: { withAnimation { viewRouter.navigate(screen: .play) } }
+                ),
+                QuickAction(
+                    displayName: "New game",
+                    action: { withAnimation { viewRouter.navigate(screen: .newGame) } }
+                ),
+                QuickAction(
+                    displayName: "New bluetooth game",
+                    action: { withAnimation { viewRouter.navigate(screen: .newBluetoothGame) } }
+                )
             ]
             
             FlowRow(views: playActions)
@@ -34,7 +43,10 @@ struct HomeView: View {
                 .foregroundColor(.orange)
             
             let historyActions = [
-                QuickAction(displayName:"Recent games", action: { viewRouter.navigate(screen: .history) })
+                QuickAction(
+                    displayName:"Recent games",
+                    action: { withAnimation { viewRouter.navigate(screen: .history) } }
+                )
             ]
             
             FlowRow(views: historyActions)
@@ -54,6 +66,6 @@ struct HomeView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(viewRouter: ViewRouter())
+        HomeView().environmentObject(ViewRouter())
     }
 }

@@ -9,11 +9,11 @@
 import SwiftUI
 
 struct HistoryView: View {
-    @StateObject var viewRouter: ViewRouter
+    @EnvironmentObject var viewRouter: ViewRouter
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            TopBar(viewRouter: viewRouter, title: "History")
+            TopBar(title: "History")
             Text("History")
             Spacer()
         }

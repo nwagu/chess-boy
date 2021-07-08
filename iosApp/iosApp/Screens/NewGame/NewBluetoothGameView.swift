@@ -9,11 +9,11 @@
 import SwiftUI
 
 struct NewBluetoothGameView: View {
-    @StateObject var viewRouter: ViewRouter
+    @EnvironmentObject var viewRouter: ViewRouter
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            TopBar(viewRouter: viewRouter, title: "Start a new bluetooth game")
+            TopBar(title: "Start a new bluetooth game")
             Text("New Bluetooth game")
             Spacer()
         }

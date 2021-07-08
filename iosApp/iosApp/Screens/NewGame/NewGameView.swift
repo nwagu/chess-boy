@@ -9,11 +9,11 @@
 import SwiftUI
 
 struct NewGameView: View {
-    @StateObject var viewRouter: ViewRouter
+    @EnvironmentObject var viewRouter: ViewRouter
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            TopBar(viewRouter: viewRouter, title: "Start a new game against computer")
+            TopBar(title: "Start a new game against computer")
             Text("New Game")
             Spacer()
         }

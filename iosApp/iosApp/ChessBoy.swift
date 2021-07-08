@@ -15,7 +15,7 @@ struct ChessBoy: App {
     
     var body: some Scene {
         WindowGroup {
-            MainView(viewRouter: viewRouter)
+            MainView().environmentObject(viewRouter)
         }
     }
 }

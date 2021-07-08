@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @StateObject var viewRouter: ViewRouter
+    @EnvironmentObject var viewRouter: ViewRouter
     
     var body: some View {
         Text("Settings")

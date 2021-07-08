@@ -9,28 +9,33 @@
 import SwiftUI
 
 struct MainView: View {
-    @StateObject var viewRouter: ViewRouter
+    @EnvironmentObject var viewRouter: ViewRouter
     
     var body: some View {
         switch viewRouter.currentScreen {
         case .home:
-            HomeView(viewRouter: viewRouter)
+            HomeView()
         case .play:
-            PlayView(viewRouter: viewRouter)
+            PlayView()
+                .transition(.move(edge: .bottom))
         case .history:
-            HistoryView(viewRouter: viewRouter)
+            HistoryView()
+                .transition(.scale)
         case .newGame:
-            NewGameView(viewRouter: viewRouter)
+            NewGameView()
+                .transition(.scale)
         case .newBluetoothGame:
-            NewBluetoothGameView(viewRouter: viewRouter)
+            NewBluetoothGameView()
+                .transition(.scale)
         case .settings:
-            SettingsView(viewRouter: viewRouter)
+            SettingsView()
+                .transition(.scale)
         }
     }
 }
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView(viewRouter: ViewRouter())
+        MainView().environmentObject(ViewRouter())
     }
 }
