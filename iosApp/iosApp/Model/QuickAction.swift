@@ -6,11 +6,12 @@
 //  Copyright © 2021 orgName. All rights reserved.
 //
 
-struct QuickAction: Equatable {
-    static func == (lhs: QuickAction, rhs: QuickAction) -> Bool {
-        lhs.displayName == rhs.displayName
-    }
-    
+import Foundation
+
+struct QuickAction: Identifiable {
+    var id = UUID()
     var displayName: String
     var action: () -> Void
 }
+
+ 

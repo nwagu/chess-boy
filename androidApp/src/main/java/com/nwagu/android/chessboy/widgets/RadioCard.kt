@@ -23,7 +23,6 @@ import com.nwagu.chessboy.sharedmodels.resources.getPrimaryColorLight
 fun RadioCard(
     modifier: Modifier = Modifier,
     isSelected: Boolean,
-    enabled: Boolean = true,
     onClick: (() -> Unit) = {},
     text: String
 ) {

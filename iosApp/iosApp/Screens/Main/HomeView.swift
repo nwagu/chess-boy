@@ -4,54 +4,65 @@ import sharedmodels
 struct HomeView: View {
     @EnvironmentObject var viewRouter: ViewRouter
     
+    var playActions: [QuickAction] {
+        [
+            QuickAction(
+                displayName: "Continue current game",
+                action: { withAnimation { viewRouter.navigate(screen: .play) } }
+            ),
+            QuickAction(
+                displayName: "New game",
+                action: { withAnimation { viewRouter.navigate(screen: .newGame) } }
+            ),
+            QuickAction(
+                displayName: "New bluetooth game",
+                action: { withAnimation { viewRouter.navigate(screen: .newBluetoothGame) } }
+            )
+        ]
+    }
+    
+    var historyActions: [QuickAction] {
+        [
+            QuickAction(
+                displayName:"Recent games",
+                action: { withAnimation { viewRouter.navigate(screen: .history) } }
+            )
+        ]
+    }
+    
     var body: some View {
-        VStack(alignment: .leading) {
-            
-            HStack(alignment: .center, spacing: 0) {
-                Image("logo")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 100)
+        ScrollView {
+            VStack(alignment: .leading) {
+                HStack(alignment: .center, spacing: 0) {
+                    Image("logo")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 100)
+                }
+                .frame(maxWidth: .infinity)
+                Text("Play")
+                    .font(.headline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.orange)
+                    .padding(.top)
+                WrappingHStack(models: playActions) { playAction in
+                    Button(action: { playAction.action() }) {
+                        QuickActionView(text: playAction.displayName)
+                    }
+                }
+                Text("History")
+                    .font(.headline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.orange)
+                    .padding(.top)
+                WrappingHStack(models: historyActions) { historyAction in
+                    Button(action: { historyAction.action() }) {
+                        QuickActionView(text: historyAction.displayName)
+                    }
+                }
+                
+                Spacer()
             }
-            .frame(maxWidth: .infinity)
-            
-            Text("Play")
-                .font(.headline)
-                .fontWeight(.semibold)
-                .foregroundColor(.orange)
-            
-            let playActions = [
-                QuickAction(
-                    displayName: "Continue current game",
-                    action: { withAnimation { viewRouter.navigate(screen: .play) } }
-                ),
-                QuickAction(
-                    displayName: "New game",
-                    action: { withAnimation { viewRouter.navigate(screen: .newGame) } }
-                ),
-                QuickAction(
-                    displayName: "New bluetooth game",
-                    action: { withAnimation { viewRouter.navigate(screen: .newBluetoothGame) } }
-                )
-            ]
-            
-            FlowRow(views: playActions)
-            
-            Text("History")
-                .font(.headline)
-                .fontWeight(.semibold)
-                .foregroundColor(.orange)
-            
-            let historyActions = [
-                QuickAction(
-                    displayName:"Recent games",
-                    action: { withAnimation { viewRouter.navigate(screen: .history) } }
-                )
-            ]
-            
-            FlowRow(views: historyActions)
-            
-            Spacer()
         }
         .frame(
             minWidth: 0,

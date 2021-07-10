@@ -17,19 +17,19 @@ struct MainView: View {
             HomeView()
         case .play:
             PlayView()
-                .transition(.move(edge: .bottom))
+                .transition(.move(edge: .trailing))
         case .history:
             HistoryView()
-                .transition(.scale)
+                .transition(.move(edge: .trailing))
         case .newGame:
             NewGameView()
-                .transition(.scale)
+                .transition(.move(edge: .trailing))
         case .newBluetoothGame:
             NewBluetoothGameView()
-                .transition(.scale)
+                .transition(.move(edge: .trailing))
         case .settings:
             SettingsView()
-                .transition(.scale)
+                .transition(.move(edge: .trailing))
         }
     }
 }
