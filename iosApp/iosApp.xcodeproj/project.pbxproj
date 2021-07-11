@@ -11,6 +11,7 @@
 		B3412FE6267F0B3E00AE7470 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3412FE5267F0B3E00AE7470 /* Assets.xcassets */; };
 		B36AA61B2698EA720016E7FA /* WrappingHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36AA61A2698EA720016E7FA /* WrappingHStack.swift */; };
 		B36AA61D26990D080016E7FA /* SideChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36AA61C26990D080016E7FA /* SideChoice.swift */; };
+		B36AA61F26997FCB0016E7FA /* PlayerSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36AA61E26997FCB0016E7FA /* PlayerSelect.swift */; };
 		B3A6A3AF26982D1A0097FC27 /* RadioCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A6A3AE26982D1A0097FC27 /* RadioCard.swift */; };
 		B3B0496A2695654600CBA1D0 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B049692695654600CBA1D0 /* MainView.swift */; };
 		B3B0497426956A1300CBA1D0 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B0497326956A1300CBA1D0 /* ViewRouter.swift */; };
@@ -41,6 +42,7 @@
 		B3412FE5267F0B3E00AE7470 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = iosApp/Resources/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		B36AA61A2698EA720016E7FA /* WrappingHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrappingHStack.swift; sourceTree = "<group>"; };
 		B36AA61C26990D080016E7FA /* SideChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideChoice.swift; sourceTree = "<group>"; };
+		B36AA61E26997FCB0016E7FA /* PlayerSelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSelect.swift; sourceTree = "<group>"; };
 		B3A6A3AE26982D1A0097FC27 /* RadioCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioCard.swift; sourceTree = "<group>"; };
 		B3B049692695654600CBA1D0 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		B3B0497326956A1300CBA1D0 /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				B3B0497C269587FA00CBA1D0 /* TopBar.swift */,
 				B3A6A3AE26982D1A0097FC27 /* RadioCard.swift */,
 				B36AA61A2698EA720016E7FA /* WrappingHStack.swift */,
+				B36AA61E26997FCB0016E7FA /* PlayerSelect.swift */,
 			);
 			path = Widget;
 			sourceTree = "<group>";
@@ -335,6 +338,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B36AA61F26997FCB0016E7FA /* PlayerSelect.swift in Sources */,
 				B3DB68602696957B00EDB094 /* ScopeFunc.swift in Sources */,
 				B3B0497826956B8800CBA1D0 /* SettingsView.swift in Sources */,
 				B3B0496A2695654600CBA1D0 /* MainView.swift in Sources */,

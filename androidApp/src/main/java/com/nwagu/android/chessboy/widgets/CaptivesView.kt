@@ -29,7 +29,7 @@ fun CaptivesView(
         // Invisible text to force recompose on board changed
         Text(text = boardChanged.toString(), Modifier.size(0.dp))
 
-        SimpleFlowRow(modifier = Modifier
+        WrappingRow(modifier = Modifier
             .fillMaxWidth()
             .padding(4.dp)
             .height(32.dp)

@@ -11,11 +11,12 @@ import SwiftUI
 struct RadioCard: View {
     let text: String
     let isSelected: Bool
+    let onClickAction: () -> Void
 
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)) {
             RoundedRectangle(cornerRadius: 8)
-                .strokeBorder((isSelected) ? Color.red : Color.gray, lineWidth: 5)
+                .strokeBorder((isSelected) ? Color.red : Color.gray, lineWidth: 1)
 
             VStack {
                 Text(text)
@@ -27,11 +28,15 @@ struct RadioCard: View {
         }
         .frame(width: 100, height: 100, alignment: .center)
         .aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            onClickAction()
+        }
     }
 }
 
 struct RadioCard_Previews: PreviewProvider {
     static var previews: some View {
-        RadioCard(text: "Hello", isSelected: false)
+        RadioCard(text: "Hello", isSelected: false) {}
     }
 }

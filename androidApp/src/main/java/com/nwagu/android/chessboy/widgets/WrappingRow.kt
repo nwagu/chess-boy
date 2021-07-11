@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.dp
 // https://stackoverflow.com/a/65723938/8196427
 
 @Composable
-fun SimpleFlowRow(
+fun WrappingRow(
     modifier: Modifier = Modifier,
     alignment: Alignment.Horizontal = Alignment.Start,
     verticalGap: Dp = 0.dp,

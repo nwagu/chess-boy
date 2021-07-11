@@ -8,8 +8,9 @@
 
 import SwiftUI
 
-struct QuickActionView: View, Hashable {
+struct QuickActionView: View {
     let text: String
+    let onClickAction: () -> Void
 
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)) {
@@ -26,11 +27,15 @@ struct QuickActionView: View, Hashable {
         }
         .frame(width: 120, height: 120, alignment: .center)
         .aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            onClickAction()
+        }
     }
 }
 
 struct QuickActionView_Previews: PreviewProvider {
     static var previews: some View {
-        QuickActionView(text: "Hello")
+        QuickActionView(text: "Hello") { }
     }
 }

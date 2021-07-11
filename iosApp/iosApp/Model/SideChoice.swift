@@ -7,10 +7,10 @@
 //
 
 import Foundation
-import SwiftUI
+import sharedmodels
 
 struct SideChoice: Identifiable {
     var id = UUID()
     var displayName: String
-    @State var isSelected: Bool
+    var color: ChessPieceColor?
 }

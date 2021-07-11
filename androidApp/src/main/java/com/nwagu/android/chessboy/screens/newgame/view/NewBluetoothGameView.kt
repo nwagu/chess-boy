@@ -15,7 +15,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
@@ -88,7 +87,7 @@ fun NewBluetoothGameView(
 
             SubHeader(Modifier.padding(0.dp, 16.dp), text = "Choose your side")
 
-            SimpleFlowRow {
+            WrappingRow {
                 RadioCard(
                     isSelected = selectedColor == ChessPieceColor.WHITE,
                     text = "White",
@@ -160,16 +159,16 @@ fun NewBluetoothGameView(
                             }
                         }
 
-                        OpponentSelect(
+                        PlayerSelectView(
                             modifier = Modifier
                                 .padding(0.dp, 16.dp, 0.dp, 16.dp),
-                            items = devices.map {
+                            players = devices.map {
                                 BluetoothPlayer(
                                     name = it.name,
                                     address = it.address
                                 )
                             },
-                            selectedItem = selectedDevice,
+                            selectedPlayer = selectedDevice,
                             onSelect = {
                                 newBluetoothGameViewModel.selectedDevice.value =
                                     it as BluetoothPlayer

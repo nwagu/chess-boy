@@ -11,19 +11,56 @@ import SwiftUI
 struct NewBluetoothGameView: View {
     @EnvironmentObject var viewRouter: ViewRouter
     
+    var options: [SideChoice] {
+        [
+            SideChoice(displayName: "White", color: .white),
+            SideChoice(displayName: "Black", color: .black)
+        ]
+    }
+    
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            TopBar(title: "Start a new bluetooth game")
-            Text("New Bluetooth game")
-            Spacer()
+        VStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 0) {
+                    TopBar(title: "Start a new bluetooth game")
+                    Text("Choose your side")
+                        .font(.subheadline)
+                        .fontWeight(.medium)
+                        .foregroundColor(.black)
+                        .padding(.vertical)
+                    
+                    WrappingHStack(models: options) { option in
+                        RadioCard(text: option.displayName, isSelected: false) {
+                            // newGameViewModel.selectedColor.value = option.color
+                        }
+                    }
+                    let connectMessage = (true) ? "As white player, you are responsible for initiating a connection to the device playing black. Please click on SCAN to start discovering devices."
+                        : "As black player, you will accept connection from the device playing white. Please click on RECEIVE to ensure discoverability and start listening."
+                    Text(connectMessage)
+                        .italic()
+                        .font(.body)
+                        .fontWeight(.regular)
+                        .foregroundColor(.black)
+                        .padding(.vertical)
+                        
+                    
+                    Spacer()
+                }
+            }
+            .frame(
+                minWidth: 0,
+                maxWidth: .infinity,
+                minHeight: 0,
+                maxHeight: .infinity,
+                alignment: .topLeading
+            )
+            .padding()
+            
+            Button(action: {}, label: {
+                Text("Connect")
+            })
+            .padding(.bottom)
         }
-        .frame(
-            minWidth: 0,
-            maxWidth: .infinity,
-            minHeight: 0,
-            maxHeight: .infinity,
-            alignment: .topLeading
-        )
-        .padding()
+        
     }
 }

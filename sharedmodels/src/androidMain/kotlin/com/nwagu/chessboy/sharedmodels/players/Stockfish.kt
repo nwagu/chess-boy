@@ -21,6 +21,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
+// TODO move parameters that have same values to common sourceset
+// https://youtrack.jetbrains.com/issue/KT-20427
 actual class Stockfish(val context: Context) : UCIChessEngine() {
 
     override val id: String

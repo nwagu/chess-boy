@@ -46,8 +46,8 @@ struct HomeView: View {
                     .foregroundColor(.orange)
                     .padding(.top)
                 WrappingHStack(models: playActions) { playAction in
-                    Button(action: { playAction.action() }) {
-                        QuickActionView(text: playAction.displayName)
+                    QuickActionView(text: playAction.displayName) {
+                        playAction.action()
                     }
                 }
                 Text("History")
@@ -56,8 +56,8 @@ struct HomeView: View {
                     .foregroundColor(.orange)
                     .padding(.top)
                 WrappingHStack(models: historyActions) { historyAction in
-                    Button(action: { historyAction.action() }) {
-                        QuickActionView(text: historyAction.displayName)
+                    QuickActionView(text: historyAction.displayName) {
+                        historyAction.action()
                     }
                 }
                 

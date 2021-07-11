@@ -123,7 +123,7 @@ fun GameAnalysisViewPortrait(
             }
         }
 
-        SimpleFlowRow {
+        WrappingRow {
             val lastMoveIndex = gameAnalysisViewModel.lastMoveIndex
             gameAnalysisViewModel.sans.forEachIndexed { index, san ->
                 Text(
@@ -197,7 +197,7 @@ fun GameAnalysisViewLandscape(
                     LightActionView(action)
                 }
             }
-            SimpleFlowRow {
+            WrappingRow {
                 val lastMoveIndex = gameAnalysisViewModel.lastMoveIndex
                 gameAnalysisViewModel.sans.forEachIndexed { index, san ->
                     Text(

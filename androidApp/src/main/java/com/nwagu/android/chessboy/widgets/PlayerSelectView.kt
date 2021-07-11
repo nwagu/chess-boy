@@ -29,10 +29,10 @@ import kotlin.math.roundToInt
 @ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @Composable
-fun OpponentSelect(
+fun PlayerSelectView(
     modifier: Modifier = Modifier,
-    items: List<SelectablePlayer>,
-    selectedItem: SelectablePlayer?,
+    players: List<SelectablePlayer>,
+    selectedPlayer: SelectablePlayer?,
     onSelect: (SelectablePlayer) -> Unit
 ) {
 
@@ -43,9 +43,9 @@ fun OpponentSelect(
         elevation = 0.dp
     ) {
         Column {
-            repeat(items.size) { index ->
-                val player = items[index]
-                PlayerSelect(player, player == selectedItem, onSelect)
+            repeat(players.size) { index ->
+                val player = players[index]
+                PlayerSelectItem(player, player == selectedPlayer, onSelect)
             }
         }
     }
@@ -55,7 +55,7 @@ fun OpponentSelect(
 @ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @Composable
-fun PlayerSelect(
+fun PlayerSelectItem(
     player: SelectablePlayer,
     isSelected: Boolean,
     onSelect: (SelectablePlayer) -> Unit
