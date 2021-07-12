@@ -43,6 +43,7 @@ kotlin {
                 api(project(":chess"))
                 implementation(project(":jwtc"))
                 implementation(project(":stockfish"))
+                implementation(project(":igel"))
                 api("co.touchlab:kermit:0.1.9") // for logging
             }
         }
@@ -54,8 +55,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation(project(":stockfish"))
-                implementation(project(":igel"))
+                implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
             }
         }
         val androidTest by getting {

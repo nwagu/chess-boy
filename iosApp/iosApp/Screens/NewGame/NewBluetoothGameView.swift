@@ -34,7 +34,10 @@ struct NewBluetoothGameView: View {
                             // newGameViewModel.selectedColor.value = option.color
                         }
                     }
-                    let connectMessage = (true) ? "As white player, you are responsible for initiating a connection to the device playing black. Please click on SCAN to start discovering devices."
+                    
+                    let whiteSelected = true
+                    
+                    let connectMessage = (whiteSelected) ? "As white player, you are responsible for initiating a connection to the device playing black. Please click on SCAN to start discovering devices."
                         : "As black player, you will accept connection from the device playing white. Please click on RECEIVE to ensure discoverability and start listening."
                     Text(connectMessage)
                         .italic()
@@ -42,6 +45,14 @@ struct NewBluetoothGameView: View {
                         .fontWeight(.regular)
                         .foregroundColor(.black)
                         .padding(.vertical)
+                    
+                    HStack {
+                        Spacer()
+                        Button(action: {}, label: {
+                            Text((whiteSelected) ? "Scan" : "Receive")
+                        })
+                        .padding()
+                    }
                         
                     
                     Spacer()
@@ -62,5 +73,12 @@ struct NewBluetoothGameView: View {
             .padding(.bottom)
         }
         
+    }
+}
+
+
+struct NewBluetoothGameView_Previews: PreviewProvider {
+    static var previews: some View {
+        NewBluetoothGameView()
     }
 }

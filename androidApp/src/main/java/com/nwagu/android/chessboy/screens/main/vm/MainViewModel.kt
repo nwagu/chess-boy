@@ -2,7 +2,6 @@ package com.nwagu.android.chessboy.screens.main.vm
 
 import android.app.Application
 import androidx.lifecycle.viewModelScope
-import com.nwagu.android.chessboy.screens.common.BaseViewModel
 import com.nwagu.android.chessboy.util.SharedPrefUtils.getSavedPGNs
 import com.nwagu.android.chessboy.util.SharedPrefUtils.savePGNs
 import com.nwagu.bluetoothchat.BluetoothChatService
@@ -10,6 +9,8 @@ import com.nwagu.chess.model.Game
 import com.nwagu.chess.model.Player
 import com.nwagu.chess.representation.*
 import com.nwagu.chessboy.sharedmodels.players.*
+import com.nwagu.chessboy.sharedmodels.presentation.common.BaseViewModel
+import com.nwagu.chessboy.sharedmodels.presentation.common.recreateGameFromPgn
 import kotlinx.coroutines.launch
 import java.security.InvalidParameterException
 
