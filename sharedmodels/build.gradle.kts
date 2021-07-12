@@ -43,7 +43,6 @@ kotlin {
                 api(project(":chess"))
                 implementation(project(":jwtc"))
                 implementation(project(":stockfish"))
-                implementation(project(":igel"))
                 api("co.touchlab:kermit:0.1.9") // for logging
             }
         }

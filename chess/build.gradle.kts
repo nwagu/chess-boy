@@ -7,10 +7,12 @@ plugins {
     id("com.android.library")
 }
 
-version = "1.0"
+version = "0.0.1"
 
 kotlin {
-    android()
+    android {
+        publishLibraryVariants("release")
+    }
 
     val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget =
         if (System.getenv("SDK_NAME")?.startsWith("iphoneos") == true)
@@ -56,4 +58,17 @@ android {
         minSdk = 16
         targetSdk = 30
     }
+}
+
+ext {
+    set("publishGroupId", "com.nwagu.chess")
+    set("publishArtifactId", "chess")
+    set("publishVersion", "0.0.1")
+
+    set("libraryName", "chess")
+    set("libraryDescription", "Defines models and rules used to coordinate chess gameplay")
+}
+
+if (project.rootProject.file("local.properties").exists()) {
+    apply { from("${rootProject.projectDir}/publish-maven.gradle") }
 }
