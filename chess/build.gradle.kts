@@ -7,11 +7,11 @@ plugins {
     id("com.android.library")
 }
 
-version = "0.0.1"
+version = "0.0.2"
 
 kotlin {
     android {
-        publishLibraryVariants("release")
+        publishLibraryVariants("release", "debug")
     }
 
     val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget =
@@ -63,7 +63,7 @@ android {
 ext {
     set("publishGroupId", "com.nwagu.chess")
     set("publishArtifactId", "chess")
-    set("publishVersion", "0.0.1")
+    set("publishVersion", "0.0.2")
 
     set("libraryName", "chess")
     set("libraryDescription", "Defines models and rules used to coordinate chess gameplay")

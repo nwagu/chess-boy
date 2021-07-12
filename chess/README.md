@@ -10,7 +10,7 @@ If you wish to use this library in a kotlin multiplatform module, add this to yo
 val commonMain by getting {
     dependencies {
         // ...
-        implementation("com.nwagu.chess:chess:<latest_version>")
+        implementation("com.nwagu.chess:chess:{latest_version}")
     }
 }
 ```
@@ -20,6 +20,6 @@ Otherwise, for use in an android project:
 ```
 dependencies {
     // ...
-    implementation("com.nwagu.chess:chess-android:<latest_version>")
+    implementation("com.nwagu.chess:chess-android:{latest_version}")
 }
 ```
