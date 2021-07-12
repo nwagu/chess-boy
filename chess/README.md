@@ -2,3 +2,24 @@
 
 ## A chess game library
 
+### Usage
+
+To use this lib in a kotlin multiplatform module, add this to the build.gradle.kts file:
+
+```
+val commonMain by getting {
+    dependencies {
+        // ...
+        implementation("com.nwagu.chess:chess:<latest_version>")
+    }
+}
+```
+
+To use it in an android project, use:
+
+```
+dependencies {
+    // ...
+    implementation("com.nwagu.chess:chess-android:<latest_version>")
+}
+```
