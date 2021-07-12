@@ -3,6 +3,7 @@ package com.nwagu.chessboy.sharedmodels.utils
 import com.nwagu.chess.model.Game
 import com.nwagu.chess.gamelogic.turn
 import com.nwagu.chess.model.ChessPieceColor
+import com.nwagu.chess.model.Player
 import com.nwagu.chessboy.sharedmodels.players.BluetoothPlayer
 import com.nwagu.chessboy.sharedmodels.players.UCIChessEngine
 import com.nwagu.chessboy.sharedmodels.players.User
@@ -26,6 +27,24 @@ val Game.colorOnUserSideOfBoard: ChessPieceColor
             ChessPieceColor.BLACK
         else
             ChessPieceColor.WHITE
+    }
+
+val Game.playerOnOtherSideOfBoard: Player
+    get() {
+        return when {
+            (blackPlayer is User) -> whitePlayer
+            (whitePlayer is User) -> blackPlayer
+            else -> blackPlayer
+        }
+    }
+
+val Game.playerOnUserSideOfBoard: Player
+    get() {
+        return when {
+            (blackPlayer is User) -> blackPlayer
+            (whitePlayer is User) -> whitePlayer
+            else -> whitePlayer
+        }
     }
 
 val Game.isBluetoothOpponentTurn: Boolean

@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import com.nwagu.chessboy.sharedmodels.resources.getPrimaryColor
 import com.nwagu.chessboy.sharedmodels.resources.getPrimaryColorLight
@@ -22,7 +23,6 @@ import com.nwagu.chessboy.sharedmodels.resources.getPrimaryColorLight
 fun RadioCard(
     modifier: Modifier = Modifier,
     isSelected: Boolean,
-    enabled: Boolean = true,
     onClick: (() -> Unit) = {},
     text: String
 ) {
@@ -37,8 +37,8 @@ fun RadioCard(
             onClick()
         },
         shape = RoundedCornerShape(8.dp),
-        backgroundColor = if (isSelected) Color(getPrimaryColorLight()) else Color.Transparent,
-        border = BorderStroke(1.dp, if (isSelected) Color(getPrimaryColor()) else Color.LightGray),
+        backgroundColor = if (isSelected) colorResource(getPrimaryColorLight()) else Color.Transparent,
+        border = BorderStroke(1.dp, if (isSelected) colorResource(getPrimaryColor()) else Color.LightGray),
         elevation = 0.dp
     ) {
         Box {

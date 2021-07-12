@@ -18,10 +18,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.nwagu.android.chessboy.screens.play.vm.PlayViewModel
-import com.nwagu.chess.gamelogic.isStaleMate
 import com.nwagu.chess.gamelogic.turn
 import com.nwagu.chess.model.ChessPieceColor
 import com.nwagu.chessboy.sharedmodels.players.GUIPlayer
+import com.nwagu.chessboy.sharedmodels.utils.checkMessageForNextPlayer
 
 @ExperimentalAnimationApi
 @Composable
@@ -75,28 +75,11 @@ fun PlayerDisplay(
         }
 
         if (isTurn) {
-            viewModel.game.board.movesHistory.lastOrNull()?.let {
-                val checkState = it.san.takeLast(1)
-                if (checkState == "+") {
-                    Text(
-                        modifier = Modifier,
-                        text = "Check",
-                        color = Color.Magenta
-                    )
-                } else if (checkState == "#") {
-                    Text(
-                        modifier = Modifier,
-                        text = "Checkmate",
-                        color = Color.Red
-                    )
-                } else if (viewModel.game.board.isStaleMate()) {
-                    Text(
-                        modifier = Modifier,
-                        text = "Stalemate",
-                        color = Color.Blue
-                    )
-                }
-            }
+            Text(
+                modifier = Modifier,
+                text = viewModel.game.board.checkMessageForNextPlayer(),
+                color = Color.Magenta
+            )
         }
 
     }

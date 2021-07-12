@@ -60,7 +60,7 @@ fun NewGameView(
 
             SubHeader(Modifier.padding(0.dp, 16.dp), text = "Choose your side")
 
-            SimpleFlowRow {
+            WrappingRow {
                 RadioCard(
                     isSelected = selectedColor == null,
                     text = "Random",
@@ -86,12 +86,12 @@ fun NewGameView(
 
             Column {
 
-                SubHeader(Modifier.padding(0.dp, 16.dp), text = "Select Opponent")
+                SubHeader(Modifier.padding(0.dp, 16.dp), text = "Select opponent")
 
-                OpponentSelect(
+                PlayerSelectView(
                     modifier = Modifier,
-                    items = newGameViewModel.opponents,
-                    selectedItem = selectedOpponent,
+                    players = newGameViewModel.opponents,
+                    selectedPlayer = selectedOpponent,
                     onSelect = {
                         newGameViewModel.selectedOpponent.value = it as MoveGenerator
                     }

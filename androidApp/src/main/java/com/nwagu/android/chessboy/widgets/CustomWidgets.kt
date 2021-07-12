@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -30,7 +31,7 @@ fun Header(modifier: Modifier = Modifier, text: String) {
         modifier = modifier,
         text = text,
         fontSize = 20.sp,
-        style = TextStyle(Color(getPrimaryColor()), fontWeight = FontWeight.Bold)
+        style = TextStyle(colorResource(getPrimaryColor()), fontWeight = FontWeight.Bold)
     )
 }
 
@@ -82,7 +83,7 @@ fun LightActionView(lightAction: LightAction) {
         onClick = {
             lightAction.action()
         },
-        colors = ButtonDefaults.buttonColors(backgroundColor = Color(getScreenBackgroundColor())),
+        colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(getScreenBackgroundColor())),
         content = {
             Text(
                 modifier = Modifier,
@@ -102,7 +103,7 @@ fun SubmitButton(
     Button(
         modifier = modifier,
         onClick = { onClick() },
-        colors = ButtonDefaults.buttonColors(backgroundColor = Color(getPrimaryColor()))
+        colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(getPrimaryColor()))
     ) {
         Text(
             modifier = Modifier.padding(8.dp),

@@ -34,7 +34,7 @@ fun ChessBoardStatic(
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(2.dp),
-        backgroundColor = Color(getBoardBackgroundColor()),
+        backgroundColor = colorResource(getBoardBackgroundColor()),
         elevation = 0.dp
     ) {
 

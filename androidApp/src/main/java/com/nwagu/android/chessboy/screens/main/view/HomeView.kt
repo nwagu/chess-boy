@@ -22,7 +22,7 @@ import com.nwagu.android.chessboy.screens.navigation.Screen
 import com.nwagu.android.chessboy.model.QuickAction
 import com.nwagu.android.chessboy.widgets.Header
 import com.nwagu.android.chessboy.widgets.QuickActionView
-import com.nwagu.android.chessboy.widgets.SimpleFlowRow
+import com.nwagu.android.chessboy.widgets.WrappingRow
 import com.nwagu.chessboy.sharedmodels.utils.isBluetoothGame
 import kotlinx.coroutines.launch
 
@@ -74,7 +74,7 @@ fun HomeView(
             }
         )
 
-        SimpleFlowRow {
+        WrappingRow {
             repeat(playActions.size) {
                 QuickActionView(playActions[it])
             }
@@ -88,7 +88,7 @@ fun HomeView(
             }
         )
 
-        SimpleFlowRow {
+        WrappingRow {
             repeat(historyActions.size) {
                 QuickActionView(historyActions[it])
             }

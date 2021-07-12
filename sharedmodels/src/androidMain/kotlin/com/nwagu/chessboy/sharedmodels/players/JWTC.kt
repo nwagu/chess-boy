@@ -15,6 +15,8 @@ import jwtc.chess.Move.isOOO
 import jwtc.chess.Move.isPromotionMove
 import kotlinx.coroutines.flow.MutableStateFlow
 
+// TODO move parameters that have same values to common sourceset
+// https://youtrack.jetbrains.com/issue/KT-20427
 actual class JWTC: UCIChessEngine() {
 
     override val id: String

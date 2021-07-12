@@ -7,6 +7,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -43,7 +44,7 @@ fun AlertDialogWrapper(
                         }
                     ),
                 text = confirmMessage,
-                style = TextStyle(color = Color(getPrimaryColorDark()), fontWeight = FontWeight.Bold))
+                style = TextStyle(color = colorResource(getPrimaryColorDark()), fontWeight = FontWeight.Bold))
         },
         dismissButton = {
             Text(
@@ -56,7 +57,7 @@ fun AlertDialogWrapper(
                         }
                     ),
                 text = dismissMessage,
-                style = TextStyle(color = Color(getPrimaryColorDark()), fontWeight = FontWeight.Bold))
+                style = TextStyle(color = colorResource(getPrimaryColorDark()), fontWeight = FontWeight.Bold))
         }
     )
 }

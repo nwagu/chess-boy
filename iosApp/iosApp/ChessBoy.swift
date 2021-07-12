@@ -10,9 +10,12 @@ import SwiftUI
 
 @main
 struct ChessBoy: App {
+    
+    @StateObject var viewRouter = ViewRouter()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView().environmentObject(viewRouter)
         }
     }
 }

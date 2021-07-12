@@ -54,8 +54,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation(project(":stockfish"))
-                implementation(project(":igel"))
+                implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
             }
         }
         val androidTest by getting {
