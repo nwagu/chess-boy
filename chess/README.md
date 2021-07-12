@@ -4,7 +4,7 @@
 
 ### Usage
 
-To use this lib in a kotlin multiplatform module, add this to the build.gradle.kts file:
+If you wish to use this library in a kotlin multiplatform module, add this to your module build.gradle.kts file:
 
 ```
 val commonMain by getting {
@@ -15,7 +15,7 @@ val commonMain by getting {
 }
 ```
 
-To use it in an android project, use:
+Otherwise, for use in an android project:
 
 ```
 dependencies {
