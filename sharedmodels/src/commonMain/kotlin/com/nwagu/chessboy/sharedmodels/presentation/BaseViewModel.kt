@@ -17,14 +17,10 @@ fun recreateGameFromPgn(pgn: String): Game {
     val gameId = getHeaderValueFromPgn(PGN_HEADER_GAME_ID, pgn) ?: ""
 
     val whitePlayer =
-        getPlayerWithId(
-            getHeaderValueFromPgn(PGN_HEADER_WHITE_PLAYER_ID, pgn) ?: ""
-        )
+        getPlayerWithId(getHeaderValueFromPgn(PGN_HEADER_WHITE_PLAYER_ID, pgn) ?: "")
 
     val blackPlayer =
-        getPlayerWithId(
-            getHeaderValueFromPgn(PGN_HEADER_BLACK_PLAYER_ID, pgn) ?: ""
-        )
+        getPlayerWithId(getHeaderValueFromPgn(PGN_HEADER_BLACK_PLAYER_ID, pgn) ?: "")
 
     val game = Game(gameId, whitePlayer, blackPlayer)
     game.board.importMovesFromPGN(pgn)
