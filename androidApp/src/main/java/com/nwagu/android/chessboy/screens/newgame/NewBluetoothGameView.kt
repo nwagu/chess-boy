@@ -1,4 +1,4 @@
-package com.nwagu.android.chessboy.screens.newgame.view
+package com.nwagu.android.chessboy.screens.newgame
 
 import android.content.Context
 import android.location.LocationManager
@@ -23,13 +23,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.nwagu.android.chessboy.bluetooth.BluetoothController
-import com.nwagu.chessboy.sharedmodels.players.BluetoothPlayer
-import com.nwagu.android.chessboy.screens.main.view.MainActivity
+import com.nwagu.android.chessboy.screens.main.MainActivity
 import com.nwagu.android.chessboy.screens.navigation.Dialog
-import com.nwagu.android.chessboy.screens.newgame.vm.ScanState
 import com.nwagu.android.chessboy.widgets.*
-import com.nwagu.bluetoothchat.BluetoothChatService
+import com.nwagu.bluetoothchat.ConnectionState.*
 import com.nwagu.chess.model.ChessPieceColor
+import com.nwagu.chessboy.sharedmodels.players.BluetoothPlayer
+import com.nwagu.chessboy.sharedmodels.presentation.ScanState
 import com.nwagu.chessboy.sharedmodels.resources.getPrimaryColor
 import kotlinx.coroutines.launch
 
@@ -188,20 +188,20 @@ fun NewBluetoothGameView(
                                     .padding(16.dp)
                                     .weight(1f),
                                 text = when (connectionState) {
-                                    BluetoothChatService.ConnectionState.NONE -> ""
-                                    BluetoothChatService.ConnectionState.LISTENING -> "Listening..."
-                                    BluetoothChatService.ConnectionState.CONNECTING -> "Connecting..."
-                                    BluetoothChatService.ConnectionState.CONNECTED -> "Connected"
+                                    NONE -> ""
+                                    LISTENING -> "Listening..."
+                                    CONNECTING -> "Connecting..."
+                                    CONNECTED -> "Connected"
                                 }
                             )
 
                             Button(
                                 onClick = {
                                     when (connectionState) {
-                                        BluetoothChatService.ConnectionState.LISTENING -> {
+                                        LISTENING -> {
                                             newBluetoothGameViewModel.bluetoothChatService.stopListening()
                                         }
-                                        BluetoothChatService.ConnectionState.NONE -> {
+                                        NONE -> {
                                             if (bluetoothController.isBluetoothEnabled) {
                                                 bluetoothController.ensureDiscoverable()
                                                 newBluetoothGameViewModel.listenForConnection()
@@ -216,8 +216,8 @@ fun NewBluetoothGameView(
                             ) {
                                 Text(
                                     text = when (connectionState) {
-                                        BluetoothChatService.ConnectionState.NONE -> "RECEIVE"
-                                        BluetoothChatService.ConnectionState.LISTENING -> "STOP LISTENING"
+                                        NONE -> "RECEIVE"
+                                        LISTENING -> "STOP LISTENING"
                                         else -> ""
                                     }
                                 )
@@ -236,12 +236,12 @@ fun NewBluetoothGameView(
                     .padding()
                     .align(Alignment.CenterHorizontally),
                 text =
-                if (connectionState == BluetoothChatService.ConnectionState.CONNECTING)
+                if (connectionState == CONNECTING)
                     "CONNECTING..."
                 else
                     "CONNECT",
                 onClick = {
-                    if (connectionState == BluetoothChatService.ConnectionState.NONE) {
+                    if (connectionState == NONE) {
                         if (bluetoothController.isBluetoothEnabled) {
                             selectedDevice?.let {
                                 newBluetoothGameViewModel.attemptConnectToDevice(it.address)

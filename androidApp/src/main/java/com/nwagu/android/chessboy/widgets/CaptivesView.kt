@@ -10,9 +10,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.nwagu.android.chessboy.screens.play.vm.PlayViewModel
 import com.nwagu.chess.model.ChessPiece
 import com.nwagu.chess.model.ChessPieceColor
+import com.nwagu.chessboy.sharedmodels.presentation.PlayViewModel
 import com.nwagu.chessboy.sharedmodels.resources.imageRes
 
 @Composable

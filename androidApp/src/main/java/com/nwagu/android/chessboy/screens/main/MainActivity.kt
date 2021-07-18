@@ -1,4 +1,4 @@
-package com.nwagu.android.chessboy.screens.main.view
+package com.nwagu.android.chessboy.screens.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,22 +11,19 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import com.nwagu.android.chessboy.constants.RequestCodes
-import com.nwagu.android.chessboy.screens.analysis.vm.GameAnalysisViewModel
-import com.nwagu.android.chessboy.screens.main.vm.MainViewModel
-import com.nwagu.android.chessboy.screens.newgame.vm.NewBluetoothGameViewModel
-import com.nwagu.android.chessboy.screens.newgame.vm.NewGameViewModel
-import com.nwagu.android.chessboy.screens.play.vm.PlayViewModel
 import com.nwagu.android.chessboy.model.ScreenConfig
+import com.nwagu.android.chessboy.util.createViewModelFactory
 import com.nwagu.bluetoothchat.BluetoothChatService
 import com.nwagu.chess.model.Player
+import com.nwagu.chessboy.sharedmodels.presentation.*
 
 class MainActivity : AppCompatActivity() {
 
-    val mainViewModel: MainViewModel by viewModels()
-    val playViewModel: PlayViewModel by viewModels()
-    val gameAnalysisViewModel: GameAnalysisViewModel by viewModels()
-    val newGameViewModel: NewGameViewModel by viewModels()
-    val newBluetoothGameViewModel: NewBluetoothGameViewModel by viewModels()
+    val mainViewModel: MainViewModel by viewModels { createViewModelFactory { MainViewModel() } }
+    val playViewModel: PlayViewModel by viewModels { createViewModelFactory { PlayViewModel() } }
+    val gameAnalysisViewModel: GameAnalysisViewModel by viewModels { createViewModelFactory { GameAnalysisViewModel() } }
+    val newGameViewModel: NewGameViewModel by viewModels { createViewModelFactory { NewGameViewModel() } }
+    val newBluetoothGameViewModel: NewBluetoothGameViewModel by viewModels { createViewModelFactory { NewBluetoothGameViewModel() } }
 
     lateinit var screenConfig: ScreenConfig
 

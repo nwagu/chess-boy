@@ -11,6 +11,7 @@ import com.nwagu.chess.model.Board
 import com.nwagu.chess.representation.parseUciEngineMove
 import com.nwagu.chess.representation.getFen
 import com.nwagu.chess.model.Move
+import com.nwagu.chessboy.sharedmodels.ChessApplication
 import com.nwagu.chessboy.sharedmodels.R
 import com.nwagu.chessboy.sharedmodels.resources.ImageRes
 import com.nwagu.stockfish.StockfishService
@@ -24,6 +25,8 @@ import kotlinx.coroutines.launch
 // TODO move parameters that have same values to common sourceset
 // https://youtrack.jetbrains.com/issue/KT-20427
 actual class Stockfish(val context: Context) : UCIChessEngine() {
+
+    actual constructor(): this(ChessApplication.context!!.applicationContext)
 
     override val id: String
         get() {

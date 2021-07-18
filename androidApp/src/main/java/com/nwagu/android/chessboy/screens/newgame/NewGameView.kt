@@ -1,4 +1,4 @@
-package com.nwagu.android.chessboy.screens.newgame.view
+package com.nwagu.android.chessboy.screens.newgame
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -19,8 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.nwagu.android.chessboy.screens.main.MainActivity
 import com.nwagu.chessboy.sharedmodels.players.*
-import com.nwagu.android.chessboy.screens.main.view.MainActivity
 import com.nwagu.android.chessboy.widgets.*
 import com.nwagu.chess.model.ChessPieceColor
 import kotlinx.coroutines.launch

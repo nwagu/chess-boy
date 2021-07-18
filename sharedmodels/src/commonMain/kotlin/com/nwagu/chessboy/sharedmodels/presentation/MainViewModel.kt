@@ -1,20 +1,14 @@
-package com.nwagu.android.chessboy.screens.main.vm
+package com.nwagu.chessboy.sharedmodels.presentation
 
-import android.app.Application
-import androidx.lifecycle.viewModelScope
-import com.nwagu.android.chessboy.util.SharedPrefUtils.getSavedPGNs
-import com.nwagu.android.chessboy.util.SharedPrefUtils.savePGNs
 import com.nwagu.bluetoothchat.BluetoothChatService
 import com.nwagu.chess.model.Game
 import com.nwagu.chess.model.Player
 import com.nwagu.chess.representation.*
 import com.nwagu.chessboy.sharedmodels.players.*
-import com.nwagu.chessboy.sharedmodels.presentation.common.BaseViewModel
-import com.nwagu.chessboy.sharedmodels.presentation.common.recreateGameFromPgn
 import kotlinx.coroutines.launch
 import java.security.InvalidParameterException
 
-class MainViewModel(application: Application): BaseViewModel(application) {
+class MainViewModel: BaseViewModel() {
 
     fun getLastGameOrDefault(): Game {
 
@@ -54,7 +48,7 @@ class MainViewModel(application: Application): BaseViewModel(application) {
     }
 
     fun saveGame(game: Game) {
-        viewModelScope.launch {
+        clientScope.launch {
             val history = getGamesHistory()
 
             while (history.size > 20) {
@@ -66,7 +60,7 @@ class MainViewModel(application: Application): BaseViewModel(application) {
             })
             history.addLast(game.exportPGN())
 
-            savePGNs(getApplication(), history.toList())
+//            savePGNs(getApplication(), history.toList())
         }
     }
 
@@ -75,7 +69,8 @@ class MainViewModel(application: Application): BaseViewModel(application) {
     }
 
     fun getGamesHistory(): ArrayDeque<String> {
-        return ArrayDeque(getSavedPGNs(getApplication()))
+        return ArrayDeque()
+//        return ArrayDeque(getSavedPGNs(getApplication()))
     }
 
 }

@@ -5,7 +5,7 @@ import android.bluetooth.BluetoothDevice
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.nwagu.android.chessboy.screens.newgame.vm.NewBluetoothGameViewModel
+import com.nwagu.chessboy.sharedmodels.presentation.NewBluetoothGameViewModel
 
 class DeviceFoundReceiver(
     private val viewModelNew: NewBluetoothGameViewModel
@@ -17,7 +17,7 @@ class DeviceFoundReceiver(
         if (BluetoothDevice.ACTION_FOUND == action) {
 
             intent.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)?.let {
-                val device = com.nwagu.android.chessboy.model.BluetoothDevice(
+                val device = com.nwagu.bluetoothchat.model.BluetoothDevice(
                     address = it.address ?: return@let,
                     name = it.name ?: it.address,
                 )

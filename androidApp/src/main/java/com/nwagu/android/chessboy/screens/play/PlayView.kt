@@ -1,4 +1,4 @@
-package com.nwagu.android.chessboy.screens.play.view
+package com.nwagu.android.chessboy.screens.play
 
 import android.content.res.Configuration
 import androidx.compose.animation.AnimatedVisibility
@@ -25,17 +25,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.nwagu.android.chessboy.bluetooth.BluetoothController
-import com.nwagu.android.chessboy.screens.main.view.MainActivity
-import com.nwagu.android.chessboy.screens.play.vm.PlayViewModel
 import com.nwagu.android.chessboy.model.LightAction
 import com.nwagu.android.chessboy.model.ScreenConfig
+import com.nwagu.android.chessboy.screens.main.MainActivity
 import com.nwagu.android.chessboy.widgets.ChessBoardView
 import com.nwagu.android.chessboy.widgets.LightActionView
 import com.nwagu.android.chessboy.widgets.PlayerDisplay
-import com.nwagu.bluetoothchat.BluetoothChatService.ConnectionState.*
+import com.nwagu.bluetoothchat.ConnectionState.*
 import com.nwagu.chess.model.ChessPieceColor
 import com.nwagu.chess.model.opposite
 import com.nwagu.chessboy.sharedmodels.players.BluetoothPlayer
+import com.nwagu.chessboy.sharedmodels.presentation.PlayViewModel
 import com.nwagu.chessboy.sharedmodels.utils.colorOnUserSideOfBoard
 import com.nwagu.chessboy.sharedmodels.utils.isBluetoothGame
 import com.nwagu.chessboy.sharedmodels.utils.userColor

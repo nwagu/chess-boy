@@ -13,10 +13,10 @@ import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
-import com.nwagu.android.chessboy.screens.main.view.MainActivity
 import com.nwagu.android.chessboy.constants.RequestCodes
 import com.nwagu.android.chessboy.receiver.DeviceFoundReceiver
-import com.nwagu.android.chessboy.screens.newgame.vm.ScanState
+import com.nwagu.android.chessboy.screens.main.MainActivity
+import com.nwagu.chessboy.sharedmodels.presentation.ScanState
 import timber.log.Timber
 
 class BluetoothController(

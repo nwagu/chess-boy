@@ -17,10 +17,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.nwagu.android.chessboy.screens.play.vm.PlayViewModel
 import com.nwagu.chess.gamelogic.turn
 import com.nwagu.chess.model.ChessPieceColor
 import com.nwagu.chessboy.sharedmodels.players.GUIPlayer
+import com.nwagu.chessboy.sharedmodels.presentation.PlayViewModel
 import com.nwagu.chessboy.sharedmodels.utils.checkMessageForNextPlayer
 
 @ExperimentalAnimationApi

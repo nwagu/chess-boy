@@ -1,4 +1,4 @@
-package com.nwagu.android.chessboy.screens.analysis.view
+package com.nwagu.android.chessboy.screens.analysis
 
 import android.content.Intent
 import android.content.res.Configuration
@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.nwagu.android.chessboy.screens.main.view.MainActivity
+import com.nwagu.android.chessboy.screens.main.MainActivity
 import com.nwagu.android.chessboy.model.LightAction
 import com.nwagu.android.chessboy.widgets.*
 

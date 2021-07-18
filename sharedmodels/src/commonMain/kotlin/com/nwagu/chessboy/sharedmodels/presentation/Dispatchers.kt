@@ -1,4 +1,4 @@
-package com.nwagu.chessboy.sharedmodels.presentation.common
+package com.nwagu.chessboy.sharedmodels.presentation
 
 import kotlinx.coroutines.CoroutineDispatcher
 

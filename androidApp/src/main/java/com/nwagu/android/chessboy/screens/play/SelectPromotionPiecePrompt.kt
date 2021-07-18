@@ -1,4 +1,4 @@
-package com.nwagu.android.chessboy.screens.play.view
+package com.nwagu.android.chessboy.screens.play
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image

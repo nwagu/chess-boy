@@ -1,14 +1,13 @@
-package com.nwagu.android.chessboy.screens.newgame.vm
+package com.nwagu.chessboy.sharedmodels.presentation
 
-import android.app.Application
-import com.nwagu.android.chessboy.model.BluetoothDevice
 import com.nwagu.bluetoothchat.BluetoothChatService
+import com.nwagu.bluetoothchat.ChatListener
+import com.nwagu.bluetoothchat.model.BluetoothDevice
 import com.nwagu.chess.model.ChessPieceColor
 import com.nwagu.chessboy.sharedmodels.players.BluetoothPlayer
-import com.nwagu.chessboy.sharedmodels.presentation.common.BaseViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 
-class NewBluetoothGameViewModel(application: Application): BaseViewModel(application) {
+class NewBluetoothGameViewModel: BaseViewModel() {
 
     val selectedColor = MutableStateFlow(ChessPieceColor.WHITE)
     val selectedDevice = MutableStateFlow<BluetoothPlayer?>(null)
@@ -37,19 +36,19 @@ class NewBluetoothGameViewModel(application: Application): BaseViewModel(applica
     }
 
     fun attemptConnectToDevice(address: String) {
-        bluetoothChatService.init(getApplication(), true)
+        bluetoothChatService.init(true)
         bluetoothChatService.setListener(bluetoothChatListener)
         bluetoothChatService.connectDevice(address, true)
     }
 
     fun listenForConnection() {
-        bluetoothChatService.init(getApplication(), false)
+        bluetoothChatService.init(false)
         bluetoothChatService.setListener(bluetoothChatListener)
         bluetoothChatService.startListeningForConnection()
     }
 
-    val bluetoothChatListener: BluetoothChatService.ChatListener
-        get() = object : BluetoothChatService.ChatListener {
+    val bluetoothChatListener: ChatListener
+        get() = object : ChatListener {
 
             override fun onConnecting() {
                 //

@@ -1,4 +1,4 @@
-package com.nwagu.android.chessboy.model
+package com.nwagu.bluetoothchat.model
 
 data class BluetoothDevice(
     val name: String,

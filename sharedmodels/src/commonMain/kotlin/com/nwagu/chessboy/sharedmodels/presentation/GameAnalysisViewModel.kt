@@ -1,15 +1,12 @@
-package com.nwagu.android.chessboy.screens.analysis.vm
+package com.nwagu.chessboy.sharedmodels.presentation
 
-import android.app.Application
 import com.nwagu.chess.model.Game
 import com.nwagu.chess.gamelogic.move
 import com.nwagu.chess.gamelogic.undoMove
 import com.nwagu.chess.representation.sanToMove
-import com.nwagu.chessboy.sharedmodels.presentation.common.BaseViewModel
-import com.nwagu.chessboy.sharedmodels.presentation.common.recreateGameFromPgn
 import kotlinx.coroutines.flow.MutableStateFlow
 
-class GameAnalysisViewModel(application: Application): BaseViewModel(application) {
+class GameAnalysisViewModel: BaseViewModel() {
 
     lateinit var game: Game
     var sans = emptyList<String>()

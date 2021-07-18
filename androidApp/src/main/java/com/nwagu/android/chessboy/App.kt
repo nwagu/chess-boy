@@ -1,8 +1,8 @@
 package com.nwagu.android.chessboy
 
-import android.app.Application
+import com.nwagu.chessboy.sharedmodels.ChessApplication
 
-class App: Application() {
+class App: ChessApplication() {
 
     override fun onCreate() {
         super.onCreate()

@@ -1,4 +1,4 @@
-package com.nwagu.android.chessboy.screens.main.view
+package com.nwagu.android.chessboy.screens.main
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

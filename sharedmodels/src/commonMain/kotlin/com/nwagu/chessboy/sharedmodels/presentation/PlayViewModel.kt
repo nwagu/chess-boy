@@ -1,10 +1,8 @@
-package com.nwagu.android.chessboy.screens.play.vm
+package com.nwagu.chessboy.sharedmodels.presentation
 
-import android.app.Application
-import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.viewModelScope
 import com.nwagu.bluetoothchat.BluetoothChatService
+import com.nwagu.bluetoothchat.ChatListener
+import com.nwagu.bluetoothchat.ConnectionState
 import com.nwagu.chess.gamelogic.*
 import com.nwagu.chess.gamelogic.moves.getPossibleMovesFrom
 import com.nwagu.chess.model.*
@@ -12,7 +10,6 @@ import com.nwagu.chess.representation.*
 import com.nwagu.chessboy.sharedmodels.bluetooth.BluetoothMessage
 import com.nwagu.chessboy.sharedmodels.bluetooth.parseMessage
 import com.nwagu.chessboy.sharedmodels.players.*
-import com.nwagu.chessboy.sharedmodels.presentation.common.BaseViewModel
 import com.nwagu.chessboy.sharedmodels.utils.initPlayers
 import com.nwagu.chessboy.sharedmodels.utils.isBluetoothGame
 import com.nwagu.chessboy.sharedmodels.utils.isUserTurn
@@ -21,7 +18,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
-class PlayViewModel(application: Application): BaseViewModel(application) {
+class PlayViewModel: BaseViewModel() {
 
     lateinit var game: Game
 
@@ -71,7 +68,7 @@ class PlayViewModel(application: Application): BaseViewModel(application) {
     private fun attachBluetoothChatService() {
         (game.userColor == ChessPieceColor.WHITE).let { userIsWhite ->
             bluetoothChatService = BluetoothChatService()
-            bluetoothChatService.init(getApplication(), userIsWhite)
+            bluetoothChatService.init(userIsWhite)
             bluetoothChatService.setListener(bluetoothChatListener)
         }
     }
@@ -82,10 +79,10 @@ class PlayViewModel(application: Application): BaseViewModel(application) {
             attachBluetoothChatService()
         }
 
-        if (bluetoothChatService.connectionState.value != BluetoothChatService.ConnectionState.NONE)
+        if (bluetoothChatService.connectionState.value != ConnectionState.NONE)
             return
 
-        bluetoothChatService.init(getApplication(), true)
+        bluetoothChatService.init(true)
         bluetoothChatService.connectDevice(address, true)
     }
 
@@ -95,10 +92,10 @@ class PlayViewModel(application: Application): BaseViewModel(application) {
             attachBluetoothChatService()
         }
 
-        if (bluetoothChatService.connectionState.value != BluetoothChatService.ConnectionState.NONE)
+        if (bluetoothChatService.connectionState.value != ConnectionState.NONE)
             return
 
-        bluetoothChatService.init(getApplication(), false)
+        bluetoothChatService.init(false)
         bluetoothChatService.startListeningForConnection()
     }
 
@@ -139,7 +136,7 @@ class PlayViewModel(application: Application): BaseViewModel(application) {
 
     fun makeUserMove(move: Move) {
         if (game.isBluetoothGame()) {
-            if (bluetoothChatService.connectionState.value == BluetoothChatService.ConnectionState.CONNECTED) {
+            if (bluetoothChatService.connectionState.value == ConnectionState.CONNECTED) {
                 bluetoothChatService.sendMessage(BluetoothMessage.MoveMessage(move).value)
             } else {
                 showToast("Not connected.")
@@ -193,7 +190,7 @@ class PlayViewModel(application: Application): BaseViewModel(application) {
     }
 
     fun getNextMove() {
-        viewModelScope.launch {
+        clientScope.launch {
 
             delay(100)
 
@@ -215,8 +212,8 @@ class PlayViewModel(application: Application): BaseViewModel(application) {
         }
     }
 
-    private val bluetoothChatListener: BluetoothChatService.ChatListener
-        get() = object : BluetoothChatService.ChatListener {
+    private val bluetoothChatListener: ChatListener
+        get() = object : ChatListener {
 
             override fun onConnecting() {
                 showToast("Connecting...")
@@ -250,7 +247,7 @@ class PlayViewModel(application: Application): BaseViewModel(application) {
                 val _message = parseMessage(message)
                 when (_message) {
                     is BluetoothMessage.MoveMessage -> {
-                        viewModelScope.launch {
+                        clientScope.launch {
                             delay(200)
                             if (makeMove(_message.move)) {
                                 delay(200)
@@ -306,12 +303,6 @@ class PlayViewModel(application: Application): BaseViewModel(application) {
                 showToast("Bluetooth player disconnected.")
             }
         }
-
-    fun showToast(message: String) {
-        ContextCompat.getMainExecutor(getApplication()).execute {
-            Toast.makeText(getApplication(), message, Toast.LENGTH_LONG).show()
-        }
-    }
 
     fun endCurrentGame() {
 

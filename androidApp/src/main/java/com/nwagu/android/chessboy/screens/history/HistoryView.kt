@@ -1,4 +1,4 @@
-package com.nwagu.android.chessboy.screens.history.view
+package com.nwagu.android.chessboy.screens.history
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.nwagu.android.chessboy.screens.main.view.MainActivity
+import com.nwagu.android.chessboy.screens.main.MainActivity
 import com.nwagu.android.chessboy.screens.navigation.Screen
 import com.nwagu.android.chessboy.widgets.PreviousGameView
 import com.nwagu.android.chessboy.widgets.ScreenTopBar

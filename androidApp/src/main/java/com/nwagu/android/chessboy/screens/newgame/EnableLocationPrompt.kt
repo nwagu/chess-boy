@@ -1,4 +1,4 @@
-package com.nwagu.android.chessboy.screens.newgame.view
+package com.nwagu.android.chessboy.screens.newgame
 
 import android.content.Intent
 import android.provider.Settings

@@ -2,7 +2,7 @@ package com.nwagu.android.chessboy.util
 
 import android.content.Context
 import android.content.ContextWrapper
-import com.nwagu.android.chessboy.screens.main.view.MainActivity
+import com.nwagu.android.chessboy.screens.main.MainActivity
 
 object Utils {
 

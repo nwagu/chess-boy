@@ -1,4 +1,4 @@
-package com.nwagu.android.chessboy.screens.main.view
+package com.nwagu.android.chessboy.screens.main
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -12,15 +12,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
-import com.nwagu.android.chessboy.screens.analysis.view.GameAnalysisView
-import com.nwagu.android.chessboy.screens.history.view.HistoryView
+import com.nwagu.android.chessboy.screens.analysis.GameAnalysisView
+import com.nwagu.android.chessboy.screens.history.HistoryView
 import com.nwagu.android.chessboy.screens.navigation.Dialog
 import com.nwagu.android.chessboy.screens.navigation.Screen
-import com.nwagu.android.chessboy.screens.newgame.view.EnableLocationPrompt
-import com.nwagu.android.chessboy.screens.newgame.view.NewBluetoothGameView
-import com.nwagu.android.chessboy.screens.newgame.view.NewGameView
-import com.nwagu.android.chessboy.screens.play.view.PlayView
-import com.nwagu.android.chessboy.screens.play.view.SelectPromotionPiecePrompt
+import com.nwagu.android.chessboy.screens.newgame.EnableLocationPrompt
+import com.nwagu.android.chessboy.screens.newgame.NewBluetoothGameView
+import com.nwagu.android.chessboy.screens.newgame.NewGameView
+import com.nwagu.android.chessboy.screens.play.PlayView
+import com.nwagu.android.chessboy.screens.play.SelectPromotionPiecePrompt
 import com.nwagu.android.chessboy.screens.settings.SettingsView
 import kotlinx.coroutines.launch
 
