@@ -6,7 +6,6 @@ import com.nwagu.chess.model.Player
 import com.nwagu.chess.representation.*
 import com.nwagu.chessboy.sharedmodels.players.*
 import kotlinx.coroutines.launch
-import java.security.InvalidParameterException
 
 class MainViewModel: BaseViewModel() {
 
@@ -27,7 +26,7 @@ class MainViewModel: BaseViewModel() {
     fun createNewGame(whitePlayer: Player, blackPlayer: Player): Game {
 
         if (whitePlayer is BluetoothPlayer || blackPlayer is BluetoothPlayer) {
-            throw InvalidParameterException("Please use createNewBluetoothGame to create bluetooth game!")
+            throw Exception("Please use createNewBluetoothGame to create bluetooth game!")
         }
 
         return Game(

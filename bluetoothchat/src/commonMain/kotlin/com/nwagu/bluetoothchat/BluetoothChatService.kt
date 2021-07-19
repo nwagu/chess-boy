@@ -1,7 +1,8 @@
 package com.nwagu.bluetoothchat
 
+import com.benasher44.uuid.Uuid
+import com.benasher44.uuid.uuidFrom
 import kotlinx.coroutines.flow.MutableStateFlow
-import java.util.*
 
 expect class BluetoothChatService() {
     var connectionState: MutableStateFlow<ConnectionState>
@@ -22,8 +23,8 @@ val NAME_SECURE = "BluetoothChatSecure"
 val NAME_INSECURE = "BluetoothChatInsecure"
 
 // Unique UUID for this application
-val MY_UUID_SECURE: UUID = UUID.fromString("fa87c0d0-afac-11de-8a39-0800200c9a66")
-val MY_UUID_INSECURE: UUID = UUID.fromString("8ce255c0-200a-11e0-ac64-0800200c9a66")
+val MY_UUID_SECURE: Uuid = uuidFrom("fa87c0d0-afac-11de-8a39-0800200c9a66")
+val MY_UUID_INSECURE: Uuid = uuidFrom("8ce255c0-200a-11e0-ac64-0800200c9a66")
 
 enum class ConnectionState {
     NONE, LISTENING, CONNECTING, CONNECTED
