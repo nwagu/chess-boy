@@ -33,12 +33,16 @@ import com.nwagu.chessboy.widgets.LightActionView
 import com.nwagu.chessboy.widgets.PlayerDisplay
 import com.nwagu.bluetoothchat.ConnectionState.*
 import com.nwagu.chess.model.ChessPieceColor
+import com.nwagu.chess.model.Promotion
 import com.nwagu.chess.model.opposite
+import com.nwagu.chessboy.screens.navigation.Dialog
 import com.nwagu.chessboy.sharedmodels.players.BluetoothPlayer
 import com.nwagu.chessboy.sharedmodels.presentation.PlayViewModel
 import com.nwagu.chessboy.sharedmodels.utils.colorOnUserSideOfBoard
 import com.nwagu.chessboy.sharedmodels.utils.isBluetoothGame
 import com.nwagu.chessboy.sharedmodels.utils.userColor
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
@@ -54,6 +58,14 @@ fun PlayView(
     val bluetoothController = BluetoothController(context)
 
     val gameChanged by viewModel.gameUpdated.collectAsState(0)
+
+    val pendingPromotion by viewModel.pendingPromotion.collectAsState(null)
+
+    if (pendingPromotion != null) {
+        val moveJson = Json.encodeToString(pendingPromotion)
+        navHostController.navigate(Dialog.SelectPromotionPiece.route + "/$moveJson")
+        viewModel.pendingPromotion.value = null
+    }
 
     Column(
         modifier = Modifier

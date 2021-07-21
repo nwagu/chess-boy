@@ -78,17 +78,7 @@ fun ChessBoardView(
                     .fillMaxSize()
                     .background(colorResource(squareColor))
                     .aspectRatio(1.0f)
-                    .clickable(
-                        onClick = {
-                            val move = viewModel.squareClicked(square)
-
-                            if (move is Promotion) {
-                                // Handle promotion piece selection
-                                val moveJson = Json.encodeToString(move)
-                                navHostController.navigate(Dialog.SelectPromotionPiece.route + "/$moveJson")
-                            }
-                        }
-                    )
+                    .clickable(onClick = { viewModel.squareClicked(square) })
                 ) {
                     board.squaresMap[square]?.let { occupant ->
                         if (occupant is ChessPiece)

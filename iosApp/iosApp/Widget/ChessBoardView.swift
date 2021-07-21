@@ -20,8 +20,6 @@ struct ChessBoardView: View {
     @ObservedObject
     var possibleMoves: Collector<[Move]>
     
-    @State private var showPromotionDialog = false
-    
     init(playViewModel: PlayViewModel) {
         self.playViewModel = playViewModel
         boardChanged = playViewModel.boardUpdated.collectAsObservable(initialValue: playViewModel.boardUpdated.value as! Int32)
@@ -48,13 +46,7 @@ struct ChessBoardView: View {
                 let squareColor = game.board.squareColor(square: square).colorResource()
                 let occupant = game.board.getSquareOccupantOrNull(square: square)
                 
-                Button(action: {
-                    let move = playViewModel.squareClicked(square: square)
-
-                    if (move is Promotion) {
-                        self.showPromotionDialog = true
-                    }
-                }) {
+                Button(action: { playViewModel.squareClicked(square: square) }) {
                     ZStack {
                         Rectangle()
                             .fill(Color(squareColor))
@@ -87,11 +79,6 @@ struct ChessBoardView: View {
                     .aspectRatio(1, contentMode: .fit)
                 }
             }
-        }
-        .sheet(isPresented: $showPromotionDialog, onDismiss: {
-            //
-        }) {
-            SelectPromotionPiecePrompt()
         }
     }
 }

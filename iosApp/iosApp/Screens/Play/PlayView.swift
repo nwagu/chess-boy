@@ -19,15 +19,21 @@ struct PlayView: View {
     var playViewModel: PlayViewModel
     @ObservedObject
     var gameChanged: Collector<Int32>
+    @ObservedObject
+    var pendingPromotion: Collector<Promotion?>
+    
+    @State
+    private var showPromotionDialog = false
     
     init(playViewModel: PlayViewModel) {
         self.playViewModel = playViewModel
         gameChanged = playViewModel.gameUpdated.collectAsObservable(initialValue: playViewModel.gameUpdated.value as! Int32)
+        pendingPromotion = playViewModel.pendingPromotion.collectAsObservable(initialValue: playViewModel.pendingPromotion.value as? Promotion)
     }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            TopBar(title: "Active game")
+            TopBar(title: playViewModel.game.title)
             ScrollView {
                 VStack(alignment: .leading, spacing: 0) {
                     PlayerDisplay(playViewModel: playViewModel, color: playViewModel.game.colorOnUserSideOfBoard.opposite()).padding(16)
@@ -46,6 +52,12 @@ struct PlayView: View {
             alignment: .topLeading
         )
         .padding()
+        .actionSheet(isPresented: $showPromotionDialog) {
+            selectPromotionPiecePrompt(playViewModel: playViewModel)
+        }
+        .onReceive(pendingPromotion.$currentValue) { promotion in
+            showPromotionDialog = (promotion != nil)
+        }
     }
 }
 

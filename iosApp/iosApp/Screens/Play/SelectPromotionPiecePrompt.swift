@@ -7,15 +7,26 @@
 //
 
 import SwiftUI
+import sharedmodels
 
-struct SelectPromotionPiecePrompt: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+
+func selectPromotionPiecePrompt(playViewModel: PlayViewModel) -> ActionSheet {
+    
+    func onSelect(_ piece: ChessPieceType) {
+        if let move = playViewModel.pendingPromotion.value as? Promotion {
+            move.promotionType = piece
+            playViewModel.makeUserMove(move: move)
+        }
+        playViewModel.pendingPromotion.setValue(nil)
     }
+    
+    return ActionSheet(title: Text("Select promotion piece"), buttons: [
+        .default(Text("Queen")) { onSelect(.queen) },
+        .default(Text("Knight")) { onSelect(.knight) },
+        .default(Text("Bishop")) { onSelect(.bishop) },
+        .default(Text("Rook")) { onSelect(.rook) },
+        .cancel() { playViewModel.pendingPromotion.setValue(nil) }
+    ])
 }
 
-struct SelectPromotionPiecePrompt_Previews: PreviewProvider {
-    static var previews: some View {
-        SelectPromotionPiecePrompt()
-    }
-}
+

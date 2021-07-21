@@ -12,8 +12,6 @@ import sharedmodels
 struct PlayerDisplay: View {
     var playViewModel: PlayViewModel
     var color: ChessPieceColor
-    let isTurn: Bool
-    let player: GUIPlayer
     
     @ObservedObject
     var boardChanged: Collector<Int32>
@@ -21,14 +19,14 @@ struct PlayerDisplay: View {
     init(playViewModel: PlayViewModel, color: ChessPieceColor) {
         self.playViewModel = playViewModel
         self.color = color
-        isTurn = playViewModel.game.board.turn == color
-        player = (color == ChessPieceColor.black)
-            ? playViewModel.game.blackPlayer as! GUIPlayer
-            : playViewModel.game.whitePlayer as! GUIPlayer
         boardChanged = playViewModel.boardUpdated.collectAsObservable(initialValue: playViewModel.boardUpdated.value as! Int32)
     }
     
     var body: some View {
+        let player = (color == ChessPieceColor.black)
+            ? playViewModel.game.blackPlayer as! GUIPlayer
+            : playViewModel.game.whitePlayer as! GUIPlayer
+        let isTurn = playViewModel.game.board.turn == color
         HStack {
             ZStack(alignment: .topTrailing) {
                 Image(player.avatar)

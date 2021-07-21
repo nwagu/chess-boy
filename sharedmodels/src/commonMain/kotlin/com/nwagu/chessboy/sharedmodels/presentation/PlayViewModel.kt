@@ -25,8 +25,10 @@ class PlayViewModel: BaseViewModel() {
     val gameUpdated = MutableStateFlow(0)
     val boardUpdated = MutableStateFlow(0)
 
-    var selectedSquare = MutableStateFlow<Square?>(null)
-    var possibleMoves = MutableStateFlow<List<Move>>(listOf())
+    val selectedSquare = MutableStateFlow<Square?>(null)
+    val possibleMoves = MutableStateFlow<List<Move>>(listOf())
+
+    val pendingPromotion = MutableStateFlow<Promotion?>(null)
 
     lateinit var bluetoothChatService: BluetoothChatService
 
@@ -99,7 +101,7 @@ class PlayViewModel: BaseViewModel() {
         bluetoothChatService.startListeningForConnection()
     }
 
-    fun squareClicked(square: Square): Move? {
+    fun squareClicked(square: Square) {
 
         when {
             !game.isUserTurn -> {
@@ -117,12 +119,12 @@ class PlayViewModel: BaseViewModel() {
 
                 val move = possibleMoves.value.find { move -> square == move.destination }!!
 
-                if (move !is Promotion)
+                if (move is Promotion)
+                    pendingPromotion.value = move
+                else
                     makeUserMove(move)
 
                 clearPossibleMoves()
-
-                return move
 
             }
 
@@ -130,8 +132,6 @@ class PlayViewModel: BaseViewModel() {
                 clearPossibleMoves()
             }
         }
-
-        return null
     }
 
     fun makeUserMove(move: Move) {
