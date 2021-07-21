@@ -7,16 +7,20 @@
 //
 
 import SwiftUI
+import sharedmodels
 
 struct RadioCard: View {
     let text: String
     let isSelected: Bool
     let onClickAction: () -> Void
+    
+    let cornerRadius: CGFloat = 8
 
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)) {
-            RoundedRectangle(cornerRadius: 8)
-                .strokeBorder((isSelected) ? Color.red : Color.gray, lineWidth: 1)
+            RoundedRectangle(cornerRadius: cornerRadius)
+                .strokeBorder((isSelected) ? Color(ColorsKt.getPrimaryColor()) : Color.gray, lineWidth: 1)
+                .background(RoundedRectangle(cornerRadius: cornerRadius).fill((isSelected) ? Color(ColorsKt.getPrimaryColorLight()) : Color.white))
 
             VStack {
                 Text(text)

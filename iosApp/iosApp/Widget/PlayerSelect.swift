@@ -11,7 +11,7 @@ import sharedmodels
 
 struct PlayerSelect: View {
     let players: [SelectablePlayer]
-    let selectedPlayer: SelectablePlayer? = nil
+    let selectedPlayer: SelectablePlayer?
     let onSelect: (SelectablePlayer) -> Void
     
     var body: some View {
@@ -29,7 +29,10 @@ struct PlayerSelect: View {
 
 struct PlayerSelect_Previews: PreviewProvider {
     static var previews: some View {
-        PlayerSelect(players: [JWTC(), Stockfish()]) { _ in }
+        PlayerSelect(
+            players: [JWTC(), Stockfish()],
+            selectedPlayer: nil
+        ) { _ in }
     }
 }
 
@@ -39,10 +42,13 @@ struct PlayerSelectItem: View {
     var isSelected: Bool
     let onSelect: (SelectablePlayer) -> Void
     
+    let cornerRadius: CGFloat = 4
+    
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)) {
-            RoundedRectangle(cornerRadius: 4)
-                .strokeBorder((isSelected) ? Color.red : Color.gray, lineWidth: 1)
+            RoundedRectangle(cornerRadius: cornerRadius)
+                .strokeBorder((isSelected) ? Color(ColorsKt.getPrimaryColor()) : Color.gray, lineWidth: 1)
+                .background(RoundedRectangle(cornerRadius: cornerRadius).fill((isSelected) ? Color(ColorsKt.getPrimaryColorLight()) : Color.white))
 
             VStack {
                 Text(player.name)

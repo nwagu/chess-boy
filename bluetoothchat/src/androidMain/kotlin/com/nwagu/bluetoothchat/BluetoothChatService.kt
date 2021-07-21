@@ -3,7 +3,6 @@ package com.nwagu.bluetoothchat
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothSocket
-import android.content.Context
 import android.util.Log
 import kotlinx.coroutines.flow.MutableStateFlow
 import java.io.IOException
@@ -13,19 +12,6 @@ actual class BluetoothChatService {
 
     // Debugging
     private val TAG = "BluetoothChatService"
-
-    lateinit var context: Context
-
-    var isInitiator: Boolean = false
-    lateinit var partnerAddress: String
-
-    // Name for the SDP record when creating server socket
-    private val NAME_SECURE = "BluetoothChatSecure"
-    private val NAME_INSECURE = "BluetoothChatInsecure"
-
-    // Unique UUID for this application
-    private val MY_UUID_SECURE: UUID = UUID.fromString("fa87c0d0-afac-11de-8a39-0800200c9a66")
-    private val MY_UUID_INSECURE: UUID = UUID.fromString("8ce255c0-200a-11e0-ac64-0800200c9a66")
 
     private var mSecureAcceptThread: AcceptThread? = null
     private var mInsecureAcceptThread: AcceptThread? = null
@@ -37,23 +23,25 @@ actual class BluetoothChatService {
         field = value
         connectionState.value = value
     }
-    var connectionState = MutableStateFlow(_connectionState)
+    actual var connectionState = MutableStateFlow(_connectionState)
 
     private var bluetoothAdapter: BluetoothAdapter? = null
 
+    actual var isInitiator: Boolean = false
+    actual var partnerAddress: String = ""
+
     private lateinit var listener: ChatListener
 
-    fun init(context: Context, isInitiator: Boolean) {
-        this.context = context
+    actual fun init(isInitiator: Boolean) {
         this.isInitiator = isInitiator
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
     }
 
-    fun setListener(listener: ChatListener) {
+    actual fun setListener(listener: ChatListener) {
         this.listener = listener
     }
 
-    fun connectDevice(address: String, secure: Boolean) {
+    actual fun connectDevice(address: String, secure: Boolean) {
 
         if (!isInitiator)
             throw IllegalStateException("A non-initiator must only listen. Use [startListeningForConnection] to listen for connection.")
@@ -81,7 +69,7 @@ actual class BluetoothChatService {
         mConnectThread?.start()
     }
 
-    fun startListeningForConnection() {
+    actual fun startListeningForConnection() {
 
         if (isInitiator)
             throw IllegalStateException("An initiator must not listen for connection. Use [connectDevice] to connect")
@@ -164,7 +152,7 @@ actual class BluetoothChatService {
         listener.onChatStart(device.name)
     }
 
-    fun sendMessage(message: String) {
+    actual fun sendMessage(message: String) {
 
         if (message.isEmpty())
             return
@@ -177,7 +165,7 @@ actual class BluetoothChatService {
 
     }
 
-    fun stopListening() {
+    actual fun stopListening() {
         if (mSecureAcceptThread != null) {
             mSecureAcceptThread?.cancel()
             mSecureAcceptThread = null
@@ -195,7 +183,7 @@ actual class BluetoothChatService {
      * Stop all threads
      */
     @Synchronized
-    fun stop() {
+    actual fun stop() {
         Log.d(TAG, "stop")
         if (mConnectThread != null) {
             mConnectThread?.cancel()
@@ -436,18 +424,4 @@ actual class BluetoothChatService {
 
     }
 
-    enum class ConnectionState {
-        NONE, LISTENING, CONNECTING, CONNECTED
-    }
-
-    interface ChatListener {
-        fun onConnecting()
-        fun onListening()
-        fun onConnected(address: String)
-        fun onChatStart(deviceName: String)
-        fun onConnectionFailed()
-        fun onMessageSent(message: String)
-        fun onMessageReceived(message: String)
-        fun onDisconnected()
-    }
 }

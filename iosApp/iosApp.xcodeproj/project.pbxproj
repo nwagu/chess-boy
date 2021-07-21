@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7555FF83242A565900829871 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* HomeView.swift */; };
+		B340FC6126A8008300167C39 /* SelectPromotionPiecePrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = B340FC6026A8008300167C39 /* SelectPromotionPiecePrompt.swift */; };
 		B3412FE6267F0B3E00AE7470 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3412FE5267F0B3E00AE7470 /* Assets.xcassets */; };
 		B36AA61B2698EA720016E7FA /* WrappingHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36AA61A2698EA720016E7FA /* WrappingHStack.swift */; };
 		B36AA61D26990D080016E7FA /* SideChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36AA61C26990D080016E7FA /* SideChoice.swift */; };
@@ -28,6 +29,8 @@
 		B3F082CA2688634900038199 /* QuickAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F082C92688634900038199 /* QuickAction.swift */; };
 		B3F082CE2688A07200038199 /* PlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F082CD2688A07200038199 /* PlayView.swift */; };
 		B3F082D02688A23200038199 /* ChessBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F082CF2688A23200038199 /* ChessBoardView.swift */; };
+		B3F1B83E26A6FD4700565E14 /* Collector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F1B83D26A6FD4700565E14 /* Collector.swift */; };
+		B3F1B84026A70FC600565E14 /* ChessBoyEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F1B83F26A70FC600565E14 /* ChessBoyEnvironment.swift */; };
 		B3F305FB269326DF00D6DDAD /* PlayerDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F305FA269326DF00D6DDAD /* PlayerDisplay.swift */; };
 		F27E8B25D22AA9AFAD19416E /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F42204A97754A79718749B /* Pods_iosApp.framework */; };
 /* End PBXBuildFile section */
@@ -39,6 +42,7 @@
 		7555FF7B242A565900829871 /* Chess Boy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chess Boy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B340FC6026A8008300167C39 /* SelectPromotionPiecePrompt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPromotionPiecePrompt.swift; sourceTree = "<group>"; };
 		B3412FE5267F0B3E00AE7470 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = iosApp/Resources/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		B36AA61A2698EA720016E7FA /* WrappingHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrappingHStack.swift; sourceTree = "<group>"; };
 		B36AA61C26990D080016E7FA /* SideChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideChoice.swift; sourceTree = "<group>"; };
@@ -59,6 +63,8 @@
 		B3F082C92688634900038199 /* QuickAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickAction.swift; sourceTree = "<group>"; };
 		B3F082CD2688A07200038199 /* PlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayView.swift; sourceTree = "<group>"; };
 		B3F082CF2688A23200038199 /* ChessBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBoardView.swift; sourceTree = "<group>"; };
+		B3F1B83D26A6FD4700565E14 /* Collector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collector.swift; sourceTree = "<group>"; };
+		B3F1B83F26A70FC600565E14 /* ChessBoyEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBoyEnvironment.swift; sourceTree = "<group>"; };
 		B3F305FA269326DF00D6DDAD /* PlayerDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDisplay.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -102,6 +108,7 @@
 				B3B049672695652500CBA1D0 /* Screens */,
 				7555FF8C242A565B00829871 /* Info.plist */,
 				B3D4E19D2681EA6B002BB5E2 /* ChessBoy.swift */,
+				B3F1B83F26A70FC600565E14 /* ChessBoyEnvironment.swift */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -191,6 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				B3F082CD2688A07200038199 /* PlayView.swift */,
+				B340FC6026A8008300167C39 /* SelectPromotionPiecePrompt.swift */,
 			);
 			path = Play;
 			sourceTree = "<group>";
@@ -231,6 +239,7 @@
 			children = (
 				B3DB685D2696953900EDB094 /* Stack.swift */,
 				B3DB685F2696957B00EDB094 /* ScopeFunc.swift */,
+				B3F1B83D26A6FD4700565E14 /* Collector.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -347,6 +356,7 @@
 				B3F305FB269326DF00D6DDAD /* PlayerDisplay.swift in Sources */,
 				B3B0497426956A1300CBA1D0 /* ViewRouter.swift in Sources */,
 				B36AA61D26990D080016E7FA /* SideChoice.swift in Sources */,
+				B3F1B83E26A6FD4700565E14 /* Collector.swift in Sources */,
 				B3F082D02688A23200038199 /* ChessBoardView.swift in Sources */,
 				B3F082C42687D5E800038199 /* NewBluetoothGameView.swift in Sources */,
 				B3A6A3AF26982D1A0097FC27 /* RadioCard.swift in Sources */,
@@ -356,6 +366,8 @@
 				B3F082C02687D5C100038199 /* HistoryView.swift in Sources */,
 				B3D4E19E2681EA6B002BB5E2 /* ChessBoy.swift in Sources */,
 				B3F082C82688544800038199 /* QuickActionView.swift in Sources */,
+				B3F1B84026A70FC600565E14 /* ChessBoyEnvironment.swift in Sources */,
+				B340FC6126A8008300167C39 /* SelectPromotionPiecePrompt.swift in Sources */,
 				B3F082C22687D5D800038199 /* NewGameView.swift in Sources */,
 				B3F082CE2688A07200038199 /* PlayView.swift in Sources */,
 				B3B0497D269587FA00CBA1D0 /* TopBar.swift in Sources */,
@@ -496,6 +508,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-framework",
+					"\"sharedmodels\"",
+					"-lsqlite3",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nwagu.chessboy;
 				PRODUCT_NAME = "Chess Boy";
 				SWIFT_VERSION = 5.0;
@@ -517,6 +537,14 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-framework",
+					"\"sharedmodels\"",
+					"-lsqlite3",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nwagu.chessboy;
 				PRODUCT_NAME = "Chess Boy";

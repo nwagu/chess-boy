@@ -11,6 +11,16 @@ import sharedmodels
 
 struct NewGameView: View {
     @EnvironmentObject var viewRouter: ViewRouter
+    @EnvironmentObject var environment: ChessBoyEnvironment
+    
+    let newGameViewModel: NewGameViewModel = NewGameViewModel()
+    @ObservedObject var selectedColor: Collector<ChessPieceColor?>
+    @ObservedObject var selectedOpponent: Collector<MoveGenerator?>
+    
+    init() {
+        selectedColor = newGameViewModel.selectedColor.collectAsObservable(initialValue: newGameViewModel.selectedColor.value as? ChessPieceColor)
+        selectedOpponent = newGameViewModel.selectedOpponent.collectAsObservable(initialValue: newGameViewModel.selectedOpponent.value as? MoveGenerator)
+    }
     
     var options: [SideChoice] {
         [
@@ -32,8 +42,11 @@ struct NewGameView: View {
                         .padding(.vertical)
                     
                     WrappingHStack(models: options) { option in
-                        RadioCard(text: option.displayName, isSelected: false) {
-                            // newGameViewModel.selectedColor.value = option.color
+                        RadioCard(
+                            text: option.displayName,
+                            isSelected: (option.color == selectedColor.currentValue)
+                        ) {
+                            newGameViewModel.selectedColor.setValue(option.color)
                         }
                     }
                     Text("Select opponent")
@@ -41,7 +54,12 @@ struct NewGameView: View {
                         .fontWeight(.semibold)
                         .foregroundColor(.black)
                         .padding(.vertical)
-                    PlayerSelect(players: [JWTC(), Stockfish(), RandomMoveGenerator()]) { _ in }
+                    PlayerSelect(
+                        players: newGameViewModel.opponents,
+                        selectedPlayer: selectedOpponent.currentValue
+                    ) { player in
+                        newGameViewModel.selectedOpponent.setValue(player)
+                    }
                     Spacer()
                 }
             }
@@ -54,7 +72,13 @@ struct NewGameView: View {
             )
             .padding()
             
-            Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+            Button(action: {
+                if let players = newGameViewModel.getSelectedPlayers() {
+                    environment.startNewGame(whitePlayer: players.first!, blackPlayer: players.second!)
+                    viewRouter.navigateUp()
+                    viewRouter.navigate(screen: .play)
+                }
+            }, label: {
                 Text("Start Game")
             })
             .padding(.bottom)

@@ -7,15 +7,19 @@
 //
 
 import SwiftUI
+import sharedmodels
 
 @main
 struct ChessBoy: App {
     
     @StateObject var viewRouter = ViewRouter()
+    @StateObject var environment = ChessBoyEnvironment()
     
     var body: some Scene {
         WindowGroup {
-            MainView().environmentObject(viewRouter)
+            MainView()
+                .environmentObject(viewRouter)
+                .environmentObject(environment)
         }
     }
 }

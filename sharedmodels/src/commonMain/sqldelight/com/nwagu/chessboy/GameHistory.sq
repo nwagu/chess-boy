@@ -1,0 +1,6 @@
+CREATE TABLE GameHistory (
+  pgn TEXT NOT NULL
+);
+
+INSERT INTO GameHistory (pgn)
+VALUES ("");
