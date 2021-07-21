@@ -12,12 +12,15 @@ import sharedmodels
 struct ChessBoardView: View {
     
     var playViewModel: PlayViewModel
+    
     @ObservedObject
     var boardChanged: Collector<Int32>
     @ObservedObject
     var selectedSquare: Collector<Square?>
     @ObservedObject
     var possibleMoves: Collector<[Move]>
+    
+    @State private var showPromotionDialog = false
     
     init(playViewModel: PlayViewModel) {
         self.playViewModel = playViewModel
@@ -29,7 +32,7 @@ struct ChessBoardView: View {
     var body: some View {
         
         let game = playViewModel.game
-        let lastMove = game.board.movesHistory.lastObject
+        let lastMove = game.board.movesHistory.lastObject as? Move
         
         let columns: [GridItem] = Array(
             repeating: .init(.flexible(), spacing: 0),
@@ -49,7 +52,7 @@ struct ChessBoardView: View {
                     let move = playViewModel.squareClicked(square: square)
 
                     if (move is Promotion) {
-                        // TODO Handle promotion piece selection
+                        self.showPromotionDialog = true
                     }
                 }) {
                     ZStack {
@@ -65,19 +68,30 @@ struct ChessBoardView: View {
                             Circle().fill(color).padding()
                         }
                         
-//                        if (square == lastMove?.source) {
-//                            RoundedRectangle(cornerRadius: 0, style: .continuous).strokeBorder(Color.gray, lineWidth: 1)
-//                        }
-//                        
-//                        if (square == lastMove?.destination) {
-//                            RoundedRectangle(cornerRadius: 0, style: .continuous).strokeBorder(Color.blue, lineWidth: 1)
-//                        }
+                        if (square == lastMove?.source) {
+                            RoundedRectangle(cornerRadius: 0, style: .continuous).strokeBorder(Color.gray, lineWidth: 1)
+                        }
+
+                        if (square == lastMove?.destination) {
+                            RoundedRectangle(cornerRadius: 0, style: .continuous).strokeBorder(Color.blue, lineWidth: 1)
+                        }
+                        
+                        if ((square == Int32(game.board.blackKingPosition) && game.board.isOnCheck(color: .black)) ||
+                                (square == Int32(game.board.whiteKingPosition) && game.board.isOnCheck(color: .white))
+                        ) {
+                            RoundedRectangle(cornerRadius: 0, style: .continuous).strokeBorder(Color.red, lineWidth: 2)
+                        }
 
                     }
                     .frame(maxWidth: .infinity)
                     .aspectRatio(1, contentMode: .fit)
                 }
             }
+        }
+        .sheet(isPresented: $showPromotionDialog, onDismiss: {
+            //
+        }) {
+            SelectPromotionPiecePrompt()
         }
     }
 }
