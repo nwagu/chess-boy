@@ -3,8 +3,8 @@
 Chess mobile application with bluetooth multiplayer
 
 <p float="left">
-  <img src="screenshots/android.png" width="100" />
-  <img src="screenshots/ios.png" width="100" />
+  <img src="screenshots/android.png" width="200" />
+  <img src="screenshots/ios.png" width="200" />
 </p>
 
 <a href="https://play.google.com/store/apps/details?id=com.nwagu.android.chessboy" target="_blank">
