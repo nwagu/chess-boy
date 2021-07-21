@@ -9,24 +9,31 @@
 import SwiftUI
 import sharedmodels
 
+// to match the typealias in the kotlin chess module
+typealias Square = Int32
+
 struct PlayView: View {
-    @EnvironmentObject var viewRouter: ViewRouter
+    @EnvironmentObject
+    var viewRouter: ViewRouter
+    
+    var playViewModel: PlayViewModel
+    @ObservedObject
+    var gameChanged: Collector<Int32>
+    
+    init(playViewModel: PlayViewModel) {
+        self.playViewModel = playViewModel
+        gameChanged = playViewModel.gameUpdated.collectAsObservable(initialValue: playViewModel.gameUpdated.value as! Int32)
+    }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             TopBar(title: "Active game")
             ScrollView {
                 VStack(alignment: .leading, spacing: 0) {
-                    
-                    PlayerDisplay()
-                        .padding(16)
-                    
-                    ChessBoardView(board: Board(numberOfRows: 8, numberOfColumns: 8).apply(block: {board in
-                        board.loadStandardStartingPosition()
-                    }))
-                    
-                    PlayerDisplay()
-                        .padding(16)
+                    PlayerDisplay(playViewModel: playViewModel, color: playViewModel.game.colorOnUserSideOfBoard.opposite()).padding(16)
+                    ChessBoardView(playViewModel: playViewModel)
+                    PlayerDisplay(playViewModel: playViewModel, color: playViewModel.game.colorOnUserSideOfBoard).padding(16)
+                    Button(action: { playViewModel.undo() }, label: {Text("Undo") }).padding()
                 }
                 Spacer()
             }
@@ -44,6 +51,6 @@ struct PlayView: View {
 
 struct PlayView_Previews: PreviewProvider {
     static var previews: some View {
-        PlayView().environmentObject(ViewRouter())
+        PlayView(playViewModel: PlayViewModel()).environmentObject(ViewRouter())
     }
 }

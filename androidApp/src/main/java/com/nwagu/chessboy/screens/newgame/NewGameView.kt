@@ -107,14 +107,9 @@ fun NewGameView(
                 .align(Alignment.CenterHorizontally),
             text = "Start Game",
             onClick = {
-                selectedOpponent?.let { opponent ->
-                    val whitePlayer = when (selectedColor) {
-                        ChessPieceColor.WHITE -> User
-                        ChessPieceColor.BLACK -> opponent
-                        null -> listOf(User, opponent).random()
-                    }
-                    val blackPlayer = if (whitePlayer is User) opponent else User
-                    context.startNewGame(whitePlayer, blackPlayer)
+                newGameViewModel.getSelectedPlayers()?.let { players ->
+
+                    context.startNewGame(players.first, players.second)
 
                     newGameViewModel.selectedColor.value = null
                     newGameViewModel.selectedOpponent.value = null

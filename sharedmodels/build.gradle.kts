@@ -39,7 +39,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0-native-mt")
                 api(project(":bluetoothchat"))
                 api(project(":chess"))
                 implementation("com.squareup.sqldelight:runtime:${Versions.sql_delight_version}")

@@ -28,6 +28,8 @@
 		B3F082CA2688634900038199 /* QuickAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F082C92688634900038199 /* QuickAction.swift */; };
 		B3F082CE2688A07200038199 /* PlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F082CD2688A07200038199 /* PlayView.swift */; };
 		B3F082D02688A23200038199 /* ChessBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F082CF2688A23200038199 /* ChessBoardView.swift */; };
+		B3F1B83E26A6FD4700565E14 /* Collector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F1B83D26A6FD4700565E14 /* Collector.swift */; };
+		B3F1B84026A70FC600565E14 /* ChessBoyEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F1B83F26A70FC600565E14 /* ChessBoyEnvironment.swift */; };
 		B3F305FB269326DF00D6DDAD /* PlayerDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F305FA269326DF00D6DDAD /* PlayerDisplay.swift */; };
 		F27E8B25D22AA9AFAD19416E /* Pods_iosApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62F42204A97754A79718749B /* Pods_iosApp.framework */; };
 /* End PBXBuildFile section */
@@ -59,6 +61,8 @@
 		B3F082C92688634900038199 /* QuickAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickAction.swift; sourceTree = "<group>"; };
 		B3F082CD2688A07200038199 /* PlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayView.swift; sourceTree = "<group>"; };
 		B3F082CF2688A23200038199 /* ChessBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBoardView.swift; sourceTree = "<group>"; };
+		B3F1B83D26A6FD4700565E14 /* Collector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collector.swift; sourceTree = "<group>"; };
+		B3F1B83F26A70FC600565E14 /* ChessBoyEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBoyEnvironment.swift; sourceTree = "<group>"; };
 		B3F305FA269326DF00D6DDAD /* PlayerDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDisplay.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -102,6 +106,7 @@
 				B3B049672695652500CBA1D0 /* Screens */,
 				7555FF8C242A565B00829871 /* Info.plist */,
 				B3D4E19D2681EA6B002BB5E2 /* ChessBoy.swift */,
+				B3F1B83F26A70FC600565E14 /* ChessBoyEnvironment.swift */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -231,6 +236,7 @@
 			children = (
 				B3DB685D2696953900EDB094 /* Stack.swift */,
 				B3DB685F2696957B00EDB094 /* ScopeFunc.swift */,
+				B3F1B83D26A6FD4700565E14 /* Collector.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -347,6 +353,7 @@
 				B3F305FB269326DF00D6DDAD /* PlayerDisplay.swift in Sources */,
 				B3B0497426956A1300CBA1D0 /* ViewRouter.swift in Sources */,
 				B36AA61D26990D080016E7FA /* SideChoice.swift in Sources */,
+				B3F1B83E26A6FD4700565E14 /* Collector.swift in Sources */,
 				B3F082D02688A23200038199 /* ChessBoardView.swift in Sources */,
 				B3F082C42687D5E800038199 /* NewBluetoothGameView.swift in Sources */,
 				B3A6A3AF26982D1A0097FC27 /* RadioCard.swift in Sources */,
@@ -356,6 +363,7 @@
 				B3F082C02687D5C100038199 /* HistoryView.swift in Sources */,
 				B3D4E19E2681EA6B002BB5E2 /* ChessBoy.swift in Sources */,
 				B3F082C82688544800038199 /* QuickActionView.swift in Sources */,
+				B3F1B84026A70FC600565E14 /* ChessBoyEnvironment.swift in Sources */,
 				B3F082C22687D5D800038199 /* NewGameView.swift in Sources */,
 				B3F082CE2688A07200038199 /* PlayView.swift in Sources */,
 				B3B0497D269587FA00CBA1D0 /* TopBar.swift in Sources */,

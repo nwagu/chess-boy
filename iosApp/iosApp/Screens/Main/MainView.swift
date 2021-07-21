@@ -10,13 +10,14 @@ import SwiftUI
 
 struct MainView: View {
     @EnvironmentObject var viewRouter: ViewRouter
+    @EnvironmentObject var environment: ChessBoyEnvironment
     
     var body: some View {
         switch viewRouter.currentScreen {
         case .home:
             HomeView()
         case .play:
-            PlayView()
+            PlayView(playViewModel: environment.playViewModel)
                 .transition(.move(edge: .trailing))
         case .history:
             HistoryView()
