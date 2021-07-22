@@ -37,27 +37,32 @@ struct ChessBoardView: View {
             count: Int(game.board.numberOfColumns)
         )
         
+        let squares = game.board.squaresMap as! Dictionary<Int32, SquareOccupant>
+        
+        let positionsSorted = game.colorOnUserSideOfBoard == ChessPieceColor.white
+            ? squares.sorted(by: {$0.0 < $1.0})
+            : squares.sorted(by: {$0.0 > $1.0})
+        
         LazyVGrid(columns: columns, spacing: 0) {
-            ForEach(0..<game.board.squaresMap.count) { item in
-                
-                let square = (game.colorOnUserSideOfBoard == ChessPieceColor.white) ?
-                    Int32(item) : (game.board.numberOfColumns * game.board.numberOfRows) - (Int32(item) + 1)
+            ForEach(positionsSorted, id: \.key) { square, occupant in
                 
                 let squareColor = game.board.squareColor(square: square).colorResource()
-                let occupant = game.board.getSquareOccupantOrNull(square: square)
                 
-                Button(action: { playViewModel.squareClicked(square: square) }) {
+                Button(action: {
+                    withAnimation {
+                        playViewModel.squareClicked(square: square)
+                    }
+                }) {
                     ZStack {
-                        Rectangle()
-                            .fill(Color(squareColor))
+                        Rectangle().fill(Color(squareColor))
                         
-                        if let chessPiece = occupant {
-                            Image(chessPiece.imageRes())
+                        if occupant is ChessPiece {
+                            Image((occupant as! ChessPiece).imageRes()).transition(AnyTransition.identity)
                         }
                         
                         if (possibleMoves.currentValue.map { $0.destination }.contains(square)) {
-                            let color = (occupant != nil) ? Color.red : Color.gray
-                            Circle().fill(color).padding()
+                            let color = (occupant is ChessPiece) ? Color.red : Color.gray
+                            Circle().fill(color).padding().transition(AnyTransition.scale)
                         }
                         
                         if (square == lastMove?.source) {

@@ -128,6 +128,15 @@ class PlayViewModel: BaseViewModel() {
 
             }
 
+            square == selectedSquare.value -> {
+                clearPossibleMoves()
+            }
+
+            game.board.squareContainsOccupantColored(square, game.userColor) -> {
+                selectedSquare.value = square
+                possibleMoves.value = game.board.getPossibleMovesFrom(square)
+            }
+
             else -> {
                 clearPossibleMoves()
             }

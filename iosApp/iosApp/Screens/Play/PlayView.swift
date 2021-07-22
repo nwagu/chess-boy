@@ -22,8 +22,7 @@ struct PlayView: View {
     @ObservedObject
     var pendingPromotion: Collector<Promotion?>
     
-    @State
-    private var showPromotionDialog = false
+    @State private var showPromotionDialog = false
     
     init(playViewModel: PlayViewModel) {
         self.playViewModel = playViewModel
@@ -39,7 +38,7 @@ struct PlayView: View {
                     PlayerDisplay(playViewModel: playViewModel, color: playViewModel.game.colorOnUserSideOfBoard.opposite()).padding(16)
                     ChessBoardView(playViewModel: playViewModel)
                     PlayerDisplay(playViewModel: playViewModel, color: playViewModel.game.colorOnUserSideOfBoard).padding(16)
-                    Button(action: { playViewModel.undo() }, label: {Text("Undo") }).padding()
+                    Button(action: { withAnimation { playViewModel.undo() } }, label: {Text("Undo") }).padding()
                 }
                 Spacer()
             }
