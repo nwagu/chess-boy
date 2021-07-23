@@ -5,6 +5,8 @@ import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.nwagu.chessboy.sharedmodels.ChessApplication
+import com.nwagu.chessboy.sharedmodels.data.DatabaseDriverFactory
+import com.nwagu.chessboy.sharedmodels.data.LocalGamesHistoryRepository
 import kotlinx.coroutines.CoroutineScope
 
 actual open class BaseViewModel: AndroidViewModel {
@@ -13,13 +15,15 @@ actual open class BaseViewModel: AndroidViewModel {
     constructor(application: Application): super(application)
 
     actual val clientScope: CoroutineScope = viewModelScope
+    actual val gamesHistoryRepository by lazy {
+        LocalGamesHistoryRepository(DatabaseDriverFactory(getApplication()))
+    }
+
     actual override fun onCleared() {
         super.onCleared()
     }
 
     actual fun showToast(message: String) {
-//        ContextCompat.getMainExecutor(getApplication()).execute {
-            Toast.makeText(getApplication(), message, Toast.LENGTH_LONG).show()
-//        }
+        Toast.makeText(getApplication(), message, Toast.LENGTH_LONG).show()
     }
 }

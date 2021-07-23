@@ -6,12 +6,12 @@ import kotlin.math.abs
 
 fun Board.getKingMovesFrom(source: Square): List<Move> {
 
-    if (getSquareOccupant(source).chessPieceType != ChessPieceType.KING)
+    if (getSquareOccupantAsChessPiece(source).chessPieceType != ChessPieceType.KING)
         throw IllegalStateException("Type must be KING!")
 
     return this.squaresMap.keys.filter { destination ->
         canKingMoveFrom(source, destination) &&
-                destinationIsEmptyOrHasEnemy(destination, getSquareOccupant(source).chessPieceColor)
+                destinationIsEmptyOrHasEnemy(destination, getSquareOccupantAsChessPiece(source).chessPieceColor)
     }.map { destination ->
         if (abs(column(source) - column(destination)) == 2)
             Castling(source, destination)

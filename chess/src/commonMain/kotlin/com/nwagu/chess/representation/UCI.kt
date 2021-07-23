@@ -15,11 +15,11 @@ fun Board.parseUciEngineMove(move: String): Move? {
 
     if (move.length == 4) {
 
-        if (getSquareOccupant(source).chessPieceType == ChessPieceType.PAWN && !areSquaresOnSameColumn(source, destination) && squareEmpty(destination)) {
+        if (getSquareOccupantAsChessPiece(source).chessPieceType == ChessPieceType.PAWN && !areSquaresOnSameColumn(source, destination) && squareEmpty(destination)) {
             return EnPassant(source, destination)
         } else {
 
-            if (getSquareOccupant(source).chessPieceType == ChessPieceType.KING &&
+            if (getSquareOccupantAsChessPiece(source).chessPieceType == ChessPieceType.KING &&
                 areSquaresOnSameRow(source, destination) &&
                 squaresBetweenSquaresOnRow(
                     source,

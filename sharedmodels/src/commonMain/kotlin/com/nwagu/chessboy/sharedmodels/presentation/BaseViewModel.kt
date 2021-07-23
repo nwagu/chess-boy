@@ -2,11 +2,15 @@ package com.nwagu.chessboy.sharedmodels.presentation
 
 import com.nwagu.chess.model.Game
 import com.nwagu.chess.representation.*
+import com.nwagu.chessboy.sharedmodels.data.LocalGamesHistoryRepository
 import com.nwagu.chessboy.sharedmodels.players.getPlayerWithId
 import kotlinx.coroutines.CoroutineScope
 
 expect open class BaseViewModel() {
+
     val clientScope: CoroutineScope
+    protected val gamesHistoryRepository: LocalGamesHistoryRepository
+
     protected open fun onCleared()
 
     fun showToast(message: String)

@@ -9,19 +9,12 @@
 import SwiftUI
 import sharedmodels
 
-// to match the typealias in the kotlin chess module
-typealias Square = Int32
-
 struct PlayView: View {
-    @EnvironmentObject
-    var viewRouter: ViewRouter
+    @EnvironmentObject var viewRouter: ViewRouter
     
-    var playViewModel: PlayViewModel
-    @ObservedObject
-    var gameChanged: Collector<Int32>
-    @ObservedObject
-    var pendingPromotion: Collector<Promotion?>
-    
+    private let playViewModel: PlayViewModel
+    @ObservedObject private var gameChanged: Collector<Int32>
+    @ObservedObject private var pendingPromotion: Collector<Promotion?>
     @State private var showPromotionDialog = false
     
     init(playViewModel: PlayViewModel) {

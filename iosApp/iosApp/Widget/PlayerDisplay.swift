@@ -13,8 +13,7 @@ struct PlayerDisplay: View {
     var playViewModel: PlayViewModel
     var color: ChessPieceColor
     
-    @ObservedObject
-    var boardChanged: Collector<Int32>
+    @ObservedObject var boardChanged: Collector<Int32>
     
     init(playViewModel: PlayViewModel, color: ChessPieceColor) {
         self.playViewModel = playViewModel

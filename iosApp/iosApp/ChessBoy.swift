@@ -20,6 +20,10 @@ struct ChessBoy: App {
             MainView()
                 .environmentObject(viewRouter)
                 .environmentObject(environment)
+                .onAppear { environment.initialize() }
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification), perform: { output in
+                    environment.saveCurrentGame()
+                 })
         }
     }
 }

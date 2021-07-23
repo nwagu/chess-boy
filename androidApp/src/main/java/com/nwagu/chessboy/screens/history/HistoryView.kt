@@ -50,7 +50,7 @@ fun HistoryView(
             .verticalScroll(rememberScrollState())
         ) {
 
-            for (gamePgn in gamesHistory.asReversed()) {
+            for (gamePgn in gamesHistory) {
                 PreviousGameView(modifier = Modifier.fillMaxWidth(), gamePgn) {
                     context.gameAnalysisViewModel.pgn = gamePgn
                     navHostController.navigate(Screen.GameAnalysis.route)

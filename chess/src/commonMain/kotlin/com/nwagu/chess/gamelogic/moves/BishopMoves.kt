@@ -6,12 +6,12 @@ import com.nwagu.chess.model.*
 
 fun Board.getBishopMovesFrom(source: Square): List<Move> {
 
-    if (getSquareOccupant(source).chessPieceType != ChessPieceType.BISHOP)
+    if (getSquareOccupantAsChessPiece(source).chessPieceType != ChessPieceType.BISHOP)
         throw IllegalStateException("Type must be BISHOP!")
 
     return this.squaresMap.keys.filter { destination ->
         canBishopMoveFrom(source, destination) &&
-                destinationIsEmptyOrHasEnemy(destination, getSquareOccupant(source).chessPieceColor)
+                destinationIsEmptyOrHasEnemy(destination, getSquareOccupantAsChessPiece(source).chessPieceColor)
     }.map { destination ->
         RegularMove(source, destination)
     }

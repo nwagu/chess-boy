@@ -174,7 +174,7 @@ fun PlayViewPortrait(
         verticalArrangement = Arrangement.Center
     ) {
         PlayerDisplay(modifier = Modifier, viewModel, viewModel.game.colorOnUserSideOfBoard.opposite())
-        ChessBoardView(modifier = Modifier.fillMaxWidth(), navHostController, viewModel)
+        ChessBoardView(modifier = Modifier.fillMaxWidth(), viewModel)
         PlayerDisplay(modifier = Modifier, viewModel, viewModel.game.colorOnUserSideOfBoard)
         Row(modifier = Modifier
             .fillMaxWidth()
@@ -227,7 +227,6 @@ fun PlayViewLandscape(
         ) {
             ChessBoardView(
                 modifier = Modifier.width((screenConfig.screenWidthDp - 64).dp),
-                navHostController,
                 viewModel
             )
         }

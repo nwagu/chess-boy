@@ -9,16 +9,18 @@
 import SwiftUI
 import sharedmodels
 
+// to match the typealias in the kotlin chess module
+typealias Square = Int32
+
 struct ChessBoardView: View {
     
     var playViewModel: PlayViewModel
     
-    @ObservedObject
-    var boardChanged: Collector<Int32>
-    @ObservedObject
-    var selectedSquare: Collector<Square?>
-    @ObservedObject
-    var possibleMoves: Collector<[Move]>
+    @ObservedObject var boardChanged: Collector<Int32>
+    @ObservedObject var selectedSquare: Collector<Square?>
+    @ObservedObject var possibleMoves: Collector<[Move]>
+    
+    @Namespace private var boardNameSpace
     
     init(playViewModel: PlayViewModel) {
         self.playViewModel = playViewModel
@@ -57,12 +59,12 @@ struct ChessBoardView: View {
                         Rectangle().fill(Color(squareColor))
                         
                         if occupant is ChessPiece {
-                            Image((occupant as! ChessPiece).imageRes()).transition(AnyTransition.identity)
+                            chessPieceView(for: occupant as! ChessPiece)
                         }
                         
                         if (possibleMoves.currentValue.map { $0.destination }.contains(square)) {
                             let color = (occupant is ChessPiece) ? Color.red : Color.gray
-                            Circle().fill(color).padding().transition(AnyTransition.scale)
+                            Circle().fill(color).padding().transition(AnyTransition.scale).zIndex(2)
                         }
                         
                         if (square == lastMove?.source) {
@@ -85,6 +87,12 @@ struct ChessBoardView: View {
                 }
             }
         }
+    }
+    
+    private func chessPieceView(for chessPiece: ChessPiece) -> some View {
+        Image(chessPiece.imageRes())
+            .matchedGeometryEffect(id: chessPiece.id, in: boardNameSpace)
+            .zIndex(1)
     }
 }
 

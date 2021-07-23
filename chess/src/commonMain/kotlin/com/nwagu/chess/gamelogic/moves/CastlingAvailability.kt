@@ -9,7 +9,7 @@ import com.nwagu.chess.model.Board
 
 val Board.isWhiteQueenSideCastlingAvailable: Boolean
     get() {
-        return (getSquareOccupant(whiteKingPosition).numberOfMovesMade == 0) &&
+        return (getSquareOccupantAsChessPiece(whiteKingPosition).numberOfMovesMade == 0) &&
                 run {
                     val queenSideCastlingRookSquare = square(row(whiteKingPosition), column(whiteKingPosition) - 4)
                     squareOccupantHasNotMoved(queenSideCastlingRookSquare)
@@ -18,7 +18,7 @@ val Board.isWhiteQueenSideCastlingAvailable: Boolean
 
 val Board.isWhiteKingSideCastlingAvailable: Boolean
     get() {
-        return (getSquareOccupant(whiteKingPosition).numberOfMovesMade == 0) &&
+        return (getSquareOccupantAsChessPiece(whiteKingPosition).numberOfMovesMade == 0) &&
                 run {
                     val kingSideCastlingRookSquare = square(row(whiteKingPosition), column(whiteKingPosition) + 3)
                     squareOccupantHasNotMoved(kingSideCastlingRookSquare)
@@ -27,7 +27,7 @@ val Board.isWhiteKingSideCastlingAvailable: Boolean
 
 val Board.isBlackQueenSideCastlingAvailable: Boolean
     get() {
-        return (getSquareOccupant(blackKingPosition).numberOfMovesMade == 0) &&
+        return (getSquareOccupantAsChessPiece(blackKingPosition).numberOfMovesMade == 0) &&
                 run {
                     val queenSideCastlingRookSquare = square(row(blackKingPosition), column(blackKingPosition) - 4)
                     squareOccupantHasNotMoved(queenSideCastlingRookSquare)
@@ -36,7 +36,7 @@ val Board.isBlackQueenSideCastlingAvailable: Boolean
 
 val Board.isBlackKingSideCastlingAvailable: Boolean
     get() {
-        return (getSquareOccupant(blackKingPosition).numberOfMovesMade == 0) &&
+        return (getSquareOccupantAsChessPiece(blackKingPosition).numberOfMovesMade == 0) &&
                 run {
                     val kingSideCastlingRookSquare = square(row(blackKingPosition), column(blackKingPosition) + 3)
                     squareOccupantHasNotMoved(kingSideCastlingRookSquare)

@@ -15,10 +15,10 @@ class Board(
     var whiteKingPosition: Int = 0
 
     init {
-        reset()
+        clear()
     }
 
-    fun reset() {
+    fun clear() {
         movesHistory.clear()
         captives.clear()
         repeat(numberOfColumns * numberOfRows) { index ->
@@ -26,11 +26,17 @@ class Board(
         }
     }
 
-    fun getSquareOccupant(square: Square): ChessPiece {
+    /*
+    * Throws an exception if square is empty
+    * */
+    fun getSquareOccupantAsChessPiece(square: Square): ChessPiece {
         return squaresMap[square] as ChessPiece
     }
 
-    fun getSquareOccupantOrNull(square: Square): ChessPiece? {
+    /*
+    * Returns null if square is empty
+    * */
+    fun getSquareOccupantAsChessPieceOrNull(square: Square): ChessPiece? {
         return if (squareEmpty(square)) null else squaresMap[square] as ChessPiece
     }
 

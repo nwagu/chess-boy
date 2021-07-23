@@ -1,6 +1,18 @@
 CREATE TABLE GameHistory (
+  id integer NOT NULL PRIMARY KEY AUTOINCREMENT,
+  gameId TEXT NOT NULL UNIQUE,
   pgn TEXT NOT NULL
 );
 
-INSERT INTO GameHistory (pgn)
-VALUES ("");
+insertGame:
+INSERT OR REPLACE INTO GameHistory(id, gameId, pgn)
+VALUES((SELECT id FROM GameHistory WHERE gameId = :gameId), :gameId, :pgn);
+
+selectLastGame:
+SELECT * FROM GameHistory ORDER BY id DESC LIMIT 1;
+
+mostRecentGames:
+SELECT * FROM GameHistory ORDER BY id DESC LIMIT :numberOfGames;
+
+removeAllGames:
+DELETE FROM GameHistory;

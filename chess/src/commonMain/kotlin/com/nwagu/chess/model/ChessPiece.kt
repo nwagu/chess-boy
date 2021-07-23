@@ -11,3 +11,6 @@ data class ChessPiece(
     val startingRow: Int,
     val startingColumn: Int
 ): SquareOccupant()
+
+val ChessPiece.id: String
+    get() = "${chessPieceType.fenSymbol}_${startingRow}_${startingColumn}"

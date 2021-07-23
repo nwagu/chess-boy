@@ -109,7 +109,7 @@ class PlayViewModel: BaseViewModel() {
             }
 
             selectedSquare.value == null || possibleMoves.value.isEmpty() -> {
-                if (game.board.squareContainsOccupantColored(square, game.userColor)) {
+                if (game.board.squareContainsChessPieceColored(square, game.userColor)) {
                     selectedSquare.value = square
                     possibleMoves.value = game.board.getPossibleMovesFrom(square)
                 }
@@ -132,7 +132,7 @@ class PlayViewModel: BaseViewModel() {
                 clearPossibleMoves()
             }
 
-            game.board.squareContainsOccupantColored(square, game.userColor) -> {
+            game.board.squareContainsChessPieceColored(square, game.userColor) -> {
                 selectedSquare.value = square
                 possibleMoves.value = game.board.getPossibleMovesFrom(square)
             }

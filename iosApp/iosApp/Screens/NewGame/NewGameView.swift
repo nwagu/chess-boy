@@ -13,9 +13,9 @@ struct NewGameView: View {
     @EnvironmentObject var viewRouter: ViewRouter
     @EnvironmentObject var environment: ChessBoyEnvironment
     
-    let newGameViewModel: NewGameViewModel = NewGameViewModel()
-    @ObservedObject var selectedColor: Collector<ChessPieceColor?>
-    @ObservedObject var selectedOpponent: Collector<MoveGenerator?>
+    private let newGameViewModel = NewGameViewModel()
+    @ObservedObject private var selectedColor: Collector<ChessPieceColor?>
+    @ObservedObject private var selectedOpponent: Collector<MoveGenerator?>
     
     init() {
         selectedColor = newGameViewModel.selectedColor.collectAsObservable(initialValue: newGameViewModel.selectedColor.value as? ChessPieceColor)

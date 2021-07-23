@@ -48,28 +48,16 @@ class MainViewModel: BaseViewModel() {
 
     fun saveGame(game: Game) {
         clientScope.launch {
-            val history = getGamesHistory()
-
-            while (history.size > 20) {
-                history.removeFirst()
-            }
-
-            history.removeAll(history.filter {
-                getHeaderValueFromPgn(PGN_HEADER_GAME_ID, it) == game.id
-            })
-            history.addLast(game.exportPGN())
-
-//            savePGNs(getApplication(), history.toList())
+            gamesHistoryRepository.addGame(game.id, game.exportPGN())
         }
     }
 
     private fun getLastGamePgn(): String? {
-        return getGamesHistory().lastOrNull()
+        return gamesHistoryRepository.getLastGame()?.pgn
     }
 
-    fun getGamesHistory(): ArrayDeque<String> {
-        return ArrayDeque()
-//        return ArrayDeque(getSavedPGNs(getApplication()))
+    fun getGamesHistory(): List<String> {
+        return gamesHistoryRepository.getMostRecentGames(20).map { it.pgn }
     }
 
 }

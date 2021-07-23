@@ -126,9 +126,6 @@ fun PreviousGameView(
     val whitePlayer = getHeaderValueFromPgn(PGN_HEADER_WHITE_PLAYER, pgn)
     val blackPlayer = getHeaderValueFromPgn(PGN_HEADER_BLACK_PLAYER, pgn)
 
-    val board = Board()
-    board.importMovesFromPGN(pgn)
-
     Card(
         modifier = modifier.padding(8.dp),
         onClick = {

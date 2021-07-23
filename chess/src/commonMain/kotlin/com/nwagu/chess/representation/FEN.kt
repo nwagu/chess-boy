@@ -27,7 +27,7 @@ fun Board.loadStandardStartingPosition() {
 * */
 fun Board.loadPositionFromFen(fen: String) {
 
-    reset()
+    clear()
 
     val pieceArrangement = fen.takeWhile { it != ' ' }
 
@@ -80,7 +80,7 @@ fun Board.getFen(): String {
             return@repeat
         }
 
-        val piece = getSquareOccupant(square)
+        val piece = getSquareOccupantAsChessPiece(square)
 
         if (emptySquaresCount > 0) {
             fen.append(emptySquaresCount)
