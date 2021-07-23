@@ -5,7 +5,6 @@ import com.nwagu.chess.model.Game
 import com.nwagu.chess.model.Player
 import com.nwagu.chess.representation.*
 import com.nwagu.chessboy.sharedmodels.players.*
-import kotlinx.coroutines.launch
 
 class MainViewModel: BaseViewModel() {
 
@@ -47,9 +46,7 @@ class MainViewModel: BaseViewModel() {
     }
 
     fun saveGame(game: Game) {
-        clientScope.launch {
-            gamesHistoryRepository.addGame(game.id, game.exportPGN())
-        }
+        gamesHistoryRepository.addGame(game.id, game.exportPGN())
     }
 
     private fun getLastGamePgn(): String? {
