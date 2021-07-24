@@ -3,7 +3,7 @@
 //  iosApp
 //
 //  Created by Chukwuemeka Nwagu on 26/06/2021.
-//  Copyright © 2021 orgName. All rights reserved.
+//  Copyright © 2021 Chukwuemeka Nwagu. All rights reserved.
 //
 
 import SwiftUI
@@ -13,9 +13,9 @@ struct NewGameView: View {
     @EnvironmentObject var viewRouter: ViewRouter
     @EnvironmentObject var environment: ChessBoyEnvironment
     
-    let newGameViewModel: NewGameViewModel = NewGameViewModel()
-    @ObservedObject var selectedColor: Collector<ChessPieceColor?>
-    @ObservedObject var selectedOpponent: Collector<MoveGenerator?>
+    private let newGameViewModel = NewGameViewModel()
+    @ObservedObject private var selectedColor: Collector<ChessPieceColor?>
+    @ObservedObject private var selectedOpponent: Collector<MoveGenerator?>
     
     init() {
         selectedColor = newGameViewModel.selectedColor.collectAsObservable(initialValue: newGameViewModel.selectedColor.value as? ChessPieceColor)

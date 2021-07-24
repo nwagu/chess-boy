@@ -3,7 +3,7 @@
 //  iosApp
 //
 //  Created by Chukwuemeka Nwagu on 20/07/2021.
-//  Copyright © 2021 orgName. All rights reserved.
+//  Copyright © 2021 Chukwuemeka Nwagu. All rights reserved.
 //
 
 import sharedmodels

@@ -8,14 +8,14 @@ fun Board.getPawnMovesFrom(source: Square): List<Move> {
 
     try {
 
-        if (getSquareOccupant(source).chessPieceType != ChessPieceType.PAWN)
+        if (getSquareOccupantAsChessPiece(source).chessPieceType != ChessPieceType.PAWN)
             throw IllegalStateException("Type must be PAWN!")
 
         return this.squaresMap.keys.filter { destination ->
             canPawnMoveFrom(source, destination) &&
                     destinationIsEmptyOrHasEnemy(
                         destination,
-                        getSquareOccupant(source).chessPieceColor
+                        getSquareOccupantAsChessPiece(source).chessPieceColor
                     )
         }.map { destination ->
             if (column(destination) != column(source) && squareEmpty(destination))

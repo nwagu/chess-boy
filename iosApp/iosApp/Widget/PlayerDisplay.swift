@@ -3,7 +3,7 @@
 //  iosApp
 //
 //  Created by Chukwuemeka Nwagu on 05/07/2021.
-//  Copyright © 2021 orgName. All rights reserved.
+//  Copyright © 2021 Chukwuemeka Nwagu. All rights reserved.
 //
 
 import SwiftUI
@@ -13,8 +13,7 @@ struct PlayerDisplay: View {
     var playViewModel: PlayViewModel
     var color: ChessPieceColor
     
-    @ObservedObject
-    var boardChanged: Collector<Int32>
+    @ObservedObject var boardChanged: Collector<Int32>
     
     init(playViewModel: PlayViewModel, color: ChessPieceColor) {
         self.playViewModel = playViewModel

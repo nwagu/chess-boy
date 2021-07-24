@@ -41,7 +41,6 @@ import kotlinx.serialization.json.*
 @Composable
 fun ChessBoardView(
     modifier: Modifier = Modifier,
-    navHostController: NavHostController,
     viewModel: PlayViewModel
 ) {
 

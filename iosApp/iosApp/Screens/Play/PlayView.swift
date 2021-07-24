@@ -3,27 +3,19 @@
 //  iosApp
 //
 //  Created by Chukwuemeka Nwagu on 27/06/2021.
-//  Copyright © 2021 orgName. All rights reserved.
+//  Copyright © 2021 Chukwuemeka Nwagu. All rights reserved.
 //
 
 import SwiftUI
 import sharedmodels
 
-// to match the typealias in the kotlin chess module
-typealias Square = Int32
-
 struct PlayView: View {
-    @EnvironmentObject
-    var viewRouter: ViewRouter
+    @EnvironmentObject var viewRouter: ViewRouter
     
-    var playViewModel: PlayViewModel
-    @ObservedObject
-    var gameChanged: Collector<Int32>
-    @ObservedObject
-    var pendingPromotion: Collector<Promotion?>
-    
-    @State
-    private var showPromotionDialog = false
+    private let playViewModel: PlayViewModel
+    @ObservedObject private var gameChanged: Collector<Int32>
+    @ObservedObject private var pendingPromotion: Collector<Promotion?>
+    @State private var showPromotionDialog = false
     
     init(playViewModel: PlayViewModel) {
         self.playViewModel = playViewModel
@@ -39,7 +31,7 @@ struct PlayView: View {
                     PlayerDisplay(playViewModel: playViewModel, color: playViewModel.game.colorOnUserSideOfBoard.opposite()).padding(16)
                     ChessBoardView(playViewModel: playViewModel)
                     PlayerDisplay(playViewModel: playViewModel, color: playViewModel.game.colorOnUserSideOfBoard).padding(16)
-                    Button(action: { playViewModel.undo() }, label: {Text("Undo") }).padding()
+                    Button(action: { withAnimation { playViewModel.undo() } }, label: {Text("Undo") }).padding()
                 }
                 Spacer()
             }

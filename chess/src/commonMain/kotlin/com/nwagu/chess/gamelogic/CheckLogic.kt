@@ -5,7 +5,7 @@ import com.nwagu.chess.gamelogic.moves.*
 
 fun Board.validateMoveDoesNotLeaveKingExposed(move: Move): Boolean {
     move(move, false)
-    val kingNotExposed = !isOnCheck(getSquareOccupant(move.destination).chessPieceColor)
+    val kingNotExposed = !isOnCheck(getSquareOccupantAsChessPiece(move.destination).chessPieceColor)
     undoMove()
     return kingNotExposed
 }

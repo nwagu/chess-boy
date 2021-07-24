@@ -3,7 +3,7 @@
 //  iosApp
 //
 //  Created by Chukwuemeka Nwagu on 22/06/2021.
-//  Copyright © 2021 orgName. All rights reserved.
+//  Copyright © 2021 Chukwuemeka Nwagu. All rights reserved.
 //
 
 import SwiftUI
@@ -20,6 +20,10 @@ struct ChessBoy: App {
             MainView()
                 .environmentObject(viewRouter)
                 .environmentObject(environment)
+                .onAppear { environment.initialize() }
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification), perform: { _ in
+                    environment.saveCurrentGame()
+                 })
         }
     }
 }

@@ -7,7 +7,7 @@ import com.nwagu.chess.gamelogic.moves.*
 fun Board.move(move: Move, attachSan: Boolean = true): Boolean {
 
     val movingPiece = try {
-        getSquareOccupant(move.source)
+        getSquareOccupantAsChessPiece(move.source)
     } catch (e: Exception) {
         return false
     }
@@ -15,11 +15,9 @@ fun Board.move(move: Move, attachSan: Boolean = true): Boolean {
     when(move) {
         is RegularMove -> {
             movingPiece.numberOfMovesMade++
-            squaresMap[move.destination].let { captive ->
-                if (captive is ChessPiece) {
-                    move.isCapture = true
-                    captives.add(captive)
-                }
+            getSquareOccupantAsChessPieceOrNull(move.destination)?.let { captive ->
+                move.isCapture = true
+                captives.add(captive)
             }
             setSquareOccupant(move.source, EmptySquare)
             setSquareOccupant(move.destination, movingPiece)
@@ -32,11 +30,9 @@ fun Board.move(move: Move, attachSan: Boolean = true): Boolean {
                 startingRow = movingPiece.startingRow,
                 startingColumn = movingPiece.startingColumn
             )
-            squaresMap[move.destination].let { captive ->
-                if (captive is ChessPiece) {
-                    move.isCapture = true
-                    captives.add(captive)
-                }
+            getSquareOccupantAsChessPieceOrNull(move.destination)?.let { captive ->
+                move.isCapture = true
+                captives.add(captive)
             }
             setSquareOccupant(move.source, EmptySquare)
             setSquareOccupant(move.destination, promotionPiece)
@@ -45,7 +41,7 @@ fun Board.move(move: Move, attachSan: Boolean = true): Boolean {
             val captivePosition = square(row(move.source), column(move.destination))
             move.isCapture = true
             movingPiece.numberOfMovesMade++
-            captives.add(getSquareOccupant(captivePosition))
+            captives.add(getSquareOccupantAsChessPiece(captivePosition))
             setSquareOccupant(move.source, EmptySquare)
             setSquareOccupant(move.destination, movingPiece)
             setSquareOccupant(captivePosition, EmptySquare)
@@ -55,7 +51,7 @@ fun Board.move(move: Move, attachSan: Boolean = true): Boolean {
             val rookSource = getCastlePartnerSourceForKingMove(move.source, move.destination)
             val rookDestination = getCastlePartnerDestinationForKingMove(move.source, move.destination)
 
-            val rook = getSquareOccupant(rookSource)
+            val rook = getSquareOccupantAsChessPiece(rookSource)
 
             movingPiece.numberOfMovesMade++
             rook.numberOfMovesMade++
@@ -87,7 +83,7 @@ fun Board.undoMove(): Move? {
     val move = movesHistory.removeLastOrNull() ?: return null
 
     val movingPiece = try {
-        getSquareOccupant(move.destination)
+        getSquareOccupantAsChessPiece(move.destination)
     } catch (e: Exception) {
         return null
     }
@@ -128,7 +124,7 @@ fun Board.undoMove(): Move? {
             val rookSource = getCastlePartnerSourceForKingMove(move.source, move.destination)
             val rookDestination = getCastlePartnerDestinationForKingMove(move.source, move.destination)
 
-            val rook = getSquareOccupant(rookDestination)
+            val rook = getSquareOccupantAsChessPiece(rookDestination)
 
             movingPiece.numberOfMovesMade--
             rook.numberOfMovesMade--

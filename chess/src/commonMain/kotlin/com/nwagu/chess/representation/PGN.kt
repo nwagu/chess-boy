@@ -65,7 +65,7 @@ fun getHeaderValueFromPgn(name: String, pgn: String): String? {
 
 fun Board.importMovesFromPGN(pgn: String) {
 
-    reset()
+    clear()
     loadStandardStartingPosition()
 
     val lines = pgn.split("\n")

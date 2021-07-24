@@ -8,7 +8,7 @@ val Board.turn: ChessPieceColor
     get() {
         try {
             val lastMove = movesHistory.lastOrNull() ?: return ChessPieceColor.WHITE
-            return getSquareOccupant(lastMove.destination).chessPieceColor.opposite()
+            return getSquareOccupantAsChessPiece(lastMove.destination).chessPieceColor.opposite()
         } catch (e: Exception) {
             e.printStackTrace()
             TODO()

@@ -3,22 +3,24 @@
 //  iosApp
 //
 //  Created by Chukwuemeka Nwagu on 27/06/2021.
-//  Copyright © 2021 orgName. All rights reserved.
+//  Copyright © 2021 Chukwuemeka Nwagu. All rights reserved.
 //
 
 import SwiftUI
 import sharedmodels
 
+// to match the typealias in the kotlin chess module
+typealias Square = Int32
+
 struct ChessBoardView: View {
     
     var playViewModel: PlayViewModel
     
-    @ObservedObject
-    var boardChanged: Collector<Int32>
-    @ObservedObject
-    var selectedSquare: Collector<Square?>
-    @ObservedObject
-    var possibleMoves: Collector<[Move]>
+    @ObservedObject var boardChanged: Collector<Int32>
+    @ObservedObject var selectedSquare: Collector<Square?>
+    @ObservedObject var possibleMoves: Collector<[Move]>
+    
+    @Namespace private var boardNameSpace
     
     init(playViewModel: PlayViewModel) {
         self.playViewModel = playViewModel
@@ -37,27 +39,32 @@ struct ChessBoardView: View {
             count: Int(game.board.numberOfColumns)
         )
         
+        let squares = game.board.squaresMap as! Dictionary<Int32, SquareOccupant>
+        
+        let positionsSorted = game.colorOnUserSideOfBoard == ChessPieceColor.white
+            ? squares.sorted(by: {$0.0 < $1.0})
+            : squares.sorted(by: {$0.0 > $1.0})
+        
         LazyVGrid(columns: columns, spacing: 0) {
-            ForEach(0..<game.board.squaresMap.count) { item in
-                
-                let square = (game.colorOnUserSideOfBoard == ChessPieceColor.white) ?
-                    Int32(item) : (game.board.numberOfColumns * game.board.numberOfRows) - (Int32(item) + 1)
+            ForEach(positionsSorted, id: \.key) { square, occupant in
                 
                 let squareColor = game.board.squareColor(square: square).colorResource()
-                let occupant = game.board.getSquareOccupantOrNull(square: square)
                 
-                Button(action: { playViewModel.squareClicked(square: square) }) {
+                Button(action: {
+                    withAnimation {
+                        playViewModel.squareClicked(square: square)
+                    }
+                }) {
                     ZStack {
-                        Rectangle()
-                            .fill(Color(squareColor))
+                        Rectangle().fill(Color(squareColor))
                         
-                        if let chessPiece = occupant {
-                            Image(chessPiece.imageRes())
+                        if occupant is ChessPiece {
+                            chessPieceView(for: occupant as! ChessPiece)
                         }
                         
                         if (possibleMoves.currentValue.map { $0.destination }.contains(square)) {
-                            let color = (occupant != nil) ? Color.red : Color.gray
-                            Circle().fill(color).padding()
+                            let color = (occupant is ChessPiece) ? Color.red : Color.gray
+                            Circle().fill(color).padding().transition(AnyTransition.scale).zIndex(2)
                         }
                         
                         if (square == lastMove?.source) {
@@ -80,6 +87,12 @@ struct ChessBoardView: View {
                 }
             }
         }
+    }
+    
+    private func chessPieceView(for chessPiece: ChessPiece) -> some View {
+        Image(chessPiece.imageRes())
+            .matchedGeometryEffect(id: chessPiece.id, in: boardNameSpace)
+            .zIndex(1)
     }
 }
 

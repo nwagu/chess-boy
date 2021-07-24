@@ -24,7 +24,7 @@ fun Board.getPossibleMovesFrom(source: Square): List<Move> {
     if (squareEmpty(source))
         return emptyList()
 
-    val possibleMoves = when (getSquareOccupant(source).chessPieceType) {
+    val possibleMoves = when (getSquareOccupantAsChessPiece(source).chessPieceType) {
         ChessPieceType.QUEEN -> {
             getQueenMovesFrom(source)
         }

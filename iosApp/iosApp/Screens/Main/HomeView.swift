@@ -2,12 +2,8 @@ import SwiftUI
 import sharedmodels
 
 struct HomeView: View {
-    @EnvironmentObject
-    var viewRouter: ViewRouter
-    @EnvironmentObject
-    var environment: ChessBoyEnvironment
-    
-    let mainViewModel: MainViewModel = MainViewModel()
+    @EnvironmentObject var viewRouter: ViewRouter
+    @EnvironmentObject var environment: ChessBoyEnvironment
     
     var playActions: [QuickAction] {
         [
@@ -77,12 +73,6 @@ struct HomeView: View {
             alignment: .topLeading
         )
         .padding()
-        .onAppear {
-            if (!environment.playViewModel.isGameInitialized()) {
-                let game = mainViewModel.getLastGameOrDefault()
-                environment.playViewModel.doInit(game: game)
-            }
-        }
     }
 }
 
