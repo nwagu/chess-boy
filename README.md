@@ -1,5 +1,7 @@
 ![banner](graphics/banner.png)
 
+Chess mobile application with bluetooth multiplayer
+
 <p float="left">
   <img src="graphics/android.png" width="200" />
   <img src="graphics/ios.png" width="200" />
