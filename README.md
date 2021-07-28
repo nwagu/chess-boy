@@ -1,4 +1,4 @@
-![banner](graphics/logo.png)
+![banner](graphics/banner.png)
 
 <p float="left">
   <img src="graphics/android.png" width="200" />
