@@ -5,7 +5,7 @@ add_library( # Specifies the name of the library.
              # Sets the library as a shared library.
              SHARED
              # Provides a relative path to your source file(s).
-             src/commonMain/cpp/chess-jni.cpp
+             src/androidMain/cpp/chess-jni.cpp
              src/commonMain/cpp/Pos.cpp
              src/commonMain/cpp/Move.cpp
              src/commonMain/cpp/ChessBoard.cpp

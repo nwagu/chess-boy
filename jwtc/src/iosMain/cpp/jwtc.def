@@ -1,0 +1,2 @@
+headers = GameWrapper.h
+headerFilter = GameWrapper.h

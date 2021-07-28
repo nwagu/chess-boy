@@ -10,12 +10,12 @@ add_library( # Specifies the name of the library.
         # Sets the library as a shared library.
         SHARED
         # Provides a relative path to your source file(s).
+        src/androidMain/cpp/stockfish-lib.cpp
         src/commonMain/cpp/benchmark.cpp
         src/commonMain/cpp/bitbase.cpp
         src/commonMain/cpp/bitboard.cpp
         src/commonMain/cpp/endgame.cpp
         src/commonMain/cpp/evaluate.cpp
-        src/commonMain/cpp/stockfish-lib.cpp
         src/commonMain/cpp/material.cpp
         src/commonMain/cpp/misc.cpp
         src/commonMain/cpp/movegen.cpp

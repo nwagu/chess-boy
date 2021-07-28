@@ -17,7 +17,14 @@ kotlin {
         else
             ::iosX64
 
-    iosTarget("ios") {}
+    iosTarget("ios") {
+//        compilations.getByName("main") {
+//            val jwtc by cinterops.creating {
+//                defFile(project.file("src/iosMain/cpp/jwtc.def"))
+//                packageName("com.cinterop.jwtc")
+//            }
+//        }
+    }
 
     cocoapods {
         summary = "Some description for the Shared Module"
