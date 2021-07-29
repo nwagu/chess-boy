@@ -10,7 +10,7 @@ android {
     compileSdk = 30
     defaultConfig {
         applicationId = "com.nwagu.android.chessboy"
-        minSdk = 21
+        minSdk = 24
         targetSdk = 30
         versionCode = 16
         versionName = "3.6.0"
