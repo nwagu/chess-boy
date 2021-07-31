@@ -2,7 +2,7 @@
 #include "Game.h"
 
 @implementation GameWrapper
-- (void) getBestMove {
+- (void) bestMove {
     Game game;
     game.getBestMove();
 }
