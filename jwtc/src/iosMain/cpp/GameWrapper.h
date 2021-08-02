@@ -1,5 +1,12 @@
 #import <Foundation/Foundation.h>
 
+@class GameWrapper;
+
 @interface GameWrapper
-- (void) bestMove;
+
++ (void) newGame;
++ (void) fen:(NSString*)fen;
++ (void) searchDepth:(int)depth;
++ (int) bestMove;
+
 @end

@@ -20,9 +20,9 @@ kotlin {
     iosTarget("ios") {
         compilations.getByName("main") {
             val interop by cinterops.creating {
-                defFile(project.file("src/iosMain/cpp/interop.def"))
+                defFile(project.file("src/commonMain/cpp/interop.def"))
                 packageName("com.jwtcinterop")
-                compilerOpts ("-Isrc/iosMain/cpp/")
+                compilerOpts ("-Isrc/commonMain/cpp/")
             }
         }
     }
