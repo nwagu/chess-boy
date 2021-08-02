@@ -2,6 +2,7 @@ package com.nwagu.chessboy.sharedmodels.players
 
 import com.nwagu.chess.model.Board
 import com.nwagu.chess.model.Move
+import com.nwagu.chess.representation.getFen
 import com.nwagu.chessboy.sharedmodels.resources.ImageRes
 import jwtc.chess.JWTCWrapper
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,8 +30,10 @@ actual class JWTC: UCIChessEngine() {
     }
 
     override suspend fun getNextMove(board: Board): Move? {
-        // todo
-        return null
+        jwtcWrapper.init()
+        jwtcWrapper.setFen(board.getFen())
+        jwtcWrapper.setSearchDepth(level)
+        return convertIntMove(jwtcWrapper.getMove())
     }
 
     override fun quit() {
