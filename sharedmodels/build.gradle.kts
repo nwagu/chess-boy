@@ -56,9 +56,9 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
+                implementation("androidx.core:core:1.6.0")
                 implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
                 implementation("com.squareup.sqldelight:android-driver:${Versions.sql_delight_version}")
-
             }
         }
         val androidTest by getting {

@@ -2,8 +2,20 @@
 #include "Game.h"
 
 @implementation GameWrapper
-- (void) getBestMove {
-    Game game;
-    game.getBestMove();
+
+static Game *stGame = NULL;
+
++ (void) newGame {
+    stGame = new Game();
+    stGame->reset();
+}
++ (void) fen:(NSString*)fen {
+
+}
++ (void) searchDepth:(int)depth {
+    stGame->searchLimited(depth);
+}
++ (int) bestMove {
+    return 0;
 }
 @end

@@ -2,7 +2,9 @@ package com.nwagu.chessboy.sharedmodels.players
 
 import com.nwagu.chess.model.Board
 import com.nwagu.chess.model.Move
+import com.nwagu.chess.representation.getFen
 import com.nwagu.chessboy.sharedmodels.resources.ImageRes
+import jwtc.chess.JWTCWrapper
 import kotlinx.coroutines.flow.MutableStateFlow
 
 // TODO move parameters that have same values to common sourceset
@@ -21,13 +23,17 @@ actual class JWTC: UCIChessEngine() {
     override var level = 5
     override val connectionState = MutableStateFlow(true)
 
+    val jwtcWrapper = JWTCWrapper()
+
     override fun init() {
-        // todo
+        jwtcWrapper.init()
     }
 
     override suspend fun getNextMove(board: Board): Move? {
-        // todo
-        return null
+        jwtcWrapper.init()
+        jwtcWrapper.setFen(board.getFen())
+        jwtcWrapper.setSearchDepth(level)
+        return convertIntMove(jwtcWrapper.getMove())
     }
 
     override fun quit() {

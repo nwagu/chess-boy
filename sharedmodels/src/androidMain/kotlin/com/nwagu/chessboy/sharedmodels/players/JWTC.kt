@@ -43,38 +43,7 @@ actual class JWTC: UCIChessEngine() {
         jni.initFEN(board.getFen())
         jni.searchDepth(level)
 
-        val move = jni.getMove()
-
-        if (move == 0)
-            return null
-
-        val source: Int = getFrom(move)
-        val destination: Int = getTo(move)
-
-        if (isPromotionMove(move)) {
-            val promotionPieceType = when (getPromotionPiece(move)) {
-                BoardConstants.QUEEN -> ChessPieceType.QUEEN
-                BoardConstants.KNIGHT -> ChessPieceType.KNIGHT
-                BoardConstants.ROOK -> ChessPieceType.ROOK
-                BoardConstants.BISHOP -> ChessPieceType.BISHOP
-                else -> throw IllegalStateException("Invalid Promotion Piece!")
-            }
-            return Promotion(source, destination, promotionPieceType)
-        }
-
-        if (isEP(move)) {
-            return EnPassant(source, destination)
-        }
-
-        if (isOOO(move)) {
-            return Castling(source, destination)
-        }
-
-        if (isOO(move)) {
-            return Castling(source, destination)
-        }
-
-        return RegularMove(source, destination)
+        return convertIntMove(jni.getMove())
 
     }
 

@@ -2,6 +2,7 @@ package com.nwagu.chessboy.sharedmodels.presentation
 
 import android.app.Application
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.nwagu.chessboy.sharedmodels.ChessApplication
@@ -24,6 +25,8 @@ actual open class BaseViewModel: AndroidViewModel {
     }
 
     actual fun showToast(message: String) {
-        Toast.makeText(getApplication(), message, Toast.LENGTH_LONG).show()
+        ContextCompat.getMainExecutor(getApplication()).execute {
+            Toast.makeText(getApplication(), message, Toast.LENGTH_LONG).show()
+        }
     }
 }

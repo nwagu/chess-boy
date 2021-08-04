@@ -18,12 +18,13 @@ kotlin {
             ::iosX64
 
     iosTarget("ios") {
-//        compilations.getByName("main") {
-//            val jwtc by cinterops.creating {
-//                defFile(project.file("src/iosMain/cpp/jwtc.def"))
-//                packageName("com.cinterop.jwtc")
-//            }
-//        }
+        compilations.getByName("main") {
+            val interop by cinterops.creating {
+                defFile(project.file("src/iosMain/cpp/interop.def"))
+                packageName("com.jwtcinterop")
+                compilerOpts ("-Isrc/iosMain/cpp/")
+            }
+        }
     }
 
     cocoapods {
