@@ -4,6 +4,7 @@ import com.nwagu.chess.model.Game
 import com.nwagu.chess.gamelogic.move
 import com.nwagu.chess.gamelogic.undoMove
 import com.nwagu.chess.representation.sanToMove
+import com.nwagu.chessboy.sharedmodels.data.SavedGame
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class GameAnalysisViewModel: BaseViewModel() {
@@ -13,10 +14,10 @@ class GameAnalysisViewModel: BaseViewModel() {
 
     val boardUpdated = MutableStateFlow(0)
 
-    var pgn: String = ""
+    var savedGame: SavedGame? = null
     set(value) {
         field = value
-        game = recreateGameFromPgn(value)
+        game = recreateGameFromPgn(value?.pgn ?: return)
         sans = game.board.movesHistory.map { it.san }
     }
 

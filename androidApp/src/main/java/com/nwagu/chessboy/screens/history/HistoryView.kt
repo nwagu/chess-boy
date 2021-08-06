@@ -3,18 +3,20 @@ package com.nwagu.chessboy.screens.history
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.nwagu.chessboy.screens.main.MainActivity
 import com.nwagu.chessboy.screens.navigation.Screen
@@ -50,10 +52,19 @@ fun HistoryView(
             .verticalScroll(rememberScrollState())
         ) {
 
-            for (gamePgn in gamesHistory) {
-                PreviousGameView(modifier = Modifier.fillMaxWidth(), gamePgn) {
-                    context.gameAnalysisViewModel.pgn = gamePgn
-                    navHostController.navigate(Screen.GameAnalysis.route)
+            if (gamesHistory.isEmpty()) {
+                Text(
+                    modifier = Modifier.fillMaxSize(),
+                    text = "No history to show",
+                    textAlign = TextAlign.Center,
+                    style = TextStyle(fontStyle = FontStyle.Italic, fontSize = 15.sp)
+                )
+            } else {
+                for (game in gamesHistory) {
+                    PreviousGameView(modifier = Modifier.fillMaxWidth(), game.pgn) {
+                        context.gameAnalysisViewModel.savedGame = game
+                        navHostController.navigate(Screen.GameAnalysis.route)
+                    }
                 }
             }
         }

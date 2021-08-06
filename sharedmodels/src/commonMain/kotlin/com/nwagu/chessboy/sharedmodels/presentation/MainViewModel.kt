@@ -4,6 +4,7 @@ import com.nwagu.bluetoothchat.BluetoothChatService
 import com.nwagu.chess.model.Game
 import com.nwagu.chess.model.Player
 import com.nwagu.chess.representation.*
+import com.nwagu.chessboy.sharedmodels.data.SavedGame
 import com.nwagu.chessboy.sharedmodels.players.*
 
 class MainViewModel: BaseViewModel() {
@@ -53,8 +54,8 @@ class MainViewModel: BaseViewModel() {
         return gamesHistoryRepository.getLastGame()?.pgn
     }
 
-    fun getGamesHistory(): List<String> {
-        return gamesHistoryRepository.getMostRecentGames(20).map { it.pgn }
+    fun getGamesHistory(): List<SavedGame> {
+        return gamesHistoryRepository.getMostRecentGames(20)
     }
 
 }

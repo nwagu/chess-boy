@@ -7,6 +7,7 @@ interface GamesHistoryRepository {
     fun addGame(id: String, pgn: String)
     fun getLastGame(): GameHistory?
     fun getMostRecentGames(numberOfGames: Int = 20): List<GameHistory>
+    fun deleteGame(id: Long)
     fun clearGamesHistory()
 
 }
