@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
+import com.nwagu.chessboy.screens.analysis.ConfirmDeletePrompt
 import com.nwagu.chessboy.screens.analysis.GameAnalysisView
 import com.nwagu.chessboy.screens.history.HistoryView
 import com.nwagu.chessboy.screens.navigation.Dialog
@@ -88,6 +89,12 @@ fun MainView() {
         }
         dialog(Dialog.EnableLocation.route) {
             EnableLocationPrompt(navHostController)
+        }
+        dialog(
+            Dialog.ConfirmDeleteGame.route + "/{id}",
+            arguments = listOf(navArgument("id") { type = NavType.LongType })
+        ) { backStackEntry ->
+            ConfirmDeletePrompt(navHostController, backStackEntry.arguments!!.getLong("id"))
         }
     }
 

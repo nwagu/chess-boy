@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.nwagu.chessboy.screens.main.MainActivity
 import com.nwagu.chessboy.model.LightAction
+import com.nwagu.chessboy.screens.navigation.Dialog
 import com.nwagu.chessboy.widgets.*
 
 @ExperimentalFoundationApi
@@ -62,22 +63,30 @@ fun GameAnalysisView(
             }
         )
 
-        val shareAction = LightAction("Share") {
-            val sendIntent: Intent = Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, gameAnalysisViewModel.pgn)
-                type = "text/plain"
+        val otherActions = mutableListOf(
+            LightAction("Share") {
+                val sendIntent: Intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, gameAnalysisViewModel.savedGame?.pgn)
+                    type = "text/plain"
+                }
+
+                val shareIntent = Intent.createChooser(sendIntent, null)
+                context.startActivity(shareIntent)
+
+            },
+            LightAction("Delete") {
+                navHostController.navigate(
+                    Dialog.ConfirmDeleteGame.route +
+                            "/${gameAnalysisViewModel.savedGame?.id}"
+                )
             }
-
-            val shareIntent = Intent.createChooser(sendIntent, null)
-            context.startActivity(shareIntent)
-
-        }
+        )
 
         if (!isLandscape)
-            GameAnalysisViewPortrait(navActions, shareAction)
+            GameAnalysisViewPortrait(navActions, otherActions)
         else
-            GameAnalysisViewLandscape(navActions, shareAction)
+            GameAnalysisViewLandscape(navActions, otherActions)
 
     }
 
@@ -89,7 +98,7 @@ fun GameAnalysisView(
 @Composable
 fun GameAnalysisViewPortrait(
     navActions: List<LightAction>,
-    shareAction: LightAction
+    otherActions: List<LightAction>
 ) {
 
     val context = LocalContext.current as MainActivity
@@ -140,7 +149,14 @@ fun GameAnalysisViewPortrait(
             }
         }
 
-        LightActionView(shareAction)
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            for (action in otherActions) {
+                LightActionView(action)
+            }
+        }
 
     }
 }
@@ -151,7 +167,7 @@ fun GameAnalysisViewPortrait(
 @Composable
 fun GameAnalysisViewLandscape(
     navActions: List<LightAction>,
-    shareAction: LightAction
+    otherActions: List<LightAction>
 ) {
 
     val context = LocalContext.current as MainActivity
@@ -213,7 +229,16 @@ fun GameAnalysisViewLandscape(
                     )
                 }
             }
-            LightActionView(shareAction)
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                for (action in otherActions) {
+                    LightActionView(action)
+                }
+            }
+
         }
 
     }

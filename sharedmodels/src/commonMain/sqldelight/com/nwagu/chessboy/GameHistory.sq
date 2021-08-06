@@ -14,5 +14,8 @@ SELECT * FROM GameHistory ORDER BY id DESC LIMIT 1;
 mostRecentGames:
 SELECT * FROM GameHistory ORDER BY id DESC LIMIT :numberOfGames;
 
+deleteGame:
+DELETE FROM GameHistory WHERE id = :id;
+
 removeAllGames:
 DELETE FROM GameHistory;
