@@ -13,14 +13,17 @@ struct HistoryView: View {
     @EnvironmentObject var viewRouter: ViewRouter
     @EnvironmentObject var environment: ChessBoyEnvironment
     
-    @State var games: [String] = []
+    @State var games: [GameHistory] = []
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             TopBar(title: "History")
             List {
-                ForEach(games, id: \.self) { game in
+                ForEach(games, id: \.self.gameId) { game in
                     itemView(of: game)
+                        .onTapGesture {
+                            withAnimation { viewRouter.navigate(screen: .gameAnalysis) }
+                        }
                 }
             }
             Spacer()
@@ -38,9 +41,9 @@ struct HistoryView: View {
         .padding()
     }
     
-    private func itemView(of pgn: String) -> some View {
-        let whitePlayer = PGNKt.getHeaderValueFromPgn(name: PGNKt.PGN_HEADER_WHITE_PLAYER, pgn: pgn) ?? ""
-        let blackPlayer = PGNKt.getHeaderValueFromPgn(name: PGNKt.PGN_HEADER_BLACK_PLAYER, pgn: pgn) ?? ""
-        return Text("\(whitePlayer)(W) vs \(blackPlayer)(B)")
+    private func itemView(of game: GameHistory) -> some View {
+        let whitePlayer = PGNKt.getHeaderValueFromPgn(name: PGNKt.PGN_HEADER_WHITE_PLAYER, pgn: game.pgn) ?? ""
+        let blackPlayer = PGNKt.getHeaderValueFromPgn(name: PGNKt.PGN_HEADER_BLACK_PLAYER, pgn: game.pgn) ?? ""
+        return Text("\(whitePlayer)(W) vs \(blackPlayer)(B)").padding()
     }
 }

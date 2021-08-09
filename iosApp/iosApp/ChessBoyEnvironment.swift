@@ -31,7 +31,7 @@ class ChessBoyEnvironment: ObservableObject {
         mainViewModel.saveGame(game: playViewModel.game)
     }
     
-    func getGamesHistory() -> [String] {
+    func getGamesHistory() -> [GameHistory] {
         mainViewModel.getGamesHistory()
     }
     

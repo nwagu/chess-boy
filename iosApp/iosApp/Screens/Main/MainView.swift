@@ -19,17 +19,17 @@ struct MainView: View {
         case .play:
             PlayView(playViewModel: environment.playViewModel)
                 .transition(.move(edge: .trailing))
-        case .history:
-            HistoryView()
-                .transition(.move(edge: .trailing))
         case .newGame:
             NewGameView()
                 .transition(.move(edge: .trailing))
         case .newBluetoothGame:
             NewBluetoothGameView()
                 .transition(.move(edge: .trailing))
-        case .settings:
-            SettingsView()
+        case .history:
+            HistoryView()
+                .transition(.move(edge: .trailing))
+        case .gameAnalysis:
+            GameAnalysisView()
                 .transition(.move(edge: .trailing))
         }
     }

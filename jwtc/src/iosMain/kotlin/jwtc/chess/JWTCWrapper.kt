@@ -1,23 +1,21 @@
 package jwtc.chess
 
-import com.jwtcinterop.GameWrapper
-
 class JWTCWrapper {
 
     fun init() {
-        GameWrapper.newGame()
+//        GameWrapper.newGame()
     }
 
     fun setFen(fen: String) {
-        GameWrapper.fen(fen)
+//        GameWrapper.fen(fen)
     }
 
     fun setSearchDepth(depth: Int) {
-        GameWrapper.searchDepth(depth)
+//        GameWrapper.searchDepth(depth)
     }
 
     fun getMove(): Int {
-        return GameWrapper.bestMove()
-//        return 0
+//        return GameWrapper.bestMove()
+        return 0
     }
 }
