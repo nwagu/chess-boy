@@ -15,13 +15,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.nwagu.chessboy.model.LightAction
-import com.nwagu.chessboy.model.QuickAction
-import com.nwagu.chess.model.Board
+import com.nwagu.chessboy.model.ViewAction
 import com.nwagu.chess.representation.PGN_HEADER_BLACK_PLAYER
 import com.nwagu.chess.representation.PGN_HEADER_WHITE_PLAYER
 import com.nwagu.chess.representation.getHeaderValueFromPgn
-import com.nwagu.chess.representation.importMovesFromPGN
 import com.nwagu.chessboy.sharedmodels.resources.getPrimaryColor
 import com.nwagu.chessboy.sharedmodels.resources.getScreenBackgroundColor
 
@@ -48,7 +45,7 @@ fun SubHeader(modifier: Modifier = Modifier, text: String) {
 @ExperimentalMaterialApi
 @Composable
 fun QuickActionView(
-    quickAction: QuickAction
+    viewAction: ViewAction
 ) {
     Card(
         modifier = Modifier
@@ -57,7 +54,7 @@ fun QuickActionView(
             .padding(8.dp)
             .aspectRatio(1f),
         onClick = {
-            quickAction.action()
+            viewAction.action()
         },
         shape = RoundedCornerShape(8.dp),
         backgroundColor = Color.White,
@@ -71,23 +68,23 @@ fun QuickActionView(
                 .padding(8.dp),
             contentAlignment = Alignment.Center
         ) {
-            Text(text = quickAction.displayName)
+            Text(text = viewAction.displayName)
         }
     }
 }
 
 @Composable
-fun LightActionView(lightAction: LightAction) {
+fun LightActionView(viewAction: ViewAction) {
     Button(modifier = Modifier
         .padding(8.dp),
         onClick = {
-            lightAction.action()
+            viewAction.action()
         },
         colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(getScreenBackgroundColor())),
         content = {
             Text(
                 modifier = Modifier,
-                text = lightAction.displayName,
+                text = viewAction.displayName,
                 color = Color.Black
             )
         }

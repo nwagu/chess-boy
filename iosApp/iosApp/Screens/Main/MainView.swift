@@ -29,7 +29,7 @@ struct MainView: View {
             HistoryView()
                 .transition(.move(edge: .trailing))
         case .gameAnalysis:
-            GameAnalysisView()
+            GameAnalysisView(gameAnalysisViewModel: environment.gameAnalysisViewModel)
                 .transition(.move(edge: .trailing))
         }
     }

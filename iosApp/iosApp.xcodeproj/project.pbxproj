@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		7555FF83242A565900829871 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* HomeView.swift */; };
 		B3138FC726C135880019545E /* GameAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3138FC626C135880019545E /* GameAnalysisView.swift */; };
+		B3138FC926C138C10019545E /* ChessBoardStaticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3138FC826C138C10019545E /* ChessBoardStaticView.swift */; };
 		B340FC6126A8008300167C39 /* SelectPromotionPiecePrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = B340FC6026A8008300167C39 /* SelectPromotionPiecePrompt.swift */; };
 		B3412FE6267F0B3E00AE7470 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3412FE5267F0B3E00AE7470 /* Assets.xcassets */; };
 		B36AA61B2698EA720016E7FA /* WrappingHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36AA61A2698EA720016E7FA /* WrappingHStack.swift */; };
@@ -26,7 +27,7 @@
 		B3F082C22687D5D800038199 /* NewGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F082C12687D5D800038199 /* NewGameView.swift */; };
 		B3F082C42687D5E800038199 /* NewBluetoothGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F082C32687D5E800038199 /* NewBluetoothGameView.swift */; };
 		B3F082C82688544800038199 /* QuickActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F082C72688544800038199 /* QuickActionView.swift */; };
-		B3F082CA2688634900038199 /* QuickAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F082C92688634900038199 /* QuickAction.swift */; };
+		B3F082CA2688634900038199 /* ViewAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F082C92688634900038199 /* ViewAction.swift */; };
 		B3F082CE2688A07200038199 /* PlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F082CD2688A07200038199 /* PlayView.swift */; };
 		B3F082D02688A23200038199 /* ChessBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F082CF2688A23200038199 /* ChessBoardView.swift */; };
 		B3F1B83E26A6FD4700565E14 /* Collector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F1B83D26A6FD4700565E14 /* Collector.swift */; };
@@ -43,6 +44,7 @@
 		7555FF82242A565900829871 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B3138FC626C135880019545E /* GameAnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAnalysisView.swift; sourceTree = "<group>"; };
+		B3138FC826C138C10019545E /* ChessBoardStaticView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBoardStaticView.swift; sourceTree = "<group>"; };
 		B340FC6026A8008300167C39 /* SelectPromotionPiecePrompt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPromotionPiecePrompt.swift; sourceTree = "<group>"; };
 		B3412FE5267F0B3E00AE7470 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = iosApp/Resources/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		B36AA61A2698EA720016E7FA /* WrappingHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrappingHStack.swift; sourceTree = "<group>"; };
@@ -60,7 +62,7 @@
 		B3F082C12687D5D800038199 /* NewGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameView.swift; sourceTree = "<group>"; };
 		B3F082C32687D5E800038199 /* NewBluetoothGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBluetoothGameView.swift; sourceTree = "<group>"; };
 		B3F082C72688544800038199 /* QuickActionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickActionView.swift; sourceTree = "<group>"; };
-		B3F082C92688634900038199 /* QuickAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickAction.swift; sourceTree = "<group>"; };
+		B3F082C92688634900038199 /* ViewAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewAction.swift; sourceTree = "<group>"; };
 		B3F082CD2688A07200038199 /* PlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayView.swift; sourceTree = "<group>"; };
 		B3F082CF2688A23200038199 /* ChessBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBoardView.swift; sourceTree = "<group>"; };
 		B3F1B83D26A6FD4700565E14 /* Collector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collector.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				B3A6A3AE26982D1A0097FC27 /* RadioCard.swift */,
 				B36AA61A2698EA720016E7FA /* WrappingHStack.swift */,
 				B36AA61E26997FCB0016E7FA /* PlayerSelect.swift */,
+				B3138FC826C138C10019545E /* ChessBoardStaticView.swift */,
 			);
 			path = Widget;
 			sourceTree = "<group>";
@@ -139,7 +142,7 @@
 		B335ECEC268C9DBB006BDB70 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B3F082C92688634900038199 /* QuickAction.swift */,
+				B3F082C92688634900038199 /* ViewAction.swift */,
 				B36AA61C26990D080016E7FA /* SideChoice.swift */,
 			);
 			path = Model;
@@ -353,8 +356,9 @@
 				B3F082C42687D5E800038199 /* NewBluetoothGameView.swift in Sources */,
 				B3A6A3AF26982D1A0097FC27 /* RadioCard.swift in Sources */,
 				7555FF83242A565900829871 /* HomeView.swift in Sources */,
+				B3138FC926C138C10019545E /* ChessBoardStaticView.swift in Sources */,
 				B3B0497626956A2400CBA1D0 /* Screen.swift in Sources */,
-				B3F082CA2688634900038199 /* QuickAction.swift in Sources */,
+				B3F082CA2688634900038199 /* ViewAction.swift in Sources */,
 				B3F082C02687D5C100038199 /* HistoryView.swift in Sources */,
 				B3D4E19E2681EA6B002BB5E2 /* ChessBoy.swift in Sources */,
 				B3F082C82688544800038199 /* QuickActionView.swift in Sources */,

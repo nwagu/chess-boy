@@ -76,7 +76,6 @@ fun Board.importMovesFromPGN(pgn: String) {
         else if (headerPattern.matches(line)) {
             val header = parseHeader(line)
             // TODO check the header name and add it to game
-            println("PGN Header -> ${header.first}: ${header.second}")
         }
         else {
             // is 'moveslist'
