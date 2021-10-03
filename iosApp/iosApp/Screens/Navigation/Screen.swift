@@ -8,9 +8,8 @@
 
 enum Screen {
     case home
-    case play
-    case history
     case newGame
     case newBluetoothGame
-    case settings
+    case history
+    case gameAnalysis
 }

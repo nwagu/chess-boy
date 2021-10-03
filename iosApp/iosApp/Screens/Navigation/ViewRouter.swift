@@ -11,11 +11,13 @@ import SwiftUI
 class ViewRouter: ObservableObject {
     
     @Published var currentScreen: Screen
+    @Published var playScreenUp: Bool
     
     var backStack: Stack<Screen> = Stack()
     
     init() {
         currentScreen = .home
+        playScreenUp = false
         backStack.push(currentScreen)
     }
     
@@ -28,4 +30,11 @@ class ViewRouter: ObservableObject {
         currentScreen = screen
     }
     
+    func showPlayScreen() {
+        playScreenUp = true
+    }
+    
+    func hidePlayScreen() {
+        playScreenUp = false
+    }
 }

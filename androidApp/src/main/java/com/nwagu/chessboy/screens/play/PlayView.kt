@@ -25,7 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.nwagu.chessboy.bluetooth.BluetoothController
-import com.nwagu.chessboy.model.LightAction
+import com.nwagu.chessboy.model.ViewAction
 import com.nwagu.chessboy.model.ScreenConfig
 import com.nwagu.chessboy.screens.main.MainActivity
 import com.nwagu.chessboy.widgets.ChessBoardView
@@ -33,7 +33,6 @@ import com.nwagu.chessboy.widgets.LightActionView
 import com.nwagu.chessboy.widgets.PlayerDisplay
 import com.nwagu.bluetoothchat.ConnectionState.*
 import com.nwagu.chess.model.ChessPieceColor
-import com.nwagu.chess.model.Promotion
 import com.nwagu.chess.model.opposite
 import com.nwagu.chessboy.screens.navigation.Dialog
 import com.nwagu.chessboy.sharedmodels.players.BluetoothPlayer
@@ -132,9 +131,9 @@ fun PlayView(
 
         val isLandscape = (screenConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)
 
-        val gameActions = mutableListOf(LightAction("Undo") { viewModel.undo() })
+        val gameActions = mutableListOf(ViewAction("Undo") { viewModel.undo() })
         if (viewModel.game.isBluetoothGame()) {
-            gameActions.add(LightAction("Reconnect") {
+            gameActions.add(ViewAction("Reconnect") {
 
                 if (bluetoothController.isBluetoothEnabled) {
 
@@ -166,7 +165,7 @@ fun PlayView(
 fun PlayViewPortrait(
     viewModel: PlayViewModel,
     navHostController: NavHostController,
-    gameActions: List<LightAction>
+    gameActions: List<ViewAction>
 ) {
 
     Column(
@@ -193,7 +192,7 @@ fun PlayViewLandscape(
     viewModel: PlayViewModel,
     screenConfig: ScreenConfig,
     navHostController: NavHostController,
-    gameActions: List<LightAction>
+    gameActions: List<ViewAction>
 ) {
 
     Row(modifier = Modifier

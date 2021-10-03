@@ -1,6 +1,6 @@
 package com.nwagu.chessboy.model
 
-data class QuickAction(
+data class ViewAction(
     val displayName: String,
     val action: () -> Unit
 )

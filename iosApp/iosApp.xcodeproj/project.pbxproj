@@ -3,21 +3,24 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		7555FF83242A565900829871 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* HomeView.swift */; };
+		B3138FC726C135880019545E /* GameAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3138FC626C135880019545E /* GameAnalysisView.swift */; };
+		B3138FC926C138C10019545E /* ChessBoardStaticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3138FC826C138C10019545E /* ChessBoardStaticView.swift */; };
 		B340FC6126A8008300167C39 /* SelectPromotionPiecePrompt.swift in Sources */ = {isa = PBXBuildFile; fileRef = B340FC6026A8008300167C39 /* SelectPromotionPiecePrompt.swift */; };
 		B3412FE6267F0B3E00AE7470 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3412FE5267F0B3E00AE7470 /* Assets.xcassets */; };
 		B36AA61B2698EA720016E7FA /* WrappingHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36AA61A2698EA720016E7FA /* WrappingHStack.swift */; };
 		B36AA61D26990D080016E7FA /* SideChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36AA61C26990D080016E7FA /* SideChoice.swift */; };
 		B36AA61F26997FCB0016E7FA /* PlayerSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36AA61E26997FCB0016E7FA /* PlayerSelect.swift */; };
 		B3A6A3AF26982D1A0097FC27 /* RadioCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A6A3AE26982D1A0097FC27 /* RadioCard.swift */; };
+		B3AB01F0270A0906005AECDB /* BottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AB01EF270A0906005AECDB /* BottomSheetView.swift */; };
+		B3AB01F4270A13D4005AECDB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3AB01F3270A13D4005AECDB /* GoogleService-Info.plist */; };
 		B3B0496A2695654600CBA1D0 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B049692695654600CBA1D0 /* MainView.swift */; };
 		B3B0497426956A1300CBA1D0 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B0497326956A1300CBA1D0 /* ViewRouter.swift */; };
 		B3B0497626956A2400CBA1D0 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B0497526956A2400CBA1D0 /* Screen.swift */; };
-		B3B0497826956B8800CBA1D0 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B0497726956B8800CBA1D0 /* SettingsView.swift */; };
 		B3B0497D269587FA00CBA1D0 /* TopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B0497C269587FA00CBA1D0 /* TopBar.swift */; };
 		B3D4E19E2681EA6B002BB5E2 /* ChessBoy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D4E19D2681EA6B002BB5E2 /* ChessBoy.swift */; };
 		B3DB685E2696953900EDB094 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3DB685D2696953900EDB094 /* Stack.swift */; };
@@ -26,7 +29,7 @@
 		B3F082C22687D5D800038199 /* NewGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F082C12687D5D800038199 /* NewGameView.swift */; };
 		B3F082C42687D5E800038199 /* NewBluetoothGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F082C32687D5E800038199 /* NewBluetoothGameView.swift */; };
 		B3F082C82688544800038199 /* QuickActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F082C72688544800038199 /* QuickActionView.swift */; };
-		B3F082CA2688634900038199 /* QuickAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F082C92688634900038199 /* QuickAction.swift */; };
+		B3F082CA2688634900038199 /* ViewAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F082C92688634900038199 /* ViewAction.swift */; };
 		B3F082CE2688A07200038199 /* PlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F082CD2688A07200038199 /* PlayView.swift */; };
 		B3F082D02688A23200038199 /* ChessBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F082CF2688A23200038199 /* ChessBoardView.swift */; };
 		B3F1B83E26A6FD4700565E14 /* Collector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F1B83D26A6FD4700565E14 /* Collector.swift */; };
@@ -42,16 +45,19 @@
 		7555FF7B242A565900829871 /* Chess Boy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Chess Boy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF82242A565900829871 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B3138FC626C135880019545E /* GameAnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAnalysisView.swift; sourceTree = "<group>"; };
+		B3138FC826C138C10019545E /* ChessBoardStaticView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBoardStaticView.swift; sourceTree = "<group>"; };
 		B340FC6026A8008300167C39 /* SelectPromotionPiecePrompt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPromotionPiecePrompt.swift; sourceTree = "<group>"; };
 		B3412FE5267F0B3E00AE7470 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = iosApp/Resources/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		B36AA61A2698EA720016E7FA /* WrappingHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrappingHStack.swift; sourceTree = "<group>"; };
 		B36AA61C26990D080016E7FA /* SideChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideChoice.swift; sourceTree = "<group>"; };
 		B36AA61E26997FCB0016E7FA /* PlayerSelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSelect.swift; sourceTree = "<group>"; };
 		B3A6A3AE26982D1A0097FC27 /* RadioCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioCard.swift; sourceTree = "<group>"; };
+		B3AB01EF270A0906005AECDB /* BottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetView.swift; sourceTree = "<group>"; };
+		B3AB01F3270A13D4005AECDB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B3B049692695654600CBA1D0 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		B3B0497326956A1300CBA1D0 /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
 		B3B0497526956A2400CBA1D0 /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
-		B3B0497726956B8800CBA1D0 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B3B0497C269587FA00CBA1D0 /* TopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBar.swift; sourceTree = "<group>"; };
 		B3D4E19D2681EA6B002BB5E2 /* ChessBoy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBoy.swift; sourceTree = "<group>"; };
 		B3DB685D2696953900EDB094 /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
@@ -60,7 +66,7 @@
 		B3F082C12687D5D800038199 /* NewGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameView.swift; sourceTree = "<group>"; };
 		B3F082C32687D5E800038199 /* NewBluetoothGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBluetoothGameView.swift; sourceTree = "<group>"; };
 		B3F082C72688544800038199 /* QuickActionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickActionView.swift; sourceTree = "<group>"; };
-		B3F082C92688634900038199 /* QuickAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickAction.swift; sourceTree = "<group>"; };
+		B3F082C92688634900038199 /* ViewAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewAction.swift; sourceTree = "<group>"; };
 		B3F082CD2688A07200038199 /* PlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayView.swift; sourceTree = "<group>"; };
 		B3F082CF2688A23200038199 /* ChessBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChessBoardView.swift; sourceTree = "<group>"; };
 		B3F1B83D26A6FD4700565E14 /* Collector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collector.swift; sourceTree = "<group>"; };
@@ -107,6 +113,7 @@
 				B335ECEC268C9DBB006BDB70 /* Model */,
 				B3B049672695652500CBA1D0 /* Screens */,
 				7555FF8C242A565B00829871 /* Info.plist */,
+				B3AB01F3270A13D4005AECDB /* GoogleService-Info.plist */,
 				B3D4E19D2681EA6B002BB5E2 /* ChessBoy.swift */,
 				B3F1B83F26A70FC600565E14 /* ChessBoyEnvironment.swift */,
 			);
@@ -132,6 +139,7 @@
 				B3A6A3AE26982D1A0097FC27 /* RadioCard.swift */,
 				B36AA61A2698EA720016E7FA /* WrappingHStack.swift */,
 				B36AA61E26997FCB0016E7FA /* PlayerSelect.swift */,
+				B3138FC826C138C10019545E /* ChessBoardStaticView.swift */,
 			);
 			path = Widget;
 			sourceTree = "<group>";
@@ -139,7 +147,7 @@
 		B335ECEC268C9DBB006BDB70 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B3F082C92688634900038199 /* QuickAction.swift */,
+				B3F082C92688634900038199 /* ViewAction.swift */,
 				B36AA61C26990D080016E7FA /* SideChoice.swift */,
 			);
 			path = Model;
@@ -154,7 +162,6 @@
 				B3B0496E2695657400CBA1D0 /* Play */,
 				B3B0496D2695656C00CBA1D0 /* NewGame */,
 				B3B0496C2695655A00CBA1D0 /* History */,
-				B3B0496B2695654F00CBA1D0 /* Settings */,
 				B3B049682695653300CBA1D0 /* Main */,
 			);
 			path = Screens;
@@ -165,16 +172,9 @@
 			children = (
 				7555FF82242A565900829871 /* HomeView.swift */,
 				B3B049692695654600CBA1D0 /* MainView.swift */,
+				B3AB01EF270A0906005AECDB /* BottomSheetView.swift */,
 			);
 			path = Main;
-			sourceTree = "<group>";
-		};
-		B3B0496B2695654F00CBA1D0 /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				B3B0497726956B8800CBA1D0 /* SettingsView.swift */,
-			);
-			path = Settings;
 			sourceTree = "<group>";
 		};
 		B3B0496C2695655A00CBA1D0 /* History */ = {
@@ -222,6 +222,7 @@
 		B3B0497E2695930300CBA1D0 /* Analysis */ = {
 			isa = PBXGroup;
 			children = (
+				B3138FC626C135880019545E /* GameAnalysisView.swift */,
 			);
 			path = Analysis;
 			sourceTree = "<group>";
@@ -263,6 +264,7 @@
 				7555FF77242A565900829871 /* Sources */,
 				7555FF79242A565900829871 /* Resources */,
 				07D33DF425E0123BD9DDAE4A /* Frameworks */,
+				B99744F96C828BA8156AF8FB /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -312,6 +314,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3412FE6267F0B3E00AE7470 /* Assets.xcassets in Resources */,
+				B3AB01F4270A13D4005AECDB /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,6 +343,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		B99744F96C828BA8156AF8FB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-iosApp/Pods-iosApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-iosApp/Pods-iosApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-iosApp/Pods-iosApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -349,7 +369,6 @@
 			files = (
 				B36AA61F26997FCB0016E7FA /* PlayerSelect.swift in Sources */,
 				B3DB68602696957B00EDB094 /* ScopeFunc.swift in Sources */,
-				B3B0497826956B8800CBA1D0 /* SettingsView.swift in Sources */,
 				B3B0496A2695654600CBA1D0 /* MainView.swift in Sources */,
 				B3DB685E2696953900EDB094 /* Stack.swift in Sources */,
 				B36AA61B2698EA720016E7FA /* WrappingHStack.swift in Sources */,
@@ -357,16 +376,19 @@
 				B3B0497426956A1300CBA1D0 /* ViewRouter.swift in Sources */,
 				B36AA61D26990D080016E7FA /* SideChoice.swift in Sources */,
 				B3F1B83E26A6FD4700565E14 /* Collector.swift in Sources */,
+				B3138FC726C135880019545E /* GameAnalysisView.swift in Sources */,
 				B3F082D02688A23200038199 /* ChessBoardView.swift in Sources */,
 				B3F082C42687D5E800038199 /* NewBluetoothGameView.swift in Sources */,
 				B3A6A3AF26982D1A0097FC27 /* RadioCard.swift in Sources */,
 				7555FF83242A565900829871 /* HomeView.swift in Sources */,
+				B3138FC926C138C10019545E /* ChessBoardStaticView.swift in Sources */,
 				B3B0497626956A2400CBA1D0 /* Screen.swift in Sources */,
-				B3F082CA2688634900038199 /* QuickAction.swift in Sources */,
+				B3F082CA2688634900038199 /* ViewAction.swift in Sources */,
 				B3F082C02687D5C100038199 /* HistoryView.swift in Sources */,
 				B3D4E19E2681EA6B002BB5E2 /* ChessBoy.swift in Sources */,
 				B3F082C82688544800038199 /* QuickActionView.swift in Sources */,
 				B3F1B84026A70FC600565E14 /* ChessBoyEnvironment.swift in Sources */,
+				B3AB01F0270A0906005AECDB /* BottomSheetView.swift in Sources */,
 				B340FC6126A8008300167C39 /* SelectPromotionPiecePrompt.swift in Sources */,
 				B3F082C22687D5D800038199 /* NewGameView.swift in Sources */,
 				B3F082CE2688A07200038199 /* PlayView.swift in Sources */,

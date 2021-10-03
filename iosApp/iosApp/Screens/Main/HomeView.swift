@@ -5,27 +5,27 @@ struct HomeView: View {
     @EnvironmentObject var viewRouter: ViewRouter
     @EnvironmentObject var environment: ChessBoyEnvironment
     
-    var playActions: [QuickAction] {
+    var playActions: [ViewAction] {
         [
-            QuickAction(
+            ViewAction(
                 displayName: "Continue current game",
-                action: { withAnimation { viewRouter.navigate(screen: .play) } }
+                action: { withAnimation { viewRouter.showPlayScreen() } }
             ),
-            QuickAction(
+            ViewAction(
                 displayName: "New game",
                 action: { withAnimation { viewRouter.navigate(screen: .newGame) } }
             ),
-            QuickAction(
+            ViewAction(
                 displayName: "New bluetooth game",
                 action: { withAnimation { viewRouter.navigate(screen: .newBluetoothGame) } }
             )
         ]
     }
     
-    var historyActions: [QuickAction] {
+    var historyActions: [ViewAction] {
         [
-            QuickAction(
-                displayName:"Recent games",
+            ViewAction(
+                displayName: "Recent games",
                 action: { withAnimation { viewRouter.navigate(screen: .history) } }
             )
         ]

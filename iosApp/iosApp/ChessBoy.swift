@@ -8,6 +8,7 @@
 
 import SwiftUI
 import sharedmodels
+import Firebase
 
 @main
 struct ChessBoy: App {
@@ -15,12 +16,15 @@ struct ChessBoy: App {
     @StateObject var viewRouter = ViewRouter()
     @StateObject var environment = ChessBoyEnvironment()
     
+    init() {        
+        FirebaseApp.configure()
+    }
+    
     var body: some Scene {
         WindowGroup {
             MainView()
                 .environmentObject(viewRouter)
                 .environmentObject(environment)
-                .onAppear { environment.initialize() }
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification), perform: { _ in
                     environment.saveCurrentGame()
                  })

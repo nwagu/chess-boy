@@ -13,26 +13,34 @@ struct MainView: View {
     @EnvironmentObject var environment: ChessBoyEnvironment
     
     var body: some View {
-        switch viewRouter.currentScreen {
-        case .home:
-            HomeView()
-        case .play:
-            PlayView(playViewModel: environment.playViewModel)
-                .transition(.move(edge: .trailing))
-        case .history:
-            HistoryView()
-                .transition(.move(edge: .trailing))
-        case .newGame:
-            NewGameView()
-                .transition(.move(edge: .trailing))
-        case .newBluetoothGame:
-            NewBluetoothGameView()
-                .transition(.move(edge: .trailing))
-        case .settings:
-            SettingsView()
-                .transition(.move(edge: .trailing))
+            GeometryReader { geometry in
+                VStack {
+                    switch viewRouter.currentScreen {
+                        case .home:
+                            HomeView()
+                        case .newGame:
+                            NewGameView()
+                                .transition(.move(edge: .trailing))
+                        case .newBluetoothGame:
+                            NewBluetoothGameView()
+                                .transition(.move(edge: .trailing))
+                        case .history:
+                            HistoryView()
+                                .transition(.move(edge: .trailing))
+                        case .gameAnalysis:
+                            GameAnalysisView(gameAnalysisViewModel: environment.gameAnalysisViewModel)
+                                .transition(.move(edge: .trailing))
+                    }
+                }.padding(.bottom, 64)
+                BottomSheetView(
+                    isOpen: self.$viewRouter.playScreenUp,
+                    maxHeight: geometry.size.height,
+                    peekHeight: 64
+                ) {
+                    PlayView(playViewModel: environment.playViewModel)
+                }.edgesIgnoringSafeArea(.top)
+            }
         }
-    }
 }
 
 struct MainView_Previews: PreviewProvider {

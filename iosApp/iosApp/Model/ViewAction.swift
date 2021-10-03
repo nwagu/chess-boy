@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct QuickAction: Identifiable {
+struct ViewAction: Identifiable {
     var id = UUID()
     var displayName: String
     var action: () -> Void

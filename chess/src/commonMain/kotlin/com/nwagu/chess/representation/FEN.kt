@@ -11,7 +11,7 @@ const val STARTING_POSITION_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w
 
 fun Board.loadStandardStartingPosition() {
 
-    if (numberOfColumns != 8 && numberOfRows != 8)
+    if (numberOfColumns != 8 || numberOfRows != 8)
         throw IllegalStateException("This method requires an 8x8 board!")
 
     loadPositionFromFen(STARTING_POSITION_FEN)

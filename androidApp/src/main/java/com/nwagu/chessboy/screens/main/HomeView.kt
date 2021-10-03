@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.nwagu.chessboy.R
 import com.nwagu.chessboy.screens.navigation.Screen
-import com.nwagu.chessboy.model.QuickAction
+import com.nwagu.chessboy.model.ViewAction
 import com.nwagu.chessboy.widgets.Header
 import com.nwagu.chessboy.widgets.QuickActionView
 import com.nwagu.chessboy.widgets.WrappingRow
@@ -59,15 +59,15 @@ fun HomeView(
         Header(Modifier.padding(0.dp, 16.dp),"Play")
 
         val playActions = listOf(
-            QuickAction("Continue current game") {
+            ViewAction("Continue current game") {
                 coroutineScope.launch {
                     bottomSheetScaffoldState.bottomSheetState.expand()
                 }
             },
-            QuickAction("New game with computer") {
+            ViewAction("New game with computer") {
                 navHostController.navigate(Screen.NewGame.route)
             },
-            QuickAction("New bluetooth game") {
+            ViewAction("New bluetooth game") {
                 if (playViewModel.game.isBluetoothGame())
                     playViewModel.endCurrentGame()
                 navHostController.navigate(Screen.NewBluetoothGame.route)
@@ -83,7 +83,7 @@ fun HomeView(
         Header(Modifier.padding(0.dp, 16.dp),"History")
 
         val historyActions = listOf(
-            QuickAction("Your recent games") {
+            ViewAction("Your recent games") {
                 navHostController.navigate(Screen.History.route)
             }
         )

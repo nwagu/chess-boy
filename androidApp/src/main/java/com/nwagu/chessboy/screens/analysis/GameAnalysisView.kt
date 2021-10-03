@@ -17,7 +17,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.nwagu.chessboy.screens.main.MainActivity
-import com.nwagu.chessboy.model.LightAction
+import com.nwagu.chessboy.model.ViewAction
 import com.nwagu.chessboy.screens.navigation.Dialog
 import com.nwagu.chessboy.widgets.*
 
@@ -49,22 +49,22 @@ fun GameAnalysisView(
         val isLandscape = (screenConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)
 
         val navActions = mutableListOf(
-            LightAction("First") {
+            ViewAction("First") {
                 gameAnalysisViewModel.first()
             },
-            LightAction("Prev") {
+            ViewAction("Prev") {
                 gameAnalysisViewModel.previous()
             },
-            LightAction("Next") {
+            ViewAction("Next") {
                 gameAnalysisViewModel.next()
             },
-            LightAction("Last") {
+            ViewAction("Last") {
                 gameAnalysisViewModel.last()
             }
         )
 
         val otherActions = mutableListOf(
-            LightAction("Share") {
+            ViewAction("Share") {
                 val sendIntent: Intent = Intent().apply {
                     action = Intent.ACTION_SEND
                     putExtra(Intent.EXTRA_TEXT, gameAnalysisViewModel.savedGame?.pgn)
@@ -75,7 +75,7 @@ fun GameAnalysisView(
                 context.startActivity(shareIntent)
 
             },
-            LightAction("Delete") {
+            ViewAction("Delete") {
                 navHostController.navigate(
                     Dialog.ConfirmDeleteGame.route +
                             "/${gameAnalysisViewModel.savedGame?.id}"
@@ -97,8 +97,8 @@ fun GameAnalysisView(
 @ExperimentalMaterialApi
 @Composable
 fun GameAnalysisViewPortrait(
-    navActions: List<LightAction>,
-    otherActions: List<LightAction>
+    navActions: List<ViewAction>,
+    otherActions: List<ViewAction>
 ) {
 
     val context = LocalContext.current as MainActivity
@@ -166,8 +166,8 @@ fun GameAnalysisViewPortrait(
 @ExperimentalMaterialApi
 @Composable
 fun GameAnalysisViewLandscape(
-    navActions: List<LightAction>,
-    otherActions: List<LightAction>
+    navActions: List<ViewAction>,
+    otherActions: List<ViewAction>
 ) {
 
     val context = LocalContext.current as MainActivity

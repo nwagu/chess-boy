@@ -10,6 +10,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 class GameAnalysisViewModel: BaseViewModel() {
 
     lateinit var game: Game
+    private set
+
     var sans = emptyList<String>()
 
     val boardUpdated = MutableStateFlow(0)

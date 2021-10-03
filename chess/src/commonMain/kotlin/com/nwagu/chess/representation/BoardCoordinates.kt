@@ -6,7 +6,7 @@ import com.nwagu.chess.model.Square
 
 fun Board.squareToCoordinate(square: Square): String {
 
-    if (numberOfColumns != 8 && numberOfRows != 8)
+    if (numberOfColumns != 8 || numberOfRows != 8)
         throw IllegalStateException("Standard square name requires an 8x8 board!")
 
     return "${columnToFile(column(square))}${rowToRank(row(square))}"

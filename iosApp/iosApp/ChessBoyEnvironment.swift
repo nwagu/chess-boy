@@ -13,6 +13,11 @@ class ChessBoyEnvironment: ObservableObject {
     
     let mainViewModel = MainViewModel()
     let playViewModel = PlayViewModel()
+    let gameAnalysisViewModel = GameAnalysisViewModel()
+    
+    init() {
+        initialize()
+    }
     
     func initialize() {
         if (!playViewModel.isGameInitialized()) {
@@ -31,7 +36,7 @@ class ChessBoyEnvironment: ObservableObject {
         mainViewModel.saveGame(game: playViewModel.game)
     }
     
-    func getGamesHistory() -> [String] {
+    func getGamesHistory() -> [SavedGame] {
         mainViewModel.getGamesHistory()
     }
     
