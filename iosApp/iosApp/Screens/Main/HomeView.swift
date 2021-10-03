@@ -9,7 +9,7 @@ struct HomeView: View {
         [
             ViewAction(
                 displayName: "Continue current game",
-                action: { withAnimation { viewRouter.navigate(screen: .play) } }
+                action: { withAnimation { viewRouter.showPlayScreen() } }
             ),
             ViewAction(
                 displayName: "New game",

@@ -24,32 +24,54 @@ struct PlayView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            TopBar(title: playViewModel.game.title)
-            ScrollView {
-                VStack(alignment: .leading, spacing: 0) {
-                    PlayerDisplay(playViewModel: playViewModel, color: playViewModel.game.colorOnUserSideOfBoard.opposite()).padding(16)
-                    ChessBoardView(playViewModel: playViewModel)
-                    PlayerDisplay(playViewModel: playViewModel, color: playViewModel.game.colorOnUserSideOfBoard).padding(16)
-                    Button(action: { withAnimation { playViewModel.undo() } }, label: {Text("Undo") }).padding()
+        GeometryReader { geometry in
+            VStack(alignment: .leading, spacing: 0) {
+                VStack(alignment: .center, spacing: 0) {
+                    HStack {
+                        Spacer()
+                        indicator
+                        Spacer()
+                    }
+                    HStack {
+                        Text(playViewModel.game.title)
+                        Spacer()
+                    }
+                    .frame(height: 60, alignment: .center)
                 }
-                Spacer()
+                .onTapGesture {
+                    viewRouter.showPlayScreen()
+                }
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 0) {
+                        PlayerDisplay(playViewModel: playViewModel, color: playViewModel.game.colorOnUserSideOfBoard.opposite()).padding(16)
+                        ChessBoardView(playViewModel: playViewModel)
+                        PlayerDisplay(playViewModel: playViewModel, color: playViewModel.game.colorOnUserSideOfBoard).padding(16)
+                        Button(action: { withAnimation { playViewModel.undo() } }, label: {Text("Undo") }).padding()
+                    }
+                    Spacer()
+                }
+            }
+            .frame(
+                minWidth: 0,
+                maxWidth: .infinity,
+                minHeight: 0,
+                maxHeight: .infinity,
+                alignment: .topLeading
+            )
+            .padding()
+            .actionSheet(isPresented: $showPromotionDialog) {
+                selectPromotionPiecePrompt(playViewModel: playViewModel)
+            }
+            .onReceive(pendingPromotion.$currentValue) { promotion in
+                showPromotionDialog = (promotion != nil)
             }
         }
-        .frame(
-            minWidth: 0,
-            maxWidth: .infinity,
-            minHeight: 0,
-            maxHeight: .infinity,
-            alignment: .topLeading
-        )
-        .padding()
-        .actionSheet(isPresented: $showPromotionDialog) {
-            selectPromotionPiecePrompt(playViewModel: playViewModel)
-        }
-        .onReceive(pendingPromotion.$currentValue) { promotion in
-            showPromotionDialog = (promotion != nil)
-        }
+    }
+    
+    private var indicator: some View {
+        RoundedRectangle(cornerRadius: 16)
+            .fill(Color.orange)
+            .frame(width: 60, height: 4)
     }
 }
 

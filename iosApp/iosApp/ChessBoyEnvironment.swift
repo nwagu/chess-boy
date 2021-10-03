@@ -15,6 +15,10 @@ class ChessBoyEnvironment: ObservableObject {
     let playViewModel = PlayViewModel()
     let gameAnalysisViewModel = GameAnalysisViewModel()
     
+    init() {
+        initialize()
+    }
+    
     func initialize() {
         if (!playViewModel.isGameInitialized()) {
             let game = mainViewModel.getLastGameOrDefault()

@@ -76,7 +76,7 @@ struct NewGameView: View {
                 if let players = newGameViewModel.getSelectedPlayers() {
                     environment.startNewGame(whitePlayer: players.first!, blackPlayer: players.second!)
                     viewRouter.navigateUp()
-                    viewRouter.navigate(screen: .play)
+                    viewRouter.showPlayScreen()
                 }
             }, label: {
                 Text("Start Game")
