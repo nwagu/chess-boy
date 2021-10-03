@@ -39,41 +39,30 @@ fun MainView() {
         )
     )
 
+    @Composable
+    fun bottomSheetWrapperOf(mainContent: @Composable BoxScope.() -> Unit) {
+        BottomSheetWrapper(
+            bottomSheetScaffoldState,
+            { PlayView(navHostController) },
+            mainContent
+        )
+    }
+
     NavHost(navHostController, startDestination = Screen.Home.route) {
         composable(Screen.Home.route) {
-            BottomSheetWrapper(
-                bottomSheetScaffoldState,
-                { PlayView(navHostController) },
-                { HomeView(bottomSheetScaffoldState, navHostController) }
-            )
+            bottomSheetWrapperOf { HomeView(bottomSheetScaffoldState, navHostController) }
         }
         composable(Screen.NewGame.route) {
-            BottomSheetWrapper(
-                bottomSheetScaffoldState,
-                { PlayView(navHostController) },
-                { NewGameView(bottomSheetScaffoldState, navHostController) }
-            )
+            bottomSheetWrapperOf { NewGameView(bottomSheetScaffoldState, navHostController) }
         }
         composable(Screen.NewBluetoothGame.route) {
-            BottomSheetWrapper(
-                bottomSheetScaffoldState,
-                { PlayView(navHostController) },
-                { NewBluetoothGameView(bottomSheetScaffoldState, navHostController) }
-            )
+            bottomSheetWrapperOf { NewBluetoothGameView(bottomSheetScaffoldState, navHostController) }
         }
         composable(Screen.GameAnalysis.route) {
-            BottomSheetWrapper(
-                bottomSheetScaffoldState,
-                { PlayView(navHostController) },
-                { GameAnalysisView(navHostController) }
-            )
+            bottomSheetWrapperOf { GameAnalysisView(navHostController) }
         }
         composable(Screen.History.route) {
-            BottomSheetWrapper(
-                bottomSheetScaffoldState,
-                { PlayView(navHostController) },
-                { HistoryView(navHostController) }
-            )
+            bottomSheetWrapperOf { HistoryView(navHostController) }
         }
         composable(Screen.Settings.route) {
             SettingsView(navHostController)
