@@ -15,9 +15,9 @@
 		B36AA61B2698EA720016E7FA /* WrappingHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36AA61A2698EA720016E7FA /* WrappingHStack.swift */; };
 		B36AA61D26990D080016E7FA /* SideChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36AA61C26990D080016E7FA /* SideChoice.swift */; };
 		B36AA61F26997FCB0016E7FA /* PlayerSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36AA61E26997FCB0016E7FA /* PlayerSelect.swift */; };
+		B3704C99270FAE5D00C98F5B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3704C98270FAE5D00C98F5B /* GoogleService-Info.plist */; };
 		B3A6A3AF26982D1A0097FC27 /* RadioCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A6A3AE26982D1A0097FC27 /* RadioCard.swift */; };
 		B3AB01F0270A0906005AECDB /* BottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AB01EF270A0906005AECDB /* BottomSheetView.swift */; };
-		B3AB01F4270A13D4005AECDB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3AB01F3270A13D4005AECDB /* GoogleService-Info.plist */; };
 		B3B0496A2695654600CBA1D0 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B049692695654600CBA1D0 /* MainView.swift */; };
 		B3B0497426956A1300CBA1D0 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B0497326956A1300CBA1D0 /* ViewRouter.swift */; };
 		B3B0497626956A2400CBA1D0 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B0497526956A2400CBA1D0 /* Screen.swift */; };
@@ -52,9 +52,9 @@
 		B36AA61A2698EA720016E7FA /* WrappingHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrappingHStack.swift; sourceTree = "<group>"; };
 		B36AA61C26990D080016E7FA /* SideChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideChoice.swift; sourceTree = "<group>"; };
 		B36AA61E26997FCB0016E7FA /* PlayerSelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSelect.swift; sourceTree = "<group>"; };
+		B3704C98270FAE5D00C98F5B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B3A6A3AE26982D1A0097FC27 /* RadioCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioCard.swift; sourceTree = "<group>"; };
 		B3AB01EF270A0906005AECDB /* BottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetView.swift; sourceTree = "<group>"; };
-		B3AB01F3270A13D4005AECDB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B3B049692695654600CBA1D0 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		B3B0497326956A1300CBA1D0 /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
 		B3B0497526956A2400CBA1D0 /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
@@ -113,7 +113,7 @@
 				B335ECEC268C9DBB006BDB70 /* Model */,
 				B3B049672695652500CBA1D0 /* Screens */,
 				7555FF8C242A565B00829871 /* Info.plist */,
-				B3AB01F3270A13D4005AECDB /* GoogleService-Info.plist */,
+				B3704C98270FAE5D00C98F5B /* GoogleService-Info.plist */,
 				B3D4E19D2681EA6B002BB5E2 /* ChessBoy.swift */,
 				B3F1B83F26A70FC600565E14 /* ChessBoyEnvironment.swift */,
 			);
@@ -314,7 +314,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3412FE6267F0B3E00AE7470 /* Assets.xcassets in Resources */,
-				B3AB01F4270A13D4005AECDB /* GoogleService-Info.plist in Resources */,
+				B3704C99270FAE5D00C98F5B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -530,6 +530,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -560,6 +561,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
