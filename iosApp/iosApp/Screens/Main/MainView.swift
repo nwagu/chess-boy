@@ -18,13 +18,13 @@ struct MainView: View {
                         .navigationBarTitle("")
                         .navigationBarHidden(true)
                 }.padding(.bottom, 64)
-//                BottomSheetView(
-//                    isOpen: self.$viewRouter.playScreenUp,
-//                    maxHeight: geometry.size.height,
-//                    peekHeight: 64
-//                ) {
-//                    PlayView(playViewModel: environment.playViewModel)
-//                }.edgesIgnoringSafeArea(.top)
+                BottomSheetView(
+                    isOpen: self.$environment.playScreenUp,
+                    maxHeight: geometry.size.height,
+                    peekHeight: 64
+                ) {
+                    PlayView(playViewModel: environment.playViewModel)
+                }.edgesIgnoringSafeArea(.top)
             }
         }
 }

@@ -22,8 +22,8 @@ struct WrappingHStack<Model, ModelView>: View where Model: Identifiable, ModelVi
             var height = CGFloat.zero
             
             ZStack(alignment: .topLeading) {
-                ForEach(models) { models in
-                    viewGenerator(models)
+                ForEach(models) { model in
+                    viewGenerator(model)
                         .padding(.horizontal, horizontalSpacing)
                         .padding(.vertical, verticalSpacing)
                         .alignmentGuide(.leading, computeValue: { dimension in
@@ -33,7 +33,7 @@ struct WrappingHStack<Model, ModelView>: View where Model: Identifiable, ModelVi
                                 height -= dimension.height
                             }
                             let result = width
-                            if models.id == self.models.last!.id {
+                            if model.id == self.models.last!.id {
                                 width = 0 //last item
                             } else {
                                 width -= dimension.width
@@ -42,7 +42,7 @@ struct WrappingHStack<Model, ModelView>: View where Model: Identifiable, ModelVi
                         })
                         .alignmentGuide(.top, computeValue: {dimension in
                             let result = height
-                            if models.id == self.models.last!.id {
+                            if model.id == self.models.last!.id {
                                 height = 0 // last item
                             }
                             return result

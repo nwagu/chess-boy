@@ -36,7 +36,6 @@ struct HistoryView: View {
             maxHeight: .infinity,
             alignment: .topLeading
         )
-        .padding()
     }
     
     private func itemView(of game: SavedGame) -> some View {

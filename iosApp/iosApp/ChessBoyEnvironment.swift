@@ -14,7 +14,10 @@ class ChessBoyEnvironment: ObservableObject {
     let mainViewModel = MainViewModel()
     let playViewModel = PlayViewModel()
     
+    @Published var playScreenUp: Bool
+    
     init() {
+        playScreenUp = false
         initialize()
     }
     
@@ -41,6 +44,14 @@ class ChessBoyEnvironment: ObservableObject {
     
     func createNewGame(whitePlayer: Player, blackPlayer: Player) -> Game {
         Game(whitePlayer: whitePlayer, blackPlayer: blackPlayer)
+    }
+    
+    func showPlayScreen() {
+        playScreenUp = true
+    }
+    
+    func hidePlayScreen() {
+        playScreenUp = false
     }
     
 }

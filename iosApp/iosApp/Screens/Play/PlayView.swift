@@ -10,7 +10,6 @@ import SwiftUI
 import sharedmodels
 
 struct PlayView: View {
-    @EnvironmentObject var viewRouter: ViewRouter
     
     private let playViewModel: PlayViewModel
     @ObservedObject private var gameChanged: Collector<Int32>
@@ -37,9 +36,6 @@ struct PlayView: View {
                         Spacer()
                     }
                     .frame(height: 60, alignment: .center)
-                }
-                .onTapGesture {
-                    viewRouter.showPlayScreen()
                 }
                 ScrollView {
                     VStack(alignment: .leading, spacing: 0) {

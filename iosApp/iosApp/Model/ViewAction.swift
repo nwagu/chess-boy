@@ -1,5 +1,5 @@
 //
-//  QuickAction.swift
+//  ViewAction.swift
 //  iosApp
 //
 //  Created by Chukwuemeka Nwagu on 27/06/2021.
@@ -7,18 +7,9 @@
 //
 
 import Foundation
-import SwiftUI
-
-struct DestinationViewAction: Identifiable {
-    var id = UUID()
-    var displayName: String
-    var destination: () -> AnyView
-}
 
 struct ViewAction: Identifiable {
     var id = UUID()
     var displayName: String
     var action: () -> Void
 }
-
- 
