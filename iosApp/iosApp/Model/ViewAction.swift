@@ -7,6 +7,13 @@
 //
 
 import Foundation
+import SwiftUI
+
+struct DestinationViewAction: Identifiable {
+    var id = UUID()
+    var displayName: String
+    var destination: () -> AnyView
+}
 
 struct ViewAction: Identifiable {
     var id = UUID()

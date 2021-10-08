@@ -13,7 +13,6 @@ class ChessBoyEnvironment: ObservableObject {
     
     let mainViewModel = MainViewModel()
     let playViewModel = PlayViewModel()
-    let gameAnalysisViewModel = GameAnalysisViewModel()
     
     init() {
         initialize()

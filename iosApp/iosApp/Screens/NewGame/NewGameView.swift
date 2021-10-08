@@ -34,7 +34,6 @@ struct NewGameView: View {
         VStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 0) {
-                    TopBar(title: "Start a new game against computer")
                     Text("Choose your side")
                         .font(.subheadline)
                         .fontWeight(.semibold)
@@ -83,6 +82,7 @@ struct NewGameView: View {
             })
             .padding(.bottom)
         }
+        .navigationBarTitle("Start a new game against computer", displayMode: .inline)
     }
 }
 

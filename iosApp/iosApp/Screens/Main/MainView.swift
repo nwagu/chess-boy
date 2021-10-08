@@ -9,36 +9,22 @@
 import SwiftUI
 
 struct MainView: View {
-    @EnvironmentObject var viewRouter: ViewRouter
     @EnvironmentObject var environment: ChessBoyEnvironment
     
     var body: some View {
             GeometryReader { geometry in
-                VStack {
-                    switch viewRouter.currentScreen {
-                        case .home:
-                            HomeView()
-                        case .newGame:
-                            NewGameView()
-                                .transition(.move(edge: .trailing))
-                        case .newBluetoothGame:
-                            NewBluetoothGameView()
-                                .transition(.move(edge: .trailing))
-                        case .history:
-                            HistoryView()
-                                .transition(.move(edge: .trailing))
-                        case .gameAnalysis:
-                            GameAnalysisView(gameAnalysisViewModel: environment.gameAnalysisViewModel)
-                                .transition(.move(edge: .trailing))
-                    }
+                NavigationView {
+                    HomeView()
+                        .navigationBarTitle("")
+                        .navigationBarHidden(true)
                 }.padding(.bottom, 64)
-                BottomSheetView(
-                    isOpen: self.$viewRouter.playScreenUp,
-                    maxHeight: geometry.size.height,
-                    peekHeight: 64
-                ) {
-                    PlayView(playViewModel: environment.playViewModel)
-                }.edgesIgnoringSafeArea(.top)
+//                BottomSheetView(
+//                    isOpen: self.$viewRouter.playScreenUp,
+//                    maxHeight: geometry.size.height,
+//                    peekHeight: 64
+//                ) {
+//                    PlayView(playViewModel: environment.playViewModel)
+//                }.edgesIgnoringSafeArea(.top)
             }
         }
 }

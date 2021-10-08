@@ -9,7 +9,6 @@
 import SwiftUI
 
 struct NewBluetoothGameView: View {
-    @EnvironmentObject var viewRouter: ViewRouter
     
     var options: [SideChoice] {
         [
@@ -22,7 +21,6 @@ struct NewBluetoothGameView: View {
         VStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 0) {
-                    TopBar(title: "Start a new bluetooth game")
                     Text("Choose your side")
                         .font(.subheadline)
                         .fontWeight(.medium)
@@ -72,6 +70,7 @@ struct NewBluetoothGameView: View {
             })
             .padding(.bottom)
         }
+        .navigationBarTitle("Start a new bluetooth game", displayMode: .inline)
         
     }
 }

@@ -5,31 +5,30 @@ struct HomeView: View {
     @EnvironmentObject var viewRouter: ViewRouter
     @EnvironmentObject var environment: ChessBoyEnvironment
     
-    var playActions: [ViewAction] {
+    var playActions =
         [
-            ViewAction(
+            DestinationViewAction(
                 displayName: "Continue current game",
-                action: { withAnimation { viewRouter.showPlayScreen() } }
+                destination: {  AnyView(NewGameView()) }
             ),
-            ViewAction(
+            DestinationViewAction(
                 displayName: "New game",
-                action: { withAnimation { viewRouter.navigate(screen: .newGame) } }
+                destination: {  AnyView(NewGameView()) }
             ),
-            ViewAction(
+            DestinationViewAction(
                 displayName: "New bluetooth game",
-                action: { withAnimation { viewRouter.navigate(screen: .newBluetoothGame) } }
+                destination: {  AnyView(NewBluetoothGameView()) }
             )
         ]
-    }
     
-    var historyActions: [ViewAction] {
+    
+    var historyActions =
         [
-            ViewAction(
+            DestinationViewAction(
                 displayName: "Recent games",
-                action: { withAnimation { viewRouter.navigate(screen: .history) } }
+                destination: {  AnyView(HistoryView()) }
             )
         ]
-    }
     
     var body: some View {
         ScrollView {
@@ -47,9 +46,7 @@ struct HomeView: View {
                     .foregroundColor(.orange)
                     .padding(.top)
                 WrappingHStack(models: playActions) { playAction in
-                    QuickActionView(text: playAction.displayName) {
-                        playAction.action()
-                    }
+                    QuickActionView(text: playAction.displayName, destinationGenerator: playAction.destination)
                 }
                 Text("History")
                     .font(.headline)
@@ -57,9 +54,7 @@ struct HomeView: View {
                     .foregroundColor(.orange)
                     .padding(.top)
                 WrappingHStack(models: historyActions) { historyAction in
-                    QuickActionView(text: historyAction.displayName) {
-                        historyAction.action()
-                    }
+                    QuickActionView(text: historyAction.displayName, destinationGenerator: historyAction.destination)
                 }
                 
                 Spacer()
