@@ -20,7 +20,7 @@ struct QuickActionView: View {
             VStack {
                 Text(text)
                     .font(.body)
-                    .foregroundColor(.black)
+                    .foregroundColor(Color("DefaultText"))
             }
             .padding(8)
             .multilineTextAlignment(.leading)

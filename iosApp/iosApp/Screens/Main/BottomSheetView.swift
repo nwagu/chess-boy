@@ -23,7 +23,7 @@ struct BottomSheetView<Content: View>: View {
     let peekHeight: CGFloat
     let content: Content
 
-    @GestureState private var translation: CGFloat = 0
+    @GestureState private var dragHeight: CGFloat = 0
 
     private var offset: CGFloat {
         isOpen ? 0 : maxHeight - peekHeight
@@ -55,20 +55,22 @@ struct BottomSheetView<Content: View>: View {
             self.content
                 .frame(width: geometry.size.width, height: self.maxHeight, alignment: .top)
                 .background(Color(.systemBackground))
-//                .cornerRadius(Constants.radius)
+                .cornerRadius(Constants.radius)
                 .frame(height: geometry.size.height, alignment: .bottom)
-                .offset(y: max(self.offset + self.translation, 0))
+                .offset(y: max(self.offset + self.dragHeight, 0))
                 .animation(.interactiveSpring())
                 .gesture(
-                    DragGesture().updating(self.$translation) { value, state, _ in
-                        state = value.translation.height
-                    }.onEnded { value in
-                        let snapDistance = self.maxHeight * Constants.snapRatio
-                        guard abs(value.translation.height) > snapDistance else {
-                            return
+                    DragGesture()
+                        .updating(self.$dragHeight) { value, dragHeight, _ in
+                            dragHeight = value.translation.height
                         }
-                        self.isOpen = value.translation.height < 0
-                    }
+                        .onEnded { value in
+                            let snapDistance = self.maxHeight * Constants.snapRatio
+                            guard abs(value.translation.height) > snapDistance else {
+                                return
+                            }
+                            self.isOpen = value.translation.height < 0
+                        }
                 )
         }
     }

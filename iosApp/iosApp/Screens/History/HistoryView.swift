@@ -41,8 +41,7 @@ struct HistoryView: View {
     private func itemView(of game: SavedGame) -> some View {
         let whitePlayer = PGNKt.getHeaderValueFromPgn(name: PGNKt.PGN_HEADER_WHITE_PLAYER, pgn: game.pgn) ?? ""
         let blackPlayer = PGNKt.getHeaderValueFromPgn(name: PGNKt.PGN_HEADER_BLACK_PLAYER, pgn: game.pgn) ?? ""
-        return
-            NavigationLink(destination: GameAnalysisView(game: game)) {
+        return NavigationLink(destination: GameAnalysisView(game: game)) {
             Text("\(whitePlayer)(W) vs \(blackPlayer)(B)").padding()
         }
     }

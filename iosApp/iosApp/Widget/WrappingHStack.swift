@@ -33,7 +33,7 @@ struct WrappingHStack<Model, ModelView>: View where Model: Identifiable, ModelVi
                                 height -= dimension.height
                             }
                             let result = width
-                            if model.id == self.models.last!.id {
+                            if model.id == self.models.last?.id {
                                 width = 0 //last item
                             } else {
                                 width -= dimension.width
@@ -42,7 +42,7 @@ struct WrappingHStack<Model, ModelView>: View where Model: Identifiable, ModelVi
                         })
                         .alignmentGuide(.top, computeValue: {dimension in
                             let result = height
-                            if model.id == self.models.last!.id {
+                            if model.id == self.models.last?.id {
                                 height = 0 // last item
                             }
                             return result

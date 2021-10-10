@@ -27,7 +27,6 @@ struct PlayView: View {
             VStack(alignment: .leading, spacing: 0) {
                 VStack(alignment: .center, spacing: 0) {
                     HStack {
-                        Spacer()
                         indicator
                         Spacer()
                     }
@@ -37,6 +36,7 @@ struct PlayView: View {
                     }
                     .frame(height: 60, alignment: .center)
                 }
+                .padding()
                 ScrollView {
                     VStack(alignment: .leading, spacing: 0) {
                         PlayerDisplay(playViewModel: playViewModel, color: playViewModel.game.colorOnUserSideOfBoard.opposite()).padding(16)
@@ -46,21 +46,22 @@ struct PlayView: View {
                     }
                     Spacer()
                 }
+                .frame(
+                    minWidth: 0,
+                    maxWidth: .infinity,
+                    minHeight: 0,
+                    maxHeight: .infinity,
+                    alignment: .topLeading
+                )
+                .padding()
+                .actionSheet(isPresented: $showPromotionDialog) {
+                    selectPromotionPiecePrompt(playViewModel: playViewModel)
+                }
+                .onReceive(pendingPromotion.$currentValue) { promotion in
+                    showPromotionDialog = (promotion != nil)
+                }
             }
-            .frame(
-                minWidth: 0,
-                maxWidth: .infinity,
-                minHeight: 0,
-                maxHeight: .infinity,
-                alignment: .topLeading
-            )
-            .padding()
-            .actionSheet(isPresented: $showPromotionDialog) {
-                selectPromotionPiecePrompt(playViewModel: playViewModel)
-            }
-            .onReceive(pendingPromotion.$currentValue) { promotion in
-                showPromotionDialog = (promotion != nil)
-            }
+            .background(Color("VeryLightGray"))
         }
     }
     

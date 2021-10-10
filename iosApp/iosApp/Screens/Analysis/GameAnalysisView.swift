@@ -11,11 +11,15 @@ import sharedmodels
 
 struct GameAnalysisView: View {    
     private let gameAnalysisViewModel: GameAnalysisViewModel
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @EnvironmentObject var environment: ChessBoyEnvironment
     
     @ObservedObject var boardChanged: Collector<Int32>
     
+    @State private var showConfirmDeleteGameDialog = false
+    
     init(game: SavedGame) {
-        self.gameAnalysisViewModel = GameAnalysisViewModel().apply {viewModel in
+        self.gameAnalysisViewModel = GameAnalysisViewModel().apply { viewModel in
             viewModel.savedGame = game
         }
         boardChanged = gameAnalysisViewModel.boardUpdated.collectAsObservable(initialValue: gameAnalysisViewModel.boardUpdated.value as! Int32)
@@ -50,7 +54,7 @@ struct GameAnalysisView: View {
             ),
             ViewAction(
                 displayName: "Delete",
-                action: {  }
+                action: { showConfirmDeleteGameDialog = true }
             )
         ]
     }
@@ -60,7 +64,7 @@ struct GameAnalysisView: View {
         let lastMoveIndex = gameAnalysisViewModel.lastMoveIndex
         
         VStack(alignment: .leading, spacing: 0) {
-            ScrollView {
+            ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 0) {
                     Text("\(gameAnalysisViewModel.game.whitePlayer.name) vs \(gameAnalysisViewModel.game.blackPlayer.name)")
                         .font(.headline)
@@ -105,6 +109,15 @@ struct GameAnalysisView: View {
             alignment: .topLeading
         )
         .padding()
+        .actionSheet(isPresented: $showConfirmDeleteGameDialog) {
+            ActionSheet(title: Text("Confirm delete"), buttons: [
+                .default(Text("Delete")) {
+                    environment.mainViewModel.gamesHistoryRepository.deleteGame(id: gameAnalysisViewModel.savedGame!.id)
+                    self.presentationMode.wrappedValue.dismiss()
+                },
+                .cancel() {  }
+            ])
+        }
         .navigationBarTitle("Game review", displayMode: .inline)
     }
 }

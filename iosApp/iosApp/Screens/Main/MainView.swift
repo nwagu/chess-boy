@@ -17,14 +17,16 @@ struct MainView: View {
                     HomeView()
                         .navigationBarTitle("")
                         .navigationBarHidden(true)
-                }.padding(.bottom, 64)
+                }
+                .navigationViewStyle(StackNavigationViewStyle())
+                .padding(.bottom, 64)
                 BottomSheetView(
                     isOpen: self.$environment.playScreenUp,
                     maxHeight: geometry.size.height,
                     peekHeight: 64
                 ) {
                     PlayView(playViewModel: environment.playViewModel)
-                }.edgesIgnoringSafeArea(.top)
+                }
             }
         }
 }
