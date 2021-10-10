@@ -45,45 +45,60 @@ struct ChessBoardView: View {
             ? squares.sorted(by: {$0.0 < $1.0})
             : squares.sorted(by: {$0.0 > $1.0})
         
-        LazyVGrid(columns: columns, spacing: 0) {
-            ForEach(positionsSorted, id: \.key) { square, occupant in
-                
-                let squareColor = game.board.squareColor(square: square).colorResource()
-                
-                Button(action: {
-                    withAnimation {
-                        playViewModel.squareClicked(square: square)
-                    }
-                }) {
-                    ZStack {
-                        Rectangle().fill(Color(squareColor))
-                        
-                        if occupant is ChessPiece {
-                            chessPieceView(for: occupant as! ChessPiece)
+        ZStack {
+        
+            // board
+            LazyVGrid(columns: columns, spacing: 0) {
+                ForEach(positionsSorted, id: \.key) { square, _ in
+                    
+                    let squareColor = game.board.squareColor(square: square).colorResource()
+                    
+                    Rectangle().fill(Color(squareColor))
+                        .frame(maxWidth: .infinity)
+                        .aspectRatio(1, contentMode: .fit)
+                }
+            }
+            
+            // occupants and highlights
+            LazyVGrid(columns: columns, spacing: 0) {
+                ForEach(positionsSorted, id: \.key) { square, occupant in
+                    
+                    Button(action: {
+                        withAnimation {
+                            playViewModel.squareClicked(square: square)
                         }
-                        
-                        if (possibleMoves.currentValue.map { $0.destination }.contains(square)) {
-                            let color = (occupant is ChessPiece) ? Color.red : Color.gray
-                            Circle().fill(color).padding().transition(AnyTransition.scale).zIndex(2)
-                        }
-                        
-                        if (square == lastMove?.source) {
-                            RoundedRectangle(cornerRadius: 0, style: .continuous).strokeBorder(Color.gray, lineWidth: 1)
-                        }
+                    }) {
+                        ZStack {
+                            
+                            Color.clear
+                            
+                            if occupant is ChessPiece {
+                                chessPieceView(for: occupant as! ChessPiece)
+                            }
+                            
+                            if (possibleMoves.currentValue.map { $0.destination }.contains(square)) {
+                                let color = (occupant is ChessPiece) ? Color.red : Color.gray
+                                Circle().fill(color).padding().transition(AnyTransition.scale).zIndex(2)
+                            }
+                            
+                            if (square == lastMove?.source) {
+                                RoundedRectangle(cornerRadius: 0, style: .continuous).strokeBorder(Color.gray, lineWidth: 1)
+                            }
 
-                        if (square == lastMove?.destination) {
-                            RoundedRectangle(cornerRadius: 0, style: .continuous).strokeBorder(Color.blue, lineWidth: 1)
-                        }
-                        
-                        if ((square == Int32(game.board.blackKingPosition) && game.board.isOnCheck(color: .black)) ||
-                                (square == Int32(game.board.whiteKingPosition) && game.board.isOnCheck(color: .white))
-                        ) {
-                            RoundedRectangle(cornerRadius: 0, style: .continuous).strokeBorder(Color.red, lineWidth: 2)
-                        }
+                            if (square == lastMove?.destination) {
+                                RoundedRectangle(cornerRadius: 0, style: .continuous).strokeBorder(Color.blue, lineWidth: 1)
+                            }
+                            
+                            if ((square == Int32(game.board.blackKingPosition) && game.board.isOnCheck(color: .black)) ||
+                                    (square == Int32(game.board.whiteKingPosition) && game.board.isOnCheck(color: .white))
+                            ) {
+                                RoundedRectangle(cornerRadius: 0, style: .continuous).strokeBorder(Color.red, lineWidth: 2)
+                            }
 
+                        }
+                        .frame(maxWidth: .infinity)
+                        .aspectRatio(1, contentMode: .fit)
                     }
-                    .frame(maxWidth: .infinity)
-                    .aspectRatio(1, contentMode: .fit)
                 }
             }
         }
@@ -92,7 +107,6 @@ struct ChessBoardView: View {
     private func chessPieceView(for chessPiece: ChessPiece) -> some View {
         Image(chessPiece.imageRes())
             .matchedGeometryEffect(id: chessPiece.id, in: boardNameSpace)
-            .zIndex(1)
     }
 }
 
