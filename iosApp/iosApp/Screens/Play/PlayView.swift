@@ -32,6 +32,7 @@ struct PlayView: View {
                     }
                     HStack {
                         Text(playViewModel.game.title)
+                            .foregroundColor(Color("DefaultText"))
                         Spacer()
                     }
                     .frame(height: 60, alignment: .center)
@@ -61,7 +62,6 @@ struct PlayView: View {
                     showPromotionDialog = (promotion != nil)
                 }
             }
-            .background(Color("VeryLightGray"))
         }
     }
     

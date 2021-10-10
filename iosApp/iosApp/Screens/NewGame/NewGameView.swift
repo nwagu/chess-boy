@@ -37,7 +37,7 @@ struct NewGameView: View {
                     Text("Choose your side")
                         .font(.subheadline)
                         .fontWeight(.semibold)
-                        .foregroundColor(.black)
+                        .foregroundColor(Color("DefaultText"))
                         .padding(.vertical)
                     
                     WrappingHStack(models: options) { option in
@@ -51,7 +51,7 @@ struct NewGameView: View {
                     Text("Select opponent")
                         .font(.subheadline)
                         .fontWeight(.semibold)
-                        .foregroundColor(.black)
+                        .foregroundColor(Color("DefaultText"))
                         .padding(.vertical)
                     PlayerSelect(
                         players: newGameViewModel.opponents,

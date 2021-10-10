@@ -53,7 +53,7 @@ struct PlayerSelectItem: View {
             VStack {
                 Text(player.name)
                     .font(.body)
-                    .foregroundColor(.black)
+                    .foregroundColor(Color("DefaultText"))
             }
             .padding(8)
             .multilineTextAlignment(.leading)

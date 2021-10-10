@@ -24,7 +24,7 @@ struct NewBluetoothGameView: View {
                     Text("Choose your side")
                         .font(.subheadline)
                         .fontWeight(.medium)
-                        .foregroundColor(.black)
+                        .foregroundColor(Color("DefaultText"))
                         .padding(.vertical)
                     
                     WrappingHStack(models: options) { option in
@@ -41,7 +41,7 @@ struct NewBluetoothGameView: View {
                         .italic()
                         .font(.body)
                         .fontWeight(.regular)
-                        .foregroundColor(.black)
+                        .foregroundColor(Color("DefaultText"))
                         .padding(.vertical)
                     
                     HStack {

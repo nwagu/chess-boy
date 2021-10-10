@@ -23,10 +23,14 @@ struct BottomSheetView<Content: View>: View {
     let peekHeight: CGFloat
     let content: Content
 
-    @GestureState private var dragHeight: CGFloat = 0
+    @GestureState private var dragGestureState = DragGestureState(dragHeight: 0, backgroundBrightness: 0)
 
     private var offset: CGFloat {
         isOpen ? 0 : maxHeight - peekHeight
+    }
+    
+    private var backgroundBrightness: Double {
+        isOpen ? 1 : 0
     }
 
     private var indicator: some View {
@@ -54,15 +58,18 @@ struct BottomSheetView<Content: View>: View {
         GeometryReader { geometry in
             self.content
                 .frame(width: geometry.size.width, height: self.maxHeight, alignment: .top)
-                .background(Color(.systemBackground))
+                .background(Color("VeryLightGray").brightness(backgroundBrightness - self.dragGestureState.backgroundBrightness))
                 .cornerRadius(Constants.radius)
                 .frame(height: geometry.size.height, alignment: .bottom)
-                .offset(y: max(self.offset + self.dragHeight, 0))
+                .offset(y: max(self.offset + self.dragGestureState.dragHeight, 0))
                 .animation(.interactiveSpring())
                 .gesture(
                     DragGesture()
-                        .updating(self.$dragHeight) { value, dragHeight, _ in
-                            dragHeight = value.translation.height
+                        .updating(self.$dragGestureState) { value, dragGestureState, _ in
+                            dragGestureState = DragGestureState(
+                                dragHeight: value.translation.height,
+                                backgroundBrightness: Double(value.translation.height / self.maxHeight)
+                            )
                         }
                         .onEnded { value in
                             let snapDistance = self.maxHeight * Constants.snapRatio
@@ -74,6 +81,11 @@ struct BottomSheetView<Content: View>: View {
                 )
         }
     }
+}
+
+struct DragGestureState {
+    let dragHeight: CGFloat
+    let backgroundBrightness: Double
 }
 
 struct BottomSheetView_Previews: PreviewProvider {
