@@ -53,9 +53,25 @@ struct ChessBoardView: View {
                     
                     let squareColor = game.board.squareColor(square: square).colorResource()
                     
-                    Rectangle().fill(Color(squareColor))
-                        .frame(maxWidth: .infinity)
-                        .aspectRatio(1, contentMode: .fit)
+                    ZStack {
+                        Rectangle().fill(Color(squareColor))
+                        
+                        if (square == lastMove?.source) {
+                            RoundedRectangle(cornerRadius: 0, style: .continuous).strokeBorder(Color.gray, lineWidth: 1)
+                        }
+
+                        if (square == lastMove?.destination) {
+                            RoundedRectangle(cornerRadius: 0, style: .continuous).strokeBorder(Color.blue, lineWidth: 1)
+                        }
+                        
+                        if ((square == Int32(game.board.blackKingPosition) && game.board.isOnCheck(color: .black)) ||
+                                (square == Int32(game.board.whiteKingPosition) && game.board.isOnCheck(color: .white))
+                        ) {
+                            RoundedRectangle(cornerRadius: 0, style: .continuous).strokeBorder(Color.red, lineWidth: 2)
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
+                    .aspectRatio(1, contentMode: .fit)
                 }
             }
             
@@ -79,20 +95,6 @@ struct ChessBoardView: View {
                             if (possibleMoves.currentValue.map { $0.destination }.contains(square)) {
                                 let color = (occupant is ChessPiece) ? Color.red : Color.gray
                                 Circle().fill(color).padding().transition(AnyTransition.scale).zIndex(2)
-                            }
-                            
-                            if (square == lastMove?.source) {
-                                RoundedRectangle(cornerRadius: 0, style: .continuous).strokeBorder(Color.gray, lineWidth: 1)
-                            }
-
-                            if (square == lastMove?.destination) {
-                                RoundedRectangle(cornerRadius: 0, style: .continuous).strokeBorder(Color.blue, lineWidth: 1)
-                            }
-                            
-                            if ((square == Int32(game.board.blackKingPosition) && game.board.isOnCheck(color: .black)) ||
-                                    (square == Int32(game.board.whiteKingPosition) && game.board.isOnCheck(color: .white))
-                            ) {
-                                RoundedRectangle(cornerRadius: 0, style: .continuous).strokeBorder(Color.red, lineWidth: 2)
                             }
 
                         }
