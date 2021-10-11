@@ -68,7 +68,7 @@ struct PlayView: View {
     private var indicator: some View {
         RoundedRectangle(cornerRadius: 16)
             .fill(Color.orange)
-            .frame(width: 60, height: 4)
+            .frame(width: 40, height: 4)
     }
 }
 

@@ -58,7 +58,7 @@ struct BottomSheetView<Content: View>: View {
         GeometryReader { geometry in
             self.content
                 .frame(width: geometry.size.width, height: self.maxHeight, alignment: .top)
-                .background(Color("VeryLightGray").brightness(backgroundBrightness - self.dragGestureState.backgroundBrightness))
+                .background(Color("PrimaryLight")) //.lightenByMode(by: CGFloat((backgroundBrightness - self.dragGestureState.backgroundBrightness)) * 100))
                 .cornerRadius(Constants.radius)
                 .frame(height: geometry.size.height, alignment: .bottom)
                 .offset(y: max(self.offset + self.dragGestureState.dragHeight, 0))

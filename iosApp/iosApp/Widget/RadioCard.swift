@@ -19,8 +19,8 @@ struct RadioCard: View {
     var body: some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)) {
             RoundedRectangle(cornerRadius: cornerRadius)
-                .strokeBorder((isSelected) ? Color(ColorsKt.getPrimaryColor()) : Color.gray, lineWidth: 1)
-                .background(RoundedRectangle(cornerRadius: cornerRadius).fill((isSelected) ? Color(ColorsKt.getPrimaryColorLight()) : Color.white))
+                .strokeBorder((isSelected) ? Color(ColorsKt.getPrimaryColor()) : Color("DefaultText"), lineWidth: 1)
+                .background(RoundedRectangle(cornerRadius: cornerRadius).fill((isSelected) ? Color(ColorsKt.getPrimaryColorLight()) : Color.clear))
 
             VStack {
                 Text(text)
