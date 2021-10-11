@@ -12,27 +12,33 @@ import sharedmodels
 typealias SavedGame = GameHistory
 
 struct HistoryView: View {
-    @EnvironmentObject var viewRouter: ViewRouter
     @EnvironmentObject var environment: ChessBoyEnvironment
+    
+    @State private var showingDeleteGameActionSheet = false
+    @State private var gameIdToDelete: Int64? = nil
     
     @State var games: [SavedGame] = []
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            TopBar(title: "History")
             List {
                 ForEach(games, id: \.self.gameId) { game in
                     itemView(of: game)
-                        .onTapGesture {
-                            withAnimation {
-                                environment.gameAnalysisViewModel.savedGame = game
-                                viewRouter.navigate(screen: .gameAnalysis)
-                            }
-                        }
+                        .swipeActions(edge: .trailing) {
+                                    Button {
+                                        gameIdToDelete = game.id
+                                        showingDeleteGameActionSheet = true
+                                    } label: {
+                                        Label("Delete", systemImage: "trash.fill")
+                                    }
+                                    .tint(.red)
+                         
+                                }
                 }
             }
             Spacer()
         }
+        .navigationBarTitle("History", displayMode: .inline)
         .onAppear {
             games = environment.getGamesHistory()
         }
@@ -43,12 +49,23 @@ struct HistoryView: View {
             maxHeight: .infinity,
             alignment: .topLeading
         )
-        .padding()
+        .actionSheet(isPresented: $showingDeleteGameActionSheet) {
+            ActionSheet(title: Text("Confirm delete"), buttons: [
+                .default(Text("Delete")) {
+                    environment.mainViewModel.gamesHistoryRepository.deleteGame(id: gameIdToDelete ?? -1)
+                    games = environment.getGamesHistory()
+                },
+                .cancel() {  }
+            ])
+        }
     }
     
     private func itemView(of game: SavedGame) -> some View {
         let whitePlayer = PGNKt.getHeaderValueFromPgn(name: PGNKt.PGN_HEADER_WHITE_PLAYER, pgn: game.pgn) ?? ""
         let blackPlayer = PGNKt.getHeaderValueFromPgn(name: PGNKt.PGN_HEADER_BLACK_PLAYER, pgn: game.pgn) ?? ""
-        return Text("\(whitePlayer)(W) vs \(blackPlayer)(B)").padding()
+        return NavigationLink(destination: GameAnalysisView(game: game)) {
+            Text("\(whitePlayer)(W) vs \(blackPlayer)(B)").padding()
+                .listRowSeparator(.hidden)
+        }
     }
 }

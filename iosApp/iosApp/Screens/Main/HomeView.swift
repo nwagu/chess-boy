@@ -5,29 +5,29 @@ struct HomeView: View {
     @EnvironmentObject var viewRouter: ViewRouter
     @EnvironmentObject var environment: ChessBoyEnvironment
     
-    var playActions: [ViewAction] {
+    var playActionViews: [IdentifiableView] {
         [
-            ViewAction(
-                displayName: "Continue current game",
-                action: { withAnimation { viewRouter.showPlayScreen() } }
-            ),
-            ViewAction(
-                displayName: "New game",
-                action: { withAnimation { viewRouter.navigate(screen: .newGame) } }
-            ),
-            ViewAction(
-                displayName: "New bluetooth game",
-                action: { withAnimation { viewRouter.navigate(screen: .newBluetoothGame) } }
-            )
+            IdentifiableView(view: AnyView(QuickActionView(
+                text: "Continue current game",
+                onClickAction: { environment.showPlayScreen() }
+            ))),
+            IdentifiableView(view: AnyView(QuickActionNavigationView(
+                text: "New game",
+                destination: AnyView(NewGameView())
+            ))),
+            IdentifiableView(view: AnyView(QuickActionNavigationView(
+                text: "New bluetooth game",
+                destination: AnyView(NewBluetoothGameView())
+            )))
         ]
     }
     
-    var historyActions: [ViewAction] {
+    var historyActionViews: [IdentifiableView] {
         [
-            ViewAction(
-                displayName: "Recent games",
-                action: { withAnimation { viewRouter.navigate(screen: .history) } }
-            )
+            IdentifiableView(view: AnyView(QuickActionNavigationView(
+                text: "Recent games",
+                destination: AnyView(HistoryView())
+            )))
         ]
     }
     
@@ -46,20 +46,16 @@ struct HomeView: View {
                     .fontWeight(.semibold)
                     .foregroundColor(.orange)
                     .padding(.top)
-                WrappingHStack(models: playActions) { playAction in
-                    QuickActionView(text: playAction.displayName) {
-                        playAction.action()
-                    }
+                WrappingHStack(models: playActionViews) { playActionView in
+                    playActionView.view
                 }
                 Text("History")
                     .font(.headline)
                     .fontWeight(.semibold)
                     .foregroundColor(.orange)
                     .padding(.top)
-                WrappingHStack(models: historyActions) { historyAction in
-                    QuickActionView(text: historyAction.displayName) {
-                        historyAction.action()
-                    }
+                WrappingHStack(models: historyActionViews) { historyActionView in
+                    historyActionView.view
                 }
                 
                 Spacer()

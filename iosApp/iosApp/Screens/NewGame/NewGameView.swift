@@ -34,11 +34,10 @@ struct NewGameView: View {
         VStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 0) {
-                    TopBar(title: "Start a new game against computer")
                     Text("Choose your side")
                         .font(.subheadline)
                         .fontWeight(.semibold)
-                        .foregroundColor(.black)
+                        .foregroundColor(Color("DefaultText"))
                         .padding(.vertical)
                     
                     WrappingHStack(models: options) { option in
@@ -52,7 +51,7 @@ struct NewGameView: View {
                     Text("Select opponent")
                         .font(.subheadline)
                         .fontWeight(.semibold)
-                        .foregroundColor(.black)
+                        .foregroundColor(Color("DefaultText"))
                         .padding(.vertical)
                     PlayerSelect(
                         players: newGameViewModel.opponents,
@@ -76,13 +75,14 @@ struct NewGameView: View {
                 if let players = newGameViewModel.getSelectedPlayers() {
                     environment.startNewGame(whitePlayer: players.first!, blackPlayer: players.second!)
                     viewRouter.navigateUp()
-                    viewRouter.showPlayScreen()
+                    environment.showPlayScreen()
                 }
             }, label: {
                 Text("Start Game")
             })
             .padding(.bottom)
         }
+        .navigationBarTitle("Start a new game against computer", displayMode: .inline)
     }
 }
 

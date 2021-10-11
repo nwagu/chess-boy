@@ -1,8 +1,8 @@
 //
-//  CardView.swift
+//  QuickActionView.swift
 //  iosApp
 //
-//  Created by Chukwuemeka Nwagu on 27/06/2021.
+//  Created by Chukwuemeka Nwagu on 08/10/2021.
 //  Copyright © 2021 Chukwuemeka Nwagu. All rights reserved.
 //
 
@@ -20,7 +20,7 @@ struct QuickActionView: View {
             VStack {
                 Text(text)
                     .font(.body)
-                    .foregroundColor(.black)
+                    .foregroundColor(Color("DefaultText"))
             }
             .padding(8)
             .multilineTextAlignment(.leading)
@@ -36,6 +36,6 @@ struct QuickActionView: View {
 
 struct QuickActionView_Previews: PreviewProvider {
     static var previews: some View {
-        QuickActionView(text: "Hello") { }
+        QuickActionView(text: "Hello") { AnyView(Text("Hello again")) }
     }
 }

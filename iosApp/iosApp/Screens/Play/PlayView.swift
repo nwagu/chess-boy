@@ -10,7 +10,6 @@ import SwiftUI
 import sharedmodels
 
 struct PlayView: View {
-    @EnvironmentObject var viewRouter: ViewRouter
     
     private let playViewModel: PlayViewModel
     @ObservedObject private var gameChanged: Collector<Int32>
@@ -28,19 +27,17 @@ struct PlayView: View {
             VStack(alignment: .leading, spacing: 0) {
                 VStack(alignment: .center, spacing: 0) {
                     HStack {
-                        Spacer()
                         indicator
                         Spacer()
                     }
                     HStack {
                         Text(playViewModel.game.title)
+                            .foregroundColor(Color("DefaultText"))
                         Spacer()
                     }
                     .frame(height: 60, alignment: .center)
                 }
-                .onTapGesture {
-                    viewRouter.showPlayScreen()
-                }
+                .padding()
                 ScrollView {
                     VStack(alignment: .leading, spacing: 0) {
                         PlayerDisplay(playViewModel: playViewModel, color: playViewModel.game.colorOnUserSideOfBoard.opposite()).padding(16)
@@ -50,20 +47,20 @@ struct PlayView: View {
                     }
                     Spacer()
                 }
-            }
-            .frame(
-                minWidth: 0,
-                maxWidth: .infinity,
-                minHeight: 0,
-                maxHeight: .infinity,
-                alignment: .topLeading
-            )
-            .padding()
-            .actionSheet(isPresented: $showPromotionDialog) {
-                selectPromotionPiecePrompt(playViewModel: playViewModel)
-            }
-            .onReceive(pendingPromotion.$currentValue) { promotion in
-                showPromotionDialog = (promotion != nil)
+                .frame(
+                    minWidth: 0,
+                    maxWidth: .infinity,
+                    minHeight: 0,
+                    maxHeight: .infinity,
+                    alignment: .topLeading
+                )
+                .padding()
+                .actionSheet(isPresented: $showPromotionDialog) {
+                    selectPromotionPiecePrompt(playViewModel: playViewModel)
+                }
+                .onReceive(pendingPromotion.$currentValue) { promotion in
+                    showPromotionDialog = (promotion != nil)
+                }
             }
         }
     }
@@ -71,7 +68,7 @@ struct PlayView: View {
     private var indicator: some View {
         RoundedRectangle(cornerRadius: 16)
             .fill(Color.orange)
-            .frame(width: 60, height: 4)
+            .frame(width: 40, height: 4)
     }
 }
 
