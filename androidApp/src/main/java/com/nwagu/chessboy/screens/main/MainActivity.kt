@@ -17,6 +17,9 @@ import com.nwagu.bluetoothchat.BluetoothChatService
 import com.nwagu.chess.model.Player
 import com.nwagu.chessboy.sharedmodels.presentation.*
 
+@ExperimentalMaterialApi
+@ExperimentalAnimationApi
+@ExperimentalFoundationApi
 class MainActivity : AppCompatActivity() {
 
     val mainViewModel: MainViewModel by viewModels { createViewModelFactory { MainViewModel() } }
@@ -27,9 +30,6 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var screenConfig: ScreenConfig
 
-    @ExperimentalMaterialApi
-    @ExperimentalAnimationApi
-    @ExperimentalFoundationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
