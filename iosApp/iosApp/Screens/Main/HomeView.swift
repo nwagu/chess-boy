@@ -2,7 +2,6 @@ import SwiftUI
 import sharedmodels
 
 struct HomeView: View {
-    @EnvironmentObject var viewRouter: ViewRouter
     @EnvironmentObject var environment: ChessBoyEnvironment
     
     var playActionViews: [IdentifiableView] {
@@ -74,6 +73,6 @@ struct HomeView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView().environmentObject(ViewRouter())
+        HomeView()
     }
 }

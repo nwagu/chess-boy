@@ -10,8 +10,8 @@ import SwiftUI
 import sharedmodels
 
 struct NewGameView: View {
-    @EnvironmentObject var viewRouter: ViewRouter
     @EnvironmentObject var environment: ChessBoyEnvironment
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     private let newGameViewModel = NewGameViewModel()
     @ObservedObject private var selectedColor: Collector<ChessPieceColor?>
@@ -74,7 +74,7 @@ struct NewGameView: View {
             Button(action: {
                 if let players = newGameViewModel.getSelectedPlayers() {
                     environment.startNewGame(whitePlayer: players.first!, blackPlayer: players.second!)
-                    viewRouter.navigateUp()
+                    self.presentationMode.wrappedValue.dismiss()
                     environment.showPlayScreen()
                 }
             }, label: {

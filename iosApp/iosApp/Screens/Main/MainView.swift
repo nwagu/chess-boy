@@ -13,19 +13,22 @@ struct MainView: View {
     
     var body: some View {
             GeometryReader { geometry in
-                NavigationView {
-                    HomeView()
-                        .navigationBarTitle("")
-                        .navigationBarHidden(true)
-                }
-                .navigationViewStyle(StackNavigationViewStyle())
-                .padding(.bottom, 64)
-                BottomSheetView(
-                    isOpen: self.$environment.playScreenUp,
-                    maxHeight: geometry.size.height,
-                    peekHeight: 64
-                ) {
-                    PlayView(playViewModel: environment.playViewModel)
+                ZStack {
+                    NavigationView {
+                        HomeView()
+                            .navigationBarTitle("")
+                            .navigationBarHidden(true)
+                    }
+                    .navigationViewStyle(StackNavigationViewStyle())
+                    .padding(.bottom, 64)
+                    
+                    BottomSheetView(
+                        isOpen: self.$environment.playScreenUp,
+                        maxHeight: geometry.size.height,
+                        peekHeight: 64
+                    ) {
+                        PlayView(playViewModel: environment.playViewModel)
+                    }
                 }
             }
         }
@@ -33,6 +36,6 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView().environmentObject(ViewRouter())
+        MainView()
     }
 }

@@ -20,9 +20,7 @@
 		B3A6A3AF26982D1A0097FC27 /* RadioCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3A6A3AE26982D1A0097FC27 /* RadioCard.swift */; };
 		B3AB01F0270A0906005AECDB /* BottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3AB01EF270A0906005AECDB /* BottomSheetView.swift */; };
 		B3B0496A2695654600CBA1D0 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B049692695654600CBA1D0 /* MainView.swift */; };
-		B3B0497426956A1300CBA1D0 /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B0497326956A1300CBA1D0 /* ViewRouter.swift */; };
 		B3B0497626956A2400CBA1D0 /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B0497526956A2400CBA1D0 /* Screen.swift */; };
-		B3B0497D269587FA00CBA1D0 /* TopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B0497C269587FA00CBA1D0 /* TopBar.swift */; };
 		B3D1481827143F5800F12BBC /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D1481727143F5800F12BBC /* ColorExtensions.swift */; };
 		B3D1481A27144AB300F12BBC /* GeneralUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D1481927144AB300F12BBC /* GeneralUtils.swift */; };
 		B3D1481C27144BF400F12BBC /* QuickActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D1481B27144BF400F12BBC /* QuickActionView.swift */; };
@@ -61,9 +59,7 @@
 		B3A6A3AE26982D1A0097FC27 /* RadioCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioCard.swift; sourceTree = "<group>"; };
 		B3AB01EF270A0906005AECDB /* BottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetView.swift; sourceTree = "<group>"; };
 		B3B049692695654600CBA1D0 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		B3B0497326956A1300CBA1D0 /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
 		B3B0497526956A2400CBA1D0 /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
-		B3B0497C269587FA00CBA1D0 /* TopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBar.swift; sourceTree = "<group>"; };
 		B3D1481727143F5800F12BBC /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 		B3D1481927144AB300F12BBC /* GeneralUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralUtils.swift; sourceTree = "<group>"; };
 		B3D1481B27144BF400F12BBC /* QuickActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionView.swift; sourceTree = "<group>"; };
@@ -144,7 +140,6 @@
 				B3F082C72688544800038199 /* QuickActionNavigationView.swift */,
 				B3D1481B27144BF400F12BBC /* QuickActionView.swift */,
 				B3F305FA269326DF00D6DDAD /* PlayerDisplay.swift */,
-				B3B0497C269587FA00CBA1D0 /* TopBar.swift */,
 				B3A6A3AE26982D1A0097FC27 /* RadioCard.swift */,
 				B36AA61A2698EA720016E7FA /* WrappingHStack.swift */,
 				B36AA61E26997FCB0016E7FA /* PlayerSelect.swift */,
@@ -216,7 +211,6 @@
 		B3B04972269569FC00CBA1D0 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
-				B3B0497326956A1300CBA1D0 /* ViewRouter.swift */,
 				B3B0497526956A2400CBA1D0 /* Screen.swift */,
 			);
 			path = Navigation;
@@ -385,7 +379,6 @@
 				B3DB685E2696953900EDB094 /* Stack.swift in Sources */,
 				B36AA61B2698EA720016E7FA /* WrappingHStack.swift in Sources */,
 				B3F305FB269326DF00D6DDAD /* PlayerDisplay.swift in Sources */,
-				B3B0497426956A1300CBA1D0 /* ViewRouter.swift in Sources */,
 				B36AA61D26990D080016E7FA /* SideChoice.swift in Sources */,
 				B3D1481C27144BF400F12BBC /* QuickActionView.swift in Sources */,
 				B3F1B83E26A6FD4700565E14 /* Collector.swift in Sources */,
@@ -407,7 +400,6 @@
 				B340FC6126A8008300167C39 /* SelectPromotionPiecePrompt.swift in Sources */,
 				B3F082C22687D5D800038199 /* NewGameView.swift in Sources */,
 				B3F082CE2688A07200038199 /* PlayView.swift in Sources */,
-				B3B0497D269587FA00CBA1D0 /* TopBar.swift in Sources */,
 				B3D1481A27144AB300F12BBC /* GeneralUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
