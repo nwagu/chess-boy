@@ -6,6 +6,9 @@ import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.content.Intent
 import android.content.IntentFilter
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.core.app.ActivityCompat.startActivityForResult
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
@@ -19,6 +22,9 @@ import com.nwagu.chessboy.screens.main.MainActivity
 import com.nwagu.chessboy.sharedmodels.presentation.ScanState
 import timber.log.Timber
 
+@ExperimentalMaterialApi
+@ExperimentalAnimationApi
+@ExperimentalFoundationApi
 class BluetoothController(
     private val context: Activity
 ) {

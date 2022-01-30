@@ -1,17 +1,17 @@
 plugins {
     id("com.android.application")
     kotlin("android")
-    kotlin("plugin.serialization") version "1.5.0"
+    kotlin("plugin.serialization") version "1.6.10"
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
 }
 
 android {
-    compileSdk = 30
+    compileSdk = 32
     defaultConfig {
         applicationId = "com.nwagu.android.chessboy"
         minSdk = 21
-        targetSdk = 30
+        targetSdk = 32
         versionCode = 18
         versionName = "3.6.2"
     }
@@ -31,6 +31,11 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+        freeCompilerArgs += listOf(
+//            "-P",
+//            "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true",
+            "-Xjvm-default=enable"
+        )
     }
     composeOptions {
         kotlinCompilerExtensionVersion = Versions.compose_version
@@ -40,11 +45,11 @@ android {
 dependencies {
     implementation(project(":sharedmodels"))
 
-    implementation("com.google.android.material:material:1.4.0")
-    implementation("androidx.appcompat:appcompat:1.3.1")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.0")
-    implementation("androidx.activity:activity-compose:1.3.1")
-    implementation("androidx.fragment:fragment-ktx:1.3.6")
+    implementation("com.google.android.material:material:1.5.0")
+    implementation("androidx.appcompat:appcompat:1.4.1")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.3")
+    implementation("androidx.activity:activity-compose:1.4.0")
+    implementation("androidx.fragment:fragment-ktx:1.4.1")
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.1")
 
@@ -55,7 +60,7 @@ dependencies {
     implementation("androidx.compose.foundation:foundation-layout:${Versions.compose_version}")
     implementation("androidx.compose.material:material:${Versions.compose_version}")
     implementation("androidx.compose.animation:animation:${Versions.compose_version}")
-    implementation("androidx.navigation:navigation-compose:2.4.0-alpha06")
+    implementation("androidx.navigation:navigation-compose:2.5.0-alpha01")
 
     implementation(platform("com.google.firebase:firebase-bom:28.0.1"))
     implementation("com.google.firebase:firebase-analytics-ktx")

@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavType
 import androidx.navigation.compose.*
+import androidx.navigation.navArgument
 import com.nwagu.chessboy.screens.analysis.ConfirmDeletePrompt
 import com.nwagu.chessboy.screens.analysis.GameAnalysisView
 import com.nwagu.chessboy.screens.history.HistoryView
