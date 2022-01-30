@@ -1,11 +1,14 @@
 package com.nwagu.chessboy.screens.play
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,6 +27,9 @@ import com.nwagu.chess.model.Promotion
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
+@ExperimentalMaterialApi
+@ExperimentalAnimationApi
+@ExperimentalFoundationApi
 @Composable
 fun SelectPromotionPiecePrompt(
     navHostController: NavHostController,

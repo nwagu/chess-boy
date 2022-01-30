@@ -15,7 +15,8 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="com.nwagu.chessboy.screens.main.MainActivity">
+            android:name="com.nwagu.chessboy.screens.main.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

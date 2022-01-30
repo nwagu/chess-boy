@@ -1,10 +1,8 @@
 package com.nwagu.chessboy.screens.main
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.BottomSheetScaffoldState
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
@@ -27,6 +25,8 @@ import com.nwagu.chessboy.sharedmodels.utils.isBluetoothGame
 import kotlinx.coroutines.launch
 
 @ExperimentalMaterialApi
+@ExperimentalAnimationApi
+@ExperimentalFoundationApi
 @Composable
 fun HomeView(
     bottomSheetScaffoldState: BottomSheetScaffoldState,
