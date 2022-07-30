@@ -39,7 +39,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0-native-mt")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
                 api(project(":bluetoothchat"))
                 api(project(":chess"))
                 implementation("com.squareup.sqldelight:runtime:${Versions.sql_delight_version}")
@@ -56,8 +56,8 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation("androidx.core:core:1.6.0")
-                implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
+                implementation("androidx.core:core:1.8.0")
+                implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
                 implementation("com.squareup.sqldelight:android-driver:${Versions.sql_delight_version}")
             }
         }
