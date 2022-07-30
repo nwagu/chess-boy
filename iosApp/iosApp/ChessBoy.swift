@@ -13,7 +13,6 @@ import Firebase
 @main
 struct ChessBoy: App {
     
-    @StateObject var viewRouter = ViewRouter()
     @StateObject var environment = ChessBoyEnvironment()
     
     init() {        
@@ -23,7 +22,6 @@ struct ChessBoy: App {
     var body: some Scene {
         WindowGroup {
             MainView()
-                .environmentObject(viewRouter)
                 .environmentObject(environment)
                 .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification), perform: { _ in
                     environment.saveCurrentGame()
