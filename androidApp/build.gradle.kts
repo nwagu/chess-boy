@@ -7,13 +7,13 @@ plugins {
 }
 
 android {
-    compileSdk = 32
+    compileSdk = 33
     defaultConfig {
         applicationId = "com.nwagu.android.chessboy"
         minSdk = 21
-        targetSdk = 32
-        versionCode = 18
-        versionName = "3.6.2"
+        targetSdk = 33
+        versionCode = 19
+        versionName = "3.6.3"
     }
     buildTypes {
         getByName("release") {
