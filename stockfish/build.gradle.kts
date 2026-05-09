@@ -37,6 +37,7 @@ kotlin {
 android {
     namespace = "com.nwagu.chessboy.stockfish"
     compileSdk = 37
+    ndkVersion = "27.3.13750724"
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
@@ -46,7 +47,7 @@ android {
         externalNativeBuild {
             cmake {
                 abiFilters += listOf("x86", "x86_64", "armeabi-v7a", "arm64-v8a")
-                arguments += listOf("-DANDROID_TOOLCHAIN=clang", "-DANDROID_STL=c++_static")
+                arguments += listOf("-DANDROID_TOOLCHAIN=clang", "-DANDROID_STL=c++_static", "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON")
                 cppFlags += listOf("-std=c++11 -frtti -fexceptions -DNDEBUG")
             }
         }
