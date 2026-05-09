@@ -1,17 +1,19 @@
 plugins {
-    id("com.android.application")
-    kotlin("android")
-    kotlin("plugin.serialization") version "1.6.10"
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
-    compileSdk = 33
+    namespace = "com.nwagu.chessboy"
+    compileSdk = 37
     defaultConfig {
         applicationId = "com.nwagu.android.chessboy"
-        minSdk = 21
-        targetSdk = 33
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 19
         versionName = "3.6.3"
     }
@@ -21,53 +23,47 @@ android {
         }
     }
     buildFeatures {
-        // Enables Jetpack Compose for this module
         compose = true
     }
-    // Set both the Java and Kotlin compilers to target Java 8.
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
-        freeCompilerArgs += listOf(
-//            "-P",
-//            "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true",
-            "-Xjvm-default=enable"
-        )
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = Versions.compose_version
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
+            allWarningsAsErrors.set(false)
+        }
     }
 }
 
 dependencies {
     implementation(project(":sharedmodels"))
 
-    implementation("com.google.android.material:material:1.5.0")
-    implementation("androidx.appcompat:appcompat:1.4.1")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.3")
-    implementation("androidx.activity:activity-compose:1.4.0")
-    implementation("androidx.fragment:fragment-ktx:1.4.1")
+    implementation(libs.google.material)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.fragment.ktx)
 
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.1")
+    implementation(libs.kotlinx.serialization.json)
 
-    implementation("androidx.compose.runtime:runtime:${Versions.compose_version}")
-    implementation("androidx.compose.runtime:runtime-livedata:${Versions.compose_version}")
-    implementation("androidx.compose.ui:ui-tooling:${Versions.compose_version}")
-    implementation("androidx.compose.foundation:foundation:${Versions.compose_version}")
-    implementation("androidx.compose.foundation:foundation-layout:${Versions.compose_version}")
-    implementation("androidx.compose.material:material:${Versions.compose_version}")
-    implementation("androidx.compose.animation:animation:${Versions.compose_version}")
-    implementation("androidx.navigation:navigation-compose:2.5.0-alpha01")
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.runtime)
+    implementation(libs.androidx.compose.runtime.livedata)
+    implementation(libs.androidx.compose.ui.tooling)
+    implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.compose.foundation.layout)
+    implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.compose.material.icons.extended)
+    implementation(libs.androidx.compose.animation)
+    implementation(libs.androidx.navigation.compose)
 
-    implementation(platform("com.google.firebase:firebase-bom:28.0.1"))
-    implementation("com.google.firebase:firebase-analytics-ktx")
-    implementation("com.google.firebase:firebase-crashlytics-ktx")
-    implementation("com.google.firebase:firebase-database-ktx")
+    implementation(platform(libs.google.firebase.bom))
+    implementation(libs.google.firebase.analytics.ktx)
+    implementation(libs.google.firebase.crashlytics.ktx)
+    implementation(libs.google.firebase.database.ktx)
 
-    implementation("com.karumi:dexter:6.2.2")
-    implementation("com.jakewharton.timber:timber:4.7.1")
-
+    implementation(libs.dexter)
+    implementation(libs.timber)
 }

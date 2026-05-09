@@ -1,18 +1,11 @@
 package com.nwagu.chessboy.sharedmodels.players
 
+import com.nwagu.chess.model.Board
+import com.nwagu.chess.model.Move
 import com.nwagu.chess.representation.getFen
-import com.nwagu.chess.model.*
-import com.nwagu.chessboy.sharedmodels.R
+import com.nwagu.chessboy.shared.R
 import com.nwagu.chessboy.sharedmodels.resources.ImageRes
-import jwtc.chess.BoardConstants
 import jwtc.chess.JNI
-import jwtc.chess.Move.getFrom
-import jwtc.chess.Move.getPromotionPiece
-import jwtc.chess.Move.getTo
-import jwtc.chess.Move.isEP
-import jwtc.chess.Move.isOO
-import jwtc.chess.Move.isOOO
-import jwtc.chess.Move.isPromotionMove
 import kotlinx.coroutines.flow.MutableStateFlow
 
 // TODO move parameters that have same values to common sourceset

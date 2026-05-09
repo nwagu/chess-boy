@@ -1,11 +1,17 @@
 package com.nwagu.chessboy.screens.play
 
+import androidx.activity.compose.LocalActivity
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
@@ -14,17 +20,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.nwagu.chessboy.R
-import com.nwagu.chessboy.util.Utils
 import com.nwagu.chess.model.ChessPieceType
 import com.nwagu.chess.model.Promotion
-import kotlinx.serialization.decodeFromString
+import com.nwagu.chessboy.screens.main.MainActivity
+import com.nwagu.chessboy.shared.R
 import kotlinx.serialization.json.Json
 
 @ExperimentalMaterialApi
@@ -36,7 +40,7 @@ fun SelectPromotionPiecePrompt(
     pendingMoveStr: String
 ) {
 
-    val context = Utils.unwrap(LocalContext.current)
+    val context = LocalActivity.current as MainActivity
     val playViewModel = context.playViewModel
 
     fun setPromotionPieceAndMakeMove(promotionPieceType: ChessPieceType) {

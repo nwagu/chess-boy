@@ -1,14 +1,29 @@
 package com.nwagu.chessboy.screens.play
 
 import android.content.res.Configuration
+import androidx.activity.compose.LocalActivity
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.foundation.*
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
@@ -19,28 +34,29 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.nwagu.chessboy.bluetooth.BluetoothController
-import com.nwagu.chessboy.model.ViewAction
-import com.nwagu.chessboy.model.ScreenConfig
-import com.nwagu.chessboy.screens.main.MainActivity
-import com.nwagu.chessboy.widgets.ChessBoardView
-import com.nwagu.chessboy.widgets.LightActionView
-import com.nwagu.chessboy.widgets.PlayerDisplay
-import com.nwagu.bluetoothchat.ConnectionState.*
+import com.nwagu.bluetoothchat.ConnectionState.CONNECTED
+import com.nwagu.bluetoothchat.ConnectionState.CONNECTING
+import com.nwagu.bluetoothchat.ConnectionState.LISTENING
+import com.nwagu.bluetoothchat.ConnectionState.NONE
 import com.nwagu.chess.model.ChessPieceColor
 import com.nwagu.chess.model.opposite
+import com.nwagu.chessboy.bluetooth.BluetoothController
+import com.nwagu.chessboy.model.ScreenConfig
+import com.nwagu.chessboy.model.ViewAction
+import com.nwagu.chessboy.screens.main.MainActivity
 import com.nwagu.chessboy.screens.navigation.Dialog
 import com.nwagu.chessboy.sharedmodels.players.BluetoothPlayer
 import com.nwagu.chessboy.sharedmodels.presentation.PlayViewModel
 import com.nwagu.chessboy.sharedmodels.utils.colorOnUserSideOfBoard
 import com.nwagu.chessboy.sharedmodels.utils.isBluetoothGame
 import com.nwagu.chessboy.sharedmodels.utils.userColor
-import kotlinx.serialization.encodeToString
+import com.nwagu.chessboy.widgets.ChessBoardView
+import com.nwagu.chessboy.widgets.LightActionView
+import com.nwagu.chessboy.widgets.PlayerDisplay
 import kotlinx.serialization.json.Json
 
 @ExperimentalMaterialApi
@@ -51,7 +67,7 @@ fun PlayView(
     navHostController: NavHostController
 ) {
 
-    val context = LocalContext.current as MainActivity
+    val context = LocalActivity.current as MainActivity
     val screenConfig = context.screenConfig
     val viewModel = context.playViewModel
     val bluetoothController = BluetoothController(context)

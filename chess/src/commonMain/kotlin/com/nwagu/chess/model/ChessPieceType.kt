@@ -25,7 +25,7 @@ fun chessPieceTypeWithSanSymbol(sanSymbol: String): ChessPieceType {
 }
 
 fun chessPieceTypeWithFenSymbol(fenSymbol: String): ChessPieceType {
-    return when(fenSymbol.toUpperCase()) {
+    return when(fenSymbol.uppercase()) {
         ChessPieceType.QUEEN.fenSymbol -> ChessPieceType.QUEEN
         ChessPieceType.KING.fenSymbol -> ChessPieceType.KING
         ChessPieceType.KNIGHT.fenSymbol -> ChessPieceType.KNIGHT

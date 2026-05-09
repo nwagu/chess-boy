@@ -1,29 +1,22 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-
 plugins {
-    kotlin("multiplatform")
-    kotlin("native.cocoapods")
-    id("com.android.library")
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.kotlin.cocoapods)
+    alias(libs.plugins.android.library)
 }
 
 version = "1.0"
 
 kotlin {
-    android()
+    androidTarget()
 
-    val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget =
-        if (System.getenv("SDK_NAME")?.startsWith("iphoneos") == true)
-            ::iosArm64
-        else
-            ::iosX64
-
-    iosTarget("ios") {}
+    iosArm64()
+    iosX64()
+    iosSimulatorArm64()
 
     cocoapods {
         summary = "Some description for the Shared Module"
         homepage = "Link to the Shared Module homepage"
         ios.deploymentTarget = "14.1"
-        frameworkName = "stockfish"
         podfile = project.file("../iosApp/Podfile")
     }
 
@@ -35,33 +28,21 @@ kotlin {
         }
         val commonTest by getting {
             dependencies {
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
+                implementation(kotlin("test"))
             }
         }
-        val androidMain by getting {
-            dependencies {
-                //
-            }
-        }
-        val androidTest by getting {
-            dependencies {
-                implementation(kotlin("test-junit"))
-                implementation("junit:junit:4.13.2")
-            }
-        }
-        val iosMain by getting
-        val iosTest by getting
     }
 }
 
 android {
-    compileSdk = 30
-    ndkVersion = "21.0.6113669"
+    namespace = "com.nwagu.chessboy.stockfish"
+    compileSdk = 37
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
-        minSdk = 16
-        targetSdk = 30
+        minSdk = libs.versions.minSdk.get().toInt()
+        testOptions {
+            targetSdk = libs.versions.targetSdk.get().toInt()
+        }
         externalNativeBuild {
             cmake {
                 abiFilters += listOf("x86", "x86_64", "armeabi-v7a", "arm64-v8a")
@@ -76,11 +57,7 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
-}
-
-project.afterEvaluate {
-    tasks["javaPreCompileDebug"].dependsOn(tasks["externalNativeBuildDebug"])
 }

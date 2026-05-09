@@ -3,13 +3,22 @@ package com.nwagu.chessboy.sharedmodels.presentation
 import com.nwagu.bluetoothchat.BluetoothChatService
 import com.nwagu.bluetoothchat.ChatListener
 import com.nwagu.bluetoothchat.ConnectionState
-import com.nwagu.chess.gamelogic.*
+import com.nwagu.chess.gamelogic.move
 import com.nwagu.chess.gamelogic.moves.getPossibleMovesFrom
-import com.nwagu.chess.model.*
-import com.nwagu.chess.representation.*
+import com.nwagu.chess.gamelogic.squareContainsChessPieceColored
+import com.nwagu.chess.gamelogic.turn
+import com.nwagu.chess.gamelogic.undoMove
+import com.nwagu.chess.model.ChessPieceColor
+import com.nwagu.chess.model.Game
+import com.nwagu.chess.model.Move
+import com.nwagu.chess.model.Promotion
+import com.nwagu.chess.model.Square
 import com.nwagu.chessboy.sharedmodels.bluetooth.BluetoothMessage
 import com.nwagu.chessboy.sharedmodels.bluetooth.parseMessage
-import com.nwagu.chessboy.sharedmodels.players.*
+import com.nwagu.chessboy.sharedmodels.players.BluetoothPlayer
+import com.nwagu.chessboy.sharedmodels.players.MoveGenerator
+import com.nwagu.chessboy.sharedmodels.players.UCIChessEngine
+import com.nwagu.chessboy.sharedmodels.players.User
 import com.nwagu.chessboy.sharedmodels.utils.initPlayers
 import com.nwagu.chessboy.sharedmodels.utils.isBluetoothGame
 import com.nwagu.chessboy.sharedmodels.utils.isUserTurn
@@ -217,6 +226,7 @@ class PlayViewModel: BaseViewModel() {
                     delay(100)
                     updateBoardUI()
                 }
+                else -> { }
             }
         }
     }
@@ -305,6 +315,7 @@ class PlayViewModel: BaseViewModel() {
                     BluetoothMessage.UndoRequest -> {
                         showToast("Undo request received")
                     }
+                    else -> { }
                 }
             }
 

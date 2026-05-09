@@ -1,8 +1,18 @@
 package com.nwagu.chessboy.screens.main
 
+import androidx.activity.compose.LocalActivity
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.*
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.BottomSheetScaffoldState
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
@@ -11,17 +21,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.nwagu.chessboy.R
-import com.nwagu.chessboy.screens.navigation.Screen
 import com.nwagu.chessboy.model.ViewAction
+import com.nwagu.chessboy.screens.navigation.Screen
+import com.nwagu.chessboy.shared.R
+import com.nwagu.chessboy.sharedmodels.utils.isBluetoothGame
 import com.nwagu.chessboy.widgets.Header
 import com.nwagu.chessboy.widgets.QuickActionView
 import com.nwagu.chessboy.widgets.WrappingRow
-import com.nwagu.chessboy.sharedmodels.utils.isBluetoothGame
 import kotlinx.coroutines.launch
 
 @ExperimentalMaterialApi
@@ -33,7 +42,7 @@ fun HomeView(
     navHostController: NavHostController
 ) {
 
-    val context = LocalContext.current as MainActivity
+    val context = LocalActivity.current as MainActivity
     val playViewModel = context.playViewModel
 
     val coroutineScope = rememberCoroutineScope()

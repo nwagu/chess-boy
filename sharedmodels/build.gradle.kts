@@ -1,92 +1,78 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-
 plugins {
-    kotlin("multiplatform")
-    kotlin("native.cocoapods")
-    id("com.android.library")
-    id("com.squareup.sqldelight")
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.kotlin.cocoapods)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.sqldelight)
 }
 
 version = "1.0"
 
 kotlin {
-    android()
+    androidTarget()
 
-    val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget =
-        if (System.getenv("SDK_NAME")?.startsWith("iphoneos") == true)
-            ::iosArm64
-        else
-            ::iosX64
-
-    iosTarget("ios") {
-        binaries
-            .filterIsInstance<org.jetbrains.kotlin.gradle.plugin.mpp.Framework>()
-            .forEach {
-                it.transitiveExport = true
-                it.export(project(":chess"))
-                it.export(project(":bluetoothchat"))
-            }
-    }
+    iosArm64()
+    iosX64()
+    iosSimulatorArm64()
 
     cocoapods {
         summary = "Some description for the Shared Module"
         homepage = "Link to the Shared Module homepage"
         ios.deploymentTarget = "14.1"
-        frameworkName = "sharedmodels"
         podfile = project.file("../iosApp/Podfile")
     }
     
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
+                implementation(libs.kotlinx.coroutines.core)
                 api(project(":bluetoothchat"))
                 api(project(":chess"))
-                implementation("com.squareup.sqldelight:runtime:${Versions.sql_delight_version}")
+                implementation(libs.sqldelight.runtime)
                 implementation(project(":jwtc"))
                 implementation(project(":stockfish"))
-                api("co.touchlab:kermit:0.1.9") // for logging
+                api(libs.kermit)
             }
         }
         val commonTest by getting {
             dependencies {
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
+                implementation(kotlin("test"))
             }
         }
         val androidMain by getting {
             dependencies {
-                implementation("androidx.core:core:1.8.0")
-                implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
-                implementation("com.squareup.sqldelight:android-driver:${Versions.sql_delight_version}")
+                implementation(libs.androidx.core.ktx)
+                implementation(libs.androidx.lifecycle.viewmodel.ktx)
+                implementation(libs.sqldelight.android.driver)
             }
         }
-        val androidTest by getting {
+        val iosMain by creating {
             dependencies {
-                implementation(kotlin("test-junit"))
-                implementation("junit:junit:4.13.2")
+                implementation(libs.sqldelight.native.driver)
             }
         }
-        val iosMain by getting {
-            dependencies {
-                implementation("com.squareup.sqldelight:native-driver:${Versions.sql_delight_version}")
-            }
-        }
-        val iosTest by getting
     }
 }
 
 android {
-    compileSdk = 30
+    namespace = "com.nwagu.chessboy.shared"
+    compileSdk = 37
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
-        minSdk = 16
-        targetSdk = 30
+        minSdk = libs.versions.minSdk.get().toInt()
+        testOptions {
+            targetSdk = libs.versions.targetSdk.get().toInt()
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 }
 
 sqldelight {
-    database("ChessBoyDatabase") {
-        packageName = "com.nwagu.chessboy"
+    databases {
+        create("ChessBoyDatabase") {
+            packageName.set("com.nwagu.chessboy")
+        }
     }
 }

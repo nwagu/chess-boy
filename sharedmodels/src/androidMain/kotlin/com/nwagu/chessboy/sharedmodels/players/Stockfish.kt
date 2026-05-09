@@ -4,22 +4,26 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.os.*
+import android.os.Bundle
+import android.os.Handler
+import android.os.IBinder
+import android.os.Message
+import android.os.Messenger
+import android.os.RemoteException
 import android.widget.Toast
-import co.touchlab.kermit.Kermit
+import co.touchlab.kermit.Logger
 import com.nwagu.chess.model.Board
-import com.nwagu.chess.representation.parseUciEngineMove
-import com.nwagu.chess.representation.getFen
 import com.nwagu.chess.model.Move
+import com.nwagu.chess.representation.getFen
+import com.nwagu.chess.representation.parseUciEngineMove
+import com.nwagu.chessboy.shared.R
 import com.nwagu.chessboy.sharedmodels.ChessApplication
-import com.nwagu.chessboy.sharedmodels.R
 import com.nwagu.chessboy.sharedmodels.resources.ImageRes
 import com.nwagu.stockfish.StockfishService
 import com.nwagu.stockfish.StockfishService.Companion.MSG_KEY
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 // TODO move parameters that have same values to common sourceset
@@ -122,24 +126,24 @@ actual class Stockfish(val context: Context) : UCIChessEngine() {
             when {
                 line.startsWith("id") -> {
                     // TODO Parse id
-                    Kermit().i { "ID received: $line" }
+                    Logger.i { "ID received: $line" }
                 }
                 line.startsWith("option") -> {
                     // TODO Parse options
-                    Kermit().i { "Option received: $line" }
+                    Logger.i { "Option received: $line" }
                 }
                 line.startsWith("uciok") -> {
-                    Kermit().i { "UCI OK" }
+                    Logger.i { "UCI OK" }
                 }
                 line.startsWith("copyprotection") -> {
-                    Kermit().i { "copy protection" }
+                    Logger.i { "copy protection" }
                 }
                 line.startsWith("readyok") -> {
-                    Kermit().i { "UCI Ready" }
+                    Logger.i { "UCI Ready" }
                 }
                 line.startsWith("info") -> {
                     // TODO Parse info
-                    Kermit().i { "INFO received: $line" }
+                    Logger.i { "INFO received: $line" }
                 }
                 line.startsWith("bestmove") -> {
                     val move = line
@@ -147,7 +151,7 @@ actual class Stockfish(val context: Context) : UCIChessEngine() {
                         .trimStart()
                         .takeWhile { it != ' ' && it != '\n' }
                     if (uciMovePattern.matches(move)) {
-                        Kermit().i { move }
+                        Logger.i { move }
                         chessEngineMove.value = move
                     }
                 }

@@ -89,7 +89,7 @@ fun Board.getFen(): String {
 
         var fenSymbol = piece.chessPieceType.fenSymbol
         if (piece.chessPieceColor == ChessPieceColor.BLACK)
-            fenSymbol = fenSymbol.toLowerCase()
+            fenSymbol = fenSymbol.lowercase()
 
         fen.append(fenSymbol)
     }

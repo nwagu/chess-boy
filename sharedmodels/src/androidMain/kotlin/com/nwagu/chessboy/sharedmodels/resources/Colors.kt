@@ -1,7 +1,7 @@
 package com.nwagu.chessboy.sharedmodels.resources
 
 import com.nwagu.chess.model.SquareColor
-import com.nwagu.chessboy.sharedmodels.R
+import com.nwagu.chessboy.shared.R
 
 actual typealias ColorRes = Int
 

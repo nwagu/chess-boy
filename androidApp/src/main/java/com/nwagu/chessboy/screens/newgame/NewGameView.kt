@@ -1,5 +1,6 @@
 package com.nwagu.chessboy.screens.newgame
 
+import androidx.activity.compose.LocalActivity
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
@@ -16,13 +17,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.nwagu.chessboy.screens.main.MainActivity
-import com.nwagu.chessboy.sharedmodels.players.*
-import com.nwagu.chessboy.widgets.*
 import com.nwagu.chess.model.ChessPieceColor
+import com.nwagu.chessboy.screens.main.MainActivity
+import com.nwagu.chessboy.sharedmodels.players.MoveGenerator
+import com.nwagu.chessboy.widgets.PlayerSelectView
+import com.nwagu.chessboy.widgets.RadioCard
+import com.nwagu.chessboy.widgets.ScreenTopBar
+import com.nwagu.chessboy.widgets.SubHeader
+import com.nwagu.chessboy.widgets.SubmitButton
+import com.nwagu.chessboy.widgets.WrappingRow
 import kotlinx.coroutines.launch
 
 @ExperimentalAnimationApi
@@ -34,8 +39,7 @@ fun NewGameView(
     navHostController: NavHostController
 ) {
 
-    val context = LocalContext.current as MainActivity
-    val screenConfig = context.screenConfig
+    val context = LocalActivity.current as MainActivity
     val newGameViewModel = context.newGameViewModel
 
     val coroutineScope = rememberCoroutineScope()

@@ -1,16 +1,14 @@
-buildscript {
-    repositories {
-        gradlePluginPortal()
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin_version}")
-        classpath("com.android.tools.build:gradle:7.2.0")
-        classpath("com.squareup.sqldelight:gradle-plugin:${Versions.sql_delight_version}")
-        classpath("com.google.gms:google-services:${Versions.google_services_version}")
-        classpath("com.google.firebase:firebase-crashlytics-gradle:${Versions.firebase_crashlytics_version}")
-    }
+plugins {
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.kotlin.multiplatform) apply false
+    alias(libs.plugins.kotlin.cocoapods) apply false
+    alias(libs.plugins.kotlin.serialization) apply false
+    alias(libs.plugins.kotlin.compose) apply false
+    alias(libs.plugins.sqldelight) apply false
+    alias(libs.plugins.google.services) apply false
+    alias(libs.plugins.firebase.crashlytics) apply false
 }
 
 allprojects {

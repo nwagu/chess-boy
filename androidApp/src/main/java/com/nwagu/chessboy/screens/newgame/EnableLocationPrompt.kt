@@ -2,13 +2,13 @@ package com.nwagu.chessboy.screens.newgame
 
 import android.content.Intent
 import android.provider.Settings
+import androidx.activity.compose.LocalActivity
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
-import com.nwagu.chessboy.util.Utils
+import com.nwagu.chessboy.screens.main.MainActivity
 import com.nwagu.chessboy.widgets.AlertDialogWrapper
 
 @ExperimentalMaterialApi
@@ -19,7 +19,7 @@ fun EnableLocationPrompt(
     navHostController: NavHostController,
 ) {
 
-    val context = Utils.unwrap(LocalContext.current)
+    val context = LocalActivity.current as MainActivity
 
     AlertDialogWrapper(
         dismissDialog = { navHostController.navigateUp() },

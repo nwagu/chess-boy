@@ -3,7 +3,7 @@ package com.nwagu.chessboy.sharedmodels.resources
 import com.nwagu.chess.model.ChessPiece
 import com.nwagu.chess.model.ChessPieceColor
 import com.nwagu.chess.model.ChessPieceType
-import com.nwagu.chessboy.sharedmodels.R
+import com.nwagu.chessboy.shared.R
 
 actual typealias ImageRes = Int
 

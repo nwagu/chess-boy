@@ -2,9 +2,22 @@ package com.nwagu.chessboy.screens.analysis
 
 import android.content.Intent
 import android.content.res.Configuration
+import androidx.activity.compose.LocalActivity
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.*
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -13,13 +26,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.nwagu.chessboy.screens.main.MainActivity
 import com.nwagu.chessboy.model.ViewAction
+import com.nwagu.chessboy.screens.main.MainActivity
 import com.nwagu.chessboy.screens.navigation.Dialog
-import com.nwagu.chessboy.widgets.*
+import com.nwagu.chessboy.widgets.ChessBoardStatic
+import com.nwagu.chessboy.widgets.LightActionView
+import com.nwagu.chessboy.widgets.ScreenTopBar
+import com.nwagu.chessboy.widgets.SubHeader
+import com.nwagu.chessboy.widgets.WrappingRow
 
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
@@ -29,7 +45,7 @@ fun GameAnalysisView(
     navHostController: NavHostController
 ) {
 
-    val context = LocalContext.current as MainActivity
+    val context = LocalActivity.current as MainActivity
     val screenConfig = context.screenConfig
     val gameAnalysisViewModel = context.gameAnalysisViewModel
 
@@ -101,7 +117,7 @@ fun GameAnalysisViewPortrait(
     otherActions: List<ViewAction>
 ) {
 
-    val context = LocalContext.current as MainActivity
+    val context = LocalActivity.current as MainActivity
     val gameAnalysisViewModel = context.gameAnalysisViewModel
 
     Column(
@@ -170,7 +186,7 @@ fun GameAnalysisViewLandscape(
     otherActions: List<ViewAction>
 ) {
 
-    val context = LocalContext.current as MainActivity
+    val context = LocalActivity.current as MainActivity
     val screenConfig = context.screenConfig
     val gameAnalysisViewModel = context.gameAnalysisViewModel
 
