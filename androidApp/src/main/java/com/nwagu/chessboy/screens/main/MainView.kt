@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material.BottomSheetScaffold
 import androidx.compose.material.BottomSheetScaffoldState
 import androidx.compose.material.BottomSheetValue
@@ -62,7 +63,11 @@ fun MainView() {
         )
     }
 
-    NavHost(navHostController, startDestination = Screen.Home.route) {
+    NavHost(
+        modifier = Modifier.safeDrawingPadding(),
+        navController = navHostController,
+        startDestination = Screen.Home.route
+    ) {
         composable(Screen.Home.route) {
             bottomSheetWrapperOf { HomeView(bottomSheetScaffoldState, navHostController) }
         }
